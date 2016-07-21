@@ -9,6 +9,8 @@ Special thanks to https://github.com/tejado/pgoapi and https://github.com/AeonLu
 ### Usage
 The API makes use of delegates, and a practical working example is in `ExampleViewController.swift`. It handles logging in, updating the API endpoint, etc.
 
+To summarize, create an instance of `PGoApiRequest` and call whichever RPC commands you'd like to run (optionally with parameters). Once you've queued up the commands you'd like, call `makeRequest` to fire off the request and subrequests. Your delegate should implement `didReceiveApiResponse` and `didReceiveApiError` to handle the response (or lack thereof).
+
 ### Protos
 Updating the protos is a bit tricky, I'll add more information on that later. For now, the protos are fresh and should be good for awhile.
 
