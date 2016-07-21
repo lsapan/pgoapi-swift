@@ -37,7 +37,7 @@ public func == (lhs: Pogoprotos.Map.Fort.FortLureInfo, rhs: Pogoprotos.Map.Fort.
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasFortId == rhs.hasFortId) && (!lhs.hasFortId || lhs.fortId == rhs.fortId)
-  fieldCheck = fieldCheck && (lhs.hasUnknown2 == rhs.hasUnknown2) && (!lhs.hasUnknown2 || lhs.unknown2 == rhs.unknown2)
+  fieldCheck = fieldCheck && (lhs.hasEncounterId == rhs.hasEncounterId) && (!lhs.hasEncounterId || lhs.encounterId == rhs.encounterId)
   fieldCheck = fieldCheck && (lhs.hasActivePokemonId == rhs.hasActivePokemonId) && (!lhs.hasActivePokemonId || lhs.activePokemonId == rhs.activePokemonId)
   fieldCheck = fieldCheck && (lhs.hasLureExpiresTimestampMs == rhs.hasLureExpiresTimestampMs) && (!lhs.hasLureExpiresTimestampMs || lhs.lureExpiresTimestampMs == rhs.lureExpiresTimestampMs)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
@@ -1237,8 +1237,8 @@ public extension Pogoprotos.Map.Fort {
     public private(set) var hasFortId:Bool = false
     public private(set) var fortId:String = ""
 
-    public private(set) var hasUnknown2:Bool = false
-    public private(set) var unknown2:Double = Double(0)
+    public private(set) var hasEncounterId:Bool = false
+    public private(set) var encounterId:UInt64 = UInt64(0)
 
     public private(set) var activePokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
     public private(set) var hasActivePokemonId:Bool = false
@@ -1255,8 +1255,8 @@ public extension Pogoprotos.Map.Fort {
       if hasFortId {
         try output.writeString(1, value:fortId)
       }
-      if hasUnknown2 {
-        try output.writeDouble(2, value:unknown2)
+      if hasEncounterId {
+        try output.writeFixed64(2, value:encounterId)
       }
       if hasActivePokemonId {
         try output.writeEnum(3, value:activePokemonId.rawValue)
@@ -1276,8 +1276,8 @@ public extension Pogoprotos.Map.Fort {
       if hasFortId {
         serialize_size += fortId.computeStringSize(1)
       }
-      if hasUnknown2 {
-        serialize_size += unknown2.computeDoubleSize(2)
+      if hasEncounterId {
+        serialize_size += encounterId.computeFixed64Size(2)
       }
       if (hasActivePokemonId) {
         serialize_size += activePokemonId.rawValue.computeEnumSize(3)
@@ -1344,8 +1344,8 @@ public extension Pogoprotos.Map.Fort {
       if hasFortId {
         jsonMap["fortId"] = fortId
       }
-      if hasUnknown2 {
-        jsonMap["unknown2"] = NSNumber(double:unknown2)
+      if hasEncounterId {
+        jsonMap["encounterId"] = "\(encounterId)"
       }
       if hasActivePokemonId {
         jsonMap["activePokemonId"] = activePokemonId.toString()
@@ -1366,8 +1366,8 @@ public extension Pogoprotos.Map.Fort {
       if hasFortId {
         output += "\(indent) fortId: \(fortId) \n"
       }
-      if hasUnknown2 {
-        output += "\(indent) unknown2: \(unknown2) \n"
+      if hasEncounterId {
+        output += "\(indent) encounterId: \(encounterId) \n"
       }
       if (hasActivePokemonId) {
         output += "\(indent) activePokemonId: \(activePokemonId.description)\n"
@@ -1384,8 +1384,8 @@ public extension Pogoprotos.Map.Fort {
             if hasFortId {
                hashCode = (hashCode &* 31) &+ fortId.hashValue
             }
-            if hasUnknown2 {
-               hashCode = (hashCode &* 31) &+ unknown2.hashValue
+            if hasEncounterId {
+               hashCode = (hashCode &* 31) &+ encounterId.hashValue
             }
             if hasActivePokemonId {
                hashCode = (hashCode &* 31) &+ Int(activePokemonId.rawValue)
@@ -1444,27 +1444,27 @@ public extension Pogoprotos.Map.Fort {
            builderResult.fortId = ""
            return self
       }
-      public var hasUnknown2:Bool {
+      public var hasEncounterId:Bool {
            get {
-                return builderResult.hasUnknown2
+                return builderResult.hasEncounterId
            }
       }
-      public var unknown2:Double {
+      public var encounterId:UInt64 {
            get {
-                return builderResult.unknown2
+                return builderResult.encounterId
            }
            set (value) {
-               builderResult.hasUnknown2 = true
-               builderResult.unknown2 = value
+               builderResult.hasEncounterId = true
+               builderResult.encounterId = value
            }
       }
-      public func setUnknown2(value:Double) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-        self.unknown2 = value
+      public func setEncounterId(value:UInt64) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+        self.encounterId = value
         return self
       }
-      public func clearUnknown2() -> Pogoprotos.Map.Fort.FortLureInfo.Builder{
-           builderResult.hasUnknown2 = false
-           builderResult.unknown2 = Double(0)
+      public func clearEncounterId() -> Pogoprotos.Map.Fort.FortLureInfo.Builder{
+           builderResult.hasEncounterId = false
+           builderResult.encounterId = UInt64(0)
            return self
       }
         public var hasActivePokemonId:Bool{
@@ -1540,8 +1540,8 @@ public extension Pogoprotos.Map.Fort {
         if other.hasFortId {
              fortId = other.fortId
         }
-        if other.hasUnknown2 {
-             unknown2 = other.unknown2
+        if other.hasEncounterId {
+             encounterId = other.encounterId
         }
         if other.hasActivePokemonId {
              activePokemonId = other.activePokemonId
@@ -1568,7 +1568,7 @@ public extension Pogoprotos.Map.Fort {
             fortId = try input.readString()
 
           case 17:
-            unknown2 = try input.readDouble()
+            encounterId = try input.readFixed64()
 
           case 24:
             let valueIntactivePokemonId = try input.readEnum()
@@ -1594,8 +1594,8 @@ public extension Pogoprotos.Map.Fort {
         if let jsonValueFortId = jsonMap["fortId"] as? String {
           resultDecodedBuilder.fortId = jsonValueFortId
         }
-        if let jsonValueUnknown2 = jsonMap["unknown2"] as? NSNumber {
-          resultDecodedBuilder.unknown2 = jsonValueUnknown2.doubleValue
+        if let jsonValueEncounterId = jsonMap["encounterId"] as? String {
+          resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
         }
         if let jsonValueActivePokemonId = jsonMap["activePokemonId"] as? String {
           resultDecodedBuilder.activePokemonId = try Pogoprotos.Enums.PokemonId.fromString(jsonValueActivePokemonId)

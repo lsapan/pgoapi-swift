@@ -73,7 +73,7 @@ public func == (lhs: Pogoprotos.Data.PokedexEntry, rhs: Pogoprotos.Data.PokedexE
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasPokedexEntryNumber == rhs.hasPokedexEntryNumber) && (!lhs.hasPokedexEntryNumber || lhs.pokedexEntryNumber == rhs.pokedexEntryNumber)
+  fieldCheck = fieldCheck && (lhs.hasPokemonId == rhs.hasPokemonId) && (!lhs.hasPokemonId || lhs.pokemonId == rhs.pokemonId)
   fieldCheck = fieldCheck && (lhs.hasTimesEncountered == rhs.hasTimesEncountered) && (!lhs.hasTimesEncountered || lhs.timesEncountered == rhs.timesEncountered)
   fieldCheck = fieldCheck && (lhs.hasTimesCaptured == rhs.hasTimesCaptured) && (!lhs.hasTimesCaptured || lhs.timesCaptured == rhs.timesCaptured)
   fieldCheck = fieldCheck && (lhs.hasEvolutionStonePieces == rhs.hasEvolutionStonePieces) && (!lhs.hasEvolutionStonePieces || lhs.evolutionStonePieces == rhs.evolutionStonePieces)
@@ -2345,9 +2345,8 @@ public extension Pogoprotos.Data {
   }
 
   final public class PokedexEntry : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasPokedexEntryNumber:Bool = false
-    public private(set) var pokedexEntryNumber:Int32 = Int32(0)
-
+    public private(set) var pokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
+    public private(set) var hasPokemonId:Bool = false
     public private(set) var hasTimesEncountered:Bool = false
     public private(set) var timesEncountered:Int32 = Int32(0)
 
@@ -2367,8 +2366,8 @@ public extension Pogoprotos.Data {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
-      if hasPokedexEntryNumber {
-        try output.writeInt32(1, value:pokedexEntryNumber)
+      if hasPokemonId {
+        try output.writeEnum(1, value:pokemonId.rawValue)
       }
       if hasTimesEncountered {
         try output.writeInt32(2, value:timesEncountered)
@@ -2391,8 +2390,8 @@ public extension Pogoprotos.Data {
       }
 
       serialize_size = 0
-      if hasPokedexEntryNumber {
-        serialize_size += pokedexEntryNumber.computeInt32Size(1)
+      if (hasPokemonId) {
+        serialize_size += pokemonId.rawValue.computeEnumSize(1)
       }
       if hasTimesEncountered {
         serialize_size += timesEncountered.computeInt32Size(2)
@@ -2462,8 +2461,8 @@ public extension Pogoprotos.Data {
       }
 
       var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-      if hasPokedexEntryNumber {
-        jsonMap["pokedexEntryNumber"] = NSNumber(int:pokedexEntryNumber)
+      if hasPokemonId {
+        jsonMap["pokemonId"] = pokemonId.toString()
       }
       if hasTimesEncountered {
         jsonMap["timesEncountered"] = NSNumber(int:timesEncountered)
@@ -2487,8 +2486,8 @@ public extension Pogoprotos.Data {
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
-      if hasPokedexEntryNumber {
-        output += "\(indent) pokedexEntryNumber: \(pokedexEntryNumber) \n"
+      if (hasPokemonId) {
+        output += "\(indent) pokemonId: \(pokemonId.description)\n"
       }
       if hasTimesEncountered {
         output += "\(indent) timesEncountered: \(timesEncountered) \n"
@@ -2508,8 +2507,8 @@ public extension Pogoprotos.Data {
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
-            if hasPokedexEntryNumber {
-               hashCode = (hashCode &* 31) &+ pokedexEntryNumber.hashValue
+            if hasPokemonId {
+               hashCode = (hashCode &* 31) &+ Int(pokemonId.rawValue)
             }
             if hasTimesEncountered {
                hashCode = (hashCode &* 31) &+ timesEncountered.hashValue
@@ -2551,29 +2550,29 @@ public extension Pogoprotos.Data {
       required override public init () {
          super.init()
       }
-      public var hasPokedexEntryNumber:Bool {
-           get {
-                return builderResult.hasPokedexEntryNumber
-           }
-      }
-      public var pokedexEntryNumber:Int32 {
-           get {
-                return builderResult.pokedexEntryNumber
-           }
-           set (value) {
-               builderResult.hasPokedexEntryNumber = true
-               builderResult.pokedexEntryNumber = value
-           }
-      }
-      public func setPokedexEntryNumber(value:Int32) -> Pogoprotos.Data.PokedexEntry.Builder {
-        self.pokedexEntryNumber = value
-        return self
-      }
-      public func clearPokedexEntryNumber() -> Pogoprotos.Data.PokedexEntry.Builder{
-           builderResult.hasPokedexEntryNumber = false
-           builderResult.pokedexEntryNumber = Int32(0)
+        public var hasPokemonId:Bool{
+            get {
+                return builderResult.hasPokemonId
+            }
+        }
+        public var pokemonId:Pogoprotos.Enums.PokemonId {
+            get {
+                return builderResult.pokemonId
+            }
+            set (value) {
+                builderResult.hasPokemonId = true
+                builderResult.pokemonId = value
+            }
+        }
+        public func setPokemonId(value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Data.PokedexEntry.Builder {
+          self.pokemonId = value
+          return self
+        }
+        public func clearPokemonId() -> Pogoprotos.Data.PokedexEntry.Builder {
+           builderResult.hasPokemonId = false
+           builderResult.pokemonId = .Missingno
            return self
-      }
+        }
       public var hasTimesEncountered:Bool {
            get {
                 return builderResult.hasTimesEncountered
@@ -2690,8 +2689,8 @@ public extension Pogoprotos.Data {
         if other == Pogoprotos.Data.PokedexEntry() {
          return self
         }
-        if other.hasPokedexEntryNumber {
-             pokedexEntryNumber = other.pokedexEntryNumber
+        if other.hasPokemonId {
+             pokemonId = other.pokemonId
         }
         if other.hasTimesEncountered {
              timesEncountered = other.timesEncountered
@@ -2721,7 +2720,12 @@ public extension Pogoprotos.Data {
             return self
 
           case 8:
-            pokedexEntryNumber = try input.readInt32()
+            let valueIntpokemonId = try input.readEnum()
+            if let enumspokemonId = Pogoprotos.Enums.PokemonId(rawValue:valueIntpokemonId){
+                 pokemonId = enumspokemonId
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntpokemonId))
+            }
 
           case 16:
             timesEncountered = try input.readInt32()
@@ -2745,8 +2749,8 @@ public extension Pogoprotos.Data {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.PokedexEntry.Builder {
         let resultDecodedBuilder = Pogoprotos.Data.PokedexEntry.Builder()
-        if let jsonValuePokedexEntryNumber = jsonMap["pokedexEntryNumber"] as? NSNumber {
-          resultDecodedBuilder.pokedexEntryNumber = jsonValuePokedexEntryNumber.intValue
+        if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
+          resultDecodedBuilder.pokemonId = try Pogoprotos.Enums.PokemonId.fromString(jsonValuePokemonId)
         }
         if let jsonValueTimesEncountered = jsonMap["timesEncountered"] as? NSNumber {
           resultDecodedBuilder.timesEncountered = jsonValueTimesEncountered.intValue

@@ -3057,7 +3057,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
       if hasEncounterId {
-        try output.writeFixed64(1, value:encounterId)
+        try output.writeUInt64(1, value:encounterId)
       }
       if hasFortId {
         try output.writeString(2, value:fortId)
@@ -3078,7 +3078,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
       serialize_size = 0
       if hasEncounterId {
-        serialize_size += encounterId.computeFixed64Size(1)
+        serialize_size += encounterId.computeUInt64Size(1)
       }
       if hasFortId {
         serialize_size += fortId.computeStringSize(2)
@@ -3368,8 +3368,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
-          case 9:
-            encounterId = try input.readFixed64()
+          case 8:
+            encounterId = try input.readUInt64()
 
           case 18:
             fortId = try input.readString()
