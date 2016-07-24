@@ -35,7 +35,7 @@ class ExampleViewController: UIViewController, AuthDelegate, PGoApiDelegate {
             Api.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
             print("New endpoint: \(Api.endpoint)")
             let request = PGoApiRequest()
-            request.getMapObjects(Location.latitude, longitude: Location.longitude)
+            request.getMapObjects(37.331686, longitude: -122.030765)
             request.makeRequest(.GetMapObjects, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
