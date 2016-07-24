@@ -45,7 +45,7 @@ public extension Pogoprotos.Data.Capture {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(extensionRegistry)
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
     }
     public func registerAllExtensions(registry:ExtensionRegistry) {
     }
@@ -497,7 +497,7 @@ public extension Pogoprotos.Data.Capture {
 
   final public class CaptureProbability : GeneratedMessage, GeneratedMessageProtocol {
     private var pokeballTypeMemoizedSerializedSize:Int32 = 0
-    public private(set) var pokeballType:Array<Pogoprotos.Inventory.ItemId> = Array<Pogoprotos.Inventory.ItemId>()
+    public private(set) var pokeballType:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
     public private(set) var captureProbability:Array<Float> = Array<Float>()
     private var captureProbabilityMemoizedSerializedSize:Int32 = -1
     public private(set) var hasReticleDifficultyScale:Bool = false
@@ -688,7 +688,7 @@ public extension Pogoprotos.Data.Capture {
       required override public init () {
          super.init()
       }
-      public var pokeballType:Array<Pogoprotos.Inventory.ItemId> {
+      public var pokeballType:Array<Pogoprotos.Inventory.Item.ItemId> {
           get {
               return builderResult.pokeballType
           }
@@ -696,7 +696,7 @@ public extension Pogoprotos.Data.Capture {
               builderResult.pokeballType = value
           }
       }
-      public func setPokeballType(value:Array<Pogoprotos.Inventory.ItemId>) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+      public func setPokeballType(value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
         self.pokeballType = value
         return self
       }
@@ -793,7 +793,7 @@ public extension Pogoprotos.Data.Capture {
 
           case 8:
             let valueIntpokeballType = try input.readEnum()
-            if let enumspokeballType = Pogoprotos.Inventory.ItemId(rawValue:valueIntpokeballType) {
+            if let enumspokeballType = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntpokeballType) {
                  builderResult.pokeballType += [enumspokeballType]
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntpokeballType))
@@ -821,9 +821,9 @@ public extension Pogoprotos.Data.Capture {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
         let resultDecodedBuilder = Pogoprotos.Data.Capture.CaptureProbability.Builder()
         if let jsonValuePokeballType = jsonMap["pokeballType"] as? Array<String> {
-          var jsonArrayPokeballType:Array<Pogoprotos.Inventory.ItemId> = []
+          var jsonArrayPokeballType:Array<Pogoprotos.Inventory.Item.ItemId> = []
           for oneValuePokeballType in jsonValuePokeballType {
-            let enumFromStringPokeballType = try Pogoprotos.Inventory.ItemId.fromString(oneValuePokeballType)
+            let enumFromStringPokeballType = try Pogoprotos.Inventory.Item.ItemId.fromString(oneValuePokeballType)
             jsonArrayPokeballType += [enumFromStringPokeballType]
           }
           resultDecodedBuilder.pokeballType = jsonArrayPokeballType

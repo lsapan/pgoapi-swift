@@ -231,7 +231,7 @@ public extension Pogoprotos.Networking.Requests {
     // Not yet released.
     case SfidaRegistration = 800
 
-    // Not yet released.
+    // Implemented [R & M]
     case SfidaActionLog = 801
 
     // Not yet released.

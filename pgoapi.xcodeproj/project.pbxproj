@@ -36,6 +36,8 @@
 		A3316B2F1D4176A600AAF7E0 /* Pogoprotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3316B1C1D4176A600AAF7E0 /* Pogoprotos.swift */; };
 		A35B131B1D417B7000C5A2A0 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35B131A1D417B7000C5A2A0 /* ExampleViewController.swift */; };
 		A3C863D61D43D5C0009888D6 /* S2Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C863D51D43D5C0009888D6 /* S2Geometry.swift */; };
+		A3C863D81D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C863D71D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */; };
+		A3C863DA1D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C863D91D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */; };
 		A3E5B6A51D4174FB005DA98B /* pgoapi.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E5B6A41D4174FB005DA98B /* pgoapi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		A3316B1C1D4176A600AAF7E0 /* Pogoprotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.swift; sourceTree = "<group>"; };
 		A35B131A1D417B7000C5A2A0 /* ExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		A3C863D51D43D5C0009888D6 /* S2Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = S2Geometry.swift; sourceTree = "<group>"; };
+		A3C863D71D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift; sourceTree = "<group>"; };
+		A3C863D91D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift; sourceTree = "<group>"; };
 		A3E5B6A11D4174FB005DA98B /* pgoapi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pgoapi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E5B6A41D4174FB005DA98B /* pgoapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pgoapi.h; sourceTree = "<group>"; };
 		A3E5B6A61D4174FB005DA98B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,9 +106,11 @@
 				A3316B0A1D4176A600AAF7E0 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */,
 				A3316B0B1D4176A600AAF7E0 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */,
 				A3316B0C1D4176A600AAF7E0 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */,
+				A3C863D91D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */,
 				A3316B0D1D4176A600AAF7E0 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */,
 				A3316B0E1D4176A600AAF7E0 /* Pogoprotos.Data.PogoprotosData.proto.swift */,
 				A3316B0F1D4176A600AAF7E0 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */,
+				A3C863D71D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */,
 				A3316B101D4176A600AAF7E0 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */,
 				A3316B111D4176A600AAF7E0 /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */,
 				A3316B121D4176A600AAF7E0 /* Pogoprotos.Map.PogoprotosMap.proto.swift */,
@@ -295,6 +301,7 @@
 				A3316B041D41768600AAF7E0 /* Extensions.swift in Sources */,
 				A3C863D61D43D5C0009888D6 /* S2Geometry.swift in Sources */,
 				A3316B1F1D4176A600AAF7E0 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */,
+				A3C863DA1D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */,
 				A3316B281D4176A600AAF7E0 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */,
 				A3316B211D4176A600AAF7E0 /* Pogoprotos.Data.PogoprotosData.proto.swift in Sources */,
 				A3316B201D4176A600AAF7E0 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */,
@@ -308,6 +315,7 @@
 				A3316B2E1D4176A600AAF7E0 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift in Sources */,
 				A3316B071D41768600AAF7E0 /* PGoApiRequest.swift in Sources */,
 				A3316B2F1D4176A600AAF7E0 /* Pogoprotos.swift in Sources */,
+				A3C863D81D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */,
 				A35B131B1D417B7000C5A2A0 /* ExampleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -42,7 +42,7 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage
   fieldCheck = fieldCheck && (lhs.hasEncounterId == rhs.hasEncounterId) && (!lhs.hasEncounterId || lhs.encounterId == rhs.encounterId)
   fieldCheck = fieldCheck && (lhs.hasPokeball == rhs.hasPokeball) && (!lhs.hasPokeball || lhs.pokeball == rhs.pokeball)
   fieldCheck = fieldCheck && (lhs.hasNormalizedReticleSize == rhs.hasNormalizedReticleSize) && (!lhs.hasNormalizedReticleSize || lhs.normalizedReticleSize == rhs.normalizedReticleSize)
-  fieldCheck = fieldCheck && (lhs.hasSpawnPointGuid == rhs.hasSpawnPointGuid) && (!lhs.hasSpawnPointGuid || lhs.spawnPointGuid == rhs.spawnPointGuid)
+  fieldCheck = fieldCheck && (lhs.hasSpawnPointId == rhs.hasSpawnPointId) && (!lhs.hasSpawnPointId || lhs.spawnPointId == rhs.spawnPointId)
   fieldCheck = fieldCheck && (lhs.hasHitPokemon == rhs.hasHitPokemon) && (!lhs.hasHitPokemon || lhs.hitPokemon == rhs.hitPokemon)
   fieldCheck = fieldCheck && (lhs.hasSpinModifier == rhs.hasSpinModifier) && (!lhs.hasSpinModifier || lhs.spinModifier == rhs.spinModifier)
   fieldCheck = fieldCheck && (lhs.hasNormalizedHitPosition == rhs.hasNormalizedHitPosition) && (!lhs.hasNormalizedHitPosition || lhs.normalizedHitPosition == rhs.normalizedHitPosition)
@@ -474,6 +474,15 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessag
   return fieldCheck
 }
 
+public func == (lhs: Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage, rhs: Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
 public func == (lhs: Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage, rhs: Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage) -> Bool {
   if (lhs === rhs) {
     return true
@@ -589,7 +598,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     init() {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
       Pogoprotos.Data.Battle.PogoprotosDataBattleRoot.sharedInstance.registerAllExtensions(extensionRegistry)
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
       Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(extensionRegistry)
@@ -599,7 +608,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class AddFortModifierMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var modifierType:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var modifierType:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasModifierType:Bool = false
     public private(set) var hasFortId:Bool = false
     public private(set) var fortId:String = ""
@@ -791,7 +800,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasModifierType
             }
         }
-        public var modifierType:Pogoprotos.Inventory.ItemId {
+        public var modifierType:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.modifierType
             }
@@ -800,7 +809,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.modifierType = value
             }
         }
-        public func setModifierType(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage.Builder {
+        public func setModifierType(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage.Builder {
           self.modifierType = value
           return self
         }
@@ -931,7 +940,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntmodifierType = try input.readEnum()
-            if let enumsmodifierType = Pogoprotos.Inventory.ItemId(rawValue:valueIntmodifierType){
+            if let enumsmodifierType = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntmodifierType){
                  modifierType = enumsmodifierType
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntmodifierType))
@@ -957,7 +966,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage.Builder()
         if let jsonValueModifierType = jsonMap["modifierType"] as? String {
-          resultDecodedBuilder.modifierType = try Pogoprotos.Inventory.ItemId.fromString(jsonValueModifierType)
+          resultDecodedBuilder.modifierType = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueModifierType)
         }
         if let jsonValueFortId = jsonMap["fortId"] as? String {
           resultDecodedBuilder.fortId = jsonValueFortId
@@ -1513,14 +1522,13 @@ public extension Pogoprotos.Networking.Requests.Messages {
     public private(set) var hasEncounterId:Bool = false
     public private(set) var encounterId:UInt64 = UInt64(0)
 
+    public private(set) var pokeball:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasPokeball:Bool = false
-    public private(set) var pokeball:Int32 = Int32(0)
-
     public private(set) var hasNormalizedReticleSize:Bool = false
     public private(set) var normalizedReticleSize:Double = Double(0)
 
-    public private(set) var hasSpawnPointGuid:Bool = false
-    public private(set) var spawnPointGuid:String = ""
+    public private(set) var hasSpawnPointId:Bool = false
+    public private(set) var spawnPointId:String = ""
 
     public private(set) var hasHitPokemon:Bool = false
     public private(set) var hitPokemon:Bool = false
@@ -1542,13 +1550,13 @@ public extension Pogoprotos.Networking.Requests.Messages {
         try output.writeFixed64(1, value:encounterId)
       }
       if hasPokeball {
-        try output.writeInt32(2, value:pokeball)
+        try output.writeEnum(2, value:pokeball.rawValue)
       }
       if hasNormalizedReticleSize {
         try output.writeDouble(3, value:normalizedReticleSize)
       }
-      if hasSpawnPointGuid {
-        try output.writeString(4, value:spawnPointGuid)
+      if hasSpawnPointId {
+        try output.writeString(4, value:spawnPointId)
       }
       if hasHitPokemon {
         try output.writeBool(5, value:hitPokemon)
@@ -1571,14 +1579,14 @@ public extension Pogoprotos.Networking.Requests.Messages {
       if hasEncounterId {
         serialize_size += encounterId.computeFixed64Size(1)
       }
-      if hasPokeball {
-        serialize_size += pokeball.computeInt32Size(2)
+      if (hasPokeball) {
+        serialize_size += pokeball.rawValue.computeEnumSize(2)
       }
       if hasNormalizedReticleSize {
         serialize_size += normalizedReticleSize.computeDoubleSize(3)
       }
-      if hasSpawnPointGuid {
-        serialize_size += spawnPointGuid.computeStringSize(4)
+      if hasSpawnPointId {
+        serialize_size += spawnPointId.computeStringSize(4)
       }
       if hasHitPokemon {
         serialize_size += hitPokemon.computeBoolSize(5)
@@ -1649,13 +1657,13 @@ public extension Pogoprotos.Networking.Requests.Messages {
         jsonMap["encounterId"] = "\(encounterId)"
       }
       if hasPokeball {
-        jsonMap["pokeball"] = NSNumber(int:pokeball)
+        jsonMap["pokeball"] = pokeball.toString()
       }
       if hasNormalizedReticleSize {
         jsonMap["normalizedReticleSize"] = NSNumber(double:normalizedReticleSize)
       }
-      if hasSpawnPointGuid {
-        jsonMap["spawnPointGuid"] = spawnPointGuid
+      if hasSpawnPointId {
+        jsonMap["spawnPointId"] = spawnPointId
       }
       if hasHitPokemon {
         jsonMap["hitPokemon"] = hitPokemon
@@ -1679,14 +1687,14 @@ public extension Pogoprotos.Networking.Requests.Messages {
       if hasEncounterId {
         output += "\(indent) encounterId: \(encounterId) \n"
       }
-      if hasPokeball {
-        output += "\(indent) pokeball: \(pokeball) \n"
+      if (hasPokeball) {
+        output += "\(indent) pokeball: \(pokeball.description)\n"
       }
       if hasNormalizedReticleSize {
         output += "\(indent) normalizedReticleSize: \(normalizedReticleSize) \n"
       }
-      if hasSpawnPointGuid {
-        output += "\(indent) spawnPointGuid: \(spawnPointGuid) \n"
+      if hasSpawnPointId {
+        output += "\(indent) spawnPointId: \(spawnPointId) \n"
       }
       if hasHitPokemon {
         output += "\(indent) hitPokemon: \(hitPokemon) \n"
@@ -1707,13 +1715,13 @@ public extension Pogoprotos.Networking.Requests.Messages {
                hashCode = (hashCode &* 31) &+ encounterId.hashValue
             }
             if hasPokeball {
-               hashCode = (hashCode &* 31) &+ pokeball.hashValue
+               hashCode = (hashCode &* 31) &+ Int(pokeball.rawValue)
             }
             if hasNormalizedReticleSize {
                hashCode = (hashCode &* 31) &+ normalizedReticleSize.hashValue
             }
-            if hasSpawnPointGuid {
-               hashCode = (hashCode &* 31) &+ spawnPointGuid.hashValue
+            if hasSpawnPointId {
+               hashCode = (hashCode &* 31) &+ spawnPointId.hashValue
             }
             if hasHitPokemon {
                hashCode = (hashCode &* 31) &+ hitPokemon.hashValue
@@ -1775,29 +1783,29 @@ public extension Pogoprotos.Networking.Requests.Messages {
            builderResult.encounterId = UInt64(0)
            return self
       }
-      public var hasPokeball:Bool {
-           get {
+        public var hasPokeball:Bool{
+            get {
                 return builderResult.hasPokeball
-           }
-      }
-      public var pokeball:Int32 {
-           get {
+            }
+        }
+        public var pokeball:Pogoprotos.Inventory.Item.ItemId {
+            get {
                 return builderResult.pokeball
-           }
-           set (value) {
-               builderResult.hasPokeball = true
-               builderResult.pokeball = value
-           }
-      }
-      public func setPokeball(value:Int32) -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder {
-        self.pokeball = value
-        return self
-      }
-      public func clearPokeball() -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder{
+            }
+            set (value) {
+                builderResult.hasPokeball = true
+                builderResult.pokeball = value
+            }
+        }
+        public func setPokeball(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder {
+          self.pokeball = value
+          return self
+        }
+        public func clearPokeball() -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder {
            builderResult.hasPokeball = false
-           builderResult.pokeball = Int32(0)
+           builderResult.pokeball = .ItemUnknown
            return self
-      }
+        }
       public var hasNormalizedReticleSize:Bool {
            get {
                 return builderResult.hasNormalizedReticleSize
@@ -1821,27 +1829,27 @@ public extension Pogoprotos.Networking.Requests.Messages {
            builderResult.normalizedReticleSize = Double(0)
            return self
       }
-      public var hasSpawnPointGuid:Bool {
+      public var hasSpawnPointId:Bool {
            get {
-                return builderResult.hasSpawnPointGuid
+                return builderResult.hasSpawnPointId
            }
       }
-      public var spawnPointGuid:String {
+      public var spawnPointId:String {
            get {
-                return builderResult.spawnPointGuid
+                return builderResult.spawnPointId
            }
            set (value) {
-               builderResult.hasSpawnPointGuid = true
-               builderResult.spawnPointGuid = value
+               builderResult.hasSpawnPointId = true
+               builderResult.spawnPointId = value
            }
       }
-      public func setSpawnPointGuid(value:String) -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder {
-        self.spawnPointGuid = value
+      public func setSpawnPointId(value:String) -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder {
+        self.spawnPointId = value
         return self
       }
-      public func clearSpawnPointGuid() -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder{
-           builderResult.hasSpawnPointGuid = false
-           builderResult.spawnPointGuid = ""
+      public func clearSpawnPointId() -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder{
+           builderResult.hasSpawnPointId = false
+           builderResult.spawnPointId = ""
            return self
       }
       public var hasHitPokemon:Bool {
@@ -1946,8 +1954,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
         if other.hasNormalizedReticleSize {
              normalizedReticleSize = other.normalizedReticleSize
         }
-        if other.hasSpawnPointGuid {
-             spawnPointGuid = other.spawnPointGuid
+        if other.hasSpawnPointId {
+             spawnPointId = other.spawnPointId
         }
         if other.hasHitPokemon {
              hitPokemon = other.hitPokemon
@@ -1977,13 +1985,18 @@ public extension Pogoprotos.Networking.Requests.Messages {
             encounterId = try input.readFixed64()
 
           case 16:
-            pokeball = try input.readInt32()
+            let valueIntpokeball = try input.readEnum()
+            if let enumspokeball = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntpokeball){
+                 pokeball = enumspokeball
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(2, value:Int64(valueIntpokeball))
+            }
 
           case 25:
             normalizedReticleSize = try input.readDouble()
 
           case 34:
-            spawnPointGuid = try input.readString()
+            spawnPointId = try input.readString()
 
           case 40:
             hitPokemon = try input.readBool()
@@ -2007,14 +2020,14 @@ public extension Pogoprotos.Networking.Requests.Messages {
         if let jsonValueEncounterId = jsonMap["encounterId"] as? String {
           resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
         }
-        if let jsonValuePokeball = jsonMap["pokeball"] as? NSNumber {
-          resultDecodedBuilder.pokeball = jsonValuePokeball.intValue
+        if let jsonValuePokeball = jsonMap["pokeball"] as? String {
+          resultDecodedBuilder.pokeball = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValuePokeball)
         }
         if let jsonValueNormalizedReticleSize = jsonMap["normalizedReticleSize"] as? NSNumber {
           resultDecodedBuilder.normalizedReticleSize = jsonValueNormalizedReticleSize.doubleValue
         }
-        if let jsonValueSpawnPointGuid = jsonMap["spawnPointGuid"] as? String {
-          resultDecodedBuilder.spawnPointGuid = jsonValueSpawnPointGuid
+        if let jsonValueSpawnPointId = jsonMap["spawnPointId"] as? String {
+          resultDecodedBuilder.spawnPointId = jsonValueSpawnPointId
         }
         if let jsonValueHitPokemon = jsonMap["hitPokemon"] as? Bool {
           resultDecodedBuilder.hitPokemon = jsonValueHitPokemon
@@ -10722,7 +10735,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
       if hasPokemonId {
-        try output.writeUInt64(1, value:pokemonId)
+        try output.writeFixed64(1, value:pokemonId)
       }
       if hasNickname {
         try output.writeString(2, value:nickname)
@@ -10737,7 +10750,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
       serialize_size = 0
       if hasPokemonId {
-        serialize_size += pokemonId.computeUInt64Size(1)
+        serialize_size += pokemonId.computeFixed64Size(1)
       }
       if hasNickname {
         serialize_size += nickname.computeStringSize(2)
@@ -10951,8 +10964,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
-          case 8:
-            pokemonId = try input.readUInt64()
+          case 9:
+            pokemonId = try input.readFixed64()
 
           case 18:
             nickname = try input.readString()
@@ -11266,7 +11279,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class RecycleInventoryItemMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     public private(set) var hasCount:Bool = false
     public private(set) var count:Int32 = Int32(0)
@@ -11422,7 +11435,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -11431,7 +11444,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage.Builder {
           self.itemId = value
           return self
         }
@@ -11510,7 +11523,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -11530,7 +11543,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValueCount = jsonMap["count"] as? NSNumber {
           resultDecodedBuilder.count = jsonValueCount.intValue
@@ -12829,6 +12842,186 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
   }
 
+  // No message needed.
+  final public class SfidaActionLogMessage : GeneratedMessage, GeneratedMessageProtocol {
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage> {
+      var mergedArray = Array<Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage? {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessagesRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+      return Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.classBuilder() as! Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      let jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+      return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage()
+      public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+        builderResult = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+        return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
+        let returnMe:Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+        if other == Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage() {
+         return self
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder()
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
   final public class StartGymBattleMessage : GeneratedMessage, GeneratedMessageProtocol {
     public private(set) var hasGymId:Bool = false
     public private(set) var gymId:String = ""
@@ -13504,7 +13697,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class UseIncenseMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var incenseType:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var incenseType:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasIncenseType:Bool = false
     required public init() {
          super.init()
@@ -13642,7 +13835,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasIncenseType
             }
         }
-        public var incenseType:Pogoprotos.Inventory.ItemId {
+        public var incenseType:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.incenseType
             }
@@ -13651,7 +13844,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.incenseType = value
             }
         }
-        public func setIncenseType(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseIncenseMessage.Builder {
+        public func setIncenseType(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseIncenseMessage.Builder {
           self.incenseType = value
           return self
         }
@@ -13704,7 +13897,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntincenseType = try input.readEnum()
-            if let enumsincenseType = Pogoprotos.Inventory.ItemId(rawValue:valueIntincenseType){
+            if let enumsincenseType = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntincenseType){
                  incenseType = enumsincenseType
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntincenseType))
@@ -13721,7 +13914,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.UseIncenseMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.UseIncenseMessage.Builder()
         if let jsonValueIncenseType = jsonMap["incenseType"] as? String {
-          resultDecodedBuilder.incenseType = try Pogoprotos.Inventory.ItemId.fromString(jsonValueIncenseType)
+          resultDecodedBuilder.incenseType = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueIncenseType)
         }
         return resultDecodedBuilder
       }
@@ -13737,7 +13930,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class UseItemCaptureMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     public private(set) var hasEncounterId:Bool = false
     public private(set) var encounterId:UInt64 = UInt64(0)
@@ -13911,7 +14104,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -13920,7 +14113,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage.Builder {
           self.itemId = value
           return self
         }
@@ -14025,7 +14218,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -14048,7 +14241,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValueEncounterId = jsonMap["encounterId"] as? String {
           resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
@@ -14349,7 +14542,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class UseItemGymMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     public private(set) var hasGymId:Bool = false
     public private(set) var gymId:String = ""
@@ -14541,7 +14734,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -14550,7 +14743,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemGymMessage.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemGymMessage.Builder {
           self.itemId = value
           return self
         }
@@ -14681,7 +14874,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -14707,7 +14900,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.UseItemGymMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.UseItemGymMessage.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValueGymId = jsonMap["gymId"] as? String {
           resultDecodedBuilder.gymId = jsonValueGymId
@@ -14732,7 +14925,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class UseItemPotionMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     public private(set) var hasPokemonId:Bool = false
     public private(set) var pokemonId:UInt64 = UInt64(0)
@@ -14888,7 +15081,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -14897,7 +15090,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage.Builder {
           self.itemId = value
           return self
         }
@@ -14976,7 +15169,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -14996,7 +15189,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
           resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
@@ -15015,7 +15208,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class UseItemReviveMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     public private(set) var hasPokemonId:Bool = false
     public private(set) var pokemonId:UInt64 = UInt64(0)
@@ -15171,7 +15364,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -15180,7 +15373,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage.Builder {
           self.itemId = value
           return self
         }
@@ -15259,7 +15452,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -15279,7 +15472,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
           resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
@@ -15298,7 +15491,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class UseItemXpBoostMessage : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     required public init() {
          super.init()
@@ -15436,7 +15629,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -15445,7 +15638,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage.Builder {
           self.itemId = value
           return self
         }
@@ -15498,7 +15691,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -15515,7 +15708,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         return resultDecodedBuilder
       }

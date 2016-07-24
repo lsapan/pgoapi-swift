@@ -83,7 +83,7 @@ public extension Pogoprotos.Map.Fort {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(extensionRegistry)
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
     }
     public func registerAllExtensions(registry:ExtensionRegistry) {
     }
@@ -1617,7 +1617,7 @@ public extension Pogoprotos.Map.Fort {
   }
 
   final public class FortModifier : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
     public private(set) var hasExpirationTimestampMs:Bool = false
     public private(set) var expirationTimestampMs:Int64 = Int64(0)
@@ -1791,7 +1791,7 @@ public extension Pogoprotos.Map.Fort {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -1800,7 +1800,7 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Map.Fort.FortModifier.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Map.Fort.FortModifier.Builder {
           self.itemId = value
           return self
         }
@@ -1905,7 +1905,7 @@ public extension Pogoprotos.Map.Fort {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -1928,7 +1928,7 @@ public extension Pogoprotos.Map.Fort {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Fort.FortModifier.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValueExpirationTimestampMs = jsonMap["expirationTimestampMs"] as? String {
           resultDecodedBuilder.expirationTimestampMs = Int64(jsonValueExpirationTimestampMs)!
@@ -1951,16 +1951,16 @@ public extension Pogoprotos.Map.Fort {
 
   final public class FortSummary : GeneratedMessage, GeneratedMessageProtocol {
     public private(set) var hasFortSummaryId:Bool = false
-    public private(set) var fortSummaryId:Int32 = Int32(0)
+    public private(set) var fortSummaryId:String = ""
 
     public private(set) var hasLastModifiedTimestampMs:Bool = false
-    public private(set) var lastModifiedTimestampMs:Int32 = Int32(0)
+    public private(set) var lastModifiedTimestampMs:Int64 = Int64(0)
 
     public private(set) var hasLatitude:Bool = false
-    public private(set) var latitude:Int32 = Int32(0)
+    public private(set) var latitude:Double = Double(0)
 
     public private(set) var hasLongitude:Bool = false
-    public private(set) var longitude:Int32 = Int32(0)
+    public private(set) var longitude:Double = Double(0)
 
     required public init() {
          super.init()
@@ -1970,16 +1970,16 @@ public extension Pogoprotos.Map.Fort {
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
       if hasFortSummaryId {
-        try output.writeInt32(1, value:fortSummaryId)
+        try output.writeString(1, value:fortSummaryId)
       }
       if hasLastModifiedTimestampMs {
-        try output.writeInt32(2, value:lastModifiedTimestampMs)
+        try output.writeInt64(2, value:lastModifiedTimestampMs)
       }
       if hasLatitude {
-        try output.writeInt32(3, value:latitude)
+        try output.writeDouble(3, value:latitude)
       }
       if hasLongitude {
-        try output.writeInt32(4, value:longitude)
+        try output.writeDouble(4, value:longitude)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -1991,16 +1991,16 @@ public extension Pogoprotos.Map.Fort {
 
       serialize_size = 0
       if hasFortSummaryId {
-        serialize_size += fortSummaryId.computeInt32Size(1)
+        serialize_size += fortSummaryId.computeStringSize(1)
       }
       if hasLastModifiedTimestampMs {
-        serialize_size += lastModifiedTimestampMs.computeInt32Size(2)
+        serialize_size += lastModifiedTimestampMs.computeInt64Size(2)
       }
       if hasLatitude {
-        serialize_size += latitude.computeInt32Size(3)
+        serialize_size += latitude.computeDoubleSize(3)
       }
       if hasLongitude {
-        serialize_size += longitude.computeInt32Size(4)
+        serialize_size += longitude.computeDoubleSize(4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -2059,16 +2059,16 @@ public extension Pogoprotos.Map.Fort {
 
       var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
       if hasFortSummaryId {
-        jsonMap["fortSummaryId"] = NSNumber(int:fortSummaryId)
+        jsonMap["fortSummaryId"] = fortSummaryId
       }
       if hasLastModifiedTimestampMs {
-        jsonMap["lastModifiedTimestampMs"] = NSNumber(int:lastModifiedTimestampMs)
+        jsonMap["lastModifiedTimestampMs"] = "\(lastModifiedTimestampMs)"
       }
       if hasLatitude {
-        jsonMap["latitude"] = NSNumber(int:latitude)
+        jsonMap["latitude"] = NSNumber(double:latitude)
       }
       if hasLongitude {
-        jsonMap["longitude"] = NSNumber(int:longitude)
+        jsonMap["longitude"] = NSNumber(double:longitude)
       }
       return jsonMap
     }
@@ -2143,7 +2143,7 @@ public extension Pogoprotos.Map.Fort {
                 return builderResult.hasFortSummaryId
            }
       }
-      public var fortSummaryId:Int32 {
+      public var fortSummaryId:String {
            get {
                 return builderResult.fortSummaryId
            }
@@ -2152,13 +2152,13 @@ public extension Pogoprotos.Map.Fort {
                builderResult.fortSummaryId = value
            }
       }
-      public func setFortSummaryId(value:Int32) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setFortSummaryId(value:String) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.fortSummaryId = value
         return self
       }
       public func clearFortSummaryId() -> Pogoprotos.Map.Fort.FortSummary.Builder{
            builderResult.hasFortSummaryId = false
-           builderResult.fortSummaryId = Int32(0)
+           builderResult.fortSummaryId = ""
            return self
       }
       public var hasLastModifiedTimestampMs:Bool {
@@ -2166,7 +2166,7 @@ public extension Pogoprotos.Map.Fort {
                 return builderResult.hasLastModifiedTimestampMs
            }
       }
-      public var lastModifiedTimestampMs:Int32 {
+      public var lastModifiedTimestampMs:Int64 {
            get {
                 return builderResult.lastModifiedTimestampMs
            }
@@ -2175,13 +2175,13 @@ public extension Pogoprotos.Map.Fort {
                builderResult.lastModifiedTimestampMs = value
            }
       }
-      public func setLastModifiedTimestampMs(value:Int32) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setLastModifiedTimestampMs(value:Int64) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.lastModifiedTimestampMs = value
         return self
       }
       public func clearLastModifiedTimestampMs() -> Pogoprotos.Map.Fort.FortSummary.Builder{
            builderResult.hasLastModifiedTimestampMs = false
-           builderResult.lastModifiedTimestampMs = Int32(0)
+           builderResult.lastModifiedTimestampMs = Int64(0)
            return self
       }
       public var hasLatitude:Bool {
@@ -2189,7 +2189,7 @@ public extension Pogoprotos.Map.Fort {
                 return builderResult.hasLatitude
            }
       }
-      public var latitude:Int32 {
+      public var latitude:Double {
            get {
                 return builderResult.latitude
            }
@@ -2198,13 +2198,13 @@ public extension Pogoprotos.Map.Fort {
                builderResult.latitude = value
            }
       }
-      public func setLatitude(value:Int32) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setLatitude(value:Double) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.latitude = value
         return self
       }
       public func clearLatitude() -> Pogoprotos.Map.Fort.FortSummary.Builder{
            builderResult.hasLatitude = false
-           builderResult.latitude = Int32(0)
+           builderResult.latitude = Double(0)
            return self
       }
       public var hasLongitude:Bool {
@@ -2212,7 +2212,7 @@ public extension Pogoprotos.Map.Fort {
                 return builderResult.hasLongitude
            }
       }
-      public var longitude:Int32 {
+      public var longitude:Double {
            get {
                 return builderResult.longitude
            }
@@ -2221,13 +2221,13 @@ public extension Pogoprotos.Map.Fort {
                builderResult.longitude = value
            }
       }
-      public func setLongitude(value:Int32) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setLongitude(value:Double) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.longitude = value
         return self
       }
       public func clearLongitude() -> Pogoprotos.Map.Fort.FortSummary.Builder{
            builderResult.hasLongitude = false
-           builderResult.longitude = Int32(0)
+           builderResult.longitude = Double(0)
            return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -2281,17 +2281,17 @@ public extension Pogoprotos.Map.Fort {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
-          case 8:
-            fortSummaryId = try input.readInt32()
+          case 10:
+            fortSummaryId = try input.readString()
 
           case 16:
-            lastModifiedTimestampMs = try input.readInt32()
+            lastModifiedTimestampMs = try input.readInt64()
 
-          case 24:
-            latitude = try input.readInt32()
+          case 25:
+            latitude = try input.readDouble()
 
-          case 32:
-            longitude = try input.readInt32()
+          case 33:
+            longitude = try input.readDouble()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
@@ -2303,17 +2303,17 @@ public extension Pogoprotos.Map.Fort {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Fort.FortSummary.Builder()
-        if let jsonValueFortSummaryId = jsonMap["fortSummaryId"] as? NSNumber {
-          resultDecodedBuilder.fortSummaryId = jsonValueFortSummaryId.intValue
+        if let jsonValueFortSummaryId = jsonMap["fortSummaryId"] as? String {
+          resultDecodedBuilder.fortSummaryId = jsonValueFortSummaryId
         }
-        if let jsonValueLastModifiedTimestampMs = jsonMap["lastModifiedTimestampMs"] as? NSNumber {
-          resultDecodedBuilder.lastModifiedTimestampMs = jsonValueLastModifiedTimestampMs.intValue
+        if let jsonValueLastModifiedTimestampMs = jsonMap["lastModifiedTimestampMs"] as? String {
+          resultDecodedBuilder.lastModifiedTimestampMs = Int64(jsonValueLastModifiedTimestampMs)!
         }
         if let jsonValueLatitude = jsonMap["latitude"] as? NSNumber {
-          resultDecodedBuilder.latitude = jsonValueLatitude.intValue
+          resultDecodedBuilder.latitude = jsonValueLatitude.doubleValue
         }
         if let jsonValueLongitude = jsonMap["longitude"] as? NSNumber {
-          resultDecodedBuilder.longitude = jsonValueLongitude.intValue
+          resultDecodedBuilder.longitude = jsonValueLongitude.doubleValue
         }
         return resultDecodedBuilder
       }

@@ -724,42 +724,6 @@ public extension Pogoprotos.Enums {
 
   //Enum type declaration start 
 
-  public enum PokemonClass:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case Normal = 0
-    case Legendary = 1
-    case Mythic = 2
-    public func toString() -> String {
-      switch self {
-      case .Normal: return "NORMAL"
-      case .Legendary: return "LEGENDARY"
-      case .Mythic: return "MYTHIC"
-      }
-    }
-    public static func fromString(str:String) throws -> Pogoprotos.Enums.PokemonClass {
-      switch str {
-      case "NORMAL":  return .Normal
-      case "LEGENDARY":  return .Legendary
-      case "MYTHIC":  return .Mythic
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
-      }
-    }
-    public var debugDescription:String { return getDescription() }
-    public var description:String { return getDescription() }
-    private func getDescription() -> String { 
-        switch self {
-            case .Normal: return ".Normal"
-            case .Legendary: return ".Legendary"
-            case .Mythic: return ".Mythic"
-        }
-    }
-  }
-
-  //Enum type declaration end 
-
-
-
-  //Enum type declaration start 
-
   public enum PokemonFamilyId:Int32, CustomDebugStringConvertible, CustomStringConvertible {
     case FamilyUnset = 0
     case FamilyBulbasaur = 1
@@ -2526,6 +2490,42 @@ public extension Pogoprotos.Enums {
             case .MovementElectric: return ".MovementElectric"
             case .MovementFlying: return ".MovementFlying"
             case .MovementHovering: return ".MovementHovering"
+        }
+    }
+  }
+
+  //Enum type declaration end 
+
+
+
+  //Enum type declaration start 
+
+  public enum PokemonRarity:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+    case Normal = 0
+    case Legendary = 1
+    case Mythic = 2
+    public func toString() -> String {
+      switch self {
+      case .Normal: return "NORMAL"
+      case .Legendary: return "LEGENDARY"
+      case .Mythic: return "MYTHIC"
+      }
+    }
+    public static func fromString(str:String) throws -> Pogoprotos.Enums.PokemonRarity {
+      switch str {
+      case "NORMAL":  return .Normal
+      case "LEGENDARY":  return .Legendary
+      case "MYTHIC":  return .Mythic
+      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      }
+    }
+    public var debugDescription:String { return getDescription() }
+    public var description:String { return getDescription() }
+    private func getDescription() -> String { 
+        switch self {
+            case .Normal: return ".Normal"
+            case .Legendary: return ".Legendary"
+            case .Mythic: return ".Mythic"
         }
     }
   }

@@ -224,7 +224,7 @@ public func == (lhs: Pogoprotos.Settings.Master.PokemonSettings, rhs: Pogoprotos
   fieldCheck = fieldCheck && (lhs.animationTime == rhs.animationTime)
   fieldCheck = fieldCheck && (lhs.evolutionIds == rhs.evolutionIds)
   fieldCheck = fieldCheck && (lhs.hasEvolutionPips == rhs.hasEvolutionPips) && (!lhs.hasEvolutionPips || lhs.evolutionPips == rhs.evolutionPips)
-  fieldCheck = fieldCheck && (lhs.hasCls == rhs.hasCls) && (!lhs.hasCls || lhs.cls == rhs.cls)
+  fieldCheck = fieldCheck && (lhs.hasRarity == rhs.hasRarity) && (!lhs.hasRarity || lhs.rarity == rhs.rarity)
   fieldCheck = fieldCheck && (lhs.hasPokedexHeightM == rhs.hasPokedexHeightM) && (!lhs.hasPokedexHeightM || lhs.pokedexHeightM == rhs.pokedexHeightM)
   fieldCheck = fieldCheck && (lhs.hasPokedexWeightKg == rhs.hasPokedexWeightKg) && (!lhs.hasPokedexWeightKg || lhs.pokedexWeightKg == rhs.pokedexWeightKg)
   fieldCheck = fieldCheck && (lhs.hasParentPokemonId == rhs.hasParentPokemonId) && (!lhs.hasParentPokemonId || lhs.parentPokemonId == rhs.parentPokemonId)
@@ -275,7 +275,7 @@ public extension Pogoprotos.Settings.Master {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(extensionRegistry)
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
       Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
       Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemonRoot.sharedInstance.registerAllExtensions(extensionRegistry)
     }
@@ -3973,7 +3973,7 @@ public extension Pogoprotos.Settings.Master {
     public private(set) var sortOrder:Int32 = Int32(0)
 
     private var itemIdsMemoizedSerializedSize:Int32 = 0
-    public private(set) var itemIds:Array<Pogoprotos.Inventory.ItemId> = Array<Pogoprotos.Inventory.ItemId>()
+    public private(set) var itemIds:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
     public private(set) var counts:Array<Int32> = Array<Int32>()
     private var countsMemoizedSerializedSize:Int32 = -1
     required public init() {
@@ -4262,7 +4262,7 @@ public extension Pogoprotos.Settings.Master {
            builderResult.sortOrder = Int32(0)
            return self
       }
-      public var itemIds:Array<Pogoprotos.Inventory.ItemId> {
+      public var itemIds:Array<Pogoprotos.Inventory.Item.ItemId> {
           get {
               return builderResult.itemIds
           }
@@ -4270,7 +4270,7 @@ public extension Pogoprotos.Settings.Master {
               builderResult.itemIds = value
           }
       }
-      public func setItemIds(value:Array<Pogoprotos.Inventory.ItemId>) -> Pogoprotos.Settings.Master.IapItemDisplay.Builder {
+      public func setItemIds(value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Settings.Master.IapItemDisplay.Builder {
         self.itemIds = value
         return self
       }
@@ -4364,7 +4364,7 @@ public extension Pogoprotos.Settings.Master {
 
           case 32:
             let valueIntitemIds = try input.readEnum()
-            if let enumsitemIds = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemIds) {
+            if let enumsitemIds = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemIds) {
                  builderResult.itemIds += [enumsitemIds]
             } else {
                  try unknownFieldsBuilder.mergeVarintField(4, value:Int64(valueIntitemIds))
@@ -4398,9 +4398,9 @@ public extension Pogoprotos.Settings.Master {
           resultDecodedBuilder.sortOrder = jsonValueSortOrder.intValue
         }
         if let jsonValueItemIds = jsonMap["itemIds"] as? Array<String> {
-          var jsonArrayItemIds:Array<Pogoprotos.Inventory.ItemId> = []
+          var jsonArrayItemIds:Array<Pogoprotos.Inventory.Item.ItemId> = []
           for oneValueItemIds in jsonValueItemIds {
-            let enumFromStringItemIds = try Pogoprotos.Inventory.ItemId.fromString(oneValueItemIds)
+            let enumFromStringItemIds = try Pogoprotos.Inventory.Item.ItemId.fromString(oneValueItemIds)
             jsonArrayItemIds += [enumFromStringItemIds]
           }
           resultDecodedBuilder.itemIds = jsonArrayItemIds
@@ -4971,9 +4971,9 @@ public extension Pogoprotos.Settings.Master {
   }
 
   final public class ItemSettings : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.ItemId = Pogoprotos.Inventory.ItemId.ItemUnknown
+    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasItemId:Bool = false
-    public private(set) var itemType:Pogoprotos.Inventory.ItemType = Pogoprotos.Inventory.ItemType.ItemTypeNone
+    public private(set) var itemType:Pogoprotos.Inventory.Item.ItemType = Pogoprotos.Inventory.Item.ItemType.ItemTypeNone
     public private(set) var hasItemType:Bool = false
     public private(set) var category:Pogoprotos.Enums.ItemCategory = Pogoprotos.Enums.ItemCategory.ItemCategoryNone
     public private(set) var hasCategory:Bool = false
@@ -5429,7 +5429,7 @@ public extension Pogoprotos.Settings.Master {
                 return builderResult.hasItemId
             }
         }
-        public var itemId:Pogoprotos.Inventory.ItemId {
+        public var itemId:Pogoprotos.Inventory.Item.ItemId {
             get {
                 return builderResult.itemId
             }
@@ -5438,7 +5438,7 @@ public extension Pogoprotos.Settings.Master {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.ItemId) -> Pogoprotos.Settings.Master.ItemSettings.Builder {
+        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Settings.Master.ItemSettings.Builder {
           self.itemId = value
           return self
         }
@@ -5452,7 +5452,7 @@ public extension Pogoprotos.Settings.Master {
                 return builderResult.hasItemType
             }
         }
-        public var itemType:Pogoprotos.Inventory.ItemType {
+        public var itemType:Pogoprotos.Inventory.Item.ItemType {
             get {
                 return builderResult.itemType
             }
@@ -5461,7 +5461,7 @@ public extension Pogoprotos.Settings.Master {
                 builderResult.itemType = value
             }
         }
-        public func setItemType(value:Pogoprotos.Inventory.ItemType) -> Pogoprotos.Settings.Master.ItemSettings.Builder {
+        public func setItemType(value:Pogoprotos.Inventory.Item.ItemType) -> Pogoprotos.Settings.Master.ItemSettings.Builder {
           self.itemType = value
           return self
         }
@@ -6135,7 +6135,7 @@ public extension Pogoprotos.Settings.Master {
 
           case 8:
             let valueIntitemId = try input.readEnum()
-            if let enumsitemId = Pogoprotos.Inventory.ItemId(rawValue:valueIntitemId){
+            if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
@@ -6143,7 +6143,7 @@ public extension Pogoprotos.Settings.Master {
 
           case 16:
             let valueIntitemType = try input.readEnum()
-            if let enumsitemType = Pogoprotos.Inventory.ItemType(rawValue:valueIntitemType){
+            if let enumsitemType = Pogoprotos.Inventory.Item.ItemType(rawValue:valueIntitemType){
                  itemType = enumsitemType
             } else {
                  try unknownFieldsBuilder.mergeVarintField(2, value:Int64(valueIntitemType))
@@ -6254,10 +6254,10 @@ public extension Pogoprotos.Settings.Master {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.Master.ItemSettings.Builder {
         let resultDecodedBuilder = Pogoprotos.Settings.Master.ItemSettings.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
         }
         if let jsonValueItemType = jsonMap["itemType"] as? String {
-          resultDecodedBuilder.itemType = try Pogoprotos.Inventory.ItemType.fromString(jsonValueItemType)
+          resultDecodedBuilder.itemType = try Pogoprotos.Inventory.Item.ItemType.fromString(jsonValueItemType)
         }
         if let jsonValueCategory = jsonMap["category"] as? String {
           resultDecodedBuilder.category = try Pogoprotos.Enums.ItemCategory.fromString(jsonValueCategory)
@@ -7993,8 +7993,8 @@ public extension Pogoprotos.Settings.Master {
     public private(set) var hasEvolutionPips:Bool = false
     public private(set) var evolutionPips:Int32 = Int32(0)
 
-    public private(set) var cls:Pogoprotos.Enums.PokemonClass = Pogoprotos.Enums.PokemonClass.Normal
-    public private(set) var hasCls:Bool = false
+    public private(set) var rarity:Pogoprotos.Enums.PokemonRarity = Pogoprotos.Enums.PokemonRarity.Normal
+    public private(set) var hasRarity:Bool = false
     public private(set) var hasPokedexHeightM:Bool = false
     public private(set) var pokedexHeightM:Float = Float(0)
 
@@ -8064,8 +8064,8 @@ public extension Pogoprotos.Settings.Master {
       if hasEvolutionPips {
         try output.writeInt32(13, value:evolutionPips)
       }
-      if hasCls {
-        try output.writeEnum(14, value:cls.rawValue)
+      if hasRarity {
+        try output.writeEnum(14, value:rarity.rawValue)
       }
       if hasPokedexHeightM {
         try output.writeFloat(15, value:pokedexHeightM)
@@ -8156,8 +8156,8 @@ public extension Pogoprotos.Settings.Master {
       if hasEvolutionPips {
         serialize_size += evolutionPips.computeInt32Size(13)
       }
-      if (hasCls) {
-        serialize_size += cls.rawValue.computeEnumSize(14)
+      if (hasRarity) {
+        serialize_size += rarity.rawValue.computeEnumSize(14)
       }
       if hasPokedexHeightM {
         serialize_size += pokedexHeightM.computeFloatSize(15)
@@ -8291,8 +8291,8 @@ public extension Pogoprotos.Settings.Master {
       if hasEvolutionPips {
         jsonMap["evolutionPips"] = NSNumber(int:evolutionPips)
       }
-      if hasCls {
-        jsonMap["cls"] = cls.toString()
+      if hasRarity {
+        jsonMap["rarity"] = rarity.toString()
       }
       if hasPokedexHeightM {
         jsonMap["pokedexHeightM"] = NSNumber(float:pokedexHeightM)
@@ -8384,8 +8384,8 @@ public extension Pogoprotos.Settings.Master {
       if hasEvolutionPips {
         output += "\(indent) evolutionPips: \(evolutionPips) \n"
       }
-      if (hasCls) {
-        output += "\(indent) cls: \(cls.description)\n"
+      if (hasRarity) {
+        output += "\(indent) rarity: \(rarity.description)\n"
       }
       if hasPokedexHeightM {
         output += "\(indent) pokedexHeightM: \(pokedexHeightM) \n"
@@ -8459,8 +8459,8 @@ public extension Pogoprotos.Settings.Master {
             if hasEvolutionPips {
                hashCode = (hashCode &* 31) &+ evolutionPips.hashValue
             }
-            if hasCls {
-               hashCode = (hashCode &* 31) &+ Int(cls.rawValue)
+            if hasRarity {
+               hashCode = (hashCode &* 31) &+ Int(rarity.rawValue)
             }
             if hasPokedexHeightM {
                hashCode = (hashCode &* 31) &+ pokedexHeightM.hashValue
@@ -8846,27 +8846,27 @@ public extension Pogoprotos.Settings.Master {
            builderResult.evolutionPips = Int32(0)
            return self
       }
-        public var hasCls:Bool{
+        public var hasRarity:Bool{
             get {
-                return builderResult.hasCls
+                return builderResult.hasRarity
             }
         }
-        public var cls:Pogoprotos.Enums.PokemonClass {
+        public var rarity:Pogoprotos.Enums.PokemonRarity {
             get {
-                return builderResult.cls
+                return builderResult.rarity
             }
             set (value) {
-                builderResult.hasCls = true
-                builderResult.cls = value
+                builderResult.hasRarity = true
+                builderResult.rarity = value
             }
         }
-        public func setCls(value:Pogoprotos.Enums.PokemonClass) -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
-          self.cls = value
+        public func setRarity(value:Pogoprotos.Enums.PokemonRarity) -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
+          self.rarity = value
           return self
         }
-        public func clearCls() -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
-           builderResult.hasCls = false
-           builderResult.cls = .Normal
+        public func clearRarity() -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
+           builderResult.hasRarity = false
+           builderResult.rarity = .Normal
            return self
         }
       public var hasPokedexHeightM:Bool {
@@ -9113,8 +9113,8 @@ public extension Pogoprotos.Settings.Master {
         if other.hasEvolutionPips {
              evolutionPips = other.evolutionPips
         }
-        if other.hasCls {
-             cls = other.cls
+        if other.hasRarity {
+             rarity = other.rarity
         }
         if other.hasPokedexHeightM {
              pokedexHeightM = other.pokedexHeightM
@@ -9242,11 +9242,11 @@ public extension Pogoprotos.Settings.Master {
             evolutionPips = try input.readInt32()
 
           case 112:
-            let valueIntcls = try input.readEnum()
-            if let enumscls = Pogoprotos.Enums.PokemonClass(rawValue:valueIntcls){
-                 cls = enumscls
+            let valueIntrarity = try input.readEnum()
+            if let enumsrarity = Pogoprotos.Enums.PokemonRarity(rawValue:valueIntrarity){
+                 rarity = enumsrarity
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(14, value:Int64(valueIntcls))
+                 try unknownFieldsBuilder.mergeVarintField(14, value:Int64(valueIntrarity))
             }
 
           case 125:
@@ -9351,8 +9351,8 @@ public extension Pogoprotos.Settings.Master {
         if let jsonValueEvolutionPips = jsonMap["evolutionPips"] as? NSNumber {
           resultDecodedBuilder.evolutionPips = jsonValueEvolutionPips.intValue
         }
-        if let jsonValueCls = jsonMap["cls"] as? String {
-          resultDecodedBuilder.cls = try Pogoprotos.Enums.PokemonClass.fromString(jsonValueCls)
+        if let jsonValueRarity = jsonMap["rarity"] as? String {
+          resultDecodedBuilder.rarity = try Pogoprotos.Enums.PokemonRarity.fromString(jsonValueRarity)
         }
         if let jsonValuePokedexHeightM = jsonMap["pokedexHeightM"] as? NSNumber {
           resultDecodedBuilder.pokedexHeightM = jsonValuePokedexHeightM.floatValue

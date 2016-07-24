@@ -136,6 +136,7 @@ public extension Pogoprotos.Data {
       registerAllExtensions(extensionRegistry)
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
       Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
     }
     public func registerAllExtensions(registry:ExtensionRegistry) {
     }
@@ -1439,9 +1440,8 @@ public extension Pogoprotos.Data {
     public private(set) var hasUsername:Bool = false
     public private(set) var username:String = ""
 
+    public private(set) var team:Pogoprotos.Enums.TeamColor = Pogoprotos.Enums.TeamColor.Neutral
     public private(set) var hasTeam:Bool = false
-    public private(set) var team:Int32 = Int32(0)
-
     private var tutorialStateMemoizedSerializedSize:Int32 = 0
     public private(set) var tutorialState:Array<Pogoprotos.Enums.TutorialState> = Array<Pogoprotos.Enums.TutorialState>()
     public private(set) var hasAvatar:Bool = false
@@ -1473,10 +1473,14 @@ public extension Pogoprotos.Data {
         try output.writeString(2, value:username)
       }
       if hasTeam {
-        try output.writeInt32(5, value:team)
+        try output.writeEnum(5, value:team.rawValue)
+      }
+      if !tutorialState.isEmpty {
+        try output.writeRawVarint32(58)
+        try output.writeRawVarint32(tutorialStateMemoizedSerializedSize)
       }
       for oneValueOftutorialState in tutorialState {
-          try output.writeEnum(7, value:oneValueOftutorialState.rawValue)
+          try output.writeEnumNoTag(oneValueOftutorialState.rawValue)
       }
       if hasAvatar {
         try output.writeMessage(8, value:avatar)
@@ -1514,15 +1518,19 @@ public extension Pogoprotos.Data {
       if hasUsername {
         serialize_size += username.computeStringSize(2)
       }
-      if hasTeam {
-        serialize_size += team.computeInt32Size(5)
+      if (hasTeam) {
+        serialize_size += team.rawValue.computeEnumSize(5)
       }
       var dataSizetutorialState:Int32 = 0
       for oneValueOftutorialState in tutorialState {
           dataSizetutorialState += oneValueOftutorialState.rawValue.computeEnumSizeNoTag()
       }
       serialize_size += dataSizetutorialState
-      serialize_size += (1 * Int32(tutorialState.count))
+      if !tutorialState.isEmpty {
+        serialize_size += 1
+        serialize_size += dataSizetutorialState.computeRawVarint32Size()
+      }
+      tutorialStateMemoizedSerializedSize = dataSizetutorialState
       if hasAvatar {
           if let varSizeavatar = avatar?.computeMessageSize(8) {
               serialize_size += varSizeavatar
@@ -1615,7 +1623,7 @@ public extension Pogoprotos.Data {
         jsonMap["username"] = username
       }
       if hasTeam {
-        jsonMap["team"] = NSNumber(int:team)
+        jsonMap["team"] = team.toString()
       }
       if !tutorialState.isEmpty {
         var jsonArrayTutorialState:Array<String> = []
@@ -1666,8 +1674,8 @@ public extension Pogoprotos.Data {
       if hasUsername {
         output += "\(indent) username: \(username) \n"
       }
-      if hasTeam {
-        output += "\(indent) team: \(team) \n"
+      if (hasTeam) {
+        output += "\(indent) team: \(team.description)\n"
       }
       var tutorialStateElementIndex:Int = 0
       for oneValueOftutorialState in tutorialState {
@@ -1728,7 +1736,7 @@ public extension Pogoprotos.Data {
                hashCode = (hashCode &* 31) &+ username.hashValue
             }
             if hasTeam {
-               hashCode = (hashCode &* 31) &+ team.hashValue
+               hashCode = (hashCode &* 31) &+ Int(team.rawValue)
             }
             for oneValueOftutorialState in tutorialState {
                 hashCode = (hashCode &* 31) &+ Int(oneValueOftutorialState.rawValue)
@@ -1836,29 +1844,29 @@ public extension Pogoprotos.Data {
            builderResult.username = ""
            return self
       }
-      public var hasTeam:Bool {
-           get {
+        public var hasTeam:Bool{
+            get {
                 return builderResult.hasTeam
-           }
-      }
-      public var team:Int32 {
-           get {
+            }
+        }
+        public var team:Pogoprotos.Enums.TeamColor {
+            get {
                 return builderResult.team
-           }
-           set (value) {
-               builderResult.hasTeam = true
-               builderResult.team = value
-           }
-      }
-      public func setTeam(value:Int32) -> Pogoprotos.Data.PlayerData.Builder {
-        self.team = value
-        return self
-      }
-      public func clearTeam() -> Pogoprotos.Data.PlayerData.Builder{
+            }
+            set (value) {
+                builderResult.hasTeam = true
+                builderResult.team = value
+            }
+        }
+        public func setTeam(value:Pogoprotos.Enums.TeamColor) -> Pogoprotos.Data.PlayerData.Builder {
+          self.team = value
+          return self
+        }
+        public func clearTeam() -> Pogoprotos.Data.PlayerData.Builder {
            builderResult.hasTeam = false
-           builderResult.team = Int32(0)
+           builderResult.team = .Neutral
            return self
-      }
+        }
       public var tutorialState:Array<Pogoprotos.Enums.TutorialState> {
           get {
               return builderResult.tutorialState
@@ -2220,15 +2228,25 @@ public extension Pogoprotos.Data {
             username = try input.readString()
 
           case 40:
-            team = try input.readInt32()
+            let valueIntteam = try input.readEnum()
+            if let enumsteam = Pogoprotos.Enums.TeamColor(rawValue:valueIntteam){
+                 team = enumsteam
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(5, value:Int64(valueIntteam))
+            }
 
-          case 56:
+          case 58:
+            let length:Int32 = try input.readRawVarint32()
+            let oldLimit:Int32 = try input.pushLimit(length)
+            while input.bytesUntilLimit() > 0 {
             let valueInttutorialState = try input.readEnum()
             if let enumstutorialState = Pogoprotos.Enums.TutorialState(rawValue:valueInttutorialState) {
                  builderResult.tutorialState += [enumstutorialState]
             } else {
                  try unknownFieldsBuilder.mergeVarintField(7, value:Int64(valueInttutorialState))
             }
+            }
+            input.popLimit(oldLimit)
 
           case 66:
             let subBuilder:Pogoprotos.Data.Player.PlayerAvatar.Builder = Pogoprotos.Data.Player.PlayerAvatar.Builder()
@@ -2289,8 +2307,8 @@ public extension Pogoprotos.Data {
         if let jsonValueUsername = jsonMap["username"] as? String {
           resultDecodedBuilder.username = jsonValueUsername
         }
-        if let jsonValueTeam = jsonMap["team"] as? NSNumber {
-          resultDecodedBuilder.team = jsonValueTeam.intValue
+        if let jsonValueTeam = jsonMap["team"] as? String {
+          resultDecodedBuilder.team = try Pogoprotos.Enums.TeamColor.fromString(jsonValueTeam)
         }
         if let jsonValueTutorialState = jsonMap["tutorialState"] as? Array<String> {
           var jsonArrayTutorialState:Array<Pogoprotos.Enums.TutorialState> = []
@@ -2797,7 +2815,7 @@ public extension Pogoprotos.Data {
     public private(set) var move2:Pogoprotos.Enums.PokemonMove = Pogoprotos.Enums.PokemonMove.MoveUnset
     public private(set) var hasMove2:Bool = false
     public private(set) var hasDeployedFortId:Bool = false
-    public private(set) var deployedFortId:Int32 = Int32(0)
+    public private(set) var deployedFortId:String = ""
 
     public private(set) var hasOwnerName:Bool = false
     public private(set) var ownerName:String = ""
@@ -2832,9 +2850,8 @@ public extension Pogoprotos.Data {
     public private(set) var hasCpMultiplier:Bool = false
     public private(set) var cpMultiplier:Float = Float(0)
 
+    public private(set) var pokeball:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
     public private(set) var hasPokeball:Bool = false
-    public private(set) var pokeball:Int32 = Int32(0)
-
     public private(set) var hasCapturedCellId:Bool = false
     public private(set) var capturedCellId:UInt64 = UInt64(0)
 
@@ -2854,7 +2871,7 @@ public extension Pogoprotos.Data {
     public private(set) var numUpgrades:Int32 = Int32(0)
 
     public private(set) var hasAdditionalCpMultiplier:Bool = false
-    public private(set) var additionalCpMultiplier:Int32 = Int32(0)
+    public private(set) var additionalCpMultiplier:Float = Float(0)
 
     public private(set) var hasFavorite:Bool = false
     public private(set) var favorite:Int32 = Int32(0)
@@ -2894,7 +2911,7 @@ public extension Pogoprotos.Data {
         try output.writeEnum(7, value:move2.rawValue)
       }
       if hasDeployedFortId {
-        try output.writeInt32(8, value:deployedFortId)
+        try output.writeString(8, value:deployedFortId)
       }
       if hasOwnerName {
         try output.writeString(9, value:ownerName)
@@ -2930,7 +2947,7 @@ public extension Pogoprotos.Data {
         try output.writeFloat(20, value:cpMultiplier)
       }
       if hasPokeball {
-        try output.writeInt32(21, value:pokeball)
+        try output.writeEnum(21, value:pokeball.rawValue)
       }
       if hasCapturedCellId {
         try output.writeUInt64(22, value:capturedCellId)
@@ -2951,7 +2968,7 @@ public extension Pogoprotos.Data {
         try output.writeInt32(27, value:numUpgrades)
       }
       if hasAdditionalCpMultiplier {
-        try output.writeInt32(28, value:additionalCpMultiplier)
+        try output.writeFloat(28, value:additionalCpMultiplier)
       }
       if hasFavorite {
         try output.writeInt32(29, value:favorite)
@@ -2993,7 +3010,7 @@ public extension Pogoprotos.Data {
         serialize_size += move2.rawValue.computeEnumSize(7)
       }
       if hasDeployedFortId {
-        serialize_size += deployedFortId.computeInt32Size(8)
+        serialize_size += deployedFortId.computeStringSize(8)
       }
       if hasOwnerName {
         serialize_size += ownerName.computeStringSize(9)
@@ -3028,8 +3045,8 @@ public extension Pogoprotos.Data {
       if hasCpMultiplier {
         serialize_size += cpMultiplier.computeFloatSize(20)
       }
-      if hasPokeball {
-        serialize_size += pokeball.computeInt32Size(21)
+      if (hasPokeball) {
+        serialize_size += pokeball.rawValue.computeEnumSize(21)
       }
       if hasCapturedCellId {
         serialize_size += capturedCellId.computeUInt64Size(22)
@@ -3050,7 +3067,7 @@ public extension Pogoprotos.Data {
         serialize_size += numUpgrades.computeInt32Size(27)
       }
       if hasAdditionalCpMultiplier {
-        serialize_size += additionalCpMultiplier.computeInt32Size(28)
+        serialize_size += additionalCpMultiplier.computeFloatSize(28)
       }
       if hasFavorite {
         serialize_size += favorite.computeInt32Size(29)
@@ -3139,7 +3156,7 @@ public extension Pogoprotos.Data {
         jsonMap["move2"] = move2.toString()
       }
       if hasDeployedFortId {
-        jsonMap["deployedFortId"] = NSNumber(int:deployedFortId)
+        jsonMap["deployedFortId"] = deployedFortId
       }
       if hasOwnerName {
         jsonMap["ownerName"] = ownerName
@@ -3175,7 +3192,7 @@ public extension Pogoprotos.Data {
         jsonMap["cpMultiplier"] = NSNumber(float:cpMultiplier)
       }
       if hasPokeball {
-        jsonMap["pokeball"] = NSNumber(int:pokeball)
+        jsonMap["pokeball"] = pokeball.toString()
       }
       if hasCapturedCellId {
         jsonMap["capturedCellId"] = "\(capturedCellId)"
@@ -3196,7 +3213,7 @@ public extension Pogoprotos.Data {
         jsonMap["numUpgrades"] = NSNumber(int:numUpgrades)
       }
       if hasAdditionalCpMultiplier {
-        jsonMap["additionalCpMultiplier"] = NSNumber(int:additionalCpMultiplier)
+        jsonMap["additionalCpMultiplier"] = NSNumber(float:additionalCpMultiplier)
       }
       if hasFavorite {
         jsonMap["favorite"] = NSNumber(int:favorite)
@@ -3274,8 +3291,8 @@ public extension Pogoprotos.Data {
       if hasCpMultiplier {
         output += "\(indent) cpMultiplier: \(cpMultiplier) \n"
       }
-      if hasPokeball {
-        output += "\(indent) pokeball: \(pokeball) \n"
+      if (hasPokeball) {
+        output += "\(indent) pokeball: \(pokeball.description)\n"
       }
       if hasCapturedCellId {
         output += "\(indent) capturedCellId: \(capturedCellId) \n"
@@ -3371,7 +3388,7 @@ public extension Pogoprotos.Data {
                hashCode = (hashCode &* 31) &+ cpMultiplier.hashValue
             }
             if hasPokeball {
-               hashCode = (hashCode &* 31) &+ pokeball.hashValue
+               hashCode = (hashCode &* 31) &+ Int(pokeball.rawValue)
             }
             if hasCapturedCellId {
                hashCode = (hashCode &* 31) &+ capturedCellId.hashValue
@@ -3597,7 +3614,7 @@ public extension Pogoprotos.Data {
                 return builderResult.hasDeployedFortId
            }
       }
-      public var deployedFortId:Int32 {
+      public var deployedFortId:String {
            get {
                 return builderResult.deployedFortId
            }
@@ -3606,13 +3623,13 @@ public extension Pogoprotos.Data {
                builderResult.deployedFortId = value
            }
       }
-      public func setDeployedFortId(value:Int32) -> Pogoprotos.Data.PokemonData.Builder {
+      public func setDeployedFortId(value:String) -> Pogoprotos.Data.PokemonData.Builder {
         self.deployedFortId = value
         return self
       }
       public func clearDeployedFortId() -> Pogoprotos.Data.PokemonData.Builder{
            builderResult.hasDeployedFortId = false
-           builderResult.deployedFortId = Int32(0)
+           builderResult.deployedFortId = ""
            return self
       }
       public var hasOwnerName:Bool {
@@ -3868,29 +3885,29 @@ public extension Pogoprotos.Data {
            builderResult.cpMultiplier = Float(0)
            return self
       }
-      public var hasPokeball:Bool {
-           get {
+        public var hasPokeball:Bool{
+            get {
                 return builderResult.hasPokeball
-           }
-      }
-      public var pokeball:Int32 {
-           get {
+            }
+        }
+        public var pokeball:Pogoprotos.Inventory.Item.ItemId {
+            get {
                 return builderResult.pokeball
-           }
-           set (value) {
-               builderResult.hasPokeball = true
-               builderResult.pokeball = value
-           }
-      }
-      public func setPokeball(value:Int32) -> Pogoprotos.Data.PokemonData.Builder {
-        self.pokeball = value
-        return self
-      }
-      public func clearPokeball() -> Pogoprotos.Data.PokemonData.Builder{
+            }
+            set (value) {
+                builderResult.hasPokeball = true
+                builderResult.pokeball = value
+            }
+        }
+        public func setPokeball(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Data.PokemonData.Builder {
+          self.pokeball = value
+          return self
+        }
+        public func clearPokeball() -> Pogoprotos.Data.PokemonData.Builder {
            builderResult.hasPokeball = false
-           builderResult.pokeball = Int32(0)
+           builderResult.pokeball = .ItemUnknown
            return self
-      }
+        }
       public var hasCapturedCellId:Bool {
            get {
                 return builderResult.hasCapturedCellId
@@ -4034,7 +4051,7 @@ public extension Pogoprotos.Data {
                 return builderResult.hasAdditionalCpMultiplier
            }
       }
-      public var additionalCpMultiplier:Int32 {
+      public var additionalCpMultiplier:Float {
            get {
                 return builderResult.additionalCpMultiplier
            }
@@ -4043,13 +4060,13 @@ public extension Pogoprotos.Data {
                builderResult.additionalCpMultiplier = value
            }
       }
-      public func setAdditionalCpMultiplier(value:Int32) -> Pogoprotos.Data.PokemonData.Builder {
+      public func setAdditionalCpMultiplier(value:Float) -> Pogoprotos.Data.PokemonData.Builder {
         self.additionalCpMultiplier = value
         return self
       }
       public func clearAdditionalCpMultiplier() -> Pogoprotos.Data.PokemonData.Builder{
            builderResult.hasAdditionalCpMultiplier = false
-           builderResult.additionalCpMultiplier = Int32(0)
+           builderResult.additionalCpMultiplier = Float(0)
            return self
       }
       public var hasFavorite:Bool {
@@ -4286,8 +4303,8 @@ public extension Pogoprotos.Data {
                  try unknownFieldsBuilder.mergeVarintField(7, value:Int64(valueIntmove2))
             }
 
-          case 64:
-            deployedFortId = try input.readInt32()
+          case 66:
+            deployedFortId = try input.readString()
 
           case 74:
             ownerName = try input.readString()
@@ -4323,7 +4340,12 @@ public extension Pogoprotos.Data {
             cpMultiplier = try input.readFloat()
 
           case 168:
-            pokeball = try input.readInt32()
+            let valueIntpokeball = try input.readEnum()
+            if let enumspokeball = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntpokeball){
+                 pokeball = enumspokeball
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(21, value:Int64(valueIntpokeball))
+            }
 
           case 176:
             capturedCellId = try input.readUInt64()
@@ -4343,8 +4365,8 @@ public extension Pogoprotos.Data {
           case 216:
             numUpgrades = try input.readInt32()
 
-          case 224:
-            additionalCpMultiplier = try input.readInt32()
+          case 229:
+            additionalCpMultiplier = try input.readFloat()
 
           case 232:
             favorite = try input.readInt32()
@@ -4386,8 +4408,8 @@ public extension Pogoprotos.Data {
         if let jsonValueMove2 = jsonMap["move2"] as? String {
           resultDecodedBuilder.move2 = try Pogoprotos.Enums.PokemonMove.fromString(jsonValueMove2)
         }
-        if let jsonValueDeployedFortId = jsonMap["deployedFortId"] as? NSNumber {
-          resultDecodedBuilder.deployedFortId = jsonValueDeployedFortId.intValue
+        if let jsonValueDeployedFortId = jsonMap["deployedFortId"] as? String {
+          resultDecodedBuilder.deployedFortId = jsonValueDeployedFortId
         }
         if let jsonValueOwnerName = jsonMap["ownerName"] as? String {
           resultDecodedBuilder.ownerName = jsonValueOwnerName
@@ -4422,8 +4444,8 @@ public extension Pogoprotos.Data {
         if let jsonValueCpMultiplier = jsonMap["cpMultiplier"] as? NSNumber {
           resultDecodedBuilder.cpMultiplier = jsonValueCpMultiplier.floatValue
         }
-        if let jsonValuePokeball = jsonMap["pokeball"] as? NSNumber {
-          resultDecodedBuilder.pokeball = jsonValuePokeball.intValue
+        if let jsonValuePokeball = jsonMap["pokeball"] as? String {
+          resultDecodedBuilder.pokeball = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValuePokeball)
         }
         if let jsonValueCapturedCellId = jsonMap["capturedCellId"] as? String {
           resultDecodedBuilder.capturedCellId = UInt64(jsonValueCapturedCellId)!
@@ -4444,7 +4466,7 @@ public extension Pogoprotos.Data {
           resultDecodedBuilder.numUpgrades = jsonValueNumUpgrades.intValue
         }
         if let jsonValueAdditionalCpMultiplier = jsonMap["additionalCpMultiplier"] as? NSNumber {
-          resultDecodedBuilder.additionalCpMultiplier = jsonValueAdditionalCpMultiplier.intValue
+          resultDecodedBuilder.additionalCpMultiplier = jsonValueAdditionalCpMultiplier.floatValue
         }
         if let jsonValueFavorite = jsonMap["favorite"] as? NSNumber {
           resultDecodedBuilder.favorite = jsonValueFavorite.intValue

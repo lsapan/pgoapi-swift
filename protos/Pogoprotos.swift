@@ -18,12 +18,15 @@ public struct Pogoprotos {
         public struct Battle { }
         public struct Capture { }
         public struct Gym { }
+        public struct Logs { }
         public struct Player { }
     }
     
     public struct Enums { }
     
-    public struct Inventory { }
+    public struct Inventory {
+        public struct Item { }
+    }
     
     public struct Map {
         public struct Fort { }
