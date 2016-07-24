@@ -61,11 +61,14 @@ class Auth {
 
         Alamofire.request(.POST, Endpoint.LoginInfo, parameters: parameters)
             .responseData { response in
-                let location = response.response!.allHeaderFields["Location"] as! String
-                let ticketRange = location.rangeOfString("?ticket=")
-                let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
-                print("Got ticket: \(ticket)")
-                self.loginOauth(ticket)
+                if let location = response.response!.allHeaderFields["Location"] as? String {
+                    let ticketRange = location.rangeOfString("?ticket=")
+                    let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
+                    print("Got ticket: \(ticket)")
+                    self.loginOauth(ticket)
+                } else {
+                    self.delegate?.didNotReceiveAuth()
+                }
             }
     }
 
