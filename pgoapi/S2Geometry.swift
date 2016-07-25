@@ -17,7 +17,7 @@ enum S2Projection {
 
 enum S2Constants {
     static let maxLevel = 30
-    static let posBits = 2 * (S2Constants.maxLevel + 1)
+    static let posBits = 2 * S2Constants.maxLevel + 1
     static let maxSize = 1 << S2Constants.maxLevel
     static let swapMask = 0x01
     static let invertMask = 0x02
@@ -43,9 +43,12 @@ struct S2Uv {
 class S2Helper {
     static let sharedInstance = S2Helper()
     
-    var lookupPos: [Int] = []
+    var lookupPos: [Int?] = []
     
     init() {
+        for _ in 0..<(1 << (2 * S2Constants.lookupBits + 2)) {
+            lookupPos.append(nil)
+        }
         initLookupCell(0, i: 0, j: 0, origOrientation: 0, pos: 0, orientation: 0)
         initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.swapMask, pos: 0, orientation: S2Constants.swapMask)
         initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.invertMask, pos: 0, orientation: S2Constants.invertMask)
@@ -142,9 +145,9 @@ class S2LatLon {
 }
 
 class S2CellId {
-    var id: Double
+    var id: UInt64
     
-    init(id: Double) {
+    init(id: UInt64) {
         self.id = id
     }
     
@@ -156,19 +159,19 @@ class S2CellId {
     }
     
     convenience init(face: Int, i: Int, j: Int) {
-        var  n = face << (S2Constants.posBits - 1)
+        var n = face << (S2Constants.posBits - 1)
         var bits = face & S2Constants.swapMask
         
         for k in 7.stride(to: -1, by: -1) {
             let mask = (1 << S2Constants.lookupBits) - 1
             bits += (((i >> (k * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
             bits += (((j >> (k * S2Constants.lookupBits)) & mask) << 2)
-            bits = S2Helper.sharedInstance.lookupPos[bits]
+            bits = S2Helper.sharedInstance.lookupPos[bits]!
             n |= (bits >> 2) << (k * 2 * S2Constants.lookupBits)
             bits &= (S2Constants.swapMask | S2Constants.invertMask)
         }
         
-        self.init(id: (Double(n) * 2) + 1)
+        self.init(id: UInt64(n) * 2 + 1)
     }
     
     static func xyzToFaceUv(p: S2Point) -> S2FaceUv {
