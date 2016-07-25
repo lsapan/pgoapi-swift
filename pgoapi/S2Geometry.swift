@@ -40,20 +40,31 @@ struct S2Uv {
     let v: Double
 }
 
-var s2LookupPos: [Int] = []
-
-func s2InitLookupCell(level: Int, i: Int, j: Int, origOrientation: Int, pos: Int, orientation: Int) {
-    if level == S2Constants.lookupBits {
-        let ij = (i << S2Constants.lookupBits) + j
-        s2LookupPos[(ij << 2) + origOrientation] = (pos << 2) + orientation
-    } else {
-        let _level = level + 1
-        let _i = i << 1
-        let _j = j << 1
-        let _pos = pos << 2
-        let r = S2Constants.posToIj[orientation]
-        for index in 0..<4 {
-            s2InitLookupCell(_level, i: _i + (r[index] >> 1), j: _j + (r[index] & 1), origOrientation: origOrientation, pos: _pos + index, orientation: orientation ^ S2Constants.posToOrientation[index])
+class S2Helper {
+    static let sharedInstance = S2Helper()
+    
+    var lookupPos: [Int] = []
+    
+    init() {
+        initLookupCell(0, i: 0, j: 0, origOrientation: 0, pos: 0, orientation: 0)
+        initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.swapMask, pos: 0, orientation: S2Constants.swapMask)
+        initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.invertMask, pos: 0, orientation: S2Constants.invertMask)
+        initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.swapMask | S2Constants.invertMask, pos: 0, orientation: S2Constants.swapMask | S2Constants.invertMask)
+    }
+    
+    func initLookupCell(level: Int, i: Int, j: Int, origOrientation: Int, pos: Int, orientation: Int) {
+        if level == S2Constants.lookupBits {
+            let ij = (i << S2Constants.lookupBits) + j
+            lookupPos[(ij << 2) + origOrientation] = (pos << 2) + orientation
+        } else {
+            let _level = level + 1
+            let _i = i << 1
+            let _j = j << 1
+            let _pos = pos << 2
+            let r = S2Constants.posToIj[orientation]
+            for index in 0..<4 {
+                initLookupCell(_level, i: _i + (r[index] >> 1), j: _j + (r[index] & 1), origOrientation: origOrientation, pos: _pos + index, orientation: orientation ^ S2Constants.posToOrientation[index])
+            }
         }
     }
 }
@@ -152,7 +163,7 @@ class S2CellId {
             let mask = (1 << S2Constants.lookupBits) - 1
             bits += (((i >> (k * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
             bits += (((j >> (k * S2Constants.lookupBits)) & mask) << 2)
-            bits = s2LookupPos[bits]
+            bits = S2Helper.sharedInstance.lookupPos[bits]
             n |= (bits >> 2) << (k * 2 * S2Constants.lookupBits)
             bits &= (S2Constants.swapMask | S2Constants.invertMask)
         }
