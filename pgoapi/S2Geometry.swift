@@ -22,9 +22,12 @@ enum S2Constants {
     static let swapMask = 0x01
     static let invertMask = 0x02
     static let lookupBits = 4
+    static let posToOrientation = [S2Constants.swapMask, 0, 0, S2Constants.invertMask | S2Constants.swapMask]
+    static let posToIj = [[0, 1, 3, 2],
+                          [0, 2, 3, 1],
+                          [3, 2, 0, 1],
+                          [3, 1, 0, 2]]
 }
-
-var lookupPos: [Int] = []
 
 struct S2FaceUv {
     let face: Int
@@ -35,6 +38,24 @@ struct S2FaceUv {
 struct S2Uv {
     let u: Double
     let v: Double
+}
+
+var s2LookupPos: [Int] = []
+
+func s2InitLookupCell(level: Int, i: Int, j: Int, origOrientation: Int, pos: Int, orientation: Int) {
+    if level == S2Constants.lookupBits {
+        let ij = (i << S2Constants.lookupBits) + j
+        s2LookupPos[(ij << 2) + origOrientation] = (pos << 2) + orientation
+    } else {
+        let _level = level + 1
+        let _i = i << 1
+        let _j = j << 1
+        let _pos = pos << 2
+        let r = S2Constants.posToIj[orientation]
+        for index in 0..<4 {
+            s2InitLookupCell(_level, i: _i + (r[index] >> 1), j: _j + (r[index] & 1), origOrientation: origOrientation, pos: _pos + index, orientation: orientation ^ S2Constants.posToOrientation[index])
+        }
+    }
 }
 
 class S2Point {
@@ -131,7 +152,7 @@ class S2CellId {
             let mask = (1 << S2Constants.lookupBits) - 1
             bits += (((i >> (k * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
             bits += (((j >> (k * S2Constants.lookupBits)) & mask) << 2)
-            bits = lookupPos[bits]
+            bits = s2LookupPos[bits]
             n |= (bits >> 2) << (k * 2 * S2Constants.lookupBits)
             bits &= (S2Constants.swapMask | S2Constants.invertMask)
         }
