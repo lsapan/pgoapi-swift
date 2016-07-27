@@ -15,5 +15,7 @@ To summarize, create an instance of `PGoApiRequest` and call whichever RPC comma
 Updating the protos is a bit tricky, I'll add more information on that later. For now, the protos are fresh and should be good for awhile.
 
 ### Contributing
-In short: please do! I threw this together in a few hours, but I'd love help in really fleshing it out. Additionally, if someone could port the relevant portions of `CellId` from https://github.com/qedus/sphere/blob/master/sphere.py that would be immensely helpful. If not, I'll get to it when there's time. It's required in order to fully make the `GetMapObjects` call.
+In short: please do! I threw this together in a few hours, but I'd love help in really fleshing it out.
+
+`getMapObjects` is almost working but still needs a bit more. And there's lots of grunt work to do just adding all the possible requests to `PGoApiRequest`.
 
