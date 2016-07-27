@@ -510,8 +510,12 @@ public extension Pogoprotos.Data.Capture {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if !pokeballType.isEmpty {
+        try output.writeRawVarint32(10)
+        try output.writeRawVarint32(pokeballTypeMemoizedSerializedSize)
+      }
       for oneValueOfpokeballType in pokeballType {
-          try output.writeEnum(1, value:oneValueOfpokeballType.rawValue)
+          try output.writeEnumNoTag(oneValueOfpokeballType.rawValue)
       }
       if !captureProbability.isEmpty {
         try output.writeRawVarint32(18)
@@ -537,7 +541,11 @@ public extension Pogoprotos.Data.Capture {
           dataSizepokeballType += oneValueOfpokeballType.rawValue.computeEnumSizeNoTag()
       }
       serialize_size += dataSizepokeballType
-      serialize_size += (1 * Int32(pokeballType.count))
+      if !pokeballType.isEmpty {
+        serialize_size += 1
+        serialize_size += dataSizepokeballType.computeRawVarint32Size()
+      }
+      pokeballTypeMemoizedSerializedSize = dataSizepokeballType
       var dataSizeCaptureProbability:Int32 = 0
       dataSizeCaptureProbability = 4 * Int32(captureProbability.count)
       serialize_size += dataSizeCaptureProbability
@@ -791,13 +799,18 @@ public extension Pogoprotos.Data.Capture {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
-          case 8:
+          case 10:
+            let length:Int32 = try input.readRawVarint32()
+            let oldLimit:Int32 = try input.pushLimit(length)
+            while input.bytesUntilLimit() > 0 {
             let valueIntpokeballType = try input.readEnum()
             if let enumspokeballType = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntpokeballType) {
                  builderResult.pokeballType += [enumspokeballType]
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntpokeballType))
             }
+            }
+            input.popLimit(oldLimit)
 
           case 18:
             let length:Int32 = try input.readRawVarint32()
