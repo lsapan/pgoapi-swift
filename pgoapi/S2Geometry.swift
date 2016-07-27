@@ -225,4 +225,16 @@ class S2CellId {
             return S2Uv(u: -p.y / p.z, v: -p.x / p.z)
         }
     }
+    
+    func lsb() -> UInt64 {
+        return UInt64(Int64(id) & -Int64(id))
+    }
+    
+    func prev() -> S2CellId{
+        return S2CellId(id: id - (lsb() << 1))
+    }
+    
+    func next() -> S2CellId {
+        return S2CellId(id: id + (lsb() << 1))
+    }
 }
