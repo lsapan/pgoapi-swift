@@ -91,6 +91,26 @@ class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage.Builder()
         messageBuilder.latitude = latitude
         messageBuilder.longitude = longitude
+        messageBuilder.sinceTimestampMs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        
+        let cell = S2CellId(p: S2LatLon(latDegrees: latitude, lonDegrees: longitude).toPoint())
+        var cells: [UInt64] = []
+        
+        var currentCell = cell
+        for _ in 0..<10 {
+            currentCell = currentCell.prev()
+            cells.insert(currentCell.id, atIndex: 0)
+        }
+        
+        cells.append(cell.id)
+        
+        currentCell = cell
+        for _ in 0..<10 {
+            currentCell = currentCell.next()
+            cells.append(currentCell.id)
+        }
+        
+        messageBuilder.cellId = cells
         methodList.append(ApiMethod(id: .GetMapObjects, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetMapObjectsResponse.parseFromData(data)
         }))
