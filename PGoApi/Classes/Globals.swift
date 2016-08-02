@@ -20,7 +20,7 @@ public struct PGoEndpoint {
 public struct PGoLocation {
     static var lat:Double = 0
     static var long:Double = 0
-    static var alt:Double = 0
+    static var alt:Double? = nil
 }
 
 public struct PGoSetting {

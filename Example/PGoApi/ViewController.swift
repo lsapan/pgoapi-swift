@@ -36,8 +36,12 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
             PGoSetting.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
             print("New endpoint: \(PGoSetting.endpoint)")
             let request = PGoApiRequest()
-            // request.getMapObjects(37.331686, longitude: -122.030765)
-            // request.makeRequest(.GetMapObjects, delegate: self)
+            
+            //Set the latitude/longitude of player; altitude is optional
+            request.setLocation(37.331686, longitude: -122.030765, altitude: 0)
+            
+            request.getMapObjects()
+            request.makeRequest(.GetMapObjects, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
             print(response.response)

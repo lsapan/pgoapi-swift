@@ -47,6 +47,14 @@ public class PGoApiRequest {
         request.request(PGoSetting.endpoint)
     }
     
+    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = nil) {
+        PGoLocation.lat = latitude
+        PGoLocation.long = longitude
+        if altitude != nil {
+            PGoLocation.alt = altitude!
+        }
+    }
+    
     public func simulateAppStart() {
         getPlayer()
         getHatchedEggs()
