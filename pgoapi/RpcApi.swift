@@ -17,7 +17,7 @@ class RpcApi {
     let intent: ApiIntent
     let delegate: PGoApiDelegate?
     let subrequests: [ApiMethod]
-
+    
     init(subrequests: [ApiMethod], intent: ApiIntent, delegate: PGoApiDelegate?) {
         // TODO: Eventually use a custom session
         // Add "Niantic App" as the User-Agent
@@ -25,16 +25,16 @@ class RpcApi {
         manager.session.configuration.HTTPAdditionalHeaders = [
             "User-Agent": "Niantic App"
         ]
-
+        
         self.subrequests = subrequests
         self.intent = intent
         self.delegate = delegate
     }
-
+    
     func request(endpoint: String) {
         // TODO: Eventually update this function to take playerPosition, and pass to buildMainRequest
         let requestData = buildMainRequest().data()
-
+        
         Alamofire.request(.POST, endpoint, parameters: [:], encoding: .Custom({
             (convertible, params) in
             let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
@@ -47,30 +47,39 @@ class RpcApi {
                 self.delegate?.didReceiveApiError(self.intent, statusCode: statusCode)
                 return
             }
-
+            
             print("Got a response!")
             self.delegate?.didReceiveApiResponse(self.intent, response: self.parseMainResponse(response.result.value!))
         }
     }
-
+    
     private func buildMainRequest() -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
         print("Generating main request...")
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
         requestBuilder.requestId = Api.id
-        requestBuilder.unknown12 = 989
-
-        // TODO: Add playerPosition if it is available
-        // requestBuilder.latitude = location.latitude
-        // requestBuilder.longitude = location.longitude
-        // requestBuilder.altitude = location.altitude
-
-        let authInfoBuilder = requestBuilder.getAuthInfoBuilder()
-        authInfoBuilder.provider = "ptc"
-        let authInfoTokenBuilder = authInfoBuilder.getTokenBuilder()
-        authInfoTokenBuilder.contents = Auth.sharedInstance.accessToken!
-        authInfoTokenBuilder.unknown2 = 59
-
+        requestBuilder.unknown12 = 1431
+        
+        requestBuilder.latitude = Location.lat
+        requestBuilder.longitude = Location.long
+        requestBuilder.altitude = Location.alt
+        
+        if (!Api.receivedToken) {
+            let authInfoBuilder = requestBuilder.getAuthInfoBuilder()
+            let authInfoTokenBuilder = authInfoBuilder.getTokenBuilder()
+            
+            if (Endpoint.LoginProvider == AuthType.Google) {
+                authInfoBuilder.provider = "\(AuthType.Google)"
+                authInfoTokenBuilder.contents = GPSOAuth.sharedInstance.accessToken!
+            } else {
+                authInfoBuilder.provider = "\(AuthType.Ptc)"
+                authInfoTokenBuilder.contents = PtcOAuth.sharedInstance.accessToken!
+            }
+            authInfoTokenBuilder.unknown2 = 10800
+        } else {
+            requestBuilder.authTicket = Api.authToken
+        }
+        
         print("Generating subrequests...")
         for subrequest in subrequests {
             print("Processing \(subrequest)...")
@@ -79,22 +88,22 @@ class RpcApi {
             subrequestBuilder.requestMessage = subrequest.message.data()
             requestBuilder.requests += [try! subrequestBuilder.build()]
         }
-
+        
         print("Building request...")
         return try! requestBuilder.build()
     }
-
+    
     private func parseMainResponse(data: NSData) -> ApiResponse {
         print("Parsing main response...")
-
+        
         let response = try! Pogoprotos.Networking.Envelopes.ResponseEnvelope.parseFromData(data)
         let subresponses = parseSubResponses(response)
         return ApiResponse(response: response, subresponses: subresponses)
     }
-
+    
     private func parseSubResponses(response: Pogoprotos.Networking.Envelopes.ResponseEnvelope) -> [GeneratedMessage] {
         print("Parsing subresponses...")
-
+        
         var subresponses: [GeneratedMessage] = []
         for (idx, subresponseData) in response.returns.enumerate() {
             let subrequest = subrequests[idx]
@@ -102,5 +111,5 @@ class RpcApi {
         }
         return subresponses
     }
-
+    
 }
