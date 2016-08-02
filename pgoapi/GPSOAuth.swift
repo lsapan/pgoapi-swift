@@ -92,7 +92,7 @@ class GPSOAuth {
         GPSOAuth.sharedInstance.email = email.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         GPSOAuth.sharedInstance.password = password.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         
-        Endpoint.LoginProvider = "\(AuthType.Google)"
+        Endpoint.LoginProvider = AuthType.Google
         
         self.getTicket()
     }

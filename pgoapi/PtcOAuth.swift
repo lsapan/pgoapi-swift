@@ -82,7 +82,7 @@ class PtcOAuth {
         PtcOAuth.sharedInstance.username = username
         PtcOAuth.sharedInstance.password = password
         
-        Endpoint.LoginProvider = "\(AuthType.Ptc)"
+        Endpoint.LoginProvider = AuthType.Ptc
 
         let delegate = Alamofire.Manager.sharedInstance.delegate
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in

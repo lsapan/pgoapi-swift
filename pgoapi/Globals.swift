@@ -12,7 +12,7 @@ struct Endpoint {
     static let LoginInfo = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
     static let LoginTicket = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
     static let LoginOAuth = "https://sso.pokemon.com/sso/oauth2.0/accessToken"
-    static var LoginProvider = ""
+    static var LoginProvider:AuthType = .Ptc
     static let Rpc = "https://pgorelease.nianticlabs.com/plfe/rpc"
     static let GoogleLogin = "https://android.clients.google.com/auth"
 }
