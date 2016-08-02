@@ -35,3 +35,15 @@ enum ApiIntent {
     case Login
     case GetMapObjects
 }
+
+enum AuthType: CustomStringConvertible {
+    case Google
+    case Ptc
+    
+    var description: String {
+        switch self {
+        case .Google: return "google"
+        case .Ptc: return "ptc"
+        }
+    }
+}

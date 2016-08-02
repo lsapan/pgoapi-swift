@@ -39,6 +39,7 @@
 		A3C863D81D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C863D71D4520CB009888D6 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */; };
 		A3C863DA1D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C863D91D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */; };
 		A3E5B6A51D4174FB005DA98B /* pgoapi.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E5B6A41D4174FB005DA98B /* pgoapi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDBE96121D50C528004A30EB /* GPSOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE96111D50C528004A30EB /* GPSOAuth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		A3E5B6A11D4174FB005DA98B /* pgoapi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pgoapi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E5B6A41D4174FB005DA98B /* pgoapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pgoapi.h; sourceTree = "<group>"; };
 		A3E5B6A61D4174FB005DA98B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDBE96111D50C528004A30EB /* GPSOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSOAuth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				A3E5B6A41D4174FB005DA98B /* pgoapi.h */,
 				A3E5B6A61D4174FB005DA98B /* Info.plist */,
 				A35B131A1D417B7000C5A2A0 /* ExampleViewController.swift */,
+				DDBE96111D50C528004A30EB /* GPSOAuth.swift */,
 			);
 			path = pgoapi;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				A3316B081D41768600AAF7E0 /* RpcApi.swift in Sources */,
 				A3316B261D4176A600AAF7E0 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift in Sources */,
 				A3316B221D4176A600AAF7E0 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift in Sources */,
+				DDBE96121D50C528004A30EB /* GPSOAuth.swift in Sources */,
 				A3316B271D4176A600AAF7E0 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift in Sources */,
 				A3316B1E1D4176A600AAF7E0 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift in Sources */,
 				A3316B1D1D4176A600AAF7E0 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift in Sources */,
