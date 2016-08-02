@@ -57,6 +57,7 @@ class GPSOAuth {
                 
                 if googleDict["Token"] != nil {
                     self.loginOAuth(googleDict["Token"]!)
+                    GPSOAuth.sharedInstance.token = googleDict["Token"]
                 } else {
                     Auth.sharedInstance.delegate?.didNotReceiveAuth()
                 }
@@ -90,6 +91,8 @@ class GPSOAuth {
     func login(withEmail email: String, withPassword password: String) {
         GPSOAuth.sharedInstance.email = email.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         GPSOAuth.sharedInstance.password = password.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        
+        Endpoint.LoginProvider = "\(AuthType.Google)"
         
         self.getTicket()
     }
