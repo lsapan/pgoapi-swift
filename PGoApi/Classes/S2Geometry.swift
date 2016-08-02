@@ -9,13 +9,13 @@
 import Foundation
 
 
-enum S2Projection {
+public enum S2Projection {
     case Linear
     case Tan
     case Quadratic
 }
 
-enum S2Constants {
+public enum S2Constants {
     static let maxLevel = 30
     static let posBits = 2 * S2Constants.maxLevel + 1
     static let maxSize = 1 << S2Constants.maxLevel
@@ -29,18 +29,18 @@ enum S2Constants {
                           [3, 1, 0, 2]]
 }
 
-struct S2FaceUv {
+public struct S2FaceUv {
     let face: Int
     let u: Double
     let v: Double
 }
 
-struct S2Uv {
+public struct S2Uv {
     let u: Double
     let v: Double
 }
 
-class S2Helper {
+public class S2Helper {
     static let sharedInstance = S2Helper()
     
     var lookupPos: [Int?] = []
@@ -72,7 +72,7 @@ class S2Helper {
     }
 }
 
-class S2Point {
+public class S2Point {
     let x: Double
     let y: Double
     let z: Double
@@ -127,7 +127,7 @@ class S2Point {
     }
 }
 
-class S2LatLon {
+public class S2LatLon {
     let lat: Double
     let lon: Double
  
@@ -144,21 +144,21 @@ class S2LatLon {
     }
 }
 
-class S2CellId {
-    var id: UInt64
+public class S2CellId {
+    public var id: UInt64
     
-    init(id: UInt64) {
+    public init(id: UInt64) {
         self.id = id
     }
     
-    convenience init(p: S2Point) {
+    public convenience init(p: S2Point) {
         let faceUv = S2CellId.xyzToFaceUv(p)
         let i = S2CellId.stToIj(S2CellId.uvToSt(.Quadratic, u: faceUv.u))
         let j = S2CellId.stToIj(S2CellId.uvToSt(.Quadratic, u: faceUv.v))
         self.init(face: faceUv.face, i: i, j: j)
     }
     
-    convenience init(face: Int, i: Int, j: Int) {
+    public convenience init(face: Int, i: Int, j: Int) {
         var n = face << (S2Constants.posBits - 1)
         var bits = face & S2Constants.swapMask
         
@@ -174,7 +174,7 @@ class S2CellId {
         self.init(id: UInt64(n) * 2 + 1)
     }
     
-    static func xyzToFaceUv(p: S2Point) -> S2FaceUv {
+    public static func xyzToFaceUv(p: S2Point) -> S2FaceUv {
         var face = p.largestAbsComponent()
         var pFace: Double
         if face == 0 {
@@ -191,7 +191,7 @@ class S2CellId {
         return S2FaceUv(face: face, u: uv.u, v: uv.v)
     }
  
-    static func uvToSt(projection: S2Projection, u: Double) -> Double {
+    public static func uvToSt(projection: S2Projection, u: Double) -> Double {
         if projection == .Linear {
             return 0.5 * (u + 1)
         } else if projection == .Tan {
@@ -205,11 +205,11 @@ class S2CellId {
         }
     }
  
-    static func stToIj(s: Double) -> Int {
+    public static func stToIj(s: Double) -> Int {
         return max(0, min(S2Constants.maxSize - 1, Int(floor(Double(S2Constants.maxSize) * s))))
     }
 
-    static func validFaceXyzToUv(face: Int, p: S2Point) -> S2Uv {
+    public static func validFaceXyzToUv(face: Int, p: S2Point) -> S2Uv {
         assert(p.dotProd(S2Point.faceUvToXyz(face, u: 0, v: 0)) > 0)
         if face == 0 {
             return S2Uv(u: p.y / p.x, v: p.z / p.x)
@@ -226,15 +226,15 @@ class S2CellId {
         }
     }
     
-    func lsb() -> UInt64 {
+    public func lsb() -> UInt64 {
         return UInt64(bitPattern: Int64(bitPattern: id) & (0 &- Int64(bitPattern: id)))
     }
     
-    func prev() -> S2CellId{
+    public func prev() -> S2CellId{
         return S2CellId(id: id - (lsb() << 30))
     }
     
-    func next() -> S2CellId {
+    public func next() -> S2CellId {
         return S2CellId(id: id + (lsb() << 30))
     }
 }

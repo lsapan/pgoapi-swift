@@ -12,25 +12,25 @@ import Foundation
 import ProtocolBuffers
 
 
-public struct ApiMethod {
+public struct PGoApiMethod {
     let id: Pogoprotos.Networking.Requests.RequestType
     let message: GeneratedMessage
     let parser: NSData -> GeneratedMessage
 }
 
-public struct ApiResponse {
+public struct PGoApiResponse {
     public let response: GeneratedMessage
     public let subresponses: [GeneratedMessage]
 }
 
 public class PGoApiRequest {
-    public var methodList: [ApiMethod] = []
+    public var methodList: [PGoApiMethod] = []
     
     public init() {
         
     }
 
-    public func makeRequest(intent: ApiIntent, delegate: PGoApiDelegate?) {  // analogous to call in pgoapi.py
+    public func makeRequest(intent: PGoApiIntent, delegate: PGoApiDelegate?) {  // analogous to call in pgoapi.py
         if methodList.count == 0 {
             print("makeRequest() called without any methods in methodList.")
             return
@@ -43,8 +43,8 @@ public class PGoApiRequest {
         
         // TODO: Get player position
         // position stuff here...
-        let request = RpcApi(subrequests: methodList, intent: intent, delegate: delegate)
-        request.request(Api.endpoint)
+        let request = PGoRpcApi(subrequests: methodList, intent: intent, delegate: delegate)
+        request.request(PGoSetting.endpoint)
     }
     
     public func simulateAppStart() {
@@ -57,16 +57,16 @@ public class PGoApiRequest {
     
     public func updatePlayer() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage.Builder()
-        messageBuilder.latitude = Location.lat
-        messageBuilder.longitude = Location.long
-        methodList.append(ApiMethod(id: .PlayerUpdate, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.latitude = PGoLocation.lat
+        messageBuilder.longitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .PlayerUpdate, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.PlayerUpdateResponse.parseFromData(data)
         }))
     }
     
     public func getPlayer() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder()
-        methodList.append(ApiMethod(id: .GetPlayer, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetPlayer, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetPlayerResponse.parseFromData(data)
         }))
     }
@@ -76,22 +76,22 @@ public class PGoApiRequest {
         if lastTimestampMs != nil {
             messageBuilder.lastTimestampMs = lastTimestampMs!
         }
-        methodList.append(ApiMethod(id: .GetInventory, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetInventory, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetInventoryResponse.parseFromData(data)
         }))
     }
     
     public func downloadSettings() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage.Builder()
-        messageBuilder.hash = Api.SettingsHash
-        methodList.append(ApiMethod(id: .DownloadSettings, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.hash = PGoSetting.SettingsHash
+        methodList.append(PGoApiMethod(id: .DownloadSettings, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadSettingsResponse.parseFromData(data)
         }))
     }
     
     public func downloadItemTemplates() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadItemTemplatesMessage.Builder()
-        methodList.append(ApiMethod(id: .DownloadItemTemplates, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .DownloadItemTemplates, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.parseFromData(data)
         }))
     }
@@ -103,7 +103,7 @@ public class PGoApiRequest {
         messageBuilder.deviceManufacturer = deviceManufacturer
         messageBuilder.locale = locale
         messageBuilder.appVersion = appVersion
-        methodList.append(ApiMethod(id: .DownloadRemoteConfigVersion, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .DownloadRemoteConfigVersion, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse.parseFromData(data)
         }))
     }
@@ -113,9 +113,9 @@ public class PGoApiRequest {
         messageBuilder.fortId = fortId
         messageBuilder.fortLatitude = fortLatitude
         messageBuilder.fortLongitude = fortLongitude
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .FortSearch, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .FortSearch, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortSearchResponse.parseFromData(data)
         }))
     }
@@ -124,9 +124,9 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.EncounterMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.spawnPointId = spawnPointId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .Encounter, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .Encounter, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.EncounterResponse.parseFromData(data)
         }))
     }
@@ -141,7 +141,7 @@ public class PGoApiRequest {
         messageBuilder.normalizedHitPosition = normalizedHitPosition
         messageBuilder.spinModifier = spinModifier
         
-        methodList.append(ApiMethod(id: .CatchPokemon, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CatchPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CatchPokemonResponse.parseFromData(data)
         }))
     }
@@ -151,7 +151,7 @@ public class PGoApiRequest {
         messageBuilder.fortId = fortId
         messageBuilder.latitude = fortLatitude
         messageBuilder.longitude = fortLongitude
-        methodList.append(ApiMethod(id: .FortDetails, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .FortDetails, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortDetailsResponse.parseFromData(data)
         }))
     }
@@ -178,8 +178,8 @@ public class PGoApiRequest {
     
     public func getMapObjects(cellIds: Array<UInt64>? = nil, sinceTimestampMs: Array<Int64>? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage.Builder()
-        messageBuilder.latitude = Location.lat
-        messageBuilder.longitude = Location.long
+        messageBuilder.latitude = PGoLocation.lat
+        messageBuilder.longitude = PGoLocation.long
         
         if sinceTimestampMs != nil {
             messageBuilder.sinceTimestampMs = sinceTimestampMs!
@@ -199,11 +199,11 @@ public class PGoApiRequest {
             messageBuilder.cellId = cellIds!
             
         } else {
-            let cells = generateS2Cells(Location.lat, long: Location.long)
+            let cells = generateS2Cells(PGoLocation.lat, long: PGoLocation.long)
             messageBuilder.cellId = cells
         }
         
-        methodList.append(ApiMethod(id: .GetMapObjects, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetMapObjects, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetMapObjectsResponse.parseFromData(data)
         }))
     }
@@ -212,9 +212,9 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage.Builder()
         messageBuilder.fortId = fortId
         messageBuilder.pokemonId = pokemonId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .FortDeployPokemon, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .FortDeployPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortDeployPokemonResponse.parseFromData(data)
         }))
     }
@@ -223,9 +223,9 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage.Builder()
         messageBuilder.fortId = fortId
         messageBuilder.pokemonId = pokemonId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .FortRecallPokemon, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .FortRecallPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortRecallPokemonResponse.parseFromData(data)
         }))
     }
@@ -233,7 +233,7 @@ public class PGoApiRequest {
     public func releasePokemon(pokemonId:UInt64) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .ReleasePokemon, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .ReleasePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.ReleasePokemonResponse.parseFromData(data)
         }))
     }
@@ -242,7 +242,7 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage.Builder()
         messageBuilder.itemId = itemId
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .UseItemPotion, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UseItemPotion, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemPotionResponse.parseFromData(data)
         }))
     }
@@ -252,7 +252,7 @@ public class PGoApiRequest {
         messageBuilder.itemId = itemId
         messageBuilder.encounterId = encounterId
         messageBuilder.spawnPointId = spawnPointId
-        methodList.append(ApiMethod(id: .UseItemCapture, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UseItemCapture, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemCaptureResponse.parseFromData(data)
         }))
     }
@@ -261,7 +261,7 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage.Builder()
         messageBuilder.itemId = itemId
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .UseItemRevive, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UseItemRevive, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemReviveResponse.parseFromData(data)
         }))
     }
@@ -269,7 +269,7 @@ public class PGoApiRequest {
     public func getPlayerProfile(playerName: String) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetPlayerProfileMessage.Builder()
         messageBuilder.playerName = playerName
-        methodList.append(ApiMethod(id: .GetPlayerProfile, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetPlayerProfile, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetPlayerProfileResponse.parseFromData(data)
         }))
     }
@@ -277,14 +277,14 @@ public class PGoApiRequest {
     public func evolvePokemon(pokemonId: UInt64) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.EvolvePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .EvolvePokemon, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .EvolvePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.EvolvePokemonResponse.parseFromData(data)
         }))
     }
     
     public func getHatchedEggs() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetHatchedEggsMessage.Builder()
-        methodList.append(ApiMethod(id: .GetHatchedEggs, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetHatchedEggs, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetHatchedEggsResponse.parseFromData(data)
         }))
     }
@@ -292,7 +292,7 @@ public class PGoApiRequest {
     public func encounterTutorialComplete(pokemonId: Pogoprotos.Enums.PokemonId) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.EncounterTutorialCompleteMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .EncounterTutorialComplete, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .EncounterTutorialComplete, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse.parseFromData(data)
         }))
     }
@@ -300,14 +300,14 @@ public class PGoApiRequest {
     public func levelUpRewards(level:Int32) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.LevelUpRewardsMessage.Builder()
         messageBuilder.level = level
-        methodList.append(ApiMethod(id: .LevelUpRewards, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .LevelUpRewards, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.LevelUpRewardsResponse.parseFromData(data)
         }))
     }
     
     public func checkAwardedBadges() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckAwardedBadgesMessage.Builder()
-        methodList.append(ApiMethod(id: .CheckAwardedBadges, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CheckAwardedBadges, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse.parseFromData(data)
         }))
     }
@@ -316,9 +316,9 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseItemGymMessage.Builder()
         messageBuilder.itemId = itemId
         messageBuilder.gymId = gymId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .UseItemGym, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .UseItemGym, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemGymResponse.parseFromData(data)
         }))
     }
@@ -326,11 +326,11 @@ public class PGoApiRequest {
     public func getGymDetails(gymId: String, gymLatitude: Double, gymLongitude: Double) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage.Builder()
         messageBuilder.gymId = gymId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
         messageBuilder.gymLatitude = gymLatitude
         messageBuilder.gymLongitude = gymLongitude
-        methodList.append(ApiMethod(id: .GetGymDetails, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetGymDetails, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetGymDetailsResponse.parseFromData(data)
         }))
     }
@@ -340,7 +340,7 @@ public class PGoApiRequest {
         messageBuilder.gymId = gymId
         messageBuilder.attackingPokemonIds = attackingPokemonIds
         messageBuilder.defendingPokemonId = defendingPokemonId
-        methodList.append(ApiMethod(id: .StartGymBattle, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .StartGymBattle, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.StartGymBattleResponse.parseFromData(data)
         }))
     }
@@ -351,10 +351,10 @@ public class PGoApiRequest {
         messageBuilder.battleId = battleId
         messageBuilder.attackActions = attackActions
         messageBuilder.lastRetrievedActions = lastRetrievedAction
-        messageBuilder.playerLongitude = Location.lat
-        messageBuilder.playerLatitude = Location.long
+        messageBuilder.playerLongitude = PGoLocation.lat
+        messageBuilder.playerLatitude = PGoLocation.long
         
-        methodList.append(ApiMethod(id: .AttackGym, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .AttackGym, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.AttackGymResponse.parseFromData(data)
         }))
     }
@@ -363,14 +363,14 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage.Builder()
         messageBuilder.itemId = itemId
         messageBuilder.count = itemCount
-        methodList.append(ApiMethod(id: .RecycleInventoryItem, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .RecycleInventoryItem, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.RecycleInventoryItemResponse.parseFromData(data)
         }))
     }
     
     public func collectDailyBonus() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CollectDailyBonusMessage.Builder()
-        methodList.append(ApiMethod(id: .CollectDailyBonus, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CollectDailyBonus, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CollectDailyBonusResponse.parseFromData(data)
         }))
     }
@@ -378,7 +378,7 @@ public class PGoApiRequest {
     public func useItemXPBoost(itemId: Pogoprotos.Inventory.Item.ItemId) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage.Builder()
         messageBuilder.itemId = itemId
-        methodList.append(ApiMethod(id: .UseItemXpBoost, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UseItemXpBoost, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemXpBoostResponse.parseFromData(data)
         }))
     }
@@ -387,7 +387,7 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseItemEggIncubatorMessage.Builder()
         messageBuilder.itemId = itemId
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .UseItemEggIncubator, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UseItemEggIncubator, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse.parseFromData(data)
         }))
     }
@@ -395,16 +395,16 @@ public class PGoApiRequest {
     public func useIncense(itemId: Pogoprotos.Inventory.Item.ItemId) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseIncenseMessage.Builder()
         messageBuilder.incenseType = itemId
-        methodList.append(ApiMethod(id: .UseIncense, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UseIncense, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseIncenseResponse.parseFromData(data)
         }))
     }
     
     public func getIncensePokemon() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage.Builder()
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .GetIncensePokemon, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .GetIncensePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetIncensePokemonResponse.parseFromData(data)
         }))
     }
@@ -413,7 +413,7 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.encounterLocation = encounterLocation
-        methodList.append(ApiMethod(id: .IncenseEncounter, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .IncenseEncounter, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.IncenseEncounterResponse.parseFromData(data)
         }))
     }
@@ -422,9 +422,9 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage.Builder()
         messageBuilder.modifierType = itemId
         messageBuilder.fortId = fortId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .AddFortModifier, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .AddFortModifier, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.AddFortModifierResponse.parseFromData(data)
         }))
     }
@@ -433,16 +433,16 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.fortId = fortId
-        messageBuilder.playerLatitude = Location.lat
-        messageBuilder.playerLongitude = Location.long
-        methodList.append(ApiMethod(id: .DiskEncounter, message: try! messageBuilder.build(), parser: { data in
+        messageBuilder.playerLatitude = PGoLocation.lat
+        messageBuilder.playerLongitude = PGoLocation.long
+        methodList.append(PGoApiMethod(id: .DiskEncounter, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DiskEncounterResponse.parseFromData(data)
         }))
     }
     
     public func collectDailyDefenderBonus(encounterId: UInt64, fortId: String) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CollectDailyDefenderBonusMessage.Builder()
-        methodList.append(ApiMethod(id: .CollectDailyDefenderBonus, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CollectDailyDefenderBonus, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CollectDailyDefenderBonusResponse.parseFromData(data)
         }))
     }
@@ -450,7 +450,7 @@ public class PGoApiRequest {
     public func upgradePokemon(pokemonId: UInt64) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UpgradePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.append(ApiMethod(id: .UpgradePokemon, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .UpgradePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UpgradePokemonResponse.parseFromData(data)
         }))
     }
@@ -459,7 +459,7 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
         messageBuilder.isFavorite = isFavorite
-        methodList.append(ApiMethod(id: .SetFavoritePokemon, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .SetFavoritePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetFavoritePokemonResponse.parseFromData(data)
         }))
     }
@@ -468,7 +468,7 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.NicknamePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
         messageBuilder.nickname = nickname
-        methodList.append(ApiMethod(id: .NicknamePokemon, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .NicknamePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.NicknamePokemonResponse.parseFromData(data)
         }))
     }
@@ -476,7 +476,7 @@ public class PGoApiRequest {
     public func equipBadge(badgeType: Pogoprotos.Enums.BadgeType) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.EquipBadgeMessage.Builder()
         messageBuilder.badgeType = badgeType
-        methodList.append(ApiMethod(id: .EquipBadge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .EquipBadge, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.EquipBadgeResponse.parseFromData(data)
         }))
     }
@@ -487,7 +487,7 @@ public class PGoApiRequest {
         contactSettings.sendMarketingEmails = sendMarketingEmails
         contactSettings.sendPushNotifications = sendPushNotifications
         try! messageBuilder.contactSettings = contactSettings.build()
-        methodList.append(ApiMethod(id: .SetContactSettings, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .SetContactSettings, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetContactSettingsResponse.parseFromData(data)
         }))
     }
@@ -499,7 +499,7 @@ public class PGoApiRequest {
         messageBuilder.deviceManufacturer = deviceManufacturer
         messageBuilder.locale = locale
         messageBuilder.appVersion = appVersion
-        methodList.append(ApiMethod(id: .GetAssetDigest, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetAssetDigest, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetAssetDigestResponse.parseFromData(data)
         }))
     }
@@ -507,14 +507,14 @@ public class PGoApiRequest {
     public func getDownloadURLs(assetId: Array<String>) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetDownloadUrlsMessage.Builder()
         messageBuilder.assetId = assetId
-        methodList.append(ApiMethod(id: .GetDownloadUrls, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetDownloadUrls, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetDownloadUrlsResponse.parseFromData(data)
         }))
     }
     
     public func getSuggestedCodenames() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetSuggestedCodenamesMessage.Builder()
-        methodList.append(ApiMethod(id: .GetSuggestedCodenames, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetSuggestedCodenames, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse.parseFromData(data)
         }))
     }
@@ -522,7 +522,7 @@ public class PGoApiRequest {
     public func checkCodenameAvailable(codename: String) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckCodenameAvailableMessage.Builder()
         messageBuilder.codename = codename
-        methodList.append(ApiMethod(id: .CheckCodenameAvailable, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CheckCodenameAvailable, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse.parseFromData(data)
         }))
     }
@@ -530,7 +530,7 @@ public class PGoApiRequest {
     public func claimCodename(codename: String) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.ClaimCodenameMessage.Builder()
         messageBuilder.codename = codename
-        methodList.append(ApiMethod(id: .ClaimCodename, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .ClaimCodename, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.ClaimCodenameResponse.parseFromData(data)
         }))
     }
@@ -550,7 +550,7 @@ public class PGoApiRequest {
         
         try! messageBuilder.playerAvatar = playerAvatar.build()
         
-        methodList.append(ApiMethod(id: .SetAvatar, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .SetAvatar, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetAvatarResponse.parseFromData(data)
         }))
     }
@@ -558,7 +558,7 @@ public class PGoApiRequest {
     public func setPlayerTeam(teamColor: Pogoprotos.Enums.TeamColor) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessage.Builder()
         messageBuilder.team = teamColor
-        methodList.append(ApiMethod(id: .SetPlayerTeam, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .SetPlayerTeam, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetPlayerTeamResponse.parseFromData(data)
         }))
     }
@@ -568,21 +568,21 @@ public class PGoApiRequest {
         messageBuilder.tutorialsCompleted = tutorialState
         messageBuilder.sendMarketingEmails = sendMarketingEmails
         messageBuilder.sendPushNotifications = sendPushNotifications
-        methodList.append(ApiMethod(id: .MarkTutorialComplete, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .MarkTutorialComplete, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse.parseFromData(data)
         }))
     }
     
     public func echo() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.EchoMessage.Builder()
-        methodList.append(ApiMethod(id: .Echo, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .Echo, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.EchoResponse.parseFromData(data)
         }))
     }
     
     public func sfidaActionLog() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder()
-        methodList.append(ApiMethod(id: .SfidaActionLog, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .SfidaActionLog, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SfidaActionLogResponse.parseFromData(data)
         }))
     }

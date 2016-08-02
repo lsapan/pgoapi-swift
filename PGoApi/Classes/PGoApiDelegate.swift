@@ -11,6 +11,6 @@ import ProtocolBuffers
 
 
 public protocol PGoApiDelegate {
-    func didReceiveApiResponse(intent: ApiIntent, response: ApiResponse)
-    func didReceiveApiError(intent: ApiIntent, statusCode: Int?)
+    func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse)
+    func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?)
 }

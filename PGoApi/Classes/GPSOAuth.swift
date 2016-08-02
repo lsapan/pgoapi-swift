@@ -50,7 +50,7 @@ class GPSOAuth {
         params["Passwd"] = GPSOAuth.sharedInstance.password
         params["service"] = "ac2dm"
         
-        Alamofire.request(.POST, Endpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
+        Alamofire.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
             .responseJSON { (response) in
                 let responseString = NSString(data: response.data!, encoding: NSUTF8StringEncoding)
                 let googleDict = self.parseKeyValues(responseString! as String)
@@ -72,7 +72,7 @@ class GPSOAuth {
         params["app"] = "com.nianticlabs.pokemongo"
         params["client_sig"] = "321187995bc7cdc2b5fc91b11a96e2baa8602c62"
         
-        Alamofire.request(.POST, Endpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
+        Alamofire.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
             .responseJSON { (response) in
                 let responseString = NSString(data: response.data!, encoding: NSUTF8StringEncoding)
                 let googleDict = self.parseKeyValues(responseString! as String)
@@ -92,7 +92,7 @@ class GPSOAuth {
         GPSOAuth.sharedInstance.email = email.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         GPSOAuth.sharedInstance.password = password
         
-        Endpoint.LoginProvider = AuthType.Google
+        PGoEndpoint.LoginProvider = PGoAuthType.Google
         
         self.getTicket()
     }

@@ -19,7 +19,7 @@ public class PGoAuth {
     public var loggedIn: Bool = false
     public var delegate: PGoAuthDelegate?
 
-    public func login(username:String, password:String, provider: AuthType = .Ptc) {
+    public func login(username:String, password:String, provider: PGoAuthType = .Ptc) {
         self.username = username
         self.password = password
         

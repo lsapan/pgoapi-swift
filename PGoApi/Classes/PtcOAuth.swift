@@ -28,7 +28,7 @@ class PtcOAuth {
             "password": PtcOAuth.sharedInstance.password
         ]
         
-        Alamofire.request(.POST, Endpoint.LoginInfo, parameters: parameters)
+        Alamofire.request(.POST, PGoEndpoint.LoginInfo, parameters: parameters)
             .responseData { response in
                 if let location = response.response!.allHeaderFields["Location"] as? String {
                     let ticketRange = location.rangeOfString("?ticket=")
@@ -56,7 +56,7 @@ class PtcOAuth {
         let manager = Manager.sharedInstance
         manager.session.configuration.HTTPAdditionalHeaders = [:]
         
-        Alamofire.request(.POST, Endpoint.LoginOAuth, parameters: parameters)
+        Alamofire.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
             .responseString { response in
                 let value = response.result.value!
                 let regex = try! NSRegularExpression(pattern: "access_token=([A-Za-z0-9\\-.]+)&expires=([0-9]+)", options: [])
@@ -82,7 +82,7 @@ class PtcOAuth {
         PtcOAuth.sharedInstance.username = username
         PtcOAuth.sharedInstance.password = password
         
-        Endpoint.LoginProvider = AuthType.Ptc
+        PGoEndpoint.LoginProvider = PGoAuthType.Ptc
 
         let delegate = Alamofire.Manager.sharedInstance.delegate
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
@@ -94,7 +94,7 @@ class PtcOAuth {
             "User-Agent": "niantic"
         ]
 
-        Alamofire.request(.GET, Endpoint.LoginInfo)
+        Alamofire.request(.GET, PGoEndpoint.LoginInfo)
             .responseJSON { response in
                 if let JSON = response.result.value {
                     let lt = JSON["lt"] as! String

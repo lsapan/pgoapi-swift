@@ -30,11 +30,11 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         print("Failed to auth!")
     }
     
-    func didReceiveApiResponse(intent: ApiIntent, response: ApiResponse) {
+    func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
         print("Got that API response: \(intent)")
         if (intent == .Login) {
-            Api.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
-            print("New endpoint: \(Api.endpoint)")
+            PGoSetting.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
+            print("New endpoint: \(PGoSetting.endpoint)")
             let request = PGoApiRequest()
             // request.getMapObjects(37.331686, longitude: -122.030765)
             // request.makeRequest(.GetMapObjects, delegate: self)
@@ -45,7 +45,7 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         }
     }
     
-    func didReceiveApiError(intent: ApiIntent, statusCode: Int?) {
+    func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?) {
         print("API Error: \(statusCode)")
     }
 

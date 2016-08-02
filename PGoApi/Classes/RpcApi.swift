@@ -13,12 +13,12 @@ import Alamofire
 import ProtocolBuffers
 
 
-class RpcApi {
-    let intent: ApiIntent
+class PGoRpcApi {
+    let intent: PGoApiIntent
     let delegate: PGoApiDelegate?
-    let subrequests: [ApiMethod]
+    let subrequests: [PGoApiMethod]
     
-    init(subrequests: [ApiMethod], intent: ApiIntent, delegate: PGoApiDelegate?) {
+    init(subrequests: [PGoApiMethod], intent: PGoApiIntent, delegate: PGoApiDelegate?) {
         // TODO: Eventually use a custom session
         // Add "Niantic App" as the User-Agent
         let manager = Manager.sharedInstance
@@ -57,27 +57,27 @@ class RpcApi {
         print("Generating main request...")
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
-        requestBuilder.requestId = Api.id
+        requestBuilder.requestId = PGoSetting.id
         requestBuilder.unknown12 = 1431
         
-        requestBuilder.latitude = Location.lat
-        requestBuilder.longitude = Location.long
-        requestBuilder.altitude = Location.alt
+        requestBuilder.latitude = PGoLocation.lat
+        requestBuilder.longitude = PGoLocation.long
+        requestBuilder.altitude = PGoLocation.alt
         
-        if (!Api.receivedToken) {
+        if (!PGoSetting.receivedToken) {
             let authInfoBuilder = requestBuilder.getAuthInfoBuilder()
             let authInfoTokenBuilder = authInfoBuilder.getTokenBuilder()
             
-            if (Endpoint.LoginProvider == AuthType.Google) {
-                authInfoBuilder.provider = "\(AuthType.Google)"
+            if (PGoEndpoint.LoginProvider == PGoAuthType.Google) {
+                authInfoBuilder.provider = "\(PGoAuthType.Google)"
                 authInfoTokenBuilder.contents = GPSOAuth.sharedInstance.accessToken!
             } else {
-                authInfoBuilder.provider = "\(AuthType.Ptc)"
+                authInfoBuilder.provider = "\(PGoAuthType.Ptc)"
                 authInfoTokenBuilder.contents = PtcOAuth.sharedInstance.accessToken!
             }
             authInfoTokenBuilder.unknown2 = 10800
         } else {
-            requestBuilder.authTicket = Api.authToken
+            requestBuilder.authTicket = PGoSetting.authToken
         }
         
         print("Generating subrequests...")
@@ -93,12 +93,12 @@ class RpcApi {
         return try! requestBuilder.build()
     }
     
-    private func parseMainResponse(data: NSData) -> ApiResponse {
+    private func parseMainResponse(data: NSData) -> PGoApiResponse {
         print("Parsing main response...")
         
         let response = try! Pogoprotos.Networking.Envelopes.ResponseEnvelope.parseFromData(data)
         let subresponses = parseSubResponses(response)
-        return ApiResponse(response: response, subresponses: subresponses)
+        return PGoApiResponse(response: response, subresponses: subresponses)
     }
     
     private func parseSubResponses(response: Pogoprotos.Networking.Envelopes.ResponseEnvelope) -> [GeneratedMessage] {
