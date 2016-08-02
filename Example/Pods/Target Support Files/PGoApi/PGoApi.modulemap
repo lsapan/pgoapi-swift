@@ -1,0 +1,6 @@
+framework module PGoApi {
+  umbrella header "PGoApi-umbrella.h"
+
+  export *
+  module * { export * }
+}

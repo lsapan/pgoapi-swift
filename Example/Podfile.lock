@@ -1,0 +1,31 @@
+PODS:
+  - Alamofire (3.4.1)
+  - PGoApi (0.1.0):
+    - Alamofire (~> 3.4)
+    - ProtocolBuffers-Swift (~> 3.0)
+  - ProtocolBuffers-Swift (3.0.0)
+
+DEPENDENCIES:
+  - PGoApi (from `../`)
+  - ProtocolBuffers-Swift (from `https://github.com/alexeyxo/protobuf-swift`, branch `ProtoBuf3.0-Swift2.0`)
+
+EXTERNAL SOURCES:
+  PGoApi:
+    :path: ../
+  ProtocolBuffers-Swift:
+    :branch: ProtoBuf3.0-Swift2.0
+    :git: https://github.com/alexeyxo/protobuf-swift
+
+CHECKOUT OPTIONS:
+  ProtocolBuffers-Swift:
+    :commit: f43bcfe55f7c2b19f19363c12d9499dac232f3ae
+    :git: https://github.com/alexeyxo/protobuf-swift
+
+SPEC CHECKSUMS:
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  PGoApi: 8cee6dd3898aee27925cac4e9d8cdd7d154bfc68
+  ProtocolBuffers-Swift: 948824656ef9f507348481655d409628b0219be0
+
+PODFILE CHECKSUM: 94d17cfbf8bf6c78624d1cecb8293d4c711b7d7c
+
+COCOAPODS: 1.0.1
