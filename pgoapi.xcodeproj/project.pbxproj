@@ -40,6 +40,7 @@
 		A3C863DA1D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C863D91D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */; };
 		A3E5B6A51D4174FB005DA98B /* pgoapi.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E5B6A41D4174FB005DA98B /* pgoapi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DDBE96121D50C528004A30EB /* GPSOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE96111D50C528004A30EB /* GPSOAuth.swift */; };
+		DDBE96161D50CCB0004A30EB /* PtcOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE96151D50CCB0004A30EB /* PtcOAuth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		A3E5B6A41D4174FB005DA98B /* pgoapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pgoapi.h; sourceTree = "<group>"; };
 		A3E5B6A61D4174FB005DA98B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDBE96111D50C528004A30EB /* GPSOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSOAuth.swift; sourceTree = "<group>"; };
+		DDBE96151D50CCB0004A30EB /* PtcOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PtcOAuth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				A3E5B6A61D4174FB005DA98B /* Info.plist */,
 				A35B131A1D417B7000C5A2A0 /* ExampleViewController.swift */,
 				DDBE96111D50C528004A30EB /* GPSOAuth.swift */,
+				DDBE96151D50CCB0004A30EB /* PtcOAuth.swift */,
 			);
 			path = pgoapi;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				A3316B1F1D4176A600AAF7E0 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */,
 				A3C863DA1D452127009888D6 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */,
 				A3316B281D4176A600AAF7E0 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */,
+				DDBE96161D50CCB0004A30EB /* PtcOAuth.swift in Sources */,
 				A3316B211D4176A600AAF7E0 /* Pogoprotos.Data.PogoprotosData.proto.swift in Sources */,
 				A3316B201D4176A600AAF7E0 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */,
 				A3316B2C1D4176A600AAF7E0 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */,
