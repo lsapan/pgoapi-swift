@@ -195,12 +195,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A3E5B6A91D4174FB005DA98B /* Build configuration list for PBXNativeTarget "pgoapi" */;
 			buildPhases = (
-				AB6808D99E894B06FE83AD0B /* 📦 Check Pods Manifest.lock */,
+				AB6808D99E894B06FE83AD0B /* [CP] Check Pods Manifest.lock */,
 				A3E5B69C1D4174FB005DA98B /* Sources */,
 				A3E5B69D1D4174FB005DA98B /* Frameworks */,
 				A3E5B69E1D4174FB005DA98B /* Headers */,
 				A3E5B69F1D4174FB005DA98B /* Resources */,
-				3425501A5E230A45D91B3D89 /* 📦 Copy Pods Resources */,
+				3425501A5E230A45D91B3D89 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,14 +253,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3425501A5E230A45D91B3D89 /* 📦 Copy Pods Resources */ = {
+		3425501A5E230A45D91B3D89 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,14 +268,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pgoapi/Pods-pgoapi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB6808D99E894B06FE83AD0B /* 📦 Check Pods Manifest.lock */ = {
+		AB6808D99E894B06FE83AD0B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
