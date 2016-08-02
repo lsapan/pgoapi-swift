@@ -20,7 +20,7 @@ Be sure to include ProtocolBuffers-Swift as shown above.
 ### Usage
 Start by simply adding `import PGoApi` to the top of your file.
 
-The API makes use of delegates, and a practical working example is in `Example/ViewController.swift`. It handles logging in, updating the API endpoint, etc.
+The API makes use of delegates, and a practical working example is in `Example/PGoApi/ViewController.swift`. It handles logging in, updating the API endpoint, etc.
 
 To summarize, create an instance of `PGoApiRequest` and call whichever RPC commands you'd like to run (optionally with parameters). Once you've queued up the commands you'd like, call `makeRequest` to fire off the request and subrequests. Your delegate should implement `didReceiveApiResponse` and `didReceiveApiError` to handle the response (or lack thereof).
 
