@@ -62,7 +62,9 @@ class PGoRpcApi {
         
         requestBuilder.latitude = PGoLocation.lat
         requestBuilder.longitude = PGoLocation.long
-        requestBuilder.altitude = PGoLocation.alt
+        if PGoLocation.alt != nil {
+            requestBuilder.altitude = PGoLocation.alt!
+        }
         
         if (!PGoSetting.receivedToken) {
             let authInfoBuilder = requestBuilder.getAuthInfoBuilder()
