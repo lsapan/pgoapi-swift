@@ -89,8 +89,8 @@ class GPSOAuth {
     }
     
     func login(withEmail email: String, withPassword password: String) {
-        GPSOAuth.sharedInstance.email = email.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        GPSOAuth.sharedInstance.password = password.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        GPSOAuth.sharedInstance.email = email.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        GPSOAuth.sharedInstance.password = password
         
         Endpoint.LoginProvider = AuthType.Google
         

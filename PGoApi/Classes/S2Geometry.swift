@@ -227,14 +227,14 @@ class S2CellId {
     }
     
     func lsb() -> UInt64 {
-        return UInt64(Int64(id) & -Int64(id))
+        return UInt64(bitPattern: Int64(bitPattern: id) & (0 &- Int64(bitPattern: id)))
     }
     
     func prev() -> S2CellId{
-        return S2CellId(id: id - (lsb() << 1))
+        return S2CellId(id: id - (lsb() << 30))
     }
     
     func next() -> S2CellId {
-        return S2CellId(id: id + (lsb() << 1))
+        return S2CellId(id: id + (lsb() << 30))
     }
 }

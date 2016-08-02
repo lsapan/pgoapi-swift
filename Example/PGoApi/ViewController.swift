@@ -15,7 +15,7 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         super.viewDidLoad()
 
         PGoAuth.sharedInstance.delegate = self
-        PGoAuth.sharedInstance.login("pokefan5370", password: "pokefan5370")
+        PGoAuth.sharedInstance.login("", password: "")
     }
     
     func didReceiveAuth() {
@@ -36,8 +36,8 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
             Api.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
             print("New endpoint: \(Api.endpoint)")
             let request = PGoApiRequest()
-            request.getMapObjects(37.331686, longitude: -122.030765)
-            request.makeRequest(.GetMapObjects, delegate: self)
+            // request.getMapObjects(37.331686, longitude: -122.030765)
+            // request.makeRequest(.GetMapObjects, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
             print(response.response)
