@@ -6,6 +6,17 @@ This should be more than enough to get anyone going, especially since all of the
 
 Special thanks to https://github.com/tejado/pgoapi and https://github.com/AeonLucid/POGOProtos for making this possible.
 
+### Installation
+You can install PGoApi with CocoaPods. It isn't fully published yet, but you can install it from git:
+
+```
+use_frameworks!
+pod 'PGoApi', :git => 'https://github.com/lsapan/pgoapi-swift', :branch => 'master'
+pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift', :branch => 'ProtoBuf3.0-Swift2.0'
+```
+
+Be sure to include ProtocolBuffers-Swift as shown above.
+
 ### Usage
 The API makes use of delegates, and a practical working example is in `ExampleViewController.swift`. It handles logging in, updating the API endpoint, etc.
 
