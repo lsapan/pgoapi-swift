@@ -409,7 +409,7 @@ public class PGoApiRequest {
         }))
     }
     
-    public func incenseEncounter(encounterId: Int64, encounterLocation: String) {
+    public func incenseEncounter(encounterId: UInt64, encounterLocation: String) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.encounterLocation = encounterLocation

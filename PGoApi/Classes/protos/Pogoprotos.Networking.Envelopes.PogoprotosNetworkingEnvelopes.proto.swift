@@ -26,7 +26,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.RequestEnvelope, rhs: Pogop
   fieldCheck = fieldCheck && (lhs.hasStatusCode == rhs.hasStatusCode) && (!lhs.hasStatusCode || lhs.statusCode == rhs.statusCode)
   fieldCheck = fieldCheck && (lhs.hasRequestId == rhs.hasRequestId) && (!lhs.hasRequestId || lhs.requestId == rhs.requestId)
   fieldCheck = fieldCheck && (lhs.requests == rhs.requests)
-  fieldCheck = fieldCheck && (lhs.hasUnknown6 == rhs.hasUnknown6) && (!lhs.hasUnknown6 || lhs.unknown6 == rhs.unknown6)
+  fieldCheck = fieldCheck && (lhs.unknown6 == rhs.unknown6)
   fieldCheck = fieldCheck && (lhs.hasLatitude == rhs.hasLatitude) && (!lhs.hasLatitude || lhs.latitude == rhs.latitude)
   fieldCheck = fieldCheck && (lhs.hasLongitude == rhs.hasLongitude) && (!lhs.hasLongitude || lhs.longitude == rhs.longitude)
   fieldCheck = fieldCheck && (lhs.hasAltitude == rhs.hasAltitude) && (!lhs.hasAltitude || lhs.altitude == rhs.altitude)
@@ -67,7 +67,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.ResponseEnvelope, rhs: Pogo
   fieldCheck = fieldCheck && (lhs.hasStatusCode == rhs.hasStatusCode) && (!lhs.hasStatusCode || lhs.statusCode == rhs.statusCode)
   fieldCheck = fieldCheck && (lhs.hasRequestId == rhs.hasRequestId) && (!lhs.hasRequestId || lhs.requestId == rhs.requestId)
   fieldCheck = fieldCheck && (lhs.hasApiUrl == rhs.hasApiUrl) && (!lhs.hasApiUrl || lhs.apiUrl == rhs.apiUrl)
-  fieldCheck = fieldCheck && (lhs.hasUnknown6 == rhs.hasUnknown6) && (!lhs.hasUnknown6 || lhs.unknown6 == rhs.unknown6)
+  fieldCheck = fieldCheck && (lhs.unknown6 == rhs.unknown6)
   fieldCheck = fieldCheck && (lhs.hasAuthTicket == rhs.hasAuthTicket) && (!lhs.hasAuthTicket || lhs.authTicket == rhs.authTicket)
   fieldCheck = fieldCheck && (lhs.returns == rhs.returns)
   fieldCheck = fieldCheck && (lhs.hasError == rhs.hasError) && (!lhs.hasError || lhs.error == rhs.error)
@@ -92,7 +92,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Unknown6, rhs: Pogoprotos.N
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasUnknown1 == rhs.hasUnknown1) && (!lhs.hasUnknown1 || lhs.unknown1 == rhs.unknown1)
+  fieldCheck = fieldCheck && (lhs.hasRequestType == rhs.hasRequestType) && (!lhs.hasRequestType || lhs.requestType == rhs.requestType)
   fieldCheck = fieldCheck && (lhs.hasUnknown2 == rhs.hasUnknown2) && (!lhs.hasUnknown2 || lhs.unknown2 == rhs.unknown2)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
@@ -113,7 +113,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Unknown6Response, rhs: Pogo
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasUnknown1 == rhs.hasUnknown1) && (!lhs.hasUnknown1 || lhs.unknown1 == rhs.unknown1)
+  fieldCheck = fieldCheck && (lhs.hasResponseType == rhs.hasResponseType) && (!lhs.hasResponseType || lhs.responseType == rhs.responseType)
   fieldCheck = fieldCheck && (lhs.hasUnknown2 == rhs.hasUnknown2) && (!lhs.hasUnknown2 || lhs.unknown2 == rhs.unknown2)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
@@ -125,6 +125,36 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2, 
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasUnknown1 == rhs.hasUnknown1) && (!lhs.hasUnknown1 || lhs.unknown1 == rhs.unknown1)
+  fieldCheck = fieldCheck && (lhs.items == rhs.items)
+  fieldCheck = fieldCheck && (lhs.playerCurrencies == rhs.playerCurrencies)
+  fieldCheck = fieldCheck && (lhs.hasUnknown4 == rhs.hasUnknown4) && (!lhs.hasUnknown4 || lhs.unknown4 == rhs.unknown4)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem, rhs: Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasItemId == rhs.hasItemId) && (!lhs.hasItemId || lhs.itemId == rhs.itemId)
+  fieldCheck = fieldCheck && (lhs.hasIsIap == rhs.hasIsIap) && (!lhs.hasIsIap || lhs.isIap == rhs.isIap)
+  fieldCheck = fieldCheck && (lhs.hasCurrencyToBuy == rhs.hasCurrencyToBuy) && (!lhs.hasCurrencyToBuy || lhs.currencyToBuy == rhs.currencyToBuy)
+  fieldCheck = fieldCheck && (lhs.hasYieldsCurrency == rhs.hasYieldsCurrency) && (!lhs.hasYieldsCurrency || lhs.yieldsCurrency == rhs.yieldsCurrency)
+  fieldCheck = fieldCheck && (lhs.hasYieldsItem == rhs.hasYieldsItem) && (!lhs.hasYieldsItem || lhs.yieldsItem == rhs.yieldsItem)
+  fieldCheck = fieldCheck && (lhs.tags == rhs.tags)
+  fieldCheck = fieldCheck && (lhs.hasUnknown7 == rhs.hasUnknown7) && (!lhs.hasUnknown7 || lhs.unknown7 == rhs.unknown7)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag, rhs: Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasKey == rhs.hasKey) && (!lhs.hasKey || lhs.key == rhs.key)
+  fieldCheck = fieldCheck && (lhs.hasValue == rhs.hasValue) && (!lhs.hasValue || lhs.value == rhs.value)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -143,6 +173,8 @@ public extension Pogoprotos.Networking.Envelopes {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(extensionRegistry)
       Pogoprotos.Networking.Requests.PogoprotosNetworkingRequestsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
     }
     public func registerAllExtensions(registry:ExtensionRegistry) {
     }
@@ -1096,8 +1128,7 @@ public extension Pogoprotos.Networking.Envelopes {
     public private(set) var requestId:UInt64 = UInt64(0)
 
     public private(set) var requests:Array<Pogoprotos.Networking.Requests.Request>  = Array<Pogoprotos.Networking.Requests.Request>()
-    public private(set) var hasUnknown6:Bool = false
-    public private(set) var unknown6:Pogoprotos.Networking.Envelopes.Unknown6!
+    public private(set) var unknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6>  = Array<Pogoprotos.Networking.Envelopes.Unknown6>()
     public private(set) var hasLatitude:Bool = false
     public private(set) var latitude:Double = Double(0)
 
@@ -1130,8 +1161,8 @@ public extension Pogoprotos.Networking.Envelopes {
       for oneElementRequests in requests {
           try output.writeMessage(4, value:oneElementRequests)
       }
-      if hasUnknown6 {
-        try output.writeMessage(6, value:unknown6)
+      for oneElementUnknown6 in unknown6 {
+          try output.writeMessage(6, value:oneElementUnknown6)
       }
       if hasLatitude {
         try output.writeDouble(7, value:latitude)
@@ -1169,10 +1200,8 @@ public extension Pogoprotos.Networking.Envelopes {
       for oneElementRequests in requests {
           serialize_size += oneElementRequests.computeMessageSize(4)
       }
-      if hasUnknown6 {
-          if let varSizeunknown6 = unknown6?.computeMessageSize(6) {
-              serialize_size += varSizeunknown6
-          }
+      for oneElementUnknown6 in unknown6 {
+          serialize_size += oneElementUnknown6.computeMessageSize(6)
       }
       if hasLatitude {
         serialize_size += latitude.computeDoubleSize(7)
@@ -1266,8 +1295,13 @@ public extension Pogoprotos.Networking.Envelopes {
           }
         jsonMap["requests"] = jsonArrayRequests
       }
-      if hasUnknown6 {
-        jsonMap["unknown6"] = try unknown6.encode()
+      if !unknown6.isEmpty {
+        var jsonArrayUnknown6:Array<Dictionary<String,AnyObject>> = []
+          for oneValueUnknown6 in unknown6 {
+            let ecodedMessageUnknown6 = try oneValueUnknown6.encode()
+            jsonArrayUnknown6 += [ecodedMessageUnknown6]
+          }
+        jsonMap["unknown6"] = jsonArrayUnknown6
       }
       if hasLatitude {
         jsonMap["latitude"] = NSNumber(double:latitude)
@@ -1310,12 +1344,12 @@ public extension Pogoprotos.Networking.Envelopes {
           output += "\(indent)}\n"
           requestsElementIndex += 1
       }
-      if hasUnknown6 {
-        output += "\(indent) unknown6 {\n"
-        if let outDescUnknown6 = unknown6 {
-          output += try outDescUnknown6.getDescription("\(indent)  ")
-        }
-        output += "\(indent) }\n"
+      var unknown6ElementIndex:Int = 0
+      for oneElementUnknown6 in unknown6 {
+          output += "\(indent) unknown6[\(unknown6ElementIndex)] {\n"
+          output += try oneElementUnknown6.getDescription("\(indent)  ")
+          output += "\(indent)}\n"
+          unknown6ElementIndex += 1
       }
       if hasLatitude {
         output += "\(indent) latitude: \(latitude) \n"
@@ -1358,10 +1392,8 @@ public extension Pogoprotos.Networking.Envelopes {
             for oneElementRequests in requests {
                 hashCode = (hashCode &* 31) &+ oneElementRequests.hashValue
             }
-            if hasUnknown6 {
-                if let hashValueunknown6 = unknown6?.hashValue {
-                    hashCode = (hashCode &* 31) &+ hashValueunknown6
-                }
+            for oneElementUnknown6 in unknown6 {
+                hashCode = (hashCode &* 31) &+ oneElementUnknown6.hashValue
             }
             if hasLatitude {
                hashCode = (hashCode &* 31) &+ latitude.hashValue
@@ -1475,55 +1507,20 @@ public extension Pogoprotos.Networking.Envelopes {
         builderResult.requests.removeAll(keepCapacity: false)
         return self
       }
-      public var hasUnknown6:Bool {
+      public var unknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6> {
            get {
-               return builderResult.hasUnknown6
-           }
-      }
-      public var unknown6:Pogoprotos.Networking.Envelopes.Unknown6! {
-           get {
-               if unknown6Builder_ != nil {
-                  builderResult.unknown6 = unknown6Builder_.getMessage()
-               }
                return builderResult.unknown6
            }
            set (value) {
-               builderResult.hasUnknown6 = true
                builderResult.unknown6 = value
            }
       }
-      private var unknown6Builder_:Pogoprotos.Networking.Envelopes.Unknown6.Builder! {
-           didSet {
-              builderResult.hasUnknown6 = true
-           }
-      }
-      public func getUnknown6Builder() -> Pogoprotos.Networking.Envelopes.Unknown6.Builder {
-        if unknown6Builder_ == nil {
-           unknown6Builder_ = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
-           builderResult.unknown6 = unknown6Builder_.getMessage()
-           if unknown6 != nil {
-              try! unknown6Builder_.mergeFrom(unknown6)
-           }
-        }
-        return unknown6Builder_
-      }
-      public func setUnknown6(value:Pogoprotos.Networking.Envelopes.Unknown6!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setUnknown6(value:Array<Pogoprotos.Networking.Envelopes.Unknown6>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.unknown6 = value
         return self
       }
-      public func mergeUnknown6(value:Pogoprotos.Networking.Envelopes.Unknown6) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        if builderResult.hasUnknown6 {
-          builderResult.unknown6 = try Pogoprotos.Networking.Envelopes.Unknown6.builderWithPrototype(builderResult.unknown6).mergeFrom(value).buildPartial()
-        } else {
-          builderResult.unknown6 = value
-        }
-        builderResult.hasUnknown6 = true
-        return self
-      }
       public func clearUnknown6() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        unknown6Builder_ = nil
-        builderResult.hasUnknown6 = false
-        builderResult.unknown6 = nil
+        builderResult.unknown6.removeAll(keepCapacity: false)
         return self
       }
       public var hasLatitude:Bool {
@@ -1753,8 +1750,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if !other.requests.isEmpty  {
            builderResult.requests += other.requests
         }
-        if (other.hasUnknown6) {
-            try mergeUnknown6(other.unknown6)
+        if !other.unknown6.isEmpty  {
+           builderResult.unknown6 += other.unknown6
         }
         if other.hasLatitude {
              latitude = other.latitude
@@ -1801,12 +1798,9 @@ public extension Pogoprotos.Networking.Envelopes {
             requests += [subBuilder.buildPartial()]
 
           case 50:
-            let subBuilder:Pogoprotos.Networking.Envelopes.Unknown6.Builder = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
-            if hasUnknown6 {
-              try subBuilder.mergeFrom(unknown6)
-            }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
-            unknown6 = subBuilder.buildPartial()
+            let subBuilder = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
+            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+            unknown6 += [subBuilder.buildPartial()]
 
           case 57:
             latitude = try input.readDouble()
@@ -1861,9 +1855,14 @@ public extension Pogoprotos.Networking.Envelopes {
           }
           resultDecodedBuilder.requests = jsonArrayRequests
         }
-        if let jsonValueUnknown6 = jsonMap["unknown6"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.unknown6 = try Pogoprotos.Networking.Envelopes.Unknown6.Builder.decodeToBuilder(jsonValueUnknown6).build()
+        if let jsonValueUnknown6 = jsonMap["unknown6"] as? Array<Dictionary<String,AnyObject>> {
+          var jsonArrayUnknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6> = []
+          for oneValueUnknown6 in jsonValueUnknown6 {
+            let messageFromStringUnknown6 = try Pogoprotos.Networking.Envelopes.Unknown6.Builder.decodeToBuilder(oneValueUnknown6).build()
 
+            jsonArrayUnknown6 += [messageFromStringUnknown6]
+          }
+          resultDecodedBuilder.unknown6 = jsonArrayUnknown6
         }
         if let jsonValueLatitude = jsonMap["latitude"] as? NSNumber {
           resultDecodedBuilder.latitude = jsonValueLatitude.doubleValue
@@ -2243,8 +2242,7 @@ public extension Pogoprotos.Networking.Envelopes {
     public private(set) var hasApiUrl:Bool = false
     public private(set) var apiUrl:String = ""
 
-    public private(set) var hasUnknown6:Bool = false
-    public private(set) var unknown6:Pogoprotos.Networking.Envelopes.Unknown6Response!
+    public private(set) var unknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6Response>  = Array<Pogoprotos.Networking.Envelopes.Unknown6Response>()
     public private(set) var hasAuthTicket:Bool = false
     public private(set) var authTicket:Pogoprotos.Networking.Envelopes.AuthTicket!
     public private(set) var returns:Array<NSData> = Array<NSData>()
@@ -2267,8 +2265,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasApiUrl {
         try output.writeString(3, value:apiUrl)
       }
-      if hasUnknown6 {
-        try output.writeMessage(6, value:unknown6)
+      for oneElementUnknown6 in unknown6 {
+          try output.writeMessage(6, value:oneElementUnknown6)
       }
       if hasAuthTicket {
         try output.writeMessage(7, value:authTicket)
@@ -2299,10 +2297,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasApiUrl {
         serialize_size += apiUrl.computeStringSize(3)
       }
-      if hasUnknown6 {
-          if let varSizeunknown6 = unknown6?.computeMessageSize(6) {
-              serialize_size += varSizeunknown6
-          }
+      for oneElementUnknown6 in unknown6 {
+          serialize_size += oneElementUnknown6.computeMessageSize(6)
       }
       if hasAuthTicket {
           if let varSizeauthTicket = authTicket?.computeMessageSize(7) {
@@ -2383,8 +2379,13 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasApiUrl {
         jsonMap["apiUrl"] = apiUrl
       }
-      if hasUnknown6 {
-        jsonMap["unknown6"] = try unknown6.encode()
+      if !unknown6.isEmpty {
+        var jsonArrayUnknown6:Array<Dictionary<String,AnyObject>> = []
+          for oneValueUnknown6 in unknown6 {
+            let ecodedMessageUnknown6 = try oneValueUnknown6.encode()
+            jsonArrayUnknown6 += [ecodedMessageUnknown6]
+          }
+        jsonMap["unknown6"] = jsonArrayUnknown6
       }
       if hasAuthTicket {
         jsonMap["authTicket"] = try authTicket.encode()
@@ -2418,12 +2419,12 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasApiUrl {
         output += "\(indent) apiUrl: \(apiUrl) \n"
       }
-      if hasUnknown6 {
-        output += "\(indent) unknown6 {\n"
-        if let outDescUnknown6 = unknown6 {
-          output += try outDescUnknown6.getDescription("\(indent)  ")
-        }
-        output += "\(indent) }\n"
+      var unknown6ElementIndex:Int = 0
+      for oneElementUnknown6 in unknown6 {
+          output += "\(indent) unknown6[\(unknown6ElementIndex)] {\n"
+          output += try oneElementUnknown6.getDescription("\(indent)  ")
+          output += "\(indent)}\n"
+          unknown6ElementIndex += 1
       }
       if hasAuthTicket {
         output += "\(indent) authTicket {\n"
@@ -2455,10 +2456,8 @@ public extension Pogoprotos.Networking.Envelopes {
             if hasApiUrl {
                hashCode = (hashCode &* 31) &+ apiUrl.hashValue
             }
-            if hasUnknown6 {
-                if let hashValueunknown6 = unknown6?.hashValue {
-                    hashCode = (hashCode &* 31) &+ hashValueunknown6
-                }
+            for oneElementUnknown6 in unknown6 {
+                hashCode = (hashCode &* 31) &+ oneElementUnknown6.hashValue
             }
             if hasAuthTicket {
                 if let hashValueauthTicket = authTicket?.hashValue {
@@ -2568,55 +2567,20 @@ public extension Pogoprotos.Networking.Envelopes {
            builderResult.apiUrl = ""
            return self
       }
-      public var hasUnknown6:Bool {
+      public var unknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6Response> {
            get {
-               return builderResult.hasUnknown6
-           }
-      }
-      public var unknown6:Pogoprotos.Networking.Envelopes.Unknown6Response! {
-           get {
-               if unknown6Builder_ != nil {
-                  builderResult.unknown6 = unknown6Builder_.getMessage()
-               }
                return builderResult.unknown6
            }
            set (value) {
-               builderResult.hasUnknown6 = true
                builderResult.unknown6 = value
            }
       }
-      private var unknown6Builder_:Pogoprotos.Networking.Envelopes.Unknown6Response.Builder! {
-           didSet {
-              builderResult.hasUnknown6 = true
-           }
-      }
-      public func getUnknown6Builder() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Builder {
-        if unknown6Builder_ == nil {
-           unknown6Builder_ = Pogoprotos.Networking.Envelopes.Unknown6Response.Builder()
-           builderResult.unknown6 = unknown6Builder_.getMessage()
-           if unknown6 != nil {
-              try! unknown6Builder_.mergeFrom(unknown6)
-           }
-        }
-        return unknown6Builder_
-      }
-      public func setUnknown6(value:Pogoprotos.Networking.Envelopes.Unknown6Response!) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setUnknown6(value:Array<Pogoprotos.Networking.Envelopes.Unknown6Response>) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.unknown6 = value
         return self
       }
-      public func mergeUnknown6(value:Pogoprotos.Networking.Envelopes.Unknown6Response) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-        if builderResult.hasUnknown6 {
-          builderResult.unknown6 = try Pogoprotos.Networking.Envelopes.Unknown6Response.builderWithPrototype(builderResult.unknown6).mergeFrom(value).buildPartial()
-        } else {
-          builderResult.unknown6 = value
-        }
-        builderResult.hasUnknown6 = true
-        return self
-      }
       public func clearUnknown6() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-        unknown6Builder_ = nil
-        builderResult.hasUnknown6 = false
-        builderResult.unknown6 = nil
+        builderResult.unknown6.removeAll(keepCapacity: false)
         return self
       }
       public var hasAuthTicket:Bool {
@@ -2742,8 +2706,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if other.hasApiUrl {
              apiUrl = other.apiUrl
         }
-        if (other.hasUnknown6) {
-            try mergeUnknown6(other.unknown6)
+        if !other.unknown6.isEmpty  {
+           builderResult.unknown6 += other.unknown6
         }
         if (other.hasAuthTicket) {
             try mergeAuthTicket(other.authTicket)
@@ -2779,12 +2743,9 @@ public extension Pogoprotos.Networking.Envelopes {
             apiUrl = try input.readString()
 
           case 50:
-            let subBuilder:Pogoprotos.Networking.Envelopes.Unknown6Response.Builder = Pogoprotos.Networking.Envelopes.Unknown6Response.Builder()
-            if hasUnknown6 {
-              try subBuilder.mergeFrom(unknown6)
-            }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
-            unknown6 = subBuilder.buildPartial()
+            let subBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Builder()
+            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+            unknown6 += [subBuilder.buildPartial()]
 
           case 58:
             let subBuilder:Pogoprotos.Networking.Envelopes.AuthTicket.Builder = Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
@@ -2819,9 +2780,14 @@ public extension Pogoprotos.Networking.Envelopes {
         if let jsonValueApiUrl = jsonMap["apiUrl"] as? String {
           resultDecodedBuilder.apiUrl = jsonValueApiUrl
         }
-        if let jsonValueUnknown6 = jsonMap["unknown6"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.unknown6 = try Pogoprotos.Networking.Envelopes.Unknown6Response.Builder.decodeToBuilder(jsonValueUnknown6).build()
+        if let jsonValueUnknown6 = jsonMap["unknown6"] as? Array<Dictionary<String,AnyObject>> {
+          var jsonArrayUnknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6Response> = []
+          for oneValueUnknown6 in jsonValueUnknown6 {
+            let messageFromStringUnknown6 = try Pogoprotos.Networking.Envelopes.Unknown6Response.Builder.decodeToBuilder(oneValueUnknown6).build()
 
+            jsonArrayUnknown6 += [messageFromStringUnknown6]
+          }
+          resultDecodedBuilder.unknown6 = jsonArrayUnknown6
         }
         if let jsonValueAuthTicket = jsonMap["authTicket"] as? Dictionary<String,AnyObject> {
           resultDecodedBuilder.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonValueAuthTicket).build()
@@ -3086,9 +3052,9 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration end
 
-    //6
-    public private(set) var hasUnknown1:Bool = false
-    public private(set) var unknown1:Int32 = Int32(0)
+    // 5 for IAPs, 6 is unknown still
+    public private(set) var hasRequestType:Bool = false
+    public private(set) var requestType:Int32 = Int32(0)
 
     public private(set) var hasUnknown2:Bool = false
     public private(set) var unknown2:Pogoprotos.Networking.Envelopes.Unknown6.Unknown2!
@@ -3099,8 +3065,8 @@ public extension Pogoprotos.Networking.Envelopes {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
-      if hasUnknown1 {
-        try output.writeInt32(1, value:unknown1)
+      if hasRequestType {
+        try output.writeInt32(1, value:requestType)
       }
       if hasUnknown2 {
         try output.writeMessage(2, value:unknown2)
@@ -3114,8 +3080,8 @@ public extension Pogoprotos.Networking.Envelopes {
       }
 
       serialize_size = 0
-      if hasUnknown1 {
-        serialize_size += unknown1.computeInt32Size(1)
+      if hasRequestType {
+        serialize_size += requestType.computeInt32Size(1)
       }
       if hasUnknown2 {
           if let varSizeunknown2 = unknown2?.computeMessageSize(2) {
@@ -3178,8 +3144,8 @@ public extension Pogoprotos.Networking.Envelopes {
       }
 
       var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-      if hasUnknown1 {
-        jsonMap["unknown1"] = NSNumber(int:unknown1)
+      if hasRequestType {
+        jsonMap["requestType"] = NSNumber(int:requestType)
       }
       if hasUnknown2 {
         jsonMap["unknown2"] = try unknown2.encode()
@@ -3194,8 +3160,8 @@ public extension Pogoprotos.Networking.Envelopes {
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
-      if hasUnknown1 {
-        output += "\(indent) unknown1: \(unknown1) \n"
+      if hasRequestType {
+        output += "\(indent) requestType: \(requestType) \n"
       }
       if hasUnknown2 {
         output += "\(indent) unknown2 {\n"
@@ -3210,8 +3176,8 @@ public extension Pogoprotos.Networking.Envelopes {
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
-            if hasUnknown1 {
-               hashCode = (hashCode &* 31) &+ unknown1.hashValue
+            if hasRequestType {
+               hashCode = (hashCode &* 31) &+ requestType.hashValue
             }
             if hasUnknown2 {
                 if let hashValueunknown2 = unknown2?.hashValue {
@@ -3246,27 +3212,27 @@ public extension Pogoprotos.Networking.Envelopes {
       required override public init () {
          super.init()
       }
-      public var hasUnknown1:Bool {
+      public var hasRequestType:Bool {
            get {
-                return builderResult.hasUnknown1
+                return builderResult.hasRequestType
            }
       }
-      public var unknown1:Int32 {
+      public var requestType:Int32 {
            get {
-                return builderResult.unknown1
+                return builderResult.requestType
            }
            set (value) {
-               builderResult.hasUnknown1 = true
-               builderResult.unknown1 = value
+               builderResult.hasRequestType = true
+               builderResult.requestType = value
            }
       }
-      public func setUnknown1(value:Int32) -> Pogoprotos.Networking.Envelopes.Unknown6.Builder {
-        self.unknown1 = value
+      public func setRequestType(value:Int32) -> Pogoprotos.Networking.Envelopes.Unknown6.Builder {
+        self.requestType = value
         return self
       }
-      public func clearUnknown1() -> Pogoprotos.Networking.Envelopes.Unknown6.Builder{
-           builderResult.hasUnknown1 = false
-           builderResult.unknown1 = Int32(0)
+      public func clearRequestType() -> Pogoprotos.Networking.Envelopes.Unknown6.Builder{
+           builderResult.hasRequestType = false
+           builderResult.requestType = Int32(0)
            return self
       }
       public var hasUnknown2:Bool {
@@ -3344,8 +3310,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if other == Pogoprotos.Networking.Envelopes.Unknown6() {
          return self
         }
-        if other.hasUnknown1 {
-             unknown1 = other.unknown1
+        if other.hasRequestType {
+             requestType = other.requestType
         }
         if (other.hasUnknown2) {
             try mergeUnknown2(other.unknown2)
@@ -3366,7 +3332,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
 
           case 8:
-            unknown1 = try input.readInt32()
+            requestType = try input.readInt32()
 
           case 18:
             let subBuilder:Pogoprotos.Networking.Envelopes.Unknown6.Unknown2.Builder = Pogoprotos.Networking.Envelopes.Unknown6.Unknown2.Builder()
@@ -3386,8 +3352,8 @@ public extension Pogoprotos.Networking.Envelopes {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
-        if let jsonValueUnknown1 = jsonMap["unknown1"] as? NSNumber {
-          resultDecodedBuilder.unknown1 = jsonValueUnknown1.intValue
+        if let jsonValueRequestType = jsonMap["requestType"] as? NSNumber {
+          resultDecodedBuilder.requestType = jsonValueRequestType.intValue
         }
         if let jsonValueUnknown2 = jsonMap["unknown2"] as? Dictionary<String,AnyObject> {
           resultDecodedBuilder.unknown2 = try Pogoprotos.Networking.Envelopes.Unknown6.Unknown2.Builder.decodeToBuilder(jsonValueUnknown2).build()
@@ -3412,8 +3378,969 @@ public extension Pogoprotos.Networking.Envelopes {
     //Nested type declaration start
 
       final public class Unknown2 : GeneratedMessage, GeneratedMessageProtocol {
+
+
+        //Nested type declaration start
+
+          final public class StoreItem : GeneratedMessage, GeneratedMessageProtocol {
+
+
+            //Nested type declaration start
+
+              final public class Tag : GeneratedMessage, GeneratedMessageProtocol {
+                public private(set) var hasKey:Bool = false
+                public private(set) var key:String = ""
+
+                public private(set) var hasValue:Bool = false
+                public private(set) var value:String = ""
+
+                required public init() {
+                     super.init()
+                }
+                override public func isInitialized() -> Bool {
+                 return true
+                }
+                override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+                  if hasKey {
+                    try output.writeString(1, value:key)
+                  }
+                  if hasValue {
+                    try output.writeString(2, value:value)
+                  }
+                  try unknownFields.writeToCodedOutputStream(output)
+                }
+                override public func serializedSize() -> Int32 {
+                  var serialize_size:Int32 = memoizedSerializedSize
+                  if serialize_size != -1 {
+                   return serialize_size
+                  }
+
+                  serialize_size = 0
+                  if hasKey {
+                    serialize_size += key.computeStringSize(1)
+                  }
+                  if hasValue {
+                    serialize_size += value.computeStringSize(2)
+                  }
+                  serialize_size += unknownFields.serializedSize()
+                  memoizedSerializedSize = serialize_size
+                  return serialize_size
+                }
+                public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag> {
+                  var mergedArray = Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag>()
+                  while let value = try parseFromDelimitedFromInputStream(input) {
+                    mergedArray += [value]
+                  }
+                  return mergedArray
+                }
+                public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag? {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeDelimitedFromInputStream(input)?.build()
+                }
+                public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+                }
+                public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+                }
+                public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFromInputStream(input).build()
+                }
+                public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+                }
+                public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFromCodedInputStream(input).build()
+                }
+                public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+                }
+                public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                  return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.classBuilder() as! Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder
+                }
+                public func getBuilder() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                  return classBuilder() as! Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder
+                }
+                override public class func classBuilder() -> MessageBuilder {
+                  return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder()
+                }
+                override public func classBuilder() -> MessageBuilder {
+                  return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder()
+                }
+                public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.builderWithPrototype(self)
+                }
+                public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder().mergeFrom(prototype)
+                }
+                override public func encode() throws -> Dictionary<String,AnyObject> {
+                  guard isInitialized() else {
+                    throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+                  }
+
+                  var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+                  if hasKey {
+                    jsonMap["key"] = key
+                  }
+                  if hasValue {
+                    jsonMap["value"] = value
+                  }
+                  return jsonMap
+                }
+                override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder.decodeToBuilder(jsonMap).build()
+                }
+                override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                  return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder.fromJSONToBuilder(data).build()
+                }
+                override public func getDescription(indent:String) throws -> String {
+                  var output = ""
+                  if hasKey {
+                    output += "\(indent) key: \(key) \n"
+                  }
+                  if hasValue {
+                    output += "\(indent) value: \(value) \n"
+                  }
+                  output += unknownFields.getDescription(indent)
+                  return output
+                }
+                override public var hashValue:Int {
+                    get {
+                        var hashCode:Int = 7
+                        if hasKey {
+                           hashCode = (hashCode &* 31) &+ key.hashValue
+                        }
+                        if hasValue {
+                           hashCode = (hashCode &* 31) &+ value.hashValue
+                        }
+                        hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                        return hashCode
+                    }
+                }
+
+
+                //Meta information declaration start
+
+                override public class func className() -> String {
+                    return "Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag"
+                }
+                override public func className() -> String {
+                    return "Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag"
+                }
+                override public func classMetaType() -> GeneratedMessage.Type {
+                    return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.self
+                }
+                //Meta information declaration end
+
+                final public class Builder : GeneratedMessageBuilder {
+                  private var builderResult:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag()
+                  public func getMessage() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                      return builderResult
+                  }
+
+                  required override public init () {
+                     super.init()
+                  }
+                  public var hasKey:Bool {
+                       get {
+                            return builderResult.hasKey
+                       }
+                  }
+                  public var key:String {
+                       get {
+                            return builderResult.key
+                       }
+                       set (value) {
+                           builderResult.hasKey = true
+                           builderResult.key = value
+                       }
+                  }
+                  public func setKey(value:String) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    self.key = value
+                    return self
+                  }
+                  public func clearKey() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder{
+                       builderResult.hasKey = false
+                       builderResult.key = ""
+                       return self
+                  }
+                  public var hasValue:Bool {
+                       get {
+                            return builderResult.hasValue
+                       }
+                  }
+                  public var value:String {
+                       get {
+                            return builderResult.value
+                       }
+                       set (value) {
+                           builderResult.hasValue = true
+                           builderResult.value = value
+                       }
+                  }
+                  public func setValue(value:String) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    self.value = value
+                    return self
+                  }
+                  public func clearValue() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder{
+                       builderResult.hasValue = false
+                       builderResult.value = ""
+                       return self
+                  }
+                  override public var internalGetResult:GeneratedMessage {
+                       get {
+                          return builderResult
+                       }
+                  }
+                  override public func clear() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    builderResult = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag()
+                    return self
+                  }
+                  override public func clone() throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.builderWithPrototype(builderResult)
+                  }
+                  override public func build() throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                       try checkInitialized()
+                       return buildPartial()
+                  }
+                  public func buildPartial() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag {
+                    let returnMe:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag = builderResult
+                    return returnMe
+                  }
+                  public func mergeFrom(other:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    if other == Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag() {
+                     return self
+                    }
+                    if other.hasKey {
+                         key = other.key
+                    }
+                    if other.hasValue {
+                         value = other.value
+                    }
+                    try mergeUnknownFields(other.unknownFields)
+                    return self
+                  }
+                  override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                       return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+                  }
+                  override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+                    while (true) {
+                      let protobufTag = try input.readTag()
+                      switch protobufTag {
+                      case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                      case 10:
+                        key = try input.readString()
+
+                      case 18:
+                        value = try input.readString()
+
+                      default:
+                        if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                           unknownFields = try unknownFieldsBuilder.build()
+                           return self
+                        }
+                      }
+                    }
+                  }
+                  override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder()
+                    if let jsonValueKey = jsonMap["key"] as? String {
+                      resultDecodedBuilder.key = jsonValueKey
+                    }
+                    if let jsonValueValue = jsonMap["value"] as? String {
+                      resultDecodedBuilder.value = jsonValueValue
+                    }
+                    return resultDecodedBuilder
+                  }
+                  override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder {
+                    let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+                    guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+                      throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+                    }
+                    return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder.decodeToBuilder(jsDataCast)
+                  }
+                }
+
+              }
+
+            //Nested type declaration end
+
+            // Internal ID (probably for Google Play/App Store) example: "pgorelease.incenseordinary.1"
+            public private(set) var hasItemId:Bool = false
+            public private(set) var itemId:String = ""
+
+            // If true, this item is bought with real currency (USD, etc.) through the Play/App Store instead of Pokecoins
+            public private(set) var hasIsIap:Bool = false
+            public private(set) var isIap:Bool = false
+
+            public private(set) var hasCurrencyToBuy:Bool = false
+            public private(set) var currencyToBuy:Pogoprotos.Data.Player.Currency!
+            public private(set) var hasYieldsCurrency:Bool = false
+            public private(set) var yieldsCurrency:Pogoprotos.Data.Player.Currency!
+            public private(set) var hasYieldsItem:Bool = false
+            public private(set) var yieldsItem:Pogoprotos.Inventory.Item.ItemData!
+            public private(set) var tags:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag>  = Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag>()
+            // Possibly something to toggle visibility in the store/purchasibility?
+            public private(set) var hasUnknown7:Bool = false
+            public private(set) var unknown7:Int32 = Int32(0)
+
+            required public init() {
+                 super.init()
+            }
+            override public func isInitialized() -> Bool {
+             return true
+            }
+            override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+              if hasItemId {
+                try output.writeString(1, value:itemId)
+              }
+              if hasIsIap {
+                try output.writeBool(2, value:isIap)
+              }
+              if hasCurrencyToBuy {
+                try output.writeMessage(3, value:currencyToBuy)
+              }
+              if hasYieldsCurrency {
+                try output.writeMessage(4, value:yieldsCurrency)
+              }
+              if hasYieldsItem {
+                try output.writeMessage(5, value:yieldsItem)
+              }
+              for oneElementTags in tags {
+                  try output.writeMessage(6, value:oneElementTags)
+              }
+              if hasUnknown7 {
+                try output.writeInt32(7, value:unknown7)
+              }
+              try unknownFields.writeToCodedOutputStream(output)
+            }
+            override public func serializedSize() -> Int32 {
+              var serialize_size:Int32 = memoizedSerializedSize
+              if serialize_size != -1 {
+               return serialize_size
+              }
+
+              serialize_size = 0
+              if hasItemId {
+                serialize_size += itemId.computeStringSize(1)
+              }
+              if hasIsIap {
+                serialize_size += isIap.computeBoolSize(2)
+              }
+              if hasCurrencyToBuy {
+                  if let varSizecurrencyToBuy = currencyToBuy?.computeMessageSize(3) {
+                      serialize_size += varSizecurrencyToBuy
+                  }
+              }
+              if hasYieldsCurrency {
+                  if let varSizeyieldsCurrency = yieldsCurrency?.computeMessageSize(4) {
+                      serialize_size += varSizeyieldsCurrency
+                  }
+              }
+              if hasYieldsItem {
+                  if let varSizeyieldsItem = yieldsItem?.computeMessageSize(5) {
+                      serialize_size += varSizeyieldsItem
+                  }
+              }
+              for oneElementTags in tags {
+                  serialize_size += oneElementTags.computeMessageSize(6)
+              }
+              if hasUnknown7 {
+                serialize_size += unknown7.computeInt32Size(7)
+              }
+              serialize_size += unknownFields.serializedSize()
+              memoizedSerializedSize = serialize_size
+              return serialize_size
+            }
+            public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem> {
+              var mergedArray = Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem>()
+              while let value = try parseFromDelimitedFromInputStream(input) {
+                mergedArray += [value]
+              }
+              return mergedArray
+            }
+            public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem? {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeDelimitedFromInputStream(input)?.build()
+            }
+            public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+            }
+            public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+            }
+            public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFromInputStream(input).build()
+            }
+            public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+            }
+            public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFromCodedInputStream(input).build()
+            }
+            public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+            }
+            public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+              return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.classBuilder() as! Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder
+            }
+            public func getBuilder() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+              return classBuilder() as! Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder
+            }
+            override public class func classBuilder() -> MessageBuilder {
+              return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder()
+            }
+            override public func classBuilder() -> MessageBuilder {
+              return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder()
+            }
+            public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.builderWithPrototype(self)
+            }
+            public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder().mergeFrom(prototype)
+            }
+            override public func encode() throws -> Dictionary<String,AnyObject> {
+              guard isInitialized() else {
+                throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+              }
+
+              var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+              if hasItemId {
+                jsonMap["itemId"] = itemId
+              }
+              if hasIsIap {
+                jsonMap["isIap"] = isIap
+              }
+              if hasCurrencyToBuy {
+                jsonMap["currencyToBuy"] = try currencyToBuy.encode()
+              }
+              if hasYieldsCurrency {
+                jsonMap["yieldsCurrency"] = try yieldsCurrency.encode()
+              }
+              if hasYieldsItem {
+                jsonMap["yieldsItem"] = try yieldsItem.encode()
+              }
+              if !tags.isEmpty {
+                var jsonArrayTags:Array<Dictionary<String,AnyObject>> = []
+                  for oneValueTags in tags {
+                    let ecodedMessageTags = try oneValueTags.encode()
+                    jsonArrayTags += [ecodedMessageTags]
+                  }
+                jsonMap["tags"] = jsonArrayTags
+              }
+              if hasUnknown7 {
+                jsonMap["unknown7"] = NSNumber(int:unknown7)
+              }
+              return jsonMap
+            }
+            override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder.decodeToBuilder(jsonMap).build()
+            }
+            override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+              return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder.fromJSONToBuilder(data).build()
+            }
+            override public func getDescription(indent:String) throws -> String {
+              var output = ""
+              if hasItemId {
+                output += "\(indent) itemId: \(itemId) \n"
+              }
+              if hasIsIap {
+                output += "\(indent) isIap: \(isIap) \n"
+              }
+              if hasCurrencyToBuy {
+                output += "\(indent) currencyToBuy {\n"
+                if let outDescCurrencyToBuy = currencyToBuy {
+                  output += try outDescCurrencyToBuy.getDescription("\(indent)  ")
+                }
+                output += "\(indent) }\n"
+              }
+              if hasYieldsCurrency {
+                output += "\(indent) yieldsCurrency {\n"
+                if let outDescYieldsCurrency = yieldsCurrency {
+                  output += try outDescYieldsCurrency.getDescription("\(indent)  ")
+                }
+                output += "\(indent) }\n"
+              }
+              if hasYieldsItem {
+                output += "\(indent) yieldsItem {\n"
+                if let outDescYieldsItem = yieldsItem {
+                  output += try outDescYieldsItem.getDescription("\(indent)  ")
+                }
+                output += "\(indent) }\n"
+              }
+              var tagsElementIndex:Int = 0
+              for oneElementTags in tags {
+                  output += "\(indent) tags[\(tagsElementIndex)] {\n"
+                  output += try oneElementTags.getDescription("\(indent)  ")
+                  output += "\(indent)}\n"
+                  tagsElementIndex += 1
+              }
+              if hasUnknown7 {
+                output += "\(indent) unknown7: \(unknown7) \n"
+              }
+              output += unknownFields.getDescription(indent)
+              return output
+            }
+            override public var hashValue:Int {
+                get {
+                    var hashCode:Int = 7
+                    if hasItemId {
+                       hashCode = (hashCode &* 31) &+ itemId.hashValue
+                    }
+                    if hasIsIap {
+                       hashCode = (hashCode &* 31) &+ isIap.hashValue
+                    }
+                    if hasCurrencyToBuy {
+                        if let hashValuecurrencyToBuy = currencyToBuy?.hashValue {
+                            hashCode = (hashCode &* 31) &+ hashValuecurrencyToBuy
+                        }
+                    }
+                    if hasYieldsCurrency {
+                        if let hashValueyieldsCurrency = yieldsCurrency?.hashValue {
+                            hashCode = (hashCode &* 31) &+ hashValueyieldsCurrency
+                        }
+                    }
+                    if hasYieldsItem {
+                        if let hashValueyieldsItem = yieldsItem?.hashValue {
+                            hashCode = (hashCode &* 31) &+ hashValueyieldsItem
+                        }
+                    }
+                    for oneElementTags in tags {
+                        hashCode = (hashCode &* 31) &+ oneElementTags.hashValue
+                    }
+                    if hasUnknown7 {
+                       hashCode = (hashCode &* 31) &+ unknown7.hashValue
+                    }
+                    hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                    return hashCode
+                }
+            }
+
+
+            //Meta information declaration start
+
+            override public class func className() -> String {
+                return "Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem"
+            }
+            override public func className() -> String {
+                return "Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem"
+            }
+            override public func classMetaType() -> GeneratedMessage.Type {
+                return Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.self
+            }
+            //Meta information declaration end
+
+            final public class Builder : GeneratedMessageBuilder {
+              private var builderResult:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem()
+              public func getMessage() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+                  return builderResult
+              }
+
+              required override public init () {
+                 super.init()
+              }
+              public var hasItemId:Bool {
+                   get {
+                        return builderResult.hasItemId
+                   }
+              }
+              public var itemId:String {
+                   get {
+                        return builderResult.itemId
+                   }
+                   set (value) {
+                       builderResult.hasItemId = true
+                       builderResult.itemId = value
+                   }
+              }
+              public func setItemId(value:String) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.itemId = value
+                return self
+              }
+              public func clearItemId() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder{
+                   builderResult.hasItemId = false
+                   builderResult.itemId = ""
+                   return self
+              }
+              public var hasIsIap:Bool {
+                   get {
+                        return builderResult.hasIsIap
+                   }
+              }
+              public var isIap:Bool {
+                   get {
+                        return builderResult.isIap
+                   }
+                   set (value) {
+                       builderResult.hasIsIap = true
+                       builderResult.isIap = value
+                   }
+              }
+              public func setIsIap(value:Bool) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.isIap = value
+                return self
+              }
+              public func clearIsIap() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder{
+                   builderResult.hasIsIap = false
+                   builderResult.isIap = false
+                   return self
+              }
+              public var hasCurrencyToBuy:Bool {
+                   get {
+                       return builderResult.hasCurrencyToBuy
+                   }
+              }
+              public var currencyToBuy:Pogoprotos.Data.Player.Currency! {
+                   get {
+                       if currencyToBuyBuilder_ != nil {
+                          builderResult.currencyToBuy = currencyToBuyBuilder_.getMessage()
+                       }
+                       return builderResult.currencyToBuy
+                   }
+                   set (value) {
+                       builderResult.hasCurrencyToBuy = true
+                       builderResult.currencyToBuy = value
+                   }
+              }
+              private var currencyToBuyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
+                   didSet {
+                      builderResult.hasCurrencyToBuy = true
+                   }
+              }
+              public func getCurrencyToBuyBuilder() -> Pogoprotos.Data.Player.Currency.Builder {
+                if currencyToBuyBuilder_ == nil {
+                   currencyToBuyBuilder_ = Pogoprotos.Data.Player.Currency.Builder()
+                   builderResult.currencyToBuy = currencyToBuyBuilder_.getMessage()
+                   if currencyToBuy != nil {
+                      try! currencyToBuyBuilder_.mergeFrom(currencyToBuy)
+                   }
+                }
+                return currencyToBuyBuilder_
+              }
+              public func setCurrencyToBuy(value:Pogoprotos.Data.Player.Currency!) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.currencyToBuy = value
+                return self
+              }
+              public func mergeCurrencyToBuy(value:Pogoprotos.Data.Player.Currency) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                if builderResult.hasCurrencyToBuy {
+                  builderResult.currencyToBuy = try Pogoprotos.Data.Player.Currency.builderWithPrototype(builderResult.currencyToBuy).mergeFrom(value).buildPartial()
+                } else {
+                  builderResult.currencyToBuy = value
+                }
+                builderResult.hasCurrencyToBuy = true
+                return self
+              }
+              public func clearCurrencyToBuy() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                currencyToBuyBuilder_ = nil
+                builderResult.hasCurrencyToBuy = false
+                builderResult.currencyToBuy = nil
+                return self
+              }
+              public var hasYieldsCurrency:Bool {
+                   get {
+                       return builderResult.hasYieldsCurrency
+                   }
+              }
+              public var yieldsCurrency:Pogoprotos.Data.Player.Currency! {
+                   get {
+                       if yieldsCurrencyBuilder_ != nil {
+                          builderResult.yieldsCurrency = yieldsCurrencyBuilder_.getMessage()
+                       }
+                       return builderResult.yieldsCurrency
+                   }
+                   set (value) {
+                       builderResult.hasYieldsCurrency = true
+                       builderResult.yieldsCurrency = value
+                   }
+              }
+              private var yieldsCurrencyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
+                   didSet {
+                      builderResult.hasYieldsCurrency = true
+                   }
+              }
+              public func getYieldsCurrencyBuilder() -> Pogoprotos.Data.Player.Currency.Builder {
+                if yieldsCurrencyBuilder_ == nil {
+                   yieldsCurrencyBuilder_ = Pogoprotos.Data.Player.Currency.Builder()
+                   builderResult.yieldsCurrency = yieldsCurrencyBuilder_.getMessage()
+                   if yieldsCurrency != nil {
+                      try! yieldsCurrencyBuilder_.mergeFrom(yieldsCurrency)
+                   }
+                }
+                return yieldsCurrencyBuilder_
+              }
+              public func setYieldsCurrency(value:Pogoprotos.Data.Player.Currency!) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.yieldsCurrency = value
+                return self
+              }
+              public func mergeYieldsCurrency(value:Pogoprotos.Data.Player.Currency) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                if builderResult.hasYieldsCurrency {
+                  builderResult.yieldsCurrency = try Pogoprotos.Data.Player.Currency.builderWithPrototype(builderResult.yieldsCurrency).mergeFrom(value).buildPartial()
+                } else {
+                  builderResult.yieldsCurrency = value
+                }
+                builderResult.hasYieldsCurrency = true
+                return self
+              }
+              public func clearYieldsCurrency() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                yieldsCurrencyBuilder_ = nil
+                builderResult.hasYieldsCurrency = false
+                builderResult.yieldsCurrency = nil
+                return self
+              }
+              public var hasYieldsItem:Bool {
+                   get {
+                       return builderResult.hasYieldsItem
+                   }
+              }
+              public var yieldsItem:Pogoprotos.Inventory.Item.ItemData! {
+                   get {
+                       if yieldsItemBuilder_ != nil {
+                          builderResult.yieldsItem = yieldsItemBuilder_.getMessage()
+                       }
+                       return builderResult.yieldsItem
+                   }
+                   set (value) {
+                       builderResult.hasYieldsItem = true
+                       builderResult.yieldsItem = value
+                   }
+              }
+              private var yieldsItemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
+                   didSet {
+                      builderResult.hasYieldsItem = true
+                   }
+              }
+              public func getYieldsItemBuilder() -> Pogoprotos.Inventory.Item.ItemData.Builder {
+                if yieldsItemBuilder_ == nil {
+                   yieldsItemBuilder_ = Pogoprotos.Inventory.Item.ItemData.Builder()
+                   builderResult.yieldsItem = yieldsItemBuilder_.getMessage()
+                   if yieldsItem != nil {
+                      try! yieldsItemBuilder_.mergeFrom(yieldsItem)
+                   }
+                }
+                return yieldsItemBuilder_
+              }
+              public func setYieldsItem(value:Pogoprotos.Inventory.Item.ItemData!) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.yieldsItem = value
+                return self
+              }
+              public func mergeYieldsItem(value:Pogoprotos.Inventory.Item.ItemData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                if builderResult.hasYieldsItem {
+                  builderResult.yieldsItem = try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(builderResult.yieldsItem).mergeFrom(value).buildPartial()
+                } else {
+                  builderResult.yieldsItem = value
+                }
+                builderResult.hasYieldsItem = true
+                return self
+              }
+              public func clearYieldsItem() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                yieldsItemBuilder_ = nil
+                builderResult.hasYieldsItem = false
+                builderResult.yieldsItem = nil
+                return self
+              }
+              public var tags:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag> {
+                   get {
+                       return builderResult.tags
+                   }
+                   set (value) {
+                       builderResult.tags = value
+                   }
+              }
+              public func setTags(value:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag>) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.tags = value
+                return self
+              }
+              public func clearTags() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                builderResult.tags.removeAll(keepCapacity: false)
+                return self
+              }
+              public var hasUnknown7:Bool {
+                   get {
+                        return builderResult.hasUnknown7
+                   }
+              }
+              public var unknown7:Int32 {
+                   get {
+                        return builderResult.unknown7
+                   }
+                   set (value) {
+                       builderResult.hasUnknown7 = true
+                       builderResult.unknown7 = value
+                   }
+              }
+              public func setUnknown7(value:Int32) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                self.unknown7 = value
+                return self
+              }
+              public func clearUnknown7() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder{
+                   builderResult.hasUnknown7 = false
+                   builderResult.unknown7 = Int32(0)
+                   return self
+              }
+              override public var internalGetResult:GeneratedMessage {
+                   get {
+                      return builderResult
+                   }
+              }
+              override public func clear() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                builderResult = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem()
+                return self
+              }
+              override public func clone() throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.builderWithPrototype(builderResult)
+              }
+              override public func build() throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+                   try checkInitialized()
+                   return buildPartial()
+              }
+              public func buildPartial() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem {
+                let returnMe:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem = builderResult
+                return returnMe
+              }
+              public func mergeFrom(other:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                if other == Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem() {
+                 return self
+                }
+                if other.hasItemId {
+                     itemId = other.itemId
+                }
+                if other.hasIsIap {
+                     isIap = other.isIap
+                }
+                if (other.hasCurrencyToBuy) {
+                    try mergeCurrencyToBuy(other.currencyToBuy)
+                }
+                if (other.hasYieldsCurrency) {
+                    try mergeYieldsCurrency(other.yieldsCurrency)
+                }
+                if (other.hasYieldsItem) {
+                    try mergeYieldsItem(other.yieldsItem)
+                }
+                if !other.tags.isEmpty  {
+                   builderResult.tags += other.tags
+                }
+                if other.hasUnknown7 {
+                     unknown7 = other.unknown7
+                }
+                try mergeUnknownFields(other.unknownFields)
+                return self
+              }
+              override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                   return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+              }
+              override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+                while (true) {
+                  let protobufTag = try input.readTag()
+                  switch protobufTag {
+                  case 0: 
+                    self.unknownFields = try unknownFieldsBuilder.build()
+                    return self
+
+                  case 10:
+                    itemId = try input.readString()
+
+                  case 16:
+                    isIap = try input.readBool()
+
+                  case 26:
+                    let subBuilder:Pogoprotos.Data.Player.Currency.Builder = Pogoprotos.Data.Player.Currency.Builder()
+                    if hasCurrencyToBuy {
+                      try subBuilder.mergeFrom(currencyToBuy)
+                    }
+                    try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                    currencyToBuy = subBuilder.buildPartial()
+
+                  case 34:
+                    let subBuilder:Pogoprotos.Data.Player.Currency.Builder = Pogoprotos.Data.Player.Currency.Builder()
+                    if hasYieldsCurrency {
+                      try subBuilder.mergeFrom(yieldsCurrency)
+                    }
+                    try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                    yieldsCurrency = subBuilder.buildPartial()
+
+                  case 42:
+                    let subBuilder:Pogoprotos.Inventory.Item.ItemData.Builder = Pogoprotos.Inventory.Item.ItemData.Builder()
+                    if hasYieldsItem {
+                      try subBuilder.mergeFrom(yieldsItem)
+                    }
+                    try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                    yieldsItem = subBuilder.buildPartial()
+
+                  case 50:
+                    let subBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder()
+                    try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+                    tags += [subBuilder.buildPartial()]
+
+                  case 56:
+                    unknown7 = try input.readInt32()
+
+                  default:
+                    if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                       unknownFields = try unknownFieldsBuilder.build()
+                       return self
+                    }
+                  }
+                }
+              }
+              override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder()
+                if let jsonValueItemId = jsonMap["itemId"] as? String {
+                  resultDecodedBuilder.itemId = jsonValueItemId
+                }
+                if let jsonValueIsIap = jsonMap["isIap"] as? Bool {
+                  resultDecodedBuilder.isIap = jsonValueIsIap
+                }
+                if let jsonValueCurrencyToBuy = jsonMap["currencyToBuy"] as? Dictionary<String,AnyObject> {
+                  resultDecodedBuilder.currencyToBuy = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonValueCurrencyToBuy).build()
+
+                }
+                if let jsonValueYieldsCurrency = jsonMap["yieldsCurrency"] as? Dictionary<String,AnyObject> {
+                  resultDecodedBuilder.yieldsCurrency = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonValueYieldsCurrency).build()
+
+                }
+                if let jsonValueYieldsItem = jsonMap["yieldsItem"] as? Dictionary<String,AnyObject> {
+                  resultDecodedBuilder.yieldsItem = try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonValueYieldsItem).build()
+
+                }
+                if let jsonValueTags = jsonMap["tags"] as? Array<Dictionary<String,AnyObject>> {
+                  var jsonArrayTags:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag> = []
+                  for oneValueTags in jsonValueTags {
+                    let messageFromStringTags = try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Tag.Builder.decodeToBuilder(oneValueTags).build()
+
+                    jsonArrayTags += [messageFromStringTags]
+                  }
+                  resultDecodedBuilder.tags = jsonArrayTags
+                }
+                if let jsonValueUnknown7 = jsonMap["unknown7"] as? NSNumber {
+                  resultDecodedBuilder.unknown7 = jsonValueUnknown7.intValue
+                }
+                return resultDecodedBuilder
+              }
+              override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder {
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+                guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+                  throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder.decodeToBuilder(jsDataCast)
+              }
+            }
+
+          }
+
+        //Nested type declaration end
+
+        // Maybe status? It's always 1 (success), so it's probably that.
         public private(set) var hasUnknown1:Bool = false
         public private(set) var unknown1:UInt64 = UInt64(0)
+
+        public private(set) var items:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem>  = Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem>()
+        public private(set) var playerCurrencies:Array<Pogoprotos.Data.Player.Currency>  = Array<Pogoprotos.Data.Player.Currency>()
+        // Some base64 encoded stuff...
+        public private(set) var hasUnknown4:Bool = false
+        public private(set) var unknown4:String = ""
 
         required public init() {
              super.init()
@@ -3424,6 +4351,15 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
           if hasUnknown1 {
             try output.writeUInt64(1, value:unknown1)
+          }
+          for oneElementItems in items {
+              try output.writeMessage(2, value:oneElementItems)
+          }
+          for oneElementPlayerCurrencies in playerCurrencies {
+              try output.writeMessage(3, value:oneElementPlayerCurrencies)
+          }
+          if hasUnknown4 {
+            try output.writeString(4, value:unknown4)
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
@@ -3436,6 +4372,15 @@ public extension Pogoprotos.Networking.Envelopes {
           serialize_size = 0
           if hasUnknown1 {
             serialize_size += unknown1.computeUInt64Size(1)
+          }
+          for oneElementItems in items {
+              serialize_size += oneElementItems.computeMessageSize(2)
+          }
+          for oneElementPlayerCurrencies in playerCurrencies {
+              serialize_size += oneElementPlayerCurrencies.computeMessageSize(3)
+          }
+          if hasUnknown4 {
+            serialize_size += unknown4.computeStringSize(4)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -3496,6 +4441,25 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasUnknown1 {
             jsonMap["unknown1"] = "\(unknown1)"
           }
+          if !items.isEmpty {
+            var jsonArrayItems:Array<Dictionary<String,AnyObject>> = []
+              for oneValueItems in items {
+                let ecodedMessageItems = try oneValueItems.encode()
+                jsonArrayItems += [ecodedMessageItems]
+              }
+            jsonMap["items"] = jsonArrayItems
+          }
+          if !playerCurrencies.isEmpty {
+            var jsonArrayPlayerCurrencies:Array<Dictionary<String,AnyObject>> = []
+              for oneValuePlayerCurrencies in playerCurrencies {
+                let ecodedMessagePlayerCurrencies = try oneValuePlayerCurrencies.encode()
+                jsonArrayPlayerCurrencies += [ecodedMessagePlayerCurrencies]
+              }
+            jsonMap["playerCurrencies"] = jsonArrayPlayerCurrencies
+          }
+          if hasUnknown4 {
+            jsonMap["unknown4"] = unknown4
+          }
           return jsonMap
         }
         override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2 {
@@ -3509,6 +4473,23 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasUnknown1 {
             output += "\(indent) unknown1: \(unknown1) \n"
           }
+          var itemsElementIndex:Int = 0
+          for oneElementItems in items {
+              output += "\(indent) items[\(itemsElementIndex)] {\n"
+              output += try oneElementItems.getDescription("\(indent)  ")
+              output += "\(indent)}\n"
+              itemsElementIndex += 1
+          }
+          var playerCurrenciesElementIndex:Int = 0
+          for oneElementPlayerCurrencies in playerCurrencies {
+              output += "\(indent) playerCurrencies[\(playerCurrenciesElementIndex)] {\n"
+              output += try oneElementPlayerCurrencies.getDescription("\(indent)  ")
+              output += "\(indent)}\n"
+              playerCurrenciesElementIndex += 1
+          }
+          if hasUnknown4 {
+            output += "\(indent) unknown4: \(unknown4) \n"
+          }
           output += unknownFields.getDescription(indent)
           return output
         }
@@ -3517,6 +4498,15 @@ public extension Pogoprotos.Networking.Envelopes {
                 var hashCode:Int = 7
                 if hasUnknown1 {
                    hashCode = (hashCode &* 31) &+ unknown1.hashValue
+                }
+                for oneElementItems in items {
+                    hashCode = (hashCode &* 31) &+ oneElementItems.hashValue
+                }
+                for oneElementPlayerCurrencies in playerCurrencies {
+                    hashCode = (hashCode &* 31) &+ oneElementPlayerCurrencies.hashValue
+                }
+                if hasUnknown4 {
+                   hashCode = (hashCode &* 31) &+ unknown4.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -3569,6 +4559,61 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.unknown1 = UInt64(0)
                return self
           }
+          public var items:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem> {
+               get {
+                   return builderResult.items
+               }
+               set (value) {
+                   builderResult.items = value
+               }
+          }
+          public func setItems(value:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem>) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder {
+            self.items = value
+            return self
+          }
+          public func clearItems() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder {
+            builderResult.items.removeAll(keepCapacity: false)
+            return self
+          }
+          public var playerCurrencies:Array<Pogoprotos.Data.Player.Currency> {
+               get {
+                   return builderResult.playerCurrencies
+               }
+               set (value) {
+                   builderResult.playerCurrencies = value
+               }
+          }
+          public func setPlayerCurrencies(value:Array<Pogoprotos.Data.Player.Currency>) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder {
+            self.playerCurrencies = value
+            return self
+          }
+          public func clearPlayerCurrencies() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder {
+            builderResult.playerCurrencies.removeAll(keepCapacity: false)
+            return self
+          }
+          public var hasUnknown4:Bool {
+               get {
+                    return builderResult.hasUnknown4
+               }
+          }
+          public var unknown4:String {
+               get {
+                    return builderResult.unknown4
+               }
+               set (value) {
+                   builderResult.hasUnknown4 = true
+                   builderResult.unknown4 = value
+               }
+          }
+          public func setUnknown4(value:String) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder {
+            self.unknown4 = value
+            return self
+          }
+          public func clearUnknown4() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder{
+               builderResult.hasUnknown4 = false
+               builderResult.unknown4 = ""
+               return self
+          }
           override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
@@ -3596,6 +4641,15 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasUnknown1 {
                  unknown1 = other.unknown1
             }
+            if !other.items.isEmpty  {
+               builderResult.items += other.items
+            }
+            if !other.playerCurrencies.isEmpty  {
+               builderResult.playerCurrencies += other.playerCurrencies
+            }
+            if other.hasUnknown4 {
+                 unknown4 = other.unknown4
+            }
             try mergeUnknownFields(other.unknownFields)
             return self
           }
@@ -3614,6 +4668,19 @@ public extension Pogoprotos.Networking.Envelopes {
               case 8:
                 unknown1 = try input.readUInt64()
 
+              case 18:
+                let subBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder()
+                try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+                items += [subBuilder.buildPartial()]
+
+              case 26:
+                let subBuilder = Pogoprotos.Data.Player.Currency.Builder()
+                try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+                playerCurrencies += [subBuilder.buildPartial()]
+
+              case 34:
+                unknown4 = try input.readString()
+
               default:
                 if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
@@ -3626,6 +4693,27 @@ public extension Pogoprotos.Networking.Envelopes {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder()
             if let jsonValueUnknown1 = jsonMap["unknown1"] as? String {
               resultDecodedBuilder.unknown1 = UInt64(jsonValueUnknown1)!
+            }
+            if let jsonValueItems = jsonMap["items"] as? Array<Dictionary<String,AnyObject>> {
+              var jsonArrayItems:Array<Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem> = []
+              for oneValueItems in jsonValueItems {
+                let messageFromStringItems = try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.StoreItem.Builder.decodeToBuilder(oneValueItems).build()
+
+                jsonArrayItems += [messageFromStringItems]
+              }
+              resultDecodedBuilder.items = jsonArrayItems
+            }
+            if let jsonValuePlayerCurrencies = jsonMap["playerCurrencies"] as? Array<Dictionary<String,AnyObject>> {
+              var jsonArrayPlayerCurrencies:Array<Pogoprotos.Data.Player.Currency> = []
+              for oneValuePlayerCurrencies in jsonValuePlayerCurrencies {
+                let messageFromStringPlayerCurrencies = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(oneValuePlayerCurrencies).build()
+
+                jsonArrayPlayerCurrencies += [messageFromStringPlayerCurrencies]
+              }
+              resultDecodedBuilder.playerCurrencies = jsonArrayPlayerCurrencies
+            }
+            if let jsonValueUnknown4 = jsonMap["unknown4"] as? String {
+              resultDecodedBuilder.unknown4 = jsonValueUnknown4
             }
             return resultDecodedBuilder
           }
@@ -3642,9 +4730,9 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration end
 
-    //6
-    public private(set) var hasUnknown1:Bool = false
-    public private(set) var unknown1:Int32 = Int32(0)
+    // Still don't know what 6 is, but 5 lists items available via IAPs. 
+    public private(set) var hasResponseType:Bool = false
+    public private(set) var responseType:Int32 = Int32(0)
 
     public private(set) var hasUnknown2:Bool = false
     public private(set) var unknown2:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2!
@@ -3655,8 +4743,8 @@ public extension Pogoprotos.Networking.Envelopes {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
-      if hasUnknown1 {
-        try output.writeInt32(1, value:unknown1)
+      if hasResponseType {
+        try output.writeInt32(1, value:responseType)
       }
       if hasUnknown2 {
         try output.writeMessage(2, value:unknown2)
@@ -3670,8 +4758,8 @@ public extension Pogoprotos.Networking.Envelopes {
       }
 
       serialize_size = 0
-      if hasUnknown1 {
-        serialize_size += unknown1.computeInt32Size(1)
+      if hasResponseType {
+        serialize_size += responseType.computeInt32Size(1)
       }
       if hasUnknown2 {
           if let varSizeunknown2 = unknown2?.computeMessageSize(2) {
@@ -3734,8 +4822,8 @@ public extension Pogoprotos.Networking.Envelopes {
       }
 
       var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-      if hasUnknown1 {
-        jsonMap["unknown1"] = NSNumber(int:unknown1)
+      if hasResponseType {
+        jsonMap["responseType"] = NSNumber(int:responseType)
       }
       if hasUnknown2 {
         jsonMap["unknown2"] = try unknown2.encode()
@@ -3750,8 +4838,8 @@ public extension Pogoprotos.Networking.Envelopes {
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
-      if hasUnknown1 {
-        output += "\(indent) unknown1: \(unknown1) \n"
+      if hasResponseType {
+        output += "\(indent) responseType: \(responseType) \n"
       }
       if hasUnknown2 {
         output += "\(indent) unknown2 {\n"
@@ -3766,8 +4854,8 @@ public extension Pogoprotos.Networking.Envelopes {
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
-            if hasUnknown1 {
-               hashCode = (hashCode &* 31) &+ unknown1.hashValue
+            if hasResponseType {
+               hashCode = (hashCode &* 31) &+ responseType.hashValue
             }
             if hasUnknown2 {
                 if let hashValueunknown2 = unknown2?.hashValue {
@@ -3802,27 +4890,27 @@ public extension Pogoprotos.Networking.Envelopes {
       required override public init () {
          super.init()
       }
-      public var hasUnknown1:Bool {
+      public var hasResponseType:Bool {
            get {
-                return builderResult.hasUnknown1
+                return builderResult.hasResponseType
            }
       }
-      public var unknown1:Int32 {
+      public var responseType:Int32 {
            get {
-                return builderResult.unknown1
+                return builderResult.responseType
            }
            set (value) {
-               builderResult.hasUnknown1 = true
-               builderResult.unknown1 = value
+               builderResult.hasResponseType = true
+               builderResult.responseType = value
            }
       }
-      public func setUnknown1(value:Int32) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Builder {
-        self.unknown1 = value
+      public func setResponseType(value:Int32) -> Pogoprotos.Networking.Envelopes.Unknown6Response.Builder {
+        self.responseType = value
         return self
       }
-      public func clearUnknown1() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Builder{
-           builderResult.hasUnknown1 = false
-           builderResult.unknown1 = Int32(0)
+      public func clearResponseType() -> Pogoprotos.Networking.Envelopes.Unknown6Response.Builder{
+           builderResult.hasResponseType = false
+           builderResult.responseType = Int32(0)
            return self
       }
       public var hasUnknown2:Bool {
@@ -3900,8 +4988,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if other == Pogoprotos.Networking.Envelopes.Unknown6Response() {
          return self
         }
-        if other.hasUnknown1 {
-             unknown1 = other.unknown1
+        if other.hasResponseType {
+             responseType = other.responseType
         }
         if (other.hasUnknown2) {
             try mergeUnknown2(other.unknown2)
@@ -3922,7 +5010,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
 
           case 8:
-            unknown1 = try input.readInt32()
+            responseType = try input.readInt32()
 
           case 18:
             let subBuilder:Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder = Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder()
@@ -3942,8 +5030,8 @@ public extension Pogoprotos.Networking.Envelopes {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Unknown6Response.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Unknown6Response.Builder()
-        if let jsonValueUnknown1 = jsonMap["unknown1"] as? NSNumber {
-          resultDecodedBuilder.unknown1 = jsonValueUnknown1.intValue
+        if let jsonValueResponseType = jsonMap["responseType"] as? NSNumber {
+          resultDecodedBuilder.responseType = jsonValueResponseType.intValue
         }
         if let jsonValueUnknown2 = jsonMap["unknown2"] as? Dictionary<String,AnyObject> {
           resultDecodedBuilder.unknown2 = try Pogoprotos.Networking.Envelopes.Unknown6Response.Unknown2.Builder.decodeToBuilder(jsonValueUnknown2).build()

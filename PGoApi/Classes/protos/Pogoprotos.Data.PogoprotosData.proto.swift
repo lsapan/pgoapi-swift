@@ -651,7 +651,7 @@ public extension Pogoprotos.Data {
         try output.writeInt32(3, value:size)
       }
       if hasChecksum {
-        try output.writeUInt32(4, value:checksum)
+        try output.writeFixed32(4, value:checksum)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -672,7 +672,7 @@ public extension Pogoprotos.Data {
         serialize_size += size.computeInt32Size(3)
       }
       if hasChecksum {
-        serialize_size += checksum.computeUInt32Size(4)
+        serialize_size += checksum.computeFixed32Size(4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -962,8 +962,8 @@ public extension Pogoprotos.Data {
           case 24:
             size = try input.readInt32()
 
-          case 32:
-            checksum = try input.readUInt32()
+          case 37:
+            checksum = try input.readFixed32()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {

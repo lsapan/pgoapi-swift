@@ -6549,7 +6549,7 @@ public extension Pogoprotos.Settings.Master {
   }
 
   final public class MoveSettings : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var movementId:Pogoprotos.Enums.PokemonMovementType = Pogoprotos.Enums.PokemonMovementType.MovementStatic
+    public private(set) var movementId:Pogoprotos.Enums.PokemonMove = Pogoprotos.Enums.PokemonMove.MoveUnset
     public private(set) var hasMovementId:Bool = false
     public private(set) var hasAnimationId:Bool = false
     public private(set) var animationId:Int32 = Int32(0)
@@ -6938,7 +6938,7 @@ public extension Pogoprotos.Settings.Master {
                 return builderResult.hasMovementId
             }
         }
-        public var movementId:Pogoprotos.Enums.PokemonMovementType {
+        public var movementId:Pogoprotos.Enums.PokemonMove {
             get {
                 return builderResult.movementId
             }
@@ -6947,13 +6947,13 @@ public extension Pogoprotos.Settings.Master {
                 builderResult.movementId = value
             }
         }
-        public func setMovementId(value:Pogoprotos.Enums.PokemonMovementType) -> Pogoprotos.Settings.Master.MoveSettings.Builder {
+        public func setMovementId(value:Pogoprotos.Enums.PokemonMove) -> Pogoprotos.Settings.Master.MoveSettings.Builder {
           self.movementId = value
           return self
         }
         public func clearMovementId() -> Pogoprotos.Settings.Master.MoveSettings.Builder {
            builderResult.hasMovementId = false
-           builderResult.movementId = .MovementStatic
+           builderResult.movementId = .MoveUnset
            return self
         }
       public var hasAnimationId:Bool {
@@ -7364,7 +7364,7 @@ public extension Pogoprotos.Settings.Master {
 
           case 8:
             let valueIntmovementId = try input.readEnum()
-            if let enumsmovementId = Pogoprotos.Enums.PokemonMovementType(rawValue:valueIntmovementId){
+            if let enumsmovementId = Pogoprotos.Enums.PokemonMove(rawValue:valueIntmovementId){
                  movementId = enumsmovementId
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntmovementId))
@@ -7428,7 +7428,7 @@ public extension Pogoprotos.Settings.Master {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.Master.MoveSettings.Builder {
         let resultDecodedBuilder = Pogoprotos.Settings.Master.MoveSettings.Builder()
         if let jsonValueMovementId = jsonMap["movementId"] as? String {
-          resultDecodedBuilder.movementId = try Pogoprotos.Enums.PokemonMovementType.fromString(jsonValueMovementId)
+          resultDecodedBuilder.movementId = try Pogoprotos.Enums.PokemonMove.fromString(jsonValueMovementId)
         }
         if let jsonValueAnimationId = jsonMap["animationId"] as? NSNumber {
           resultDecodedBuilder.animationId = jsonValueAnimationId.intValue

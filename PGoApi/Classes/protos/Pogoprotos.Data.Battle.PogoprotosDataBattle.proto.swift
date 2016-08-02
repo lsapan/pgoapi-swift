@@ -313,7 +313,7 @@ public extension Pogoprotos.Data.Battle {
         try output.writeInt32(7, value:targetIndex)
       }
       if hasActivePokemonId {
-        try output.writeUInt64(8, value:activePokemonId)
+        try output.writeFixed64(8, value:activePokemonId)
       }
       if hasPlayerJoined {
         try output.writeMessage(9, value:playerJoined)
@@ -331,7 +331,7 @@ public extension Pogoprotos.Data.Battle {
         try output.writeMessage(13, value:playerLeft)
       }
       if hasTargetPokemonId {
-        try output.writeUInt64(14, value:targetPokemonId)
+        try output.writeFixed64(14, value:targetPokemonId)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -361,7 +361,7 @@ public extension Pogoprotos.Data.Battle {
         serialize_size += targetIndex.computeInt32Size(7)
       }
       if hasActivePokemonId {
-        serialize_size += activePokemonId.computeUInt64Size(8)
+        serialize_size += activePokemonId.computeFixed64Size(8)
       }
       if hasPlayerJoined {
           if let varSizeplayerJoined = playerJoined?.computeMessageSize(9) {
@@ -385,7 +385,7 @@ public extension Pogoprotos.Data.Battle {
           }
       }
       if hasTargetPokemonId {
-        serialize_size += targetPokemonId.computeUInt64Size(14)
+        serialize_size += targetPokemonId.computeFixed64Size(14)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -1106,8 +1106,8 @@ public extension Pogoprotos.Data.Battle {
           case 56:
             targetIndex = try input.readInt32()
 
-          case 64:
-            activePokemonId = try input.readUInt64()
+          case 65:
+            activePokemonId = try input.readFixed64()
 
           case 74:
             let subBuilder:Pogoprotos.Data.Battle.BattleParticipant.Builder = Pogoprotos.Data.Battle.BattleParticipant.Builder()
@@ -1139,8 +1139,8 @@ public extension Pogoprotos.Data.Battle {
             try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
             playerLeft = subBuilder.buildPartial()
 
-          case 112:
-            targetPokemonId = try input.readUInt64()
+          case 113:
+            targetPokemonId = try input.readFixed64()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {

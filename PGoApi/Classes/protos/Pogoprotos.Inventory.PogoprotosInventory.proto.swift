@@ -84,8 +84,18 @@ public func == (lhs: Pogoprotos.Inventory.InventoryItem, rhs: Pogoprotos.Invento
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasModifiedTimestampMs == rhs.hasModifiedTimestampMs) && (!lhs.hasModifiedTimestampMs || lhs.modifiedTimestampMs == rhs.modifiedTimestampMs)
-  fieldCheck = fieldCheck && (lhs.hasDeletedItemKey == rhs.hasDeletedItemKey) && (!lhs.hasDeletedItemKey || lhs.deletedItemKey == rhs.deletedItemKey)
+  fieldCheck = fieldCheck && (lhs.hasDeletedItem == rhs.hasDeletedItem) && (!lhs.hasDeletedItem || lhs.deletedItem == rhs.deletedItem)
   fieldCheck = fieldCheck && (lhs.hasInventoryItemData == rhs.hasInventoryItemData) && (!lhs.hasInventoryItemData || lhs.inventoryItemData == rhs.inventoryItemData)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Inventory.InventoryItem.DeletedItem, rhs: Pogoprotos.Inventory.InventoryItem.DeletedItem) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasPokemonId == rhs.hasPokemonId) && (!lhs.hasPokemonId || lhs.pokemonId == rhs.pokemonId)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -2241,12 +2251,246 @@ public extension Pogoprotos.Inventory {
   }
 
   final public class InventoryItem : GeneratedMessage, GeneratedMessageProtocol {
+
+
+    //Nested type declaration start
+
+      final public class DeletedItem : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var hasPokemonId:Bool = false
+        public private(set) var pokemonId:UInt64 = UInt64(0)
+
+        required public init() {
+             super.init()
+        }
+        override public func isInitialized() -> Bool {
+         return true
+        }
+        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+          if hasPokemonId {
+            try output.writeFixed64(1, value:pokemonId)
+          }
+          try unknownFields.writeToCodedOutputStream(output)
+        }
+        override public func serializedSize() -> Int32 {
+          var serialize_size:Int32 = memoizedSerializedSize
+          if serialize_size != -1 {
+           return serialize_size
+          }
+
+          serialize_size = 0
+          if hasPokemonId {
+            serialize_size += pokemonId.computeFixed64Size(1)
+          }
+          serialize_size += unknownFields.serializedSize()
+          memoizedSerializedSize = serialize_size
+          return serialize_size
+        }
+        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryItem.DeletedItem> {
+          var mergedArray = Array<Pogoprotos.Inventory.InventoryItem.DeletedItem>()
+          while let value = try parseFromDelimitedFromInputStream(input) {
+            mergedArray += [value]
+          }
+          return mergedArray
+        }
+        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem? {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeDelimitedFromInputStream(input)?.build()
+        }
+        public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+        }
+        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+        }
+        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromInputStream(input).build()
+        }
+        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+        }
+        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromCodedInputStream(input).build()
+        }
+        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+        }
+        public class func getBuilder() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+          return Pogoprotos.Inventory.InventoryItem.DeletedItem.classBuilder() as! Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder
+        }
+        public func getBuilder() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+          return classBuilder() as! Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder
+        }
+        override public class func classBuilder() -> MessageBuilder {
+          return Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
+        }
+        override public func classBuilder() -> MessageBuilder {
+          return Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
+        }
+        public func toBuilder() throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(self)
+        }
+        public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryItem.DeletedItem) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(prototype)
+        }
+        override public func encode() throws -> Dictionary<String,AnyObject> {
+          guard isInitialized() else {
+            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+          }
+
+          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          if hasPokemonId {
+            jsonMap["pokemonId"] = "\(pokemonId)"
+          }
+          return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonMap).build()
+        }
+        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.fromJSONToBuilder(data).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+          var output = ""
+          if hasPokemonId {
+            output += "\(indent) pokemonId: \(pokemonId) \n"
+          }
+          output += unknownFields.getDescription(indent)
+          return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasPokemonId {
+                   hashCode = (hashCode &* 31) &+ pokemonId.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Pogoprotos.Inventory.InventoryItem.DeletedItem"
+        }
+        override public func className() -> String {
+            return "Pogoprotos.Inventory.InventoryItem.DeletedItem"
+        }
+        override public func classMetaType() -> GeneratedMessage.Type {
+            return Pogoprotos.Inventory.InventoryItem.DeletedItem.self
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+          private var builderResult:Pogoprotos.Inventory.InventoryItem.DeletedItem = Pogoprotos.Inventory.InventoryItem.DeletedItem()
+          public func getMessage() -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+              return builderResult
+          }
+
+          required override public init () {
+             super.init()
+          }
+          public var hasPokemonId:Bool {
+               get {
+                    return builderResult.hasPokemonId
+               }
+          }
+          public var pokemonId:UInt64 {
+               get {
+                    return builderResult.pokemonId
+               }
+               set (value) {
+                   builderResult.hasPokemonId = true
+                   builderResult.pokemonId = value
+               }
+          }
+          public func setPokemonId(value:UInt64) -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            self.pokemonId = value
+            return self
+          }
+          public func clearPokemonId() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder{
+               builderResult.hasPokemonId = false
+               builderResult.pokemonId = UInt64(0)
+               return self
+          }
+          override public var internalGetResult:GeneratedMessage {
+               get {
+                  return builderResult
+               }
+          }
+          override public func clear() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            builderResult = Pogoprotos.Inventory.InventoryItem.DeletedItem()
+            return self
+          }
+          override public func clone() throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            return try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(builderResult)
+          }
+          override public func build() throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+               try checkInitialized()
+               return buildPartial()
+          }
+          public func buildPartial() -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+            let returnMe:Pogoprotos.Inventory.InventoryItem.DeletedItem = builderResult
+            return returnMe
+          }
+          public func mergeFrom(other:Pogoprotos.Inventory.InventoryItem.DeletedItem) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            if other == Pogoprotos.Inventory.InventoryItem.DeletedItem() {
+             return self
+            }
+            if other.hasPokemonId {
+                 pokemonId = other.pokemonId
+            }
+            try mergeUnknownFields(other.unknownFields)
+            return self
+          }
+          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          }
+          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+            while (true) {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
+              case 0: 
+                self.unknownFields = try unknownFieldsBuilder.build()
+                return self
+
+              case 9:
+                pokemonId = try input.readFixed64()
+
+              default:
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                   unknownFields = try unknownFieldsBuilder.build()
+                   return self
+                }
+              }
+            }
+          }
+          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            let resultDecodedBuilder = Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
+            if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
+              resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
+            }
+            return resultDecodedBuilder
+          }
+          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+            }
+            return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsDataCast)
+          }
+        }
+
+      }
+
+    //Nested type declaration end
+
     public private(set) var hasModifiedTimestampMs:Bool = false
     public private(set) var modifiedTimestampMs:Int64 = Int64(0)
 
-    public private(set) var hasDeletedItemKey:Bool = false
-    public private(set) var deletedItemKey:Int64 = Int64(0)
-
+    public private(set) var hasDeletedItem:Bool = false
+    public private(set) var deletedItem:Pogoprotos.Inventory.InventoryItem.DeletedItem!
     public private(set) var hasInventoryItemData:Bool = false
     public private(set) var inventoryItemData:Pogoprotos.Inventory.InventoryItemData!
     required public init() {
@@ -2259,8 +2503,8 @@ public extension Pogoprotos.Inventory {
       if hasModifiedTimestampMs {
         try output.writeInt64(1, value:modifiedTimestampMs)
       }
-      if hasDeletedItemKey {
-        try output.writeInt64(2, value:deletedItemKey)
+      if hasDeletedItem {
+        try output.writeMessage(2, value:deletedItem)
       }
       if hasInventoryItemData {
         try output.writeMessage(3, value:inventoryItemData)
@@ -2277,8 +2521,10 @@ public extension Pogoprotos.Inventory {
       if hasModifiedTimestampMs {
         serialize_size += modifiedTimestampMs.computeInt64Size(1)
       }
-      if hasDeletedItemKey {
-        serialize_size += deletedItemKey.computeInt64Size(2)
+      if hasDeletedItem {
+          if let varSizedeletedItem = deletedItem?.computeMessageSize(2) {
+              serialize_size += varSizedeletedItem
+          }
       }
       if hasInventoryItemData {
           if let varSizeinventoryItemData = inventoryItemData?.computeMessageSize(3) {
@@ -2344,8 +2590,8 @@ public extension Pogoprotos.Inventory {
       if hasModifiedTimestampMs {
         jsonMap["modifiedTimestampMs"] = "\(modifiedTimestampMs)"
       }
-      if hasDeletedItemKey {
-        jsonMap["deletedItemKey"] = "\(deletedItemKey)"
+      if hasDeletedItem {
+        jsonMap["deletedItem"] = try deletedItem.encode()
       }
       if hasInventoryItemData {
         jsonMap["inventoryItemData"] = try inventoryItemData.encode()
@@ -2363,8 +2609,12 @@ public extension Pogoprotos.Inventory {
       if hasModifiedTimestampMs {
         output += "\(indent) modifiedTimestampMs: \(modifiedTimestampMs) \n"
       }
-      if hasDeletedItemKey {
-        output += "\(indent) deletedItemKey: \(deletedItemKey) \n"
+      if hasDeletedItem {
+        output += "\(indent) deletedItem {\n"
+        if let outDescDeletedItem = deletedItem {
+          output += try outDescDeletedItem.getDescription("\(indent)  ")
+        }
+        output += "\(indent) }\n"
       }
       if hasInventoryItemData {
         output += "\(indent) inventoryItemData {\n"
@@ -2382,8 +2632,10 @@ public extension Pogoprotos.Inventory {
             if hasModifiedTimestampMs {
                hashCode = (hashCode &* 31) &+ modifiedTimestampMs.hashValue
             }
-            if hasDeletedItemKey {
-               hashCode = (hashCode &* 31) &+ deletedItemKey.hashValue
+            if hasDeletedItem {
+                if let hashValuedeletedItem = deletedItem?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuedeletedItem
+                }
             }
             if hasInventoryItemData {
                 if let hashValueinventoryItemData = inventoryItemData?.hashValue {
@@ -2441,28 +2693,56 @@ public extension Pogoprotos.Inventory {
            builderResult.modifiedTimestampMs = Int64(0)
            return self
       }
-      public var hasDeletedItemKey:Bool {
+      public var hasDeletedItem:Bool {
            get {
-                return builderResult.hasDeletedItemKey
+               return builderResult.hasDeletedItem
            }
       }
-      public var deletedItemKey:Int64 {
+      public var deletedItem:Pogoprotos.Inventory.InventoryItem.DeletedItem! {
            get {
-                return builderResult.deletedItemKey
+               if deletedItemBuilder_ != nil {
+                  builderResult.deletedItem = deletedItemBuilder_.getMessage()
+               }
+               return builderResult.deletedItem
            }
            set (value) {
-               builderResult.hasDeletedItemKey = true
-               builderResult.deletedItemKey = value
+               builderResult.hasDeletedItem = true
+               builderResult.deletedItem = value
            }
       }
-      public func setDeletedItemKey(value:Int64) -> Pogoprotos.Inventory.InventoryItem.Builder {
-        self.deletedItemKey = value
+      private var deletedItemBuilder_:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder! {
+           didSet {
+              builderResult.hasDeletedItem = true
+           }
+      }
+      public func getDeletedItemBuilder() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+        if deletedItemBuilder_ == nil {
+           deletedItemBuilder_ = Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
+           builderResult.deletedItem = deletedItemBuilder_.getMessage()
+           if deletedItem != nil {
+              try! deletedItemBuilder_.mergeFrom(deletedItem)
+           }
+        }
+        return deletedItemBuilder_
+      }
+      public func setDeletedItem(value:Pogoprotos.Inventory.InventoryItem.DeletedItem!) -> Pogoprotos.Inventory.InventoryItem.Builder {
+        self.deletedItem = value
         return self
       }
-      public func clearDeletedItemKey() -> Pogoprotos.Inventory.InventoryItem.Builder{
-           builderResult.hasDeletedItemKey = false
-           builderResult.deletedItemKey = Int64(0)
-           return self
+      public func mergeDeletedItem(value:Pogoprotos.Inventory.InventoryItem.DeletedItem) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
+        if builderResult.hasDeletedItem {
+          builderResult.deletedItem = try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(builderResult.deletedItem).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.deletedItem = value
+        }
+        builderResult.hasDeletedItem = true
+        return self
+      }
+      public func clearDeletedItem() -> Pogoprotos.Inventory.InventoryItem.Builder {
+        deletedItemBuilder_ = nil
+        builderResult.hasDeletedItem = false
+        builderResult.deletedItem = nil
+        return self
       }
       public var hasInventoryItemData:Bool {
            get {
@@ -2542,8 +2822,8 @@ public extension Pogoprotos.Inventory {
         if other.hasModifiedTimestampMs {
              modifiedTimestampMs = other.modifiedTimestampMs
         }
-        if other.hasDeletedItemKey {
-             deletedItemKey = other.deletedItemKey
+        if (other.hasDeletedItem) {
+            try mergeDeletedItem(other.deletedItem)
         }
         if (other.hasInventoryItemData) {
             try mergeInventoryItemData(other.inventoryItemData)
@@ -2566,8 +2846,13 @@ public extension Pogoprotos.Inventory {
           case 8:
             modifiedTimestampMs = try input.readInt64()
 
-          case 16:
-            deletedItemKey = try input.readInt64()
+          case 18:
+            let subBuilder:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder = Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
+            if hasDeletedItem {
+              try subBuilder.mergeFrom(deletedItem)
+            }
+            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            deletedItem = subBuilder.buildPartial()
 
           case 26:
             let subBuilder:Pogoprotos.Inventory.InventoryItemData.Builder = Pogoprotos.Inventory.InventoryItemData.Builder()
@@ -2590,8 +2875,9 @@ public extension Pogoprotos.Inventory {
         if let jsonValueModifiedTimestampMs = jsonMap["modifiedTimestampMs"] as? String {
           resultDecodedBuilder.modifiedTimestampMs = Int64(jsonValueModifiedTimestampMs)!
         }
-        if let jsonValueDeletedItemKey = jsonMap["deletedItemKey"] as? String {
-          resultDecodedBuilder.deletedItemKey = Int64(jsonValueDeletedItemKey)!
+        if let jsonValueDeletedItem = jsonMap["deletedItem"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.deletedItem = try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonValueDeletedItem).build()
+
         }
         if let jsonValueInventoryItemData = jsonMap["inventoryItemData"] as? Dictionary<String,AnyObject> {
           resultDecodedBuilder.inventoryItemData = try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonValueInventoryItemData).build()
