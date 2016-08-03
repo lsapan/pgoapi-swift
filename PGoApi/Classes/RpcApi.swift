@@ -18,8 +18,9 @@ class PGoRpcApi {
     let auth: PGoAuth
     let delegate: PGoApiDelegate?
     let subrequests: [PGoApiMethod]
+    let api: PGoApiRequest
     
-    init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, delegate: PGoApiDelegate?) {
+    init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, api: PGoApiRequest, delegate: PGoApiDelegate?) {
         // TODO: Eventually use a custom session
         // Add "Niantic App" as the User-Agent
         let manager = Manager.sharedInstance
@@ -31,6 +32,7 @@ class PGoRpcApi {
         self.intent = intent
         self.auth = auth
         self.delegate = delegate
+        self.api = api
     }
     
     func request() {
@@ -62,10 +64,10 @@ class PGoRpcApi {
         requestBuilder.requestId = PGoSetting.id
         requestBuilder.unknown12 = 1431
         
-        requestBuilder.latitude = PGoLocation.lat
-        requestBuilder.longitude = PGoLocation.long
-        if PGoLocation.alt != nil {
-            requestBuilder.altitude = PGoLocation.alt!
+        requestBuilder.latitude = self.api.PGoLocation.lat
+        requestBuilder.longitude = self.api.PGoLocation.long
+        if self.api.PGoLocation.alt != nil {
+            requestBuilder.altitude = self.api.PGoLocation.alt!
         }
         
         if (auth.authToken == nil) {

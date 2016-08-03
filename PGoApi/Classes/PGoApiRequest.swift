@@ -24,6 +24,15 @@ public struct PGoApiResponse {
 }
 
 public class PGoApiRequest {
+    
+    public class PGoLocationTemplate {
+        var lat:Double = 0
+        var long:Double = 0
+        var alt:Double? = nil
+    }
+    
+    let PGoLocation = PGoLocationTemplate()
+    
     public var methodList: [PGoApiMethod] = []
     
     public init() {
@@ -43,7 +52,7 @@ public class PGoApiRequest {
         
         // TODO: Get player position
         // position stuff here...
-        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, delegate: delegate)
+        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, api: self, delegate: delegate)
         request.request()
     }
     
