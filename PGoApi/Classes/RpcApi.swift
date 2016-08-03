@@ -15,10 +15,11 @@ import ProtocolBuffers
 
 class PGoRpcApi {
     let intent: PGoApiIntent
+    let auth: PGoAuth
     let delegate: PGoApiDelegate?
     let subrequests: [PGoApiMethod]
     
-    init(subrequests: [PGoApiMethod], intent: PGoApiIntent, delegate: PGoApiDelegate?) {
+    init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, delegate: PGoApiDelegate?) {
         // TODO: Eventually use a custom session
         // Add "Niantic App" as the User-Agent
         let manager = Manager.sharedInstance
@@ -28,14 +29,15 @@ class PGoRpcApi {
         
         self.subrequests = subrequests
         self.intent = intent
+        self.auth = auth
         self.delegate = delegate
     }
     
-    func request(endpoint: String) {
+    func request() {
         // TODO: Eventually update this function to take playerPosition, and pass to buildMainRequest
         let requestData = buildMainRequest().data()
         
-        Alamofire.request(.POST, endpoint, parameters: [:], encoding: .Custom({
+        Alamofire.request(.POST, auth.endpoint, parameters: [:], encoding: .Custom({
             (convertible, params) in
             let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
             mutableRequest.HTTPBody = requestData
@@ -66,20 +68,14 @@ class PGoRpcApi {
             requestBuilder.altitude = PGoLocation.alt!
         }
         
-        if (!PGoSetting.receivedToken) {
+        if (auth.authToken == nil) {
             let authInfoBuilder = requestBuilder.getAuthInfoBuilder()
             let authInfoTokenBuilder = authInfoBuilder.getTokenBuilder()
-            
-            if (PGoEndpoint.LoginProvider == PGoAuthType.Google) {
-                authInfoBuilder.provider = "\(PGoAuthType.Google)"
-                authInfoTokenBuilder.contents = GPSOAuth.sharedInstance.accessToken!
-            } else {
-                authInfoBuilder.provider = "\(PGoAuthType.Ptc)"
-                authInfoTokenBuilder.contents = PtcOAuth.sharedInstance.accessToken!
-            }
+            authInfoBuilder.provider = auth.authType.description
+            authInfoTokenBuilder.contents = auth.accessToken!
             authInfoTokenBuilder.unknown2 = 10800
         } else {
-            requestBuilder.authTicket = PGoSetting.authToken
+            requestBuilder.authTicket = auth.authToken!
         }
         
         print("Generating subrequests...")

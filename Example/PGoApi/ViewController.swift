@@ -11,11 +11,14 @@ import PGoApi
 
 class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
 
+    var auth: PtcOAuth!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        PGoAuth.sharedInstance.delegate = self
-        PGoAuth.sharedInstance.login("", password: "")
+        auth = PtcOAuth()
+        auth.delegate = self
+        auth.login(withUsername: "", withPassword: "")
     }
     
     func didReceiveAuth() {
@@ -23,7 +26,7 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         print("Starting simulation...")
         let request = PGoApiRequest()
         request.simulateAppStart()
-        request.makeRequest(.Login, delegate: self)
+        request.makeRequest(.Login, auth: auth, delegate: self)
     }
     
     func didNotReceiveAuth() {
@@ -33,19 +36,24 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
         print("Got that API response: \(intent)")
         if (intent == .Login) {
-            PGoSetting.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
-            print("New endpoint: \(PGoSetting.endpoint)")
+            auth.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
+            print("New endpoint: \(auth.endpoint)")
             let request = PGoApiRequest()
             
             //Set the latitude/longitude of player; altitude is optional
             request.setLocation(37.331686, longitude: -122.030765, altitude: 0)
             
             request.getMapObjects()
-            request.makeRequest(.GetMapObjects, delegate: self)
+            request.makeRequest(.GetMapObjects, auth: auth, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
             print(response.response)
             print(response.subresponses)
+            let r = response.subresponses[0] as! Pogoprotos.Networking.Responses.GetMapObjectsResponse
+            let cell = r.mapCells[0]
+            print(cell.nearbyPokemons)
+            print(cell.wildPokemons)
+            print(cell.catchablePokemons)
         }
     }
     

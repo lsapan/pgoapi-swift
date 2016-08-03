@@ -9,8 +9,7 @@
 import Foundation
 import Alamofire
 
-class GPSOAuth {
-    static let sharedInstance = GPSOAuth()
+public class GPSOAuth: PGoAuth {
     
     private let baseParams = [
         "accountType": "HOSTED_OR_GOOGLE",
@@ -28,11 +27,18 @@ class GPSOAuth {
         "Content-Type": "application/x-www-form-urlencoded"
     ]
     
-    var email: String!
-    var password: String!
-    var accessToken: String?
-    var token: String?
-    var expires: Int?
+    public var email: String!
+    public var password: String!
+    public var token: String?
+    public var accessToken: String?
+    public var expires: Int?
+    public var loggedIn: Bool = false
+    public var delegate: PGoAuthDelegate?
+    public var authType: PGoAuthType = .Google
+    public var endpoint: String = PGoEndpoint.Rpc
+    public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
+    
+    public init() {}
     
     private func parseKeyValues(body:String) -> Dictionary<String, String> {
         var obj = [String:String]()
@@ -46,8 +52,8 @@ class GPSOAuth {
     
     private func getTicket() {
         var params = baseParams
-        params["Email"] = GPSOAuth.sharedInstance.email
-        params["Passwd"] = GPSOAuth.sharedInstance.password
+        params["Email"] = self.email
+        params["Passwd"] = self.password
         params["service"] = "ac2dm"
         
         Alamofire.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
@@ -57,16 +63,16 @@ class GPSOAuth {
                 
                 if googleDict["Token"] != nil {
                     self.loginOAuth(googleDict["Token"]!)
-                    GPSOAuth.sharedInstance.token = googleDict["Token"]
+                    self.token = googleDict["Token"]
                 } else {
-                    PGoAuth.sharedInstance.delegate?.didNotReceiveAuth()
+                    self.delegate?.didNotReceiveAuth()
                 }
         }
     }
     
     private func loginOAuth(token: String) {
         var params = baseParams
-        params["Email"] = GPSOAuth.sharedInstance.email
+        params["Email"] = self.email
         params["EncryptedPasswd"] = token
         params["service"] = "audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com"
         params["app"] = "com.nianticlabs.pokemongo"
@@ -78,22 +84,20 @@ class GPSOAuth {
                 let googleDict = self.parseKeyValues(responseString! as String)
                 
                 if googleDict["Auth"] != nil {
-                    GPSOAuth.sharedInstance.accessToken = googleDict["Auth"]!
-                    GPSOAuth.sharedInstance.expires = Int(googleDict["Expiry"]!)!
-                    PGoAuth.sharedInstance.loggedIn = true
-                    PGoAuth.sharedInstance.delegate?.didReceiveAuth()
+                    self.accessToken = googleDict["Auth"]!
+                    self.expires = Int(googleDict["Expiry"]!)!
+                    self.loggedIn = true
+                    self.delegate?.didReceiveAuth()
                 } else {
-                    PGoAuth.sharedInstance.delegate?.didNotReceiveAuth()
+                    self.delegate?.didNotReceiveAuth()
                 }
         }
     }
     
-    func login(withEmail email: String, withPassword password: String) {
-        GPSOAuth.sharedInstance.email = email.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        GPSOAuth.sharedInstance.password = password
-        
-        PGoEndpoint.LoginProvider = PGoAuthType.Google
-        
+    public func login(withUsername username: String, withPassword password: String) {
+        self.email = username.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        self.password = password
+
         self.getTicket()
     }
 }

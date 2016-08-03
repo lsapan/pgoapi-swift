@@ -9,24 +9,13 @@
 import Foundation
 import Alamofire
 
-public class PGoAuth {
-    public static let sharedInstance = PGoAuth()
-
-    var username: String!
-    var password: String!
-    public var accessToken: String?
-    public var expires: String?
-    public var loggedIn: Bool = false
-    public var delegate: PGoAuthDelegate?
-
-    public func login(username:String, password:String, provider: PGoAuthType = .Ptc) {
-        self.username = username
-        self.password = password
-        
-        if provider == .Ptc {
-            PtcOAuth.sharedInstance.login(withUsername: username, withPassword: password)
-        } else if provider == .Google {
-            GPSOAuth.sharedInstance.login(withEmail: username, withPassword: password)
-        }
-    }
+public protocol PGoAuth {
+    var password: String! { get set }
+    var accessToken: String? { get set }
+    var expires: Int? { get set }
+    var loggedIn: Bool { get }
+    var delegate: PGoAuthDelegate? { get set }
+    var authType: PGoAuthType { get }
+    var endpoint: String { get set }
+    var authToken: Pogoprotos.Networking.Envelopes.AuthTicket? { get set }
 }

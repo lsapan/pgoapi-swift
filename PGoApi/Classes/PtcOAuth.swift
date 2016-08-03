@@ -9,13 +9,18 @@
 import Foundation
 import Alamofire
 
-class PtcOAuth {
-    static let sharedInstance = PtcOAuth()
+public class PtcOAuth: PGoAuth {
+    public var username: String!
+    public var password: String!
+    public var accessToken: String?
+    public var expires: Int?
+    public var loggedIn: Bool = false
+    public var delegate: PGoAuthDelegate?
+    public let authType: PGoAuthType = .Ptc
+    public var endpoint: String = PGoEndpoint.Rpc
+    public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
     
-    var username: String!
-    var password: String!
-    var accessToken: String?
-    var expires: String?
+    public init() {}
 
     private func getTicket(lt: String, execution: String) {
         print("Requesting ticket...")
@@ -24,8 +29,8 @@ class PtcOAuth {
             "lt": lt,
             "execution": execution,
             "_eventId": "submit",
-            "username": PtcOAuth.sharedInstance.username,
-            "password": PtcOAuth.sharedInstance.password
+            "username": username,
+            "password": password
         ]
         
         Alamofire.request(.POST, PGoEndpoint.LoginInfo, parameters: parameters)
@@ -36,7 +41,7 @@ class PtcOAuth {
 
                     self.loginOAuth(ticket)
                 } else {
-                    PGoAuth.sharedInstance.delegate?.didNotReceiveAuth()
+                    self.delegate?.didNotReceiveAuth()
                 }
         }
     }
@@ -65,25 +70,23 @@ class PtcOAuth {
                 // Extract the access_token
                 let atRange = matches[0].rangeAtIndex(1)
                 let atSwiftRange = atRange.rangeForString(value)!
-                PtcOAuth.sharedInstance.accessToken = value.substringWithRange(atSwiftRange)
+                self.accessToken = value.substringWithRange(atSwiftRange)
                 
                 // Extract the expires
                 let eRange = matches[0].rangeAtIndex(1)
                 let eSwiftRange = eRange.rangeForString(value)!
-                PtcOAuth.sharedInstance.expires = value.substringWithRange(eSwiftRange)
+                self.expires = Int(value.substringWithRange(eSwiftRange))
                 
-                PGoAuth.sharedInstance.loggedIn = true
-                PGoAuth.sharedInstance.delegate?.didReceiveAuth()
+                self.loggedIn = true
+                self.delegate?.didReceiveAuth()
         }
     }
     
-    func login(withUsername username:String, withPassword password:String) {
+    public func login(withUsername username:String, withPassword password:String) {
         print("Starting login...")
-        PtcOAuth.sharedInstance.username = username
-        PtcOAuth.sharedInstance.password = password
+        self.username = username
+        self.password = password
         
-        PGoEndpoint.LoginProvider = PGoAuthType.Ptc
-
         let delegate = Alamofire.Manager.sharedInstance.delegate
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
             return nil

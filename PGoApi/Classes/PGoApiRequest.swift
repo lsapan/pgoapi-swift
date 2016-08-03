@@ -30,21 +30,21 @@ public class PGoApiRequest {
         
     }
 
-    public func makeRequest(intent: PGoApiIntent, delegate: PGoApiDelegate?) {  // analogous to call in pgoapi.py
+    public func makeRequest(intent: PGoApiIntent, auth: PGoAuth, delegate: PGoApiDelegate?) {  // analogous to call in pgoapi.py
         if methodList.count == 0 {
             print("makeRequest() called without any methods in methodList.")
             return
         }
         
-        if !PGoAuth.sharedInstance.loggedIn {
+        if !auth.loggedIn {
             print("makeRequest() called without being logged in.")
             return
         }
         
         // TODO: Get player position
         // position stuff here...
-        let request = PGoRpcApi(subrequests: methodList, intent: intent, delegate: delegate)
-        request.request(PGoSetting.endpoint)
+        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, delegate: delegate)
+        request.request()
     }
     
     public func setLocation(latitude: Double, longitude: Double, altitude: Double? = nil) {
