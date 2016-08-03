@@ -23,7 +23,7 @@ public struct PGoApiResponse {
     public let subresponses: [GeneratedMessage]
 }
 
-public class PGoLocation {
+public struct PGoLocation {
     var lat:Double = 0
     var long:Double = 0
     var alt:Double? = nil
@@ -31,7 +31,7 @@ public class PGoLocation {
 
 public class PGoApiRequest {
     
-    let Location = PGoLocation()
+    public var Location = PGoLocation()
     
     public var methodList: [PGoApiMethod] = []
     
