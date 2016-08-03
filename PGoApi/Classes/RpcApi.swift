@@ -63,11 +63,11 @@ class PGoRpcApi {
         requestBuilder.statusCode = 2
         requestBuilder.requestId = PGoSetting.id
         requestBuilder.unknown12 = 1431
-        
-        requestBuilder.latitude = self.api.PGoLocation.lat
-        requestBuilder.longitude = self.api.PGoLocation.long
-        if self.api.PGoLocation.alt != nil {
-            requestBuilder.altitude = self.api.PGoLocation.alt!
+                
+        requestBuilder.latitude = self.api.Location.lat
+        requestBuilder.longitude = self.api.Location.long
+        if self.api.Location.alt != nil {
+            requestBuilder.altitude = self.api.Location.alt!
         }
         
         if (auth.authToken == nil) {
