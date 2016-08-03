@@ -24,11 +24,8 @@ public struct PGoLocation {
 }
 
 public struct PGoSetting {
-    public static var endpoint = PGoEndpoint.Rpc
     public static let id: UInt64 = 8145806132888207460
     public static let SettingsHash = "05daf51635c82611d1aac95c0b051d3ec088a930"
-    public static var receivedToken = false
-    public static var authToken = Pogoprotos.Networking.Envelopes.AuthTicket()
 }
 
 public enum PGoApiIntent {
