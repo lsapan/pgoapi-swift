@@ -1,14 +1,17 @@
-# pgoapi-swift - a Pokemon Go API for Swift
+# pgoapi-swift - a Pokemon Go API library for Swift
 
-This API is very much a work in progress, but it allows you to authenticate to the servers, as well as request information about the player, inventory, etc.
+This library allows you to communicate with the Pokemon GO servers as if you are a native client.
 
-This should be more than enough to get anyone going, especially since all of the protos are transpiled to Swift and are working.
+It supports:
 
-Special thanks to https://github.com/tejado/pgoapi and https://github.com/AeonLucid/POGOProtos for making this possible.
+- Authentication (both PTC and Google)
+- Player Information
+- Map Objects and Pokemon
+- Inventory
+- and much *(much!)* more.
 
-### Installation
-You can install PGoApi with CocoaPods. It isn't fully published yet, but you can install it from git:
-
+## Installation
+The fastest way to get up and running is with CocoaPods. It isn't published in the CocoaPods repo yet due to dependency issues, but you can still easily use it by adding the following to your Podfile:
 ```
 use_frameworks!
 pod 'PGoApi', :git => 'https://github.com/lsapan/pgoapi-swift', :branch => 'master'
@@ -17,15 +20,41 @@ pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift
 
 Be sure to include ProtocolBuffers-Swift as shown above.
 
-### Usage
-Start by simply adding `import PGoApi` to the top of your file.
+## Usage
+At a high level, there are two steps to using the library. Login with one of the `PGoAuth` subclasses (PTC or Google), and send off your requests.
 
+#### Logging in
+Use a `PGoAuth` subclass and `PGoAuthDelegate` to login. This example uses PTC, but you can use the `GPSOAuth` class if you wish to login with Google.
+```
+class LoginExample: UIViewController, PGoAuthDelegate {
+    var auth: PtcOAuth!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        auth = PtcOAuth()
+        auth.login(withUsername: "username", withPassword: "password")
+    }
+    
+    func didReceiveAuth() {
+        print("Yeah, we logged in!")
+    }
+    
+    func didNotReceiveAuth() {
+        print("Aww, shucks.")
+    }
+}
+```
+
+#### Making Requests
 The API makes use of delegates, and a practical working example is in `Example/PGoApi/ViewController.swift`. It handles logging in, updating the API endpoint, etc.
 
 To summarize, create an instance of `PGoApiRequest` and call whichever RPC commands you'd like to run (optionally with parameters). Once you've queued up the commands you'd like, call `makeRequest` to fire off the request and subrequests. Your delegate should implement `didReceiveApiResponse` and `didReceiveApiError` to handle the response (or lack thereof).
 
-### Protos
-Updating the protos is a bit tricky, I'll add more information on that later. For now, the protos are fresh and should be good for awhile.
+## Protos
+I'll add documentation on how to update the protos here later. That said, I update them very regularly so you shouldn't need to worry about it.
 
-### Contributing
+## Contributing
 In short: please do! The example app needs some love, and it'd be great to get that fleshed out so others can get going faster.
+
+## Credits
+Special thanks to https://github.com/tejado/pgoapi for the python implemention as well as  https://github.com/AeonLucid/POGOProtos for specing out the protos.
