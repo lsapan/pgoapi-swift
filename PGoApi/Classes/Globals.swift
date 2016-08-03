@@ -17,12 +17,6 @@ public struct PGoEndpoint {
     public static let GoogleLogin = "https://android.clients.google.com/auth"
 }
 
-public struct PGoLocation {
-    static var lat:Double = 0
-    static var long:Double = 0
-    static var alt:Double? = nil
-}
-
 public struct PGoSetting {
     public static let id: UInt64 = 8145806132888207460
     public static let SettingsHash = "05daf51635c82611d1aac95c0b051d3ec088a930"

@@ -23,7 +23,16 @@ public struct PGoApiResponse {
     public let subresponses: [GeneratedMessage]
 }
 
+public struct PGoLocation {
+    var lat:Double = 0
+    var long:Double = 0
+    var alt:Double? = nil
+}
+
 public class PGoApiRequest {
+    
+    public var Location = PGoLocation()
+    
     public var methodList: [PGoApiMethod] = []
     
     public init() {
@@ -43,15 +52,15 @@ public class PGoApiRequest {
         
         // TODO: Get player position
         // position stuff here...
-        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, delegate: delegate)
+        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, api: self, delegate: delegate)
         request.request()
     }
     
     public func setLocation(latitude: Double, longitude: Double, altitude: Double? = nil) {
-        PGoLocation.lat = latitude
-        PGoLocation.long = longitude
+        Location.lat = latitude
+        Location.long = longitude
         if altitude != nil {
-            PGoLocation.alt = altitude!
+            Location.alt = altitude!
         }
     }
     
@@ -65,8 +74,8 @@ public class PGoApiRequest {
     
     public func updatePlayer() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage.Builder()
-        messageBuilder.latitude = PGoLocation.lat
-        messageBuilder.longitude = PGoLocation.long
+        messageBuilder.latitude = Location.lat
+        messageBuilder.longitude = Location.long
         methodList.append(PGoApiMethod(id: .PlayerUpdate, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.PlayerUpdateResponse.parseFromData(data)
         }))
@@ -121,8 +130,8 @@ public class PGoApiRequest {
         messageBuilder.fortId = fortId
         messageBuilder.fortLatitude = fortLatitude
         messageBuilder.fortLongitude = fortLongitude
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .FortSearch, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortSearchResponse.parseFromData(data)
         }))
@@ -132,8 +141,8 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.EncounterMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.spawnPointId = spawnPointId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .Encounter, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.EncounterResponse.parseFromData(data)
         }))
@@ -186,8 +195,8 @@ public class PGoApiRequest {
     
     public func getMapObjects(cellIds: Array<UInt64>? = nil, sinceTimestampMs: Array<Int64>? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage.Builder()
-        messageBuilder.latitude = PGoLocation.lat
-        messageBuilder.longitude = PGoLocation.long
+        messageBuilder.latitude = Location.lat
+        messageBuilder.longitude = Location.long
         
         if sinceTimestampMs != nil {
             messageBuilder.sinceTimestampMs = sinceTimestampMs!
@@ -207,7 +216,7 @@ public class PGoApiRequest {
             messageBuilder.cellId = cellIds!
             
         } else {
-            let cells = generateS2Cells(PGoLocation.lat, long: PGoLocation.long)
+            let cells = generateS2Cells(Location.lat, long: Location.long)
             messageBuilder.cellId = cells
         }
         
@@ -220,8 +229,8 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage.Builder()
         messageBuilder.fortId = fortId
         messageBuilder.pokemonId = pokemonId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .FortDeployPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortDeployPokemonResponse.parseFromData(data)
         }))
@@ -231,8 +240,8 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage.Builder()
         messageBuilder.fortId = fortId
         messageBuilder.pokemonId = pokemonId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .FortRecallPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.FortRecallPokemonResponse.parseFromData(data)
         }))
@@ -324,8 +333,8 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.UseItemGymMessage.Builder()
         messageBuilder.itemId = itemId
         messageBuilder.gymId = gymId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .UseItemGym, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.UseItemGymResponse.parseFromData(data)
         }))
@@ -334,8 +343,8 @@ public class PGoApiRequest {
     public func getGymDetails(gymId: String, gymLatitude: Double, gymLongitude: Double) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage.Builder()
         messageBuilder.gymId = gymId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         messageBuilder.gymLatitude = gymLatitude
         messageBuilder.gymLongitude = gymLongitude
         methodList.append(PGoApiMethod(id: .GetGymDetails, message: try! messageBuilder.build(), parser: { data in
@@ -359,8 +368,8 @@ public class PGoApiRequest {
         messageBuilder.battleId = battleId
         messageBuilder.attackActions = attackActions
         messageBuilder.lastRetrievedActions = lastRetrievedAction
-        messageBuilder.playerLongitude = PGoLocation.lat
-        messageBuilder.playerLatitude = PGoLocation.long
+        messageBuilder.playerLongitude = Location.lat
+        messageBuilder.playerLatitude = Location.long
         
         methodList.append(PGoApiMethod(id: .AttackGym, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.AttackGymResponse.parseFromData(data)
@@ -410,8 +419,8 @@ public class PGoApiRequest {
     
     public func getIncensePokemon() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage.Builder()
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .GetIncensePokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetIncensePokemonResponse.parseFromData(data)
         }))
@@ -430,8 +439,8 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage.Builder()
         messageBuilder.modifierType = itemId
         messageBuilder.fortId = fortId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .AddFortModifier, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.AddFortModifierResponse.parseFromData(data)
         }))
@@ -441,8 +450,8 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.fortId = fortId
-        messageBuilder.playerLatitude = PGoLocation.lat
-        messageBuilder.playerLongitude = PGoLocation.long
+        messageBuilder.playerLatitude = Location.lat
+        messageBuilder.playerLongitude = Location.long
         methodList.append(PGoApiMethod(id: .DiskEncounter, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DiskEncounterResponse.parseFromData(data)
         }))
