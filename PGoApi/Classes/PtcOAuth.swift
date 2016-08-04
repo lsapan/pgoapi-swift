@@ -67,18 +67,18 @@ public class PtcOAuth: PGoAuth {
                 let regex = try! NSRegularExpression(pattern: "access_token=([A-Za-z0-9\\-.]+)&expires=([0-9]+)", options: [])
                 let matches = regex.matchesInString(value, options: [], range: NSRange(location: 0, length: value.utf16.count))
                 
-                guard matches.count > 0 else {
+                guard let matchResult = matches.first else {
                     self.delegate?.didNotReceiveAuth()
                     return
                 }
                 
                 // Extract the access_token
-                let atRange = matches[0].rangeAtIndex(1)
+                let atRange = matchResult.rangeAtIndex(1)
                 let atSwiftRange = atRange.rangeForString(value)!
                 self.accessToken = value.substringWithRange(atSwiftRange)
                 
                 // Extract the expires
-                let eRange = matches[0].rangeAtIndex(2)
+                let eRange = matchResult.rangeAtIndex(2)
                 let eSwiftRange = eRange.rangeForString(value)!
                 self.expires = Int(value.substringWithRange(eSwiftRange))
                 
