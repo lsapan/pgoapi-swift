@@ -86,6 +86,12 @@
 		D11B7B95ECBD51300BD4184F2D70645E /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B44D2744E5AD3B4CD941661D6C913 /* ExtensionRegistry.swift */; };
 		D7A3FBB33C9B991BF293ECDA9C7273AB /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD5B5748B6B42FD091F219A21A6FB48 /* RingBuffer.swift */; };
 		E014418241CA9C11E3C484B6D0DB23F8 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5547EA8165031F2C18E62753D08E2273 /* Google.Protobuf.Api.proto.swift */; };
+		E4F736631D5BE08F006532BB /* PGoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736621D5BE08F006532BB /* PGoUtils.swift */; };
+		E4F7366A1D5BE0DB006532BB /* encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = E4F736661D5BE0DB006532BB /* encrypt.c */; };
+		E4F7366B1D5BE0DB006532BB /* encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F736671D5BE0DB006532BB /* encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */; };
+		E4F7366D1D5BE0DB006532BB /* xxhash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736691D5BE0DB006532BB /* xxhash.swift */; };
+		E4F7366F1D5BE1EF006532BB /* PGoApi-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F7366E1D5BE1EF006532BB /* PGoApi-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6EC4FF319C2EE94CC2EF1992EF06B75 /* RpcApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297832640413A34C6E671E759EE46D43 /* RpcApi.swift */; };
 		E85894DBB3CD2C8064FC01A4613F3E61 /* Google.Protobuf.AnyType.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF28469124B16E5E22527E5419DAF6 /* Google.Protobuf.AnyType.proto.swift */; };
 		E8ADFFCD0BF8342838F1E3EF1162F70F /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFF18DCA9866A0AA480B4B7850BE064 /* Google.Protobuf.Duration.proto.swift */; };
@@ -240,6 +246,12 @@
 		DD8F4EAC0A2AE39BDC77D5B78BBDE22A /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		E1A1E1389F38634775C5BF02D739F92C /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
 		E400B89EB5200DBD6413F8917008DDEE /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
+		E4F736621D5BE08F006532BB /* PGoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoUtils.swift; sourceTree = "<group>"; };
+		E4F736661D5BE0DB006532BB /* encrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = encrypt.c; sourceTree = "<group>"; };
+		E4F736671D5BE0DB006532BB /* encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encrypt.h; sourceTree = "<group>"; };
+		E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoEncrypt.swift; sourceTree = "<group>"; };
+		E4F736691D5BE0DB006532BB /* xxhash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = xxhash.swift; sourceTree = "<group>"; };
+		E4F7366E1D5BE1EF006532BB /* PGoApi-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PGoApi-Bridging-Header.h"; sourceTree = "<group>"; };
 		E650DC9A6372DFB56201B400E3B5F885 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		E8AFF2EC9A1BF020F609725DFE4622EE /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Source/Manager.swift; sourceTree = "<group>"; };
 		E95B44D2744E5AD3B4CD941661D6C913 /* ExtensionRegistry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionRegistry.swift; path = Source/ExtensionRegistry.swift; sourceTree = "<group>"; };
@@ -375,6 +387,7 @@
 		6291C70057973248E41C5ADD75306EB3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E4F736651D5BE0DB006532BB /* Unknown6 */,
 				A31E03161D51312F00B69C63 /* protos */,
 				ACD3E1AD6111B387A2127EC65F03B7CB /* PGoAuth.swift */,
 				816BA448A9C6DBB694F7A5ADD3C8B6D5 /* PGoAuthDelegate.swift */,
@@ -386,6 +399,7 @@
 				267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */,
 				297832640413A34C6E671E759EE46D43 /* RpcApi.swift */,
 				11E506CF98E807B4E6B1D5DAED3838AF /* S2Geometry.swift */,
+				E4F736621D5BE08F006532BB /* PGoUtils.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -568,6 +582,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E4F736651D5BE0DB006532BB /* Unknown6 */ = {
+			isa = PBXGroup;
+			children = (
+				E4F736661D5BE0DB006532BB /* encrypt.c */,
+				E4F736671D5BE0DB006532BB /* encrypt.h */,
+				E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */,
+				E4F7366E1D5BE1EF006532BB /* PGoApi-Bridging-Header.h */,
+				E4F736691D5BE0DB006532BB /* xxhash.swift */,
+			);
+			path = Unknown6;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -575,7 +601,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F7366B1D5BE0DB006532BB /* encrypt.h in Headers */,
 				A3B729AA4857F2FB88CD2C286A557F42 /* PGoApi-umbrella.h in Headers */,
+				E4F7366F1D5BE1EF006532BB /* PGoApi-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +794,7 @@
 				A31E033F1D51314600B69C63 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift in Sources */,
 				3D5397280D54B105B8BD06B79D2E4524 /* GPSOAuth.swift in Sources */,
 				A31E03391D51314600B69C63 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */,
+				E4F7366D1D5BE0DB006532BB /* xxhash.swift in Sources */,
 				8DCCFA895D4BBFC66B33520D18B06788 /* PGoApi-dummy.m in Sources */,
 				A31E032C1D51314600B69C63 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift in Sources */,
 				C273E0462649C60B5BFCCA9108DC8158 /* PGoApiDelegate.swift in Sources */,
@@ -774,9 +803,12 @@
 				A31E032D1D51314600B69C63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift in Sources */,
 				A31E032E1D51314600B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */,
 				7978880777C45217390643A415A45F8C /* PtcOAuth.swift in Sources */,
+				E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */,
 				E6EC4FF319C2EE94CC2EF1992EF06B75 /* RpcApi.swift in Sources */,
 				F1EF2AF5B9139512627248E7999842AF /* S2Geometry.swift in Sources */,
+				E4F736631D5BE08F006532BB /* PGoUtils.swift in Sources */,
 				A31E033D1D51314600B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */,
+				E4F7366A1D5BE0DB006532BB /* encrypt.c in Sources */,
 				A31E03371D51314600B69C63 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift in Sources */,
 				A31E032F1D51314600B69C63 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */,
 			);
