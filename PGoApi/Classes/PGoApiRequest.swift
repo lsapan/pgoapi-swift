@@ -54,6 +54,7 @@ public class PGoApiRequest {
         // position stuff here...
         let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, api: self, delegate: delegate)
         request.request()
+        methodList.removeAll()
     }
     
     public func setLocation(latitude: Double, longitude: Double, altitude: Double? = nil) {
@@ -472,7 +473,7 @@ public class PGoApiRequest {
         }))
     }
     
-    public func setFavoritePokemon(pokemonId: UInt64, isFavorite: Bool) {
+    public func setFavoritePokemon(pokemonId: Int64, isFavorite: Bool) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
         messageBuilder.isFavorite = isFavorite

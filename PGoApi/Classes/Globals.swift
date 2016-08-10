@@ -18,8 +18,7 @@ public struct PGoEndpoint {
 }
 
 public struct PGoSetting {
-    public static let id: UInt64 = 8145806132888207460
-    public static let SettingsHash = "05daf51635c82611d1aac95c0b051d3ec088a930"
+    public static let SettingsHash = "54b359c97e46900f87211ef6e6dd0b7f2a3ea1f5"
 }
 
 public enum PGoApiIntent {
