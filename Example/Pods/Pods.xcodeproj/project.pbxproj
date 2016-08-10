@@ -92,7 +92,7 @@
 		E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */; };
 		E4F7366D1D5BE0DB006532BB /* xxhash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736691D5BE0DB006532BB /* xxhash.swift */; };
 		E4F7366F1D5BE1EF006532BB /* PGoApi-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F7366E1D5BE1EF006532BB /* PGoApi-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E6EC4FF319C2EE94CC2EF1992EF06B75 /* RpcApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297832640413A34C6E671E759EE46D43 /* RpcApi.swift */; };
+		E6EC4FF319C2EE94CC2EF1992EF06B75 /* PGoRpcApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */; };
 		E85894DBB3CD2C8064FC01A4613F3E61 /* Google.Protobuf.AnyType.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF28469124B16E5E22527E5419DAF6 /* Google.Protobuf.AnyType.proto.swift */; };
 		E8ADFFCD0BF8342838F1E3EF1162F70F /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFF18DCA9866A0AA480B4B7850BE064 /* Google.Protobuf.Duration.proto.swift */; };
 		EEB780A9EC496C1BE6A5CB128CB6E247 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C309FB75EA6A55CB63B6F05EC9BDAF5 /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
@@ -162,7 +162,7 @@
 		267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoApiDelegate.swift; sourceTree = "<group>"; };
 		26BC5243400021CBCA4CC23346212857 /* WireFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WireFormat.swift; path = Source/WireFormat.swift; sourceTree = "<group>"; };
 		27454FBC4E8237D5383BADD5231A2E10 /* ProtocolBuffers-Swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ProtocolBuffers-Swift.xcconfig"; sourceTree = "<group>"; };
-		297832640413A34C6E671E759EE46D43 /* RpcApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RpcApi.swift; sourceTree = "<group>"; };
+		297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoRpcApi.swift; sourceTree = "<group>"; };
 		2BF2B15E987AE0B74B2D0AF006589D1A /* Globals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		2C9010DFE4EEE41ACA66E7A6ACD8734B /* Pods-PGoApi_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PGoApi_Tests-umbrella.h"; sourceTree = "<group>"; };
 		3465FE2A75E7DC66AA1BD0235AD79070 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
@@ -397,7 +397,7 @@
 				2BF2B15E987AE0B74B2D0AF006589D1A /* Globals.swift */,
 				75A219FCE22860A27B47F365E2364CDE /* PGoApiRequest.swift */,
 				267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */,
-				297832640413A34C6E671E759EE46D43 /* RpcApi.swift */,
+				297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */,
 				11E506CF98E807B4E6B1D5DAED3838AF /* S2Geometry.swift */,
 				E4F736621D5BE08F006532BB /* PGoUtils.swift */,
 			);
@@ -804,7 +804,7 @@
 				A31E032E1D51314600B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */,
 				7978880777C45217390643A415A45F8C /* PtcOAuth.swift in Sources */,
 				E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */,
-				E6EC4FF319C2EE94CC2EF1992EF06B75 /* RpcApi.swift in Sources */,
+				E6EC4FF319C2EE94CC2EF1992EF06B75 /* PGoRpcApi.swift in Sources */,
 				F1EF2AF5B9139512627248E7999842AF /* S2Geometry.swift in Sources */,
 				E4F736631D5BE08F006532BB /* PGoUtils.swift in Sources */,
 				A31E033D1D51314600B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */,
