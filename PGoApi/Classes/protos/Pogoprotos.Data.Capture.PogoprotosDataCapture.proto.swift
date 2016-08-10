@@ -67,8 +67,12 @@ public extension Pogoprotos.Data.Capture {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if !activityType.isEmpty {
+        try output.writeRawVarint32(10)
+        try output.writeRawVarint32(activityTypeMemoizedSerializedSize)
+      }
       for oneValueOfactivityType in activityType {
-          try output.writeEnum(1, value:oneValueOfactivityType.rawValue)
+          try output.writeEnumNoTag(oneValueOfactivityType.rawValue)
       }
       if !xp.isEmpty {
         try output.writeRawVarint32(18)
@@ -105,7 +109,11 @@ public extension Pogoprotos.Data.Capture {
           dataSizeactivityType += oneValueOfactivityType.rawValue.computeEnumSizeNoTag()
       }
       serialize_size += dataSizeactivityType
-      serialize_size += (1 * Int32(activityType.count))
+      if !activityType.isEmpty {
+        serialize_size += 1
+        serialize_size += dataSizeactivityType.computeRawVarint32Size()
+      }
+      activityTypeMemoizedSerializedSize = dataSizeactivityType
       var dataSizeXp:Int32 = 0
       for oneValuexp in xp {
           dataSizeXp += oneValuexp.computeInt32SizeNoTag()
@@ -411,13 +419,18 @@ public extension Pogoprotos.Data.Capture {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
-          case 8:
+          case 10:
+            let length:Int32 = try input.readRawVarint32()
+            let oldLimit:Int32 = try input.pushLimit(length)
+            while input.bytesUntilLimit() > 0 {
             let valueIntactivityType = try input.readEnum()
             if let enumsactivityType = Pogoprotos.Enums.ActivityType(rawValue:valueIntactivityType) {
                  builderResult.activityType += [enumsactivityType]
             } else {
                  try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntactivityType))
             }
+            }
+            input.popLimit(oldLimit)
 
           case 18:
             let length:Int32 = try input.readRawVarint32()
