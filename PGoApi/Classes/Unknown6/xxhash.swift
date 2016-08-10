@@ -37,8 +37,14 @@ public class xxhash {
         return result
     }
     
-    public init(seed: UInt32) {
-        _state = xxh32_state(total_len: 0, seed: seed, v1: seed &+ PRIME32_1 &+ PRIME32_2, v2: seed &+ PRIME32_2, v3: seed &+ 0, v4: seed &- PRIME32_1, memsize: 0, memory: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+    public init(seed: UInt32? = 0) {
+        _state = xxh32_state(total_len: 0, seed: seed!, v1: seed! &+ PRIME32_1 &+ PRIME32_2, v2: seed! &+ PRIME32_2, v3: seed! &+ 0, v4: seed! &- PRIME32_1, memsize: 0, memory: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+    }
+    
+    public func xxh32(seed: UInt32, input: Array<UInt8>) -> UInt32 {
+        let xxh = xxhash(seed: seed)
+        xxh.update(input)
+        return xxh.digest()
     }
     
     public func xxh64(seed: UInt64, input: Array<UInt8>) -> UInt64 {
@@ -204,13 +210,13 @@ public class xxhash {
             h32 = rotl32(h32, count: 11) &* PRIME32_1
             index += 1
         }
-                
+        
         h32 ^= h32 >> 15
         h32 = h32 &* PRIME32_2
         h32 ^= h32 >> 13
         h32 = h32 &* PRIME32_3
         h32 ^= h32 >> 16
-
+        
         return h32
     }
     
@@ -242,13 +248,12 @@ public class xxhash {
     
     private struct xxh32_state {
         var total_len: UInt16 = 0
-         var seed: UInt32 = 0
-         var v1: UInt32 = 0
-         var v2: UInt32 = 0
-         var v3: UInt32 = 0
-         var v4: UInt32 = 0
-         var memsize: Int32 = 0
-         var memory: [UInt8]
+        var seed: UInt32 = 0
+        var v1: UInt32 = 0
+        var v2: UInt32 = 0
+        var v3: UInt32 = 0
+        var v4: UInt32 = 0
+        var memsize: Int32 = 0
+        var memory: [UInt8]
     }
 }
-
