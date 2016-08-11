@@ -162,10 +162,10 @@ class PGoRpcApi {
             
             let signature = try! signatureBuilder.build()
             
-            let unknown6 = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
-            unknown6.requestType = 6
+            let unknown6 = requestBuilder.getUnknown6Builder()
+            let unknown2 = unknown6.getUnknown2Builder()
             
-            let unknown2 = requestBuilder.getUnknown6Builder().getUnknown2Builder()
+            unknown6.requestType = 6
             unknown2.encryptedSignature = self.encrypt.encryptUsingLib(signature.data())
         }
         
