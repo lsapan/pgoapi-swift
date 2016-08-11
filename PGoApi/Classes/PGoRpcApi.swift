@@ -23,10 +23,11 @@ class PGoRpcApi {
     private var timeSinceStart:UInt64 = 0
     private var locationHex: NSData
     private var requestId: UInt64 = 0
+    private var manager: Manager? = nil
     
     internal init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, api: PGoApiRequest, delegate: PGoApiDelegate?) {
-        let manager = Manager.sharedInstance
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager = auth.manager
+        manager!.session.configuration.HTTPAdditionalHeaders = [
             "User-Agent": "Niantic App"
         ]
         
@@ -182,6 +183,10 @@ class PGoRpcApi {
         if auth.authToken == nil {
             if response.hasAuthTicket {
                 auth.authToken = response.authTicket
+            }
+            if response.hasApiUrl {
+                auth.endpoint = "https://\(response.apiUrl)/rpc"
+                print("New endpoint: \(auth.endpoint)")
             }
         }
         return PGoApiResponse(response: response, subresponses: subresponses)
