@@ -12,6 +12,7 @@ import PGoApi
 class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
 
     var auth: PtcOAuth!
+    var request = PGoApiRequest()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +25,16 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     func didReceiveAuth() {
         print("Auth received!!")
         print("Starting simulation...")
-        let request = PGoApiRequest()
+
+        // Init with auth
+        request = PGoApiRequest(auth: auth)
+        
+        // Set the latitude/longitude of player; altitude should be included, but it's optional
+        request.setLocation(37.331686, longitude: -122.030765, altitude: 1.0)
+        
+        // Simulate the start
         request.simulateAppStart()
-        request.makeRequest(.Login, auth: auth, delegate: self)
+        request.makeRequest(.Login, delegate: self)
     }
     
     func didNotReceiveAuth() {
@@ -36,15 +44,8 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
         print("Got that API response: \(intent)")
         if (intent == .Login) {
-            auth.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
-            print("New endpoint: \(auth.endpoint)")
-            let request = PGoApiRequest()
-            
-            //Set the latitude/longitude of player; altitude is optional
-            request.setLocation(37.331686, longitude: -122.030765, altitude: 0)
-            
             request.getMapObjects()
-            request.makeRequest(.GetMapObjects, auth: auth, delegate: self)
+            request.makeRequest(.GetMapObjects, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
             print(response.response)
@@ -60,7 +61,6 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?) {
         print("API Error: \(statusCode)")
     }
-
 
 }
 
