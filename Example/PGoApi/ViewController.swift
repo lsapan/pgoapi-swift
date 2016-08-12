@@ -10,15 +10,34 @@ import UIKit
 import PGoApi
 
 class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
-
-    var auth: PtcOAuth!
+    
+    enum AuthMethod {
+        case PTC
+        case Google
+    }
+    
+    @IBOutlet weak var authSegment: UISegmentedControl!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBAction func login(sender: UIButton) {
+        switch authSegment.selectedSegmentIndex {
+        case AuthMethod.PTC.hashValue:
+            auth = PtcOAuth()
+        case AuthMethod.Google.hashValue:
+            auth = GPSOAuth()
+        default:
+            break
+        }
+        
+        auth.delegate = self
+        auth.login(withUsername: usernameTextField.text!, withPassword: passwordTextField.text!)
+    }
+    
+    var auth: PGoAuth!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        auth = PtcOAuth()
-        auth.delegate = self
-        auth.login(withUsername: "", withPassword: "")
     }
     
     func didReceiveAuth() {
@@ -41,10 +60,12 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
             let request = PGoApiRequest()
             
             //Set the latitude/longitude of player; altitude is optional
-            request.setLocation(37.331686, longitude: -122.030765, altitude: 0)
+//            request.setLocation(37.331686, longitude: -122.030765, altitude: 0)
+            request.getInventory()
+            request.makeRequest(.GetInventory, auth: auth, delegate: self)
             
-            request.getMapObjects()
-            request.makeRequest(.GetMapObjects, auth: auth, delegate: self)
+//            request.getMapObjects()
+//            request.makeRequest(.GetMapObjects, auth: auth, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
             print(response.response)
@@ -54,6 +75,10 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
             print(cell.nearbyPokemons)
             print(cell.wildPokemons)
             print(cell.catchablePokemons)
+        } else if (intent == .GetInventory) {
+            print("Got inventory!")
+            print(response.response)
+            print(response.subresponses)
         }
     }
     
