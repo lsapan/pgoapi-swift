@@ -166,7 +166,8 @@ class PGoRpcApi {
             let unknown2 = unknown6.getUnknown2Builder()
             
             unknown6.requestType = 6
-            unknown2.encryptedSignature = self.encrypt.encryptUsingLib(signature.data())
+            let sigData = self.encrypt.encrypt(signature.data().getUInt8Array())
+            unknown2.encryptedSignature = NSData(bytes: sigData, length: sigData.count)
         }
         
         self.requestId += 1
