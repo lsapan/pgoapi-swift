@@ -20,83 +20,68 @@ public class PGoEncrypt {
         return NSData(bytes: randomBytes, length: len!)
     }
     
-    public func encryptUsingLib(input: NSData, iv_: NSData? = nil) -> NSData {
-        var iv: NSData? = iv_
-        if iv_ == nil {
-            iv = randomBytes()
-        }
-        var outputSize: size_t = 0
-        encryptUnknown6(UnsafePointer<UInt8>(input.bytes), input.length,
-                        UnsafePointer<UInt8>(iv!.bytes), iv!.length, nil, &outputSize)
-        
-        let output: NSData = NSMutableData(length: outputSize)!
-        encryptUnknown6(UnsafePointer<UInt8>(input.bytes), input.length,
-                        UnsafePointer<UInt8>(iv!.bytes), iv!.length,
-                        UnsafeMutablePointer<UInt8>(output.bytes), &outputSize)
-        
-        let usedOutput = outputSize < output.length ? output.subdataWithRange(NSMakeRange(0, outputSize)) : output
-        return usedOutput
+    private func getHighByte(x: UInt16) -> UInt8 {
+        return UInt8(x >> 8)
     }
     
-    /*
+    private func getLowByte(x: UInt16) -> UInt8 {
+        return UInt8(x & 0x00FF)
+    }
+    
+    private func rotl8(v:UInt8, n:UInt8) -> UInt8 {
+        let rotateBits = n % 8
+        var t = UInt16(v)
+        t = t << UInt16(rotateBits)
+        return (getLowByte(t) ^ getHighByte(t))
+    }
+    
+    func unsafeToArray(length: Int, data: UnsafePointer<UInt32>) -> [UInt32] {
+        
+        let buffer = UnsafeBufferPointer(start: data, count: length);
+        return Array(buffer)
+    }
+    
+    func unsafeToArrayUInt8(length: Int, data: UnsafePointer<UInt8>) -> [UInt8] {
+        
+        let buffer = UnsafeBufferPointer(start: data, count: length);
+        return Array(buffer)
+    }
      
-     // Broken functions from swift port
+     public func encrypt(input: Array<UInt8>) -> Array<UInt8> {
      
-     private func rotl8(v: UInt8, n: UInt8) -> UInt8 {
-     return ((v << n) & 0xFF) | (v >> (8 - n))
-     }
-     
-     public func encrypt(input: Array<UInt8>, iv: Array<UInt8>) -> Array<UInt8> {
-     
-     // This function is broken for now, cannot compile any of the sub functions in swift.
-     // Gave up and used the c code
-     
-     var buffer1 = Array<UInt8>(count: 256, repeatedValue: 0)
-     let buffer2 = Array<UInt8>(count: 256, repeatedValue: 0)
-     
-     var roundedsize: UInt32 = 256
-     var totalsize: UInt32
-     
-     let input_size = UInt32(input.count)
-     
-     roundedsize = input_size - (input_size % 256)
-     totalsize = roundedsize + 32
-     
-     var output = Array<UInt8>(count: Int(totalsize), repeatedValue: 0)
-     
-     for j in 0..<8 {
-     for i in 0..<32 {
-     buffer1[32 * j + i] = rotl8(iv[i], n: UInt8(j))
-     }
-     }
-     
-     output.replaceRange(Range(0..<32), with: iv)
-     output.replaceRange(Range(32..<input.count), with: input)
-     
-     var outputEncrypted: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer()
-     
-     if (roundedsize > input_size) {
-     let buffer3 = Array<UInt8>(count: Int(roundedsize - input_size), repeatedValue: 0)
-     output += buffer3
-     }
-     output[Int(totalsize - 1)] = 1 &+ 255 &- UInt8(input_size % 256)
-     
-     for var offset in 32...Int(totalsize) {
-     for i in 0..<256 {
-     output[offset + i] ^= buffer1[i]
-     }
-     
-     let sliceUInt8 = Array(output[offset..<output.length])
-     let slice = UnsafePointer<UInt32>(sliceUInt8).memory
-     let sliceEncrypted = encryptUInt32(slice, buffer2UInt32)
-     let sliceReturned = UnsafePointer<UInt8>(sliceEncrypted).memory
-     
-     buffer1 += sliceReturned
-     outputEncrypted += sliceReturned
-     offset += 256
-     }
-     return outputEncrypted
-     }
-     
-     */
+        var iv = randomBytes().getUInt8Array()
+        var buffer1 = Array<UInt8>(count: 256, repeatedValue: 0)
+        let buffer2 = Array<UInt8>(count: 256, repeatedValue: 0)
+
+        var totalsize = input.count + (256 - (input.count % 256)) + 32
+
+        var output = Array<UInt8>(count: Int(totalsize), repeatedValue: 0)
+
+        for j in 0..<8 {
+            for i in 0..<32 {
+                buffer1[32 * j + i] = rotl8(iv[i], n: UInt8(j))
+            }
+        }
+                
+        output.replaceRange(Range(0..<32), with: iv)
+        output.replaceRange(Range(32..<(32 + input.count)), with: input)
+        output[totalsize - 1] = 1 &+ (255 &- UInt8(input.count % 256))
+        
+        let buffer2UInt32 = unsafeToArray((buffer2.count/4), data: UnsafePointer<UInt32>(buffer2))
+
+        for offset in 32.stride(to: totalsize, by: 256) {
+            for i in 0..<256 {
+                output[offset + i] ^= buffer1[i]
+            }
+            
+            let sliceUInt8 = Array(output[offset..<output.count])
+            let slice = unsafeToArray((sliceUInt8.count/4), data: UnsafePointer<UInt32>(sliceUInt8))
+            let sliceEncrypted = PGoEncryptHelper().encryptUInt32(slice)
+            let sliceUInt8Encrypted = unsafeToArrayUInt8((sliceEncrypted.count * 4), data: UnsafePointer<UInt8>(sliceEncrypted))
+            
+            buffer1 = sliceUInt8Encrypted
+            output.replaceRange(Range(offset..<(offset + sliceUInt8Encrypted.count)), with: sliceUInt8Encrypted)
+        }
+        return output
+    }
 }
