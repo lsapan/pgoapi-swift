@@ -88,6 +88,7 @@ public func == (lhs: Pogoprotos.Settings.Master.GymBattleSettings, rhs: Pogoprot
   fieldCheck = fieldCheck && (lhs.hasDodgeDurationMs == rhs.hasDodgeDurationMs) && (!lhs.hasDodgeDurationMs || lhs.dodgeDurationMs == rhs.dodgeDurationMs)
   fieldCheck = fieldCheck && (lhs.hasMinimumPlayerLevel == rhs.hasMinimumPlayerLevel) && (!lhs.hasMinimumPlayerLevel || lhs.minimumPlayerLevel == rhs.minimumPlayerLevel)
   fieldCheck = fieldCheck && (lhs.hasSwapDurationMs == rhs.hasSwapDurationMs) && (!lhs.hasSwapDurationMs || lhs.swapDurationMs == rhs.swapDurationMs)
+  fieldCheck = fieldCheck && (lhs.hasDodgeDamageReductionPercent == rhs.hasDodgeDamageReductionPercent) && (!lhs.hasDodgeDamageReductionPercent || lhs.dodgeDamageReductionPercent == rhs.dodgeDamageReductionPercent)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -2676,6 +2677,9 @@ public extension Pogoprotos.Settings.Master {
     public private(set) var hasSwapDurationMs:Bool = false
     public private(set) var swapDurationMs:Int32 = Int32(0)
 
+    public private(set) var hasDodgeDamageReductionPercent:Bool = false
+    public private(set) var dodgeDamageReductionPercent:Float = Float(0)
+
     required public init() {
          super.init()
     }
@@ -2724,6 +2728,9 @@ public extension Pogoprotos.Settings.Master {
       }
       if hasSwapDurationMs {
         try output.writeInt32(14, value:swapDurationMs)
+      }
+      if hasDodgeDamageReductionPercent {
+        try output.writeFloat(15, value:dodgeDamageReductionPercent)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -2775,6 +2782,9 @@ public extension Pogoprotos.Settings.Master {
       }
       if hasSwapDurationMs {
         serialize_size += swapDurationMs.computeInt32Size(14)
+      }
+      if hasDodgeDamageReductionPercent {
+        serialize_size += dodgeDamageReductionPercent.computeFloatSize(15)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -2874,6 +2884,9 @@ public extension Pogoprotos.Settings.Master {
       if hasSwapDurationMs {
         jsonMap["swapDurationMs"] = NSNumber(int:swapDurationMs)
       }
+      if hasDodgeDamageReductionPercent {
+        jsonMap["dodgeDamageReductionPercent"] = NSNumber(float:dodgeDamageReductionPercent)
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.Master.GymBattleSettings {
@@ -2926,6 +2939,9 @@ public extension Pogoprotos.Settings.Master {
       if hasSwapDurationMs {
         output += "\(indent) swapDurationMs: \(swapDurationMs) \n"
       }
+      if hasDodgeDamageReductionPercent {
+        output += "\(indent) dodgeDamageReductionPercent: \(dodgeDamageReductionPercent) \n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -2973,6 +2989,9 @@ public extension Pogoprotos.Settings.Master {
             }
             if hasSwapDurationMs {
                hashCode = (hashCode &* 31) &+ swapDurationMs.hashValue
+            }
+            if hasDodgeDamageReductionPercent {
+               hashCode = (hashCode &* 31) &+ dodgeDamageReductionPercent.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -3324,6 +3343,29 @@ public extension Pogoprotos.Settings.Master {
            builderResult.swapDurationMs = Int32(0)
            return self
       }
+      public var hasDodgeDamageReductionPercent:Bool {
+           get {
+                return builderResult.hasDodgeDamageReductionPercent
+           }
+      }
+      public var dodgeDamageReductionPercent:Float {
+           get {
+                return builderResult.dodgeDamageReductionPercent
+           }
+           set (value) {
+               builderResult.hasDodgeDamageReductionPercent = true
+               builderResult.dodgeDamageReductionPercent = value
+           }
+      }
+      public func setDodgeDamageReductionPercent(value:Float) -> Pogoprotos.Settings.Master.GymBattleSettings.Builder {
+        self.dodgeDamageReductionPercent = value
+        return self
+      }
+      public func clearDodgeDamageReductionPercent() -> Pogoprotos.Settings.Master.GymBattleSettings.Builder{
+           builderResult.hasDodgeDamageReductionPercent = false
+           builderResult.dodgeDamageReductionPercent = Float(0)
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -3390,6 +3432,9 @@ public extension Pogoprotos.Settings.Master {
         if other.hasSwapDurationMs {
              swapDurationMs = other.swapDurationMs
         }
+        if other.hasDodgeDamageReductionPercent {
+             dodgeDamageReductionPercent = other.dodgeDamageReductionPercent
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -3447,6 +3492,9 @@ public extension Pogoprotos.Settings.Master {
           case 112:
             swapDurationMs = try input.readInt32()
 
+          case 125:
+            dodgeDamageReductionPercent = try input.readFloat()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -3498,6 +3546,9 @@ public extension Pogoprotos.Settings.Master {
         }
         if let jsonValueSwapDurationMs = jsonMap["swapDurationMs"] as? NSNumber {
           resultDecodedBuilder.swapDurationMs = jsonValueSwapDurationMs.intValue
+        }
+        if let jsonValueDodgeDamageReductionPercent = jsonMap["dodgeDamageReductionPercent"] as? NSNumber {
+          resultDecodedBuilder.dodgeDamageReductionPercent = jsonValueDodgeDamageReductionPercent.floatValue
         }
         return resultDecodedBuilder
       }

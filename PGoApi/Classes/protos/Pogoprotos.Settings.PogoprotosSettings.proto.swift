@@ -41,6 +41,20 @@ public func == (lhs: Pogoprotos.Settings.GlobalSettings, rhs: Pogoprotos.Setting
   fieldCheck = fieldCheck && (lhs.hasLevelSettings == rhs.hasLevelSettings) && (!lhs.hasLevelSettings || lhs.levelSettings == rhs.levelSettings)
   fieldCheck = fieldCheck && (lhs.hasInventorySettings == rhs.hasInventorySettings) && (!lhs.hasInventorySettings || lhs.inventorySettings == rhs.inventorySettings)
   fieldCheck = fieldCheck && (lhs.hasMinimumClientVersion == rhs.hasMinimumClientVersion) && (!lhs.hasMinimumClientVersion || lhs.minimumClientVersion == rhs.minimumClientVersion)
+  fieldCheck = fieldCheck && (lhs.hasGpsSettings == rhs.hasGpsSettings) && (!lhs.hasGpsSettings || lhs.gpsSettings == rhs.gpsSettings)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Settings.GpsSettings, rhs: Pogoprotos.Settings.GpsSettings) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasDrivingWarningSpeedMetersPerSecond == rhs.hasDrivingWarningSpeedMetersPerSecond) && (!lhs.hasDrivingWarningSpeedMetersPerSecond || lhs.drivingWarningSpeedMetersPerSecond == rhs.drivingWarningSpeedMetersPerSecond)
+  fieldCheck = fieldCheck && (lhs.hasDrivingWarningCooldownMinutes == rhs.hasDrivingWarningCooldownMinutes) && (!lhs.hasDrivingWarningCooldownMinutes || lhs.drivingWarningCooldownMinutes == rhs.drivingWarningCooldownMinutes)
+  fieldCheck = fieldCheck && (lhs.hasDrivingSpeedSampleIntervalSeconds == rhs.hasDrivingSpeedSampleIntervalSeconds) && (!lhs.hasDrivingSpeedSampleIntervalSeconds || lhs.drivingSpeedSampleIntervalSeconds == rhs.drivingSpeedSampleIntervalSeconds)
+  fieldCheck = fieldCheck && (lhs.hasDrivingSpeedSampleCount == rhs.hasDrivingSpeedSampleCount) && (!lhs.hasDrivingSpeedSampleCount || lhs.drivingSpeedSampleCount == rhs.drivingSpeedSampleCount)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -824,6 +838,8 @@ public extension Pogoprotos.Settings {
     public private(set) var hasMinimumClientVersion:Bool = false
     public private(set) var minimumClientVersion:String = ""
 
+    public private(set) var hasGpsSettings:Bool = false
+    public private(set) var gpsSettings:Pogoprotos.Settings.GpsSettings!
     required public init() {
          super.init()
     }
@@ -845,6 +861,9 @@ public extension Pogoprotos.Settings {
       }
       if hasMinimumClientVersion {
         try output.writeString(6, value:minimumClientVersion)
+      }
+      if hasGpsSettings {
+        try output.writeMessage(7, value:gpsSettings)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -877,6 +896,11 @@ public extension Pogoprotos.Settings {
       }
       if hasMinimumClientVersion {
         serialize_size += minimumClientVersion.computeStringSize(6)
+      }
+      if hasGpsSettings {
+          if let varSizegpsSettings = gpsSettings?.computeMessageSize(7) {
+              serialize_size += varSizegpsSettings
+          }
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -949,6 +973,9 @@ public extension Pogoprotos.Settings {
       if hasMinimumClientVersion {
         jsonMap["minimumClientVersion"] = minimumClientVersion
       }
+      if hasGpsSettings {
+        jsonMap["gpsSettings"] = try gpsSettings.encode()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.GlobalSettings {
@@ -990,6 +1017,13 @@ public extension Pogoprotos.Settings {
       if hasMinimumClientVersion {
         output += "\(indent) minimumClientVersion: \(minimumClientVersion) \n"
       }
+      if hasGpsSettings {
+        output += "\(indent) gpsSettings {\n"
+        if let outDescGpsSettings = gpsSettings {
+          output += try outDescGpsSettings.getDescription("\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -1018,6 +1052,11 @@ public extension Pogoprotos.Settings {
             }
             if hasMinimumClientVersion {
                hashCode = (hashCode &* 31) &+ minimumClientVersion.hashValue
+            }
+            if hasGpsSettings {
+                if let hashValuegpsSettings = gpsSettings?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuegpsSettings
+                }
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -1274,6 +1313,57 @@ public extension Pogoprotos.Settings {
            builderResult.minimumClientVersion = ""
            return self
       }
+      public var hasGpsSettings:Bool {
+           get {
+               return builderResult.hasGpsSettings
+           }
+      }
+      public var gpsSettings:Pogoprotos.Settings.GpsSettings! {
+           get {
+               if gpsSettingsBuilder_ != nil {
+                  builderResult.gpsSettings = gpsSettingsBuilder_.getMessage()
+               }
+               return builderResult.gpsSettings
+           }
+           set (value) {
+               builderResult.hasGpsSettings = true
+               builderResult.gpsSettings = value
+           }
+      }
+      private var gpsSettingsBuilder_:Pogoprotos.Settings.GpsSettings.Builder! {
+           didSet {
+              builderResult.hasGpsSettings = true
+           }
+      }
+      public func getGpsSettingsBuilder() -> Pogoprotos.Settings.GpsSettings.Builder {
+        if gpsSettingsBuilder_ == nil {
+           gpsSettingsBuilder_ = Pogoprotos.Settings.GpsSettings.Builder()
+           builderResult.gpsSettings = gpsSettingsBuilder_.getMessage()
+           if gpsSettings != nil {
+              try! gpsSettingsBuilder_.mergeFrom(gpsSettings)
+           }
+        }
+        return gpsSettingsBuilder_
+      }
+      public func setGpsSettings(value:Pogoprotos.Settings.GpsSettings!) -> Pogoprotos.Settings.GlobalSettings.Builder {
+        self.gpsSettings = value
+        return self
+      }
+      public func mergeGpsSettings(value:Pogoprotos.Settings.GpsSettings) throws -> Pogoprotos.Settings.GlobalSettings.Builder {
+        if builderResult.hasGpsSettings {
+          builderResult.gpsSettings = try Pogoprotos.Settings.GpsSettings.builderWithPrototype(builderResult.gpsSettings).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.gpsSettings = value
+        }
+        builderResult.hasGpsSettings = true
+        return self
+      }
+      public func clearGpsSettings() -> Pogoprotos.Settings.GlobalSettings.Builder {
+        gpsSettingsBuilder_ = nil
+        builderResult.hasGpsSettings = false
+        builderResult.gpsSettings = nil
+        return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -1312,6 +1402,9 @@ public extension Pogoprotos.Settings {
         }
         if other.hasMinimumClientVersion {
              minimumClientVersion = other.minimumClientVersion
+        }
+        if (other.hasGpsSettings) {
+            try mergeGpsSettings(other.gpsSettings)
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -1363,6 +1456,14 @@ public extension Pogoprotos.Settings {
           case 50:
             minimumClientVersion = try input.readString()
 
+          case 58:
+            let subBuilder:Pogoprotos.Settings.GpsSettings.Builder = Pogoprotos.Settings.GpsSettings.Builder()
+            if hasGpsSettings {
+              try subBuilder.mergeFrom(gpsSettings)
+            }
+            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            gpsSettings = subBuilder.buildPartial()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -1392,6 +1493,10 @@ public extension Pogoprotos.Settings {
         if let jsonValueMinimumClientVersion = jsonMap["minimumClientVersion"] as? String {
           resultDecodedBuilder.minimumClientVersion = jsonValueMinimumClientVersion
         }
+        if let jsonValueGpsSettings = jsonMap["gpsSettings"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.gpsSettings = try Pogoprotos.Settings.GpsSettings.Builder.decodeToBuilder(jsonValueGpsSettings).build()
+
+        }
         return resultDecodedBuilder
       }
       override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Settings.GlobalSettings.Builder {
@@ -1400,6 +1505,385 @@ public extension Pogoprotos.Settings {
           throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Settings.GlobalSettings.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
+  final public class GpsSettings : GeneratedMessage, GeneratedMessageProtocol {
+    public private(set) var hasDrivingWarningSpeedMetersPerSecond:Bool = false
+    public private(set) var drivingWarningSpeedMetersPerSecond:Float = Float(0)
+
+    public private(set) var hasDrivingWarningCooldownMinutes:Bool = false
+    public private(set) var drivingWarningCooldownMinutes:Float = Float(0)
+
+    public private(set) var hasDrivingSpeedSampleIntervalSeconds:Bool = false
+    public private(set) var drivingSpeedSampleIntervalSeconds:Float = Float(0)
+
+    public private(set) var hasDrivingSpeedSampleCount:Bool = false
+    public private(set) var drivingSpeedSampleCount:Int32 = Int32(0)
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasDrivingWarningSpeedMetersPerSecond {
+        try output.writeFloat(1, value:drivingWarningSpeedMetersPerSecond)
+      }
+      if hasDrivingWarningCooldownMinutes {
+        try output.writeFloat(2, value:drivingWarningCooldownMinutes)
+      }
+      if hasDrivingSpeedSampleIntervalSeconds {
+        try output.writeFloat(3, value:drivingSpeedSampleIntervalSeconds)
+      }
+      if hasDrivingSpeedSampleCount {
+        try output.writeInt32(4, value:drivingSpeedSampleCount)
+      }
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasDrivingWarningSpeedMetersPerSecond {
+        serialize_size += drivingWarningSpeedMetersPerSecond.computeFloatSize(1)
+      }
+      if hasDrivingWarningCooldownMinutes {
+        serialize_size += drivingWarningCooldownMinutes.computeFloatSize(2)
+      }
+      if hasDrivingSpeedSampleIntervalSeconds {
+        serialize_size += drivingSpeedSampleIntervalSeconds.computeFloatSize(3)
+      }
+      if hasDrivingSpeedSampleCount {
+        serialize_size += drivingSpeedSampleCount.computeInt32Size(4)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Settings.GpsSettings> {
+      var mergedArray = Array<Pogoprotos.Settings.GpsSettings>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Settings.GpsSettings? {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Settings.PogoprotosSettingsRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Settings.GpsSettings.Builder {
+      return Pogoprotos.Settings.GpsSettings.classBuilder() as! Pogoprotos.Settings.GpsSettings.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Settings.GpsSettings.Builder {
+      return classBuilder() as! Pogoprotos.Settings.GpsSettings.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Settings.GpsSettings.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Settings.GpsSettings.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Settings.GpsSettings.Builder {
+      return try Pogoprotos.Settings.GpsSettings.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Settings.GpsSettings) throws -> Pogoprotos.Settings.GpsSettings.Builder {
+      return try Pogoprotos.Settings.GpsSettings.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasDrivingWarningSpeedMetersPerSecond {
+        jsonMap["drivingWarningSpeedMetersPerSecond"] = NSNumber(float:drivingWarningSpeedMetersPerSecond)
+      }
+      if hasDrivingWarningCooldownMinutes {
+        jsonMap["drivingWarningCooldownMinutes"] = NSNumber(float:drivingWarningCooldownMinutes)
+      }
+      if hasDrivingSpeedSampleIntervalSeconds {
+        jsonMap["drivingSpeedSampleIntervalSeconds"] = NSNumber(float:drivingSpeedSampleIntervalSeconds)
+      }
+      if hasDrivingSpeedSampleCount {
+        jsonMap["drivingSpeedSampleCount"] = NSNumber(int:drivingSpeedSampleCount)
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Settings.GpsSettings {
+      return try Pogoprotos.Settings.GpsSettings.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasDrivingWarningSpeedMetersPerSecond {
+        output += "\(indent) drivingWarningSpeedMetersPerSecond: \(drivingWarningSpeedMetersPerSecond) \n"
+      }
+      if hasDrivingWarningCooldownMinutes {
+        output += "\(indent) drivingWarningCooldownMinutes: \(drivingWarningCooldownMinutes) \n"
+      }
+      if hasDrivingSpeedSampleIntervalSeconds {
+        output += "\(indent) drivingSpeedSampleIntervalSeconds: \(drivingSpeedSampleIntervalSeconds) \n"
+      }
+      if hasDrivingSpeedSampleCount {
+        output += "\(indent) drivingSpeedSampleCount: \(drivingSpeedSampleCount) \n"
+      }
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasDrivingWarningSpeedMetersPerSecond {
+               hashCode = (hashCode &* 31) &+ drivingWarningSpeedMetersPerSecond.hashValue
+            }
+            if hasDrivingWarningCooldownMinutes {
+               hashCode = (hashCode &* 31) &+ drivingWarningCooldownMinutes.hashValue
+            }
+            if hasDrivingSpeedSampleIntervalSeconds {
+               hashCode = (hashCode &* 31) &+ drivingSpeedSampleIntervalSeconds.hashValue
+            }
+            if hasDrivingSpeedSampleCount {
+               hashCode = (hashCode &* 31) &+ drivingSpeedSampleCount.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Settings.GpsSettings"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Settings.GpsSettings"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Settings.GpsSettings.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Settings.GpsSettings = Pogoprotos.Settings.GpsSettings()
+      public func getMessage() -> Pogoprotos.Settings.GpsSettings {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasDrivingWarningSpeedMetersPerSecond:Bool {
+           get {
+                return builderResult.hasDrivingWarningSpeedMetersPerSecond
+           }
+      }
+      public var drivingWarningSpeedMetersPerSecond:Float {
+           get {
+                return builderResult.drivingWarningSpeedMetersPerSecond
+           }
+           set (value) {
+               builderResult.hasDrivingWarningSpeedMetersPerSecond = true
+               builderResult.drivingWarningSpeedMetersPerSecond = value
+           }
+      }
+      public func setDrivingWarningSpeedMetersPerSecond(value:Float) -> Pogoprotos.Settings.GpsSettings.Builder {
+        self.drivingWarningSpeedMetersPerSecond = value
+        return self
+      }
+      public func clearDrivingWarningSpeedMetersPerSecond() -> Pogoprotos.Settings.GpsSettings.Builder{
+           builderResult.hasDrivingWarningSpeedMetersPerSecond = false
+           builderResult.drivingWarningSpeedMetersPerSecond = Float(0)
+           return self
+      }
+      public var hasDrivingWarningCooldownMinutes:Bool {
+           get {
+                return builderResult.hasDrivingWarningCooldownMinutes
+           }
+      }
+      public var drivingWarningCooldownMinutes:Float {
+           get {
+                return builderResult.drivingWarningCooldownMinutes
+           }
+           set (value) {
+               builderResult.hasDrivingWarningCooldownMinutes = true
+               builderResult.drivingWarningCooldownMinutes = value
+           }
+      }
+      public func setDrivingWarningCooldownMinutes(value:Float) -> Pogoprotos.Settings.GpsSettings.Builder {
+        self.drivingWarningCooldownMinutes = value
+        return self
+      }
+      public func clearDrivingWarningCooldownMinutes() -> Pogoprotos.Settings.GpsSettings.Builder{
+           builderResult.hasDrivingWarningCooldownMinutes = false
+           builderResult.drivingWarningCooldownMinutes = Float(0)
+           return self
+      }
+      public var hasDrivingSpeedSampleIntervalSeconds:Bool {
+           get {
+                return builderResult.hasDrivingSpeedSampleIntervalSeconds
+           }
+      }
+      public var drivingSpeedSampleIntervalSeconds:Float {
+           get {
+                return builderResult.drivingSpeedSampleIntervalSeconds
+           }
+           set (value) {
+               builderResult.hasDrivingSpeedSampleIntervalSeconds = true
+               builderResult.drivingSpeedSampleIntervalSeconds = value
+           }
+      }
+      public func setDrivingSpeedSampleIntervalSeconds(value:Float) -> Pogoprotos.Settings.GpsSettings.Builder {
+        self.drivingSpeedSampleIntervalSeconds = value
+        return self
+      }
+      public func clearDrivingSpeedSampleIntervalSeconds() -> Pogoprotos.Settings.GpsSettings.Builder{
+           builderResult.hasDrivingSpeedSampleIntervalSeconds = false
+           builderResult.drivingSpeedSampleIntervalSeconds = Float(0)
+           return self
+      }
+      public var hasDrivingSpeedSampleCount:Bool {
+           get {
+                return builderResult.hasDrivingSpeedSampleCount
+           }
+      }
+      public var drivingSpeedSampleCount:Int32 {
+           get {
+                return builderResult.drivingSpeedSampleCount
+           }
+           set (value) {
+               builderResult.hasDrivingSpeedSampleCount = true
+               builderResult.drivingSpeedSampleCount = value
+           }
+      }
+      public func setDrivingSpeedSampleCount(value:Int32) -> Pogoprotos.Settings.GpsSettings.Builder {
+        self.drivingSpeedSampleCount = value
+        return self
+      }
+      public func clearDrivingSpeedSampleCount() -> Pogoprotos.Settings.GpsSettings.Builder{
+           builderResult.hasDrivingSpeedSampleCount = false
+           builderResult.drivingSpeedSampleCount = Int32(0)
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Settings.GpsSettings.Builder {
+        builderResult = Pogoprotos.Settings.GpsSettings()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Settings.GpsSettings.Builder {
+        return try Pogoprotos.Settings.GpsSettings.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Settings.GpsSettings {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Settings.GpsSettings {
+        let returnMe:Pogoprotos.Settings.GpsSettings = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Settings.GpsSettings) throws -> Pogoprotos.Settings.GpsSettings.Builder {
+        if other == Pogoprotos.Settings.GpsSettings() {
+         return self
+        }
+        if other.hasDrivingWarningSpeedMetersPerSecond {
+             drivingWarningSpeedMetersPerSecond = other.drivingWarningSpeedMetersPerSecond
+        }
+        if other.hasDrivingWarningCooldownMinutes {
+             drivingWarningCooldownMinutes = other.drivingWarningCooldownMinutes
+        }
+        if other.hasDrivingSpeedSampleIntervalSeconds {
+             drivingSpeedSampleIntervalSeconds = other.drivingSpeedSampleIntervalSeconds
+        }
+        if other.hasDrivingSpeedSampleCount {
+             drivingSpeedSampleCount = other.drivingSpeedSampleCount
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Settings.GpsSettings.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.GpsSettings.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 13:
+            drivingWarningSpeedMetersPerSecond = try input.readFloat()
+
+          case 21:
+            drivingWarningCooldownMinutes = try input.readFloat()
+
+          case 29:
+            drivingSpeedSampleIntervalSeconds = try input.readFloat()
+
+          case 32:
+            drivingSpeedSampleCount = try input.readInt32()
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.GpsSettings.Builder {
+        let resultDecodedBuilder = Pogoprotos.Settings.GpsSettings.Builder()
+        if let jsonValueDrivingWarningSpeedMetersPerSecond = jsonMap["drivingWarningSpeedMetersPerSecond"] as? NSNumber {
+          resultDecodedBuilder.drivingWarningSpeedMetersPerSecond = jsonValueDrivingWarningSpeedMetersPerSecond.floatValue
+        }
+        if let jsonValueDrivingWarningCooldownMinutes = jsonMap["drivingWarningCooldownMinutes"] as? NSNumber {
+          resultDecodedBuilder.drivingWarningCooldownMinutes = jsonValueDrivingWarningCooldownMinutes.floatValue
+        }
+        if let jsonValueDrivingSpeedSampleIntervalSeconds = jsonMap["drivingSpeedSampleIntervalSeconds"] as? NSNumber {
+          resultDecodedBuilder.drivingSpeedSampleIntervalSeconds = jsonValueDrivingSpeedSampleIntervalSeconds.floatValue
+        }
+        if let jsonValueDrivingSpeedSampleCount = jsonMap["drivingSpeedSampleCount"] as? NSNumber {
+          resultDecodedBuilder.drivingSpeedSampleCount = jsonValueDrivingSpeedSampleCount.intValue
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Settings.GpsSettings.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Settings.GpsSettings.Builder.decodeToBuilder(jsDataCast)
       }
     }
 

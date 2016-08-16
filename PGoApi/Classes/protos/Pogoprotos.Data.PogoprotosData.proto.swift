@@ -64,6 +64,7 @@ public func == (lhs: Pogoprotos.Data.PlayerData, rhs: Pogoprotos.Data.PlayerData
   fieldCheck = fieldCheck && (lhs.hasEquippedBadge == rhs.hasEquippedBadge) && (!lhs.hasEquippedBadge || lhs.equippedBadge == rhs.equippedBadge)
   fieldCheck = fieldCheck && (lhs.hasContactSettings == rhs.hasContactSettings) && (!lhs.hasContactSettings || lhs.contactSettings == rhs.contactSettings)
   fieldCheck = fieldCheck && (lhs.currencies == rhs.currencies)
+  fieldCheck = fieldCheck && (lhs.hasRemainingCodenameClaims == rhs.hasRemainingCodenameClaims) && (!lhs.hasRemainingCodenameClaims || lhs.remainingCodenameClaims == rhs.remainingCodenameClaims)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -1459,6 +1460,9 @@ public extension Pogoprotos.Data {
     public private(set) var hasContactSettings:Bool = false
     public private(set) var contactSettings:Pogoprotos.Data.Player.ContactSettings!
     public private(set) var currencies:Array<Pogoprotos.Data.Player.Currency>  = Array<Pogoprotos.Data.Player.Currency>()
+    public private(set) var hasRemainingCodenameClaims:Bool = false
+    public private(set) var remainingCodenameClaims:Int32 = Int32(0)
+
     required public init() {
          super.init()
     }
@@ -1502,6 +1506,9 @@ public extension Pogoprotos.Data {
       }
       for oneElementCurrencies in currencies {
           try output.writeMessage(14, value:oneElementCurrencies)
+      }
+      if hasRemainingCodenameClaims {
+        try output.writeInt32(15, value:remainingCodenameClaims)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -1559,6 +1566,9 @@ public extension Pogoprotos.Data {
       }
       for oneElementCurrencies in currencies {
           serialize_size += oneElementCurrencies.computeMessageSize(14)
+      }
+      if hasRemainingCodenameClaims {
+        serialize_size += remainingCodenameClaims.computeInt32Size(15)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -1658,6 +1668,9 @@ public extension Pogoprotos.Data {
           }
         jsonMap["currencies"] = jsonArrayCurrencies
       }
+      if hasRemainingCodenameClaims {
+        jsonMap["remainingCodenameClaims"] = NSNumber(int:remainingCodenameClaims)
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.PlayerData {
@@ -1723,6 +1736,9 @@ public extension Pogoprotos.Data {
           output += "\(indent)}\n"
           currenciesElementIndex += 1
       }
+      if hasRemainingCodenameClaims {
+        output += "\(indent) remainingCodenameClaims: \(remainingCodenameClaims) \n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -1769,6 +1785,9 @@ public extension Pogoprotos.Data {
             }
             for oneElementCurrencies in currencies {
                 hashCode = (hashCode &* 31) &+ oneElementCurrencies.hashValue
+            }
+            if hasRemainingCodenameClaims {
+               hashCode = (hashCode &* 31) &+ remainingCodenameClaims.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -2149,6 +2168,29 @@ public extension Pogoprotos.Data {
         builderResult.currencies.removeAll(keepCapacity: false)
         return self
       }
+      public var hasRemainingCodenameClaims:Bool {
+           get {
+                return builderResult.hasRemainingCodenameClaims
+           }
+      }
+      public var remainingCodenameClaims:Int32 {
+           get {
+                return builderResult.remainingCodenameClaims
+           }
+           set (value) {
+               builderResult.hasRemainingCodenameClaims = true
+               builderResult.remainingCodenameClaims = value
+           }
+      }
+      public func setRemainingCodenameClaims(value:Int32) -> Pogoprotos.Data.PlayerData.Builder {
+        self.remainingCodenameClaims = value
+        return self
+      }
+      public func clearRemainingCodenameClaims() -> Pogoprotos.Data.PlayerData.Builder{
+           builderResult.hasRemainingCodenameClaims = false
+           builderResult.remainingCodenameClaims = Int32(0)
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -2205,6 +2247,9 @@ public extension Pogoprotos.Data {
         }
         if !other.currencies.isEmpty  {
            builderResult.currencies += other.currencies
+        }
+        if other.hasRemainingCodenameClaims {
+             remainingCodenameClaims = other.remainingCodenameClaims
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -2291,6 +2336,9 @@ public extension Pogoprotos.Data {
             try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
             currencies += [subBuilder.buildPartial()]
 
+          case 120:
+            remainingCodenameClaims = try input.readInt32()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -2348,6 +2396,9 @@ public extension Pogoprotos.Data {
             jsonArrayCurrencies += [messageFromStringCurrencies]
           }
           resultDecodedBuilder.currencies = jsonArrayCurrencies
+        }
+        if let jsonValueRemainingCodenameClaims = jsonMap["remainingCodenameClaims"] as? NSNumber {
+          resultDecodedBuilder.remainingCodenameClaims = jsonValueRemainingCodenameClaims.intValue
         }
         return resultDecodedBuilder
       }

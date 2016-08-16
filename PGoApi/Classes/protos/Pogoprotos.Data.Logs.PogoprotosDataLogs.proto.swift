@@ -610,11 +610,13 @@ public extension Pogoprotos.Data.Logs {
         case Unset = 0
         case PokemonCaptured = 1
         case PokemonFled = 2
+        case PokemonHatched = 3
         public func toString() -> String {
           switch self {
           case .Unset: return "UNSET"
           case .PokemonCaptured: return "POKEMON_CAPTURED"
           case .PokemonFled: return "POKEMON_FLED"
+          case .PokemonHatched: return "POKEMON_HATCHED"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Data.Logs.CatchPokemonLogEntry.Result {
@@ -622,6 +624,7 @@ public extension Pogoprotos.Data.Logs {
           case "UNSET":  return .Unset
           case "POKEMON_CAPTURED":  return .PokemonCaptured
           case "POKEMON_FLED":  return .PokemonFled
+          case "POKEMON_HATCHED":  return .PokemonHatched
           default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
@@ -632,6 +635,7 @@ public extension Pogoprotos.Data.Logs {
                 case .Unset: return ".Unset"
                 case .PokemonCaptured: return ".PokemonCaptured"
                 case .PokemonFled: return ".PokemonFled"
+                case .PokemonHatched: return ".PokemonHatched"
             }
         }
       }
@@ -665,7 +669,7 @@ public extension Pogoprotos.Data.Logs {
         try output.writeInt32(3, value:combatPoints)
       }
       if hasPokemonDataId {
-        try output.writeUInt64(4, value:pokemonDataId)
+        try output.writeFixed64(4, value:pokemonDataId)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -686,7 +690,7 @@ public extension Pogoprotos.Data.Logs {
         serialize_size += combatPoints.computeInt32Size(3)
       }
       if hasPokemonDataId {
-        serialize_size += pokemonDataId.computeUInt64Size(4)
+        serialize_size += pokemonDataId.computeFixed64Size(4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -986,8 +990,8 @@ public extension Pogoprotos.Data.Logs {
           case 24:
             combatPoints = try input.readInt32()
 
-          case 32:
-            pokemonDataId = try input.readUInt64()
+          case 33:
+            pokemonDataId = try input.readFixed64()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
