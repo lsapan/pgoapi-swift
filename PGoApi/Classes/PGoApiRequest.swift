@@ -32,28 +32,36 @@ public struct PGoLocation {
 public class PGoApiRequest {
     
     public var Location = PGoLocation()
-    
+    private var auth: PGoAuth?
     public var methodList: [PGoApiMethod] = []
     
-    public init() {
-        
+    public init(auth: PGoAuth? = nil) {
+        if (auth != nil) {
+            self.auth = auth
+        }
     }
 
-    public func makeRequest(intent: PGoApiIntent, auth: PGoAuth, delegate: PGoApiDelegate?) {  // analogous to call in pgoapi.py
+    public func makeRequest(intent: PGoApiIntent, delegate: PGoApiDelegate?) {
+        // analogous to call in pgoapi.py
+        
         if methodList.count == 0 {
             print("makeRequest() called without any methods in methodList.")
             return
         }
         
-        if !auth.loggedIn {
-            print("makeRequest() called without being logged in.")
+        if self.auth != nil {
+            if !self.auth!.loggedIn {
+                print("makeRequest() called without being logged in.")
+                return
+            }
+        } else {
+            print("makeRequest() called without initializing auth.")
             return
         }
         
-        // TODO: Get player position
-        // position stuff here...
-        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: auth, api: self, delegate: delegate)
+        let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: self.auth!, api: self, delegate: delegate)
         request.request()
+        methodList.removeAll()
     }
     
     public func setLocation(latitude: Double, longitude: Double, altitude: Double? = nil) {
@@ -472,7 +480,7 @@ public class PGoApiRequest {
         }))
     }
     
-    public func setFavoritePokemon(pokemonId: UInt64, isFavorite: Bool) {
+    public func setFavoritePokemon(pokemonId: Int64, isFavorite: Bool) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
         messageBuilder.isFavorite = isFavorite

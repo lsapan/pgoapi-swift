@@ -14,3 +14,12 @@ extension NSRange {
         return str.startIndex.advancedBy(location) ..< str.startIndex.advancedBy(location + length)
     }
 }
+
+extension NSData {
+    func getUInt8Array() -> Array<UInt8> {
+        return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>(self.bytes), count: self.length))
+    }
+    func getUInt32Array() -> Array<UInt32> {
+        return Array(UnsafeBufferPointer(start: UnsafePointer<UInt32>(self.bytes), count: self.length))
+    }
+}

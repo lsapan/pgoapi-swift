@@ -19,8 +19,12 @@ public class PtcOAuth: PGoAuth {
     public let authType: PGoAuthType = .Ptc
     public var endpoint: String = PGoEndpoint.Rpc
     public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
+    public var manager: Manager
     
-    public init() {}
+    public init() {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        manager = Alamofire.Manager(configuration: configuration)
+    }
 
     private func getTicket(lt: String, execution: String) {
         print("Requesting ticket...")

@@ -334,6 +334,7 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.GetPlayerMessage, r
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasAppVersion == rhs.hasAppVersion) && (!lhs.hasAppVersion || lhs.appVersion == rhs.appVersion)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -9283,8 +9284,11 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
   }
 
-  // No message needed.
   final public class GetPlayerMessage : GeneratedMessage, GeneratedMessageProtocol {
+    // Human readable app version, e.g. "0.31.1"
+    public private(set) var hasAppVersion:Bool = false
+    public private(set) var appVersion:String = ""
+
     required public init() {
          super.init()
     }
@@ -9292,6 +9296,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasAppVersion {
+        try output.writeString(1, value:appVersion)
+      }
       try unknownFields.writeToCodedOutputStream(output)
     }
     override public func serializedSize() -> Int32 {
@@ -9301,6 +9308,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       }
 
       serialize_size = 0
+      if hasAppVersion {
+        serialize_size += appVersion.computeStringSize(1)
+      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -9356,7 +9366,10 @@ public extension Pogoprotos.Networking.Requests.Messages {
         throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
       }
 
-      let jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasAppVersion {
+        jsonMap["appVersion"] = appVersion
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage {
@@ -9367,12 +9380,18 @@ public extension Pogoprotos.Networking.Requests.Messages {
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
+      if hasAppVersion {
+        output += "\(indent) appVersion: \(appVersion) \n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
+            if hasAppVersion {
+               hashCode = (hashCode &* 31) &+ appVersion.hashValue
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -9401,6 +9420,29 @@ public extension Pogoprotos.Networking.Requests.Messages {
       required override public init () {
          super.init()
       }
+      public var hasAppVersion:Bool {
+           get {
+                return builderResult.hasAppVersion
+           }
+      }
+      public var appVersion:String {
+           get {
+                return builderResult.appVersion
+           }
+           set (value) {
+               builderResult.hasAppVersion = true
+               builderResult.appVersion = value
+           }
+      }
+      public func setAppVersion(value:String) -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder {
+        self.appVersion = value
+        return self
+      }
+      public func clearAppVersion() -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder{
+           builderResult.hasAppVersion = false
+           builderResult.appVersion = ""
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -9425,6 +9467,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
         if other == Pogoprotos.Networking.Requests.Messages.GetPlayerMessage() {
          return self
         }
+        if other.hasAppVersion {
+             appVersion = other.appVersion
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -9440,6 +9485,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
+          case 10:
+            appVersion = try input.readString()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -9450,6 +9498,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder()
+        if let jsonValueAppVersion = jsonMap["appVersion"] as? String {
+          resultDecodedBuilder.appVersion = jsonValueAppVersion
+        }
         return resultDecodedBuilder
       }
       override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder {
@@ -12331,9 +12382,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class SetFavoritePokemonMessage : GeneratedMessage, GeneratedMessageProtocol {
-    // needs to be uint64, tested by Grover
+    // Do not change https://github.com/AeonLucid/POGOProtos/pull/126
     public private(set) var hasPokemonId:Bool = false
-    public private(set) var pokemonId:UInt64 = UInt64(0)
+    public private(set) var pokemonId:Int64 = Int64(0)
 
     public private(set) var hasIsFavorite:Bool = false
     public private(set) var isFavorite:Bool = false
@@ -12346,7 +12397,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
       if hasPokemonId {
-        try output.writeUInt64(1, value:pokemonId)
+        try output.writeInt64(1, value:pokemonId)
       }
       if hasIsFavorite {
         try output.writeBool(2, value:isFavorite)
@@ -12361,7 +12412,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
       serialize_size = 0
       if hasPokemonId {
-        serialize_size += pokemonId.computeUInt64Size(1)
+        serialize_size += pokemonId.computeInt64Size(1)
       }
       if hasIsFavorite {
         serialize_size += isFavorite.computeBoolSize(2)
@@ -12489,7 +12540,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 return builderResult.hasPokemonId
            }
       }
-      public var pokemonId:UInt64 {
+      public var pokemonId:Int64 {
            get {
                 return builderResult.pokemonId
            }
@@ -12498,13 +12549,13 @@ public extension Pogoprotos.Networking.Requests.Messages {
                builderResult.pokemonId = value
            }
       }
-      public func setPokemonId(value:UInt64) -> Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder {
+      public func setPokemonId(value:Int64) -> Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder {
         self.pokemonId = value
         return self
       }
       public func clearPokemonId() -> Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder{
            builderResult.hasPokemonId = false
-           builderResult.pokemonId = UInt64(0)
+           builderResult.pokemonId = Int64(0)
            return self
       }
       public var hasIsFavorite:Bool {
@@ -12576,7 +12627,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
             return self
 
           case 8:
-            pokemonId = try input.readUInt64()
+            pokemonId = try input.readInt64()
 
           case 16:
             isFavorite = try input.readBool()
@@ -12592,7 +12643,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage.Builder()
         if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
-          resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
+          resultDecodedBuilder.pokemonId = Int64(jsonValuePokemonId)!
         }
         if let jsonValueIsFavorite = jsonMap["isFavorite"] as? Bool {
           resultDecodedBuilder.isFavorite = jsonValueIsFavorite

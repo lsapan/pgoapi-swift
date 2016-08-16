@@ -29,6 +29,8 @@ public func == (lhs: Pogoprotos.Map.Pokemon.NearbyPokemon, rhs: Pogoprotos.Map.P
   fieldCheck = fieldCheck && (lhs.hasPokemonId == rhs.hasPokemonId) && (!lhs.hasPokemonId || lhs.pokemonId == rhs.pokemonId)
   fieldCheck = fieldCheck && (lhs.hasDistanceInMeters == rhs.hasDistanceInMeters) && (!lhs.hasDistanceInMeters || lhs.distanceInMeters == rhs.distanceInMeters)
   fieldCheck = fieldCheck && (lhs.hasEncounterId == rhs.hasEncounterId) && (!lhs.hasEncounterId || lhs.encounterId == rhs.encounterId)
+  fieldCheck = fieldCheck && (lhs.hasFortId == rhs.hasFortId) && (!lhs.hasFortId || lhs.fortId == rhs.fortId)
+  fieldCheck = fieldCheck && (lhs.hasFortImageUrl == rhs.hasFortImageUrl) && (!lhs.hasFortImageUrl || lhs.fortImageUrl == rhs.fortImageUrl)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -562,6 +564,12 @@ public extension Pogoprotos.Map.Pokemon {
     public private(set) var hasEncounterId:Bool = false
     public private(set) var encounterId:UInt64 = UInt64(0)
 
+    public private(set) var hasFortId:Bool = false
+    public private(set) var fortId:String = ""
+
+    public private(set) var hasFortImageUrl:Bool = false
+    public private(set) var fortImageUrl:String = ""
+
     required public init() {
          super.init()
     }
@@ -577,6 +585,12 @@ public extension Pogoprotos.Map.Pokemon {
       }
       if hasEncounterId {
         try output.writeFixed64(3, value:encounterId)
+      }
+      if hasFortId {
+        try output.writeString(4, value:fortId)
+      }
+      if hasFortImageUrl {
+        try output.writeString(5, value:fortImageUrl)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -595,6 +609,12 @@ public extension Pogoprotos.Map.Pokemon {
       }
       if hasEncounterId {
         serialize_size += encounterId.computeFixed64Size(3)
+      }
+      if hasFortId {
+        serialize_size += fortId.computeStringSize(4)
+      }
+      if hasFortImageUrl {
+        serialize_size += fortImageUrl.computeStringSize(5)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -661,6 +681,12 @@ public extension Pogoprotos.Map.Pokemon {
       if hasEncounterId {
         jsonMap["encounterId"] = "\(encounterId)"
       }
+      if hasFortId {
+        jsonMap["fortId"] = fortId
+      }
+      if hasFortImageUrl {
+        jsonMap["fortImageUrl"] = fortImageUrl
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
@@ -680,6 +706,12 @@ public extension Pogoprotos.Map.Pokemon {
       if hasEncounterId {
         output += "\(indent) encounterId: \(encounterId) \n"
       }
+      if hasFortId {
+        output += "\(indent) fortId: \(fortId) \n"
+      }
+      if hasFortImageUrl {
+        output += "\(indent) fortImageUrl: \(fortImageUrl) \n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -694,6 +726,12 @@ public extension Pogoprotos.Map.Pokemon {
             }
             if hasEncounterId {
                hashCode = (hashCode &* 31) &+ encounterId.hashValue
+            }
+            if hasFortId {
+               hashCode = (hashCode &* 31) &+ fortId.hashValue
+            }
+            if hasFortImageUrl {
+               hashCode = (hashCode &* 31) &+ fortImageUrl.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -792,6 +830,52 @@ public extension Pogoprotos.Map.Pokemon {
            builderResult.encounterId = UInt64(0)
            return self
       }
+      public var hasFortId:Bool {
+           get {
+                return builderResult.hasFortId
+           }
+      }
+      public var fortId:String {
+           get {
+                return builderResult.fortId
+           }
+           set (value) {
+               builderResult.hasFortId = true
+               builderResult.fortId = value
+           }
+      }
+      public func setFortId(value:String) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+        self.fortId = value
+        return self
+      }
+      public func clearFortId() -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder{
+           builderResult.hasFortId = false
+           builderResult.fortId = ""
+           return self
+      }
+      public var hasFortImageUrl:Bool {
+           get {
+                return builderResult.hasFortImageUrl
+           }
+      }
+      public var fortImageUrl:String {
+           get {
+                return builderResult.fortImageUrl
+           }
+           set (value) {
+               builderResult.hasFortImageUrl = true
+               builderResult.fortImageUrl = value
+           }
+      }
+      public func setFortImageUrl(value:String) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+        self.fortImageUrl = value
+        return self
+      }
+      public func clearFortImageUrl() -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder{
+           builderResult.hasFortImageUrl = false
+           builderResult.fortImageUrl = ""
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -825,6 +909,12 @@ public extension Pogoprotos.Map.Pokemon {
         if other.hasEncounterId {
              encounterId = other.encounterId
         }
+        if other.hasFortId {
+             fortId = other.fortId
+        }
+        if other.hasFortImageUrl {
+             fortImageUrl = other.fortImageUrl
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -854,6 +944,12 @@ public extension Pogoprotos.Map.Pokemon {
           case 25:
             encounterId = try input.readFixed64()
 
+          case 34:
+            fortId = try input.readString()
+
+          case 42:
+            fortImageUrl = try input.readString()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -872,6 +968,12 @@ public extension Pogoprotos.Map.Pokemon {
         }
         if let jsonValueEncounterId = jsonMap["encounterId"] as? String {
           resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
+        }
+        if let jsonValueFortId = jsonMap["fortId"] as? String {
+          resultDecodedBuilder.fortId = jsonValueFortId
+        }
+        if let jsonValueFortImageUrl = jsonMap["fortImageUrl"] as? String {
+          resultDecodedBuilder.fortImageUrl = jsonValueFortImageUrl
         }
         return resultDecodedBuilder
       }

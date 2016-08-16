@@ -37,8 +37,12 @@ public class GPSOAuth: PGoAuth {
     public var authType: PGoAuthType = .Google
     public var endpoint: String = PGoEndpoint.Rpc
     public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
-    
-    public init() {}
+    public var manager: Manager
+
+    public init() {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        manager = Alamofire.Manager(configuration: configuration)
+    }
     
     private func parseKeyValues(body:String) -> Dictionary<String, String> {
         var obj = [String:String]()

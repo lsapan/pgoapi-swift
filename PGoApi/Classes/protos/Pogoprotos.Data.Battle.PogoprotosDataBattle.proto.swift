@@ -221,20 +221,20 @@ public extension Pogoprotos.Data.Battle {
 
   public enum BattleType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
     case BattleTypeUnset = 0
-    case Normal = 1
-    case Training = 2
+    case BattleTypeNormal = 1
+    case BattleTypeTraining = 2
     public func toString() -> String {
       switch self {
       case .BattleTypeUnset: return "BATTLE_TYPE_UNSET"
-      case .Normal: return "NORMAL"
-      case .Training: return "TRAINING"
+      case .BattleTypeNormal: return "BATTLE_TYPE_NORMAL"
+      case .BattleTypeTraining: return "BATTLE_TYPE_TRAINING"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Data.Battle.BattleType {
       switch str {
       case "BATTLE_TYPE_UNSET":  return .BattleTypeUnset
-      case "NORMAL":  return .Normal
-      case "TRAINING":  return .Training
+      case "BATTLE_TYPE_NORMAL":  return .BattleTypeNormal
+      case "BATTLE_TYPE_TRAINING":  return .BattleTypeTraining
       default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
@@ -243,8 +243,8 @@ public extension Pogoprotos.Data.Battle {
     private func getDescription() -> String { 
         switch self {
             case .BattleTypeUnset: return ".BattleTypeUnset"
-            case .Normal: return ".Normal"
-            case .Training: return ".Training"
+            case .BattleTypeNormal: return ".BattleTypeNormal"
+            case .BattleTypeTraining: return ".BattleTypeTraining"
         }
     }
   }
