@@ -18,6 +18,5 @@ public protocol PGoAuth {
     var authType: PGoAuthType { get }
     var endpoint: String { get set }
     var authToken: Pogoprotos.Networking.Envelopes.AuthTicket? { get set }
-    
-    func login(withUsername username:String, withPassword password:String)
+    var manager: Manager { get set }
 }

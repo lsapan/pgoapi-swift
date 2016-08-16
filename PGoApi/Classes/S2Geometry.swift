@@ -16,21 +16,21 @@ public enum S2Projection {
 }
 
 public enum S2Constants {
-    static let maxLevel = 30
-    static let posBits = 2 * S2Constants.maxLevel + 1
-    static let maxSize = 1 << S2Constants.maxLevel
-    static let swapMask = 0x01
-    static let invertMask = 0x02
-    static let lookupBits = 4
+    static let maxLevel:Int64 = 30
+    static let posBits:Int64 = 2 * S2Constants.maxLevel + 1
+    static let maxSize:Int64 = 1 << S2Constants.maxLevel
+    static let swapMask:Int64 = 0x01
+    static let invertMask:Int64 = 0x02
+    static let lookupBits:Int64 = 4
     static let posToOrientation = [S2Constants.swapMask, 0, 0, S2Constants.invertMask | S2Constants.swapMask]
-    static let posToIj = [[0, 1, 3, 2],
-                          [0, 2, 3, 1],
-                          [3, 2, 0, 1],
-                          [3, 1, 0, 2]]
+    static let posToIj:Array<Array<Int64>> = [[0, 1, 3, 2],
+                                              [0, 2, 3, 1],
+                                              [3, 2, 0, 1],
+                                              [3, 1, 0, 2]]
 }
 
 public struct S2FaceUv {
-    let face: Int
+    let face: Int64
     let u: Double
     let v: Double
 }
@@ -43,7 +43,7 @@ public struct S2Uv {
 public class S2Helper {
     static let sharedInstance = S2Helper()
     
-    var lookupPos: [Int?] = []
+    var lookupPos: [Int64?] = []
     
     init() {
         for _ in 0..<(1 << (2 * S2Constants.lookupBits + 2)) {
@@ -55,16 +55,16 @@ public class S2Helper {
         initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.swapMask | S2Constants.invertMask, pos: 0, orientation: S2Constants.swapMask | S2Constants.invertMask)
     }
     
-    func initLookupCell(level: Int, i: Int, j: Int, origOrientation: Int, pos: Int, orientation: Int) {
+    func initLookupCell(level: Int64, i: Int64, j: Int64, origOrientation: Int64, pos: Int64, orientation: Int64) {
         if level == S2Constants.lookupBits {
             let ij = (i << S2Constants.lookupBits) + j
-            lookupPos[(ij << 2) + origOrientation] = (pos << 2) + orientation
+            lookupPos[Int((ij << 2) + origOrientation)] = (pos << 2) + orientation
         } else {
             let _level = level + 1
             let _i = i << 1
             let _j = j << 1
             let _pos = pos << 2
-            let r = S2Constants.posToIj[orientation]
+            let r = S2Constants.posToIj[Int(orientation)]
             for index in 0..<4 {
                 initLookupCell(_level, i: _i + (r[index] >> 1), j: _j + (r[index] & 1), origOrientation: origOrientation, pos: _pos + index, orientation: orientation ^ S2Constants.posToOrientation[index])
             }
@@ -87,7 +87,7 @@ public class S2Point {
         return [abs(x), abs(y), abs(z)]
     }
     
-    func largestAbsComponent() -> Int {
+    func largestAbsComponent() -> Int64 {
         let temp = pointAbs()
         if temp[0] > temp[1] {
             if temp[0] > temp[2] {
@@ -108,7 +108,7 @@ public class S2Point {
         return x * o.x + y * o.y + z * o.z
     }
     
-    static func faceUvToXyz(face: Int, u: Double, v: Double) -> S2Point {
+    static func faceUvToXyz(face: Int64, u: Double, v: Double) -> S2Point {
         let uDouble = Double(u)
         let vDouble = Double(v)
         if face == 0 {
@@ -130,7 +130,7 @@ public class S2Point {
 public class S2LatLon {
     let lat: Double
     let lon: Double
- 
+    
     init(latDegrees: Double, lonDegrees: Double) {
         lat = latDegrees * M_PI / 180
         lon = lonDegrees * M_PI / 180
@@ -158,16 +158,16 @@ public class S2CellId {
         self.init(face: faceUv.face, i: i, j: j)
     }
     
-    public convenience init(face: Int, i: Int, j: Int) {
+    public convenience init(face: Int64, i: Int64, j: Int64) {
         var n = face << (S2Constants.posBits - 1)
         var bits = face & S2Constants.swapMask
         
         for k in 7.stride(to: -1, by: -1) {
             let mask = (1 << S2Constants.lookupBits) - 1
-            bits += (((i >> (k * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
-            bits += (((j >> (k * S2Constants.lookupBits)) & mask) << 2)
-            bits = S2Helper.sharedInstance.lookupPos[bits]!
-            n |= (bits >> 2) << (k * 2 * S2Constants.lookupBits)
+            bits += (((i >> (Int64(k) * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
+            bits += (((j >> (Int64(k) * S2Constants.lookupBits)) & mask) << 2)
+            bits = S2Helper.sharedInstance.lookupPos[Int(bits)]!
+            n |= (bits >> 2) << (Int64(k) * 2 * S2Constants.lookupBits)
             bits &= (S2Constants.swapMask | S2Constants.invertMask)
         }
         
@@ -190,7 +190,7 @@ public class S2CellId {
         let uv = validFaceXyzToUv(face, p: p)
         return S2FaceUv(face: face, u: uv.u, v: uv.v)
     }
- 
+    
     public static func uvToSt(projection: S2Projection, u: Double) -> Double {
         if projection == .Linear {
             return 0.5 * (u + 1)
@@ -204,12 +204,12 @@ public class S2CellId {
             }
         }
     }
- 
-    public static func stToIj(s: Double) -> Int {
-        return max(0, min(S2Constants.maxSize - 1, Int(floor(Double(S2Constants.maxSize) * s))))
+    
+    public static func stToIj(s: Double) -> Int64 {
+        return max(0, min(S2Constants.maxSize - 1, Int64(floor(Double(S2Constants.maxSize) * s))))
     }
-
-    public static func validFaceXyzToUv(face: Int, p: S2Point) -> S2Uv {
+    
+    public static func validFaceXyzToUv(face: Int64, p: S2Point) -> S2Uv {
         assert(p.dotProd(S2Point.faceUvToXyz(face, u: 0, v: 0)) > 0)
         if face == 0 {
             return S2Uv(u: p.y / p.x, v: p.z / p.x)

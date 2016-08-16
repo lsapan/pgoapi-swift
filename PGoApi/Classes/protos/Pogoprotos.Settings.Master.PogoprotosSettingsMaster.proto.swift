@@ -7993,7 +7993,7 @@ public extension Pogoprotos.Settings.Master {
     public private(set) var hasEvolutionPips:Bool = false
     public private(set) var evolutionPips:Int32 = Int32(0)
 
-    public private(set) var rarity:Pogoprotos.Enums.PokemonRarity = Pogoprotos.Enums.PokemonRarity.Normal
+    public private(set) var rarity:Pogoprotos.Enums.PokemonRarity = Pogoprotos.Enums.PokemonRarity.PokemonRarityNormal
     public private(set) var hasRarity:Bool = false
     public private(set) var hasPokedexHeightM:Bool = false
     public private(set) var pokedexHeightM:Float = Float(0)
@@ -8866,7 +8866,7 @@ public extension Pogoprotos.Settings.Master {
         }
         public func clearRarity() -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
            builderResult.hasRarity = false
-           builderResult.rarity = .Normal
+           builderResult.rarity = .PokemonRarityNormal
            return self
         }
       public var hasPokedexHeightM:Bool {
