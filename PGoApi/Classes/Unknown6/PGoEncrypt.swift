@@ -37,13 +37,13 @@ public class PGoEncrypt {
     
     func unsafeToArray(length: Int, data: UnsafePointer<UInt32>) -> [UInt32] {
         
-        let buffer = UnsafeBufferPointer(start: data, count: length);
+        let buffer = UnsafeBufferPointer(start: data, count: length)
         return Array(buffer)
     }
     
     func unsafeToArrayUInt8(length: Int, data: UnsafePointer<UInt8>) -> [UInt8] {
         
-        let buffer = UnsafeBufferPointer(start: data, count: length);
+        let buffer = UnsafeBufferPointer(start: data, count: length)
         return Array(buffer)
     }
      

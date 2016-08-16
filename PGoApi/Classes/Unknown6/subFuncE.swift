@@ -524,8 +524,8 @@ public class subFuncE {
         v[370] = (v[352] ^ v[350])
         v[371] = (v[354] ^ v[355])
         let part81a = (v[329] & v[106])
-        let part81b = (v[323] & v[77]);
-        let part81c = ((v[356] ^ v[326]) ^ part81b);
+        let part81b = (v[323] & v[77])
+        let part81c = ((v[356] ^ v[326]) ^ part81b)
         v[372] = (((part81c ^ input[32]) ^ part81a) ^ input[13])
         v[373] = ((v[343] ^ (~v[308] & v[325])) ^ (v[348] & v[303]))
         v[374] = ((input[56] ^ v[303]) ^ v[332])
