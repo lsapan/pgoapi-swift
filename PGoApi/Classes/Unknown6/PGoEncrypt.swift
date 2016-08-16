@@ -47,13 +47,13 @@ public class PGoEncrypt {
         return Array(buffer)
     }
      
-     public func encrypt(input: Array<UInt8>) -> Array<UInt8> {
+    public func encrypt(input: Array<UInt8>) -> Array<UInt8> {
      
         var iv = randomBytes().getUInt8Array()
         var buffer1 = Array<UInt8>(count: 256, repeatedValue: 0)
         let buffer2 = Array<UInt8>(count: 256, repeatedValue: 0)
 
-        var totalsize = input.count + (256 - (input.count % 256)) + 32
+        let totalsize = input.count + (256 - (input.count % 256)) + 32
 
         var output = Array<UInt8>(count: Int(totalsize), repeatedValue: 0)
 
@@ -67,8 +67,6 @@ public class PGoEncrypt {
         output.replaceRange(Range(32..<(32 + input.count)), with: input)
         output[totalsize - 1] = 1 &+ (255 &- UInt8(input.count % 256))
         
-        let buffer2UInt32 = unsafeToArray((buffer2.count/4), data: UnsafePointer<UInt32>(buffer2))
-
         for offset in 32.stride(to: totalsize, by: 256) {
             for i in 0..<256 {
                 output[offset + i] ^= buffer1[i]
