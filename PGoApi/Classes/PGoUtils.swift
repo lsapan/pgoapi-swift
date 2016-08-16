@@ -19,9 +19,7 @@ public class PGoLocationUtils {
         case Degree, Radian
     }
     
-    public init () {
-        
-    }
+    public init () {}
     
     public struct Coordinates {
         public var latitude: Double?
@@ -114,11 +112,10 @@ public class PGoLocationUtils {
         
         return Coordinates(latitude: latitude, longitude: longitude)
     }
-    /*
-    public func calculateSpiral(latitude:Double, longitude:Double, levels:Int, workers:Int) {
-        
-        // Removed, to be optimized with spawn point data
-        
+    public func getNeighbourCells() {
+        // Removed for now
     }
-     */
+    public func calculateSpiral(latitude:Double, longitude:Double, levels:Int, workers:Int) {
+        // Removed for now
+    }
 }
