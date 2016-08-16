@@ -136,6 +136,5 @@ extension GeneratedMessage {
             default:
                 return self
         }
-        return self
     }
 }
