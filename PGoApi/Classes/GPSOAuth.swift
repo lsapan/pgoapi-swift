@@ -50,7 +50,9 @@ public class GPSOAuth: PGoAuth {
         let bodySplit = body.componentsSeparatedByString("\n")
         for values in bodySplit {
             var keysValues = values.componentsSeparatedByString("=")
-            obj[keysValues[0]] = keysValues[1]
+            if keysValues.count >= 2 {
+                obj[keysValues[0]] = keysValues[1]
+            }
         }
         return obj;
     }
