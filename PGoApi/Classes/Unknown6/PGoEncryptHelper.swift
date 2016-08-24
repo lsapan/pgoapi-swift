@@ -12,11 +12,6 @@ import Foundation
 public class PGoEncryptHelper {
     public func encryptUInt32(input_: Array<UInt32>) -> Array<UInt32> {
         var output = Array<UInt32>(count: 64, repeatedValue: 0)
-                
-        if (output.count != 64) {
-            return []
-        }
-        
         var input = Array<UInt32>(count: 203, repeatedValue: 0)
         
         input = subFuncA().subFuncA(input, data_: input_)
