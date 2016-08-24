@@ -22,7 +22,7 @@ public func == (lhs: Pogoprotos.Map.Fort.FortData, rhs: Pogoprotos.Map.Fort.Fort
   fieldCheck = fieldCheck && (lhs.hasTypes == rhs.hasTypes) && (!lhs.hasTypes || lhs.types == rhs.types)
   fieldCheck = fieldCheck && (lhs.hasGymPoints == rhs.hasGymPoints) && (!lhs.hasGymPoints || lhs.gymPoints == rhs.gymPoints)
   fieldCheck = fieldCheck && (lhs.hasIsInBattle == rhs.hasIsInBattle) && (!lhs.hasIsInBattle || lhs.isInBattle == rhs.isInBattle)
-  fieldCheck = fieldCheck && (lhs.hasActiveFortModifier == rhs.hasActiveFortModifier) && (!lhs.hasActiveFortModifier || lhs.activeFortModifier == rhs.activeFortModifier)
+  fieldCheck = fieldCheck && (lhs.activeFortModifier == rhs.activeFortModifier)
   fieldCheck = fieldCheck && (lhs.hasLureInfo == rhs.hasLureInfo) && (!lhs.hasLureInfo || lhs.lureInfo == rhs.lureInfo)
   fieldCheck = fieldCheck && (lhs.hasCooldownCompleteTimestampMs == rhs.hasCooldownCompleteTimestampMs) && (!lhs.hasCooldownCompleteTimestampMs || lhs.cooldownCompleteTimestampMs == rhs.cooldownCompleteTimestampMs)
   fieldCheck = fieldCheck && (lhs.hasSponsor == rhs.hasSponsor) && (!lhs.hasSponsor || lhs.sponsor == rhs.sponsor)
@@ -222,6 +222,10 @@ public extension Pogoprotos.Map.Fort {
     public private(set) var hasIsInBattle:Bool = false
     public private(set) var isInBattle:Bool = false
 
+    private var activeFortModifierMemoizedSerializedSize:Int32 = 0
+    public private(set) var activeFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
+    public private(set) var hasLureInfo:Bool = false
+    public private(set) var lureInfo:Pogoprotos.Map.Fort.FortLureInfo!
     // Timestamp when the pokestop can be activated again to get items / xp
     public private(set) var hasCooldownCompleteTimestampMs:Bool = false
     public private(set) var cooldownCompleteTimestampMs:Int64 = Int64(0)
@@ -230,12 +234,6 @@ public extension Pogoprotos.Map.Fort {
     public private(set) var hasSponsor:Bool = false
     public private(set) var renderingType:Pogoprotos.Map.Fort.FortRenderingType = Pogoprotos.Map.Fort.FortRenderingType.Default
     public private(set) var hasRenderingType:Bool = false
-    // Might represent the type of item applied to the pokestop, right now only lures can be applied
-    public private(set) var hasActiveFortModifier:Bool = false
-    public private(set) var activeFortModifier:NSData = NSData()
-
-    public private(set) var hasLureInfo:Bool = false
-    public private(set) var lureInfo:Pogoprotos.Map.Fort.FortLureInfo!
     required public init() {
          super.init()
     }
@@ -276,8 +274,8 @@ public extension Pogoprotos.Map.Fort {
       if hasIsInBattle {
         try output.writeBool(11, value:isInBattle)
       }
-      if hasActiveFortModifier {
-        try output.writeData(12, value:activeFortModifier)
+      for oneValueOfactiveFortModifier in activeFortModifier {
+          try output.writeEnum(12, value:oneValueOfactiveFortModifier.rawValue)
       }
       if hasLureInfo {
         try output.writeMessage(13, value:lureInfo)
@@ -333,9 +331,12 @@ public extension Pogoprotos.Map.Fort {
       if hasIsInBattle {
         serialize_size += isInBattle.computeBoolSize(11)
       }
-      if hasActiveFortModifier {
-        serialize_size += activeFortModifier.computeDataSize(12)
+      var dataSizeactiveFortModifier:Int32 = 0
+      for oneValueOfactiveFortModifier in activeFortModifier {
+          dataSizeactiveFortModifier += oneValueOfactiveFortModifier.rawValue.computeEnumSizeNoTag()
       }
+      serialize_size += dataSizeactiveFortModifier
+      serialize_size += (1 * Int32(activeFortModifier.count))
       if hasLureInfo {
           if let varSizelureInfo = lureInfo?.computeMessageSize(13) {
               serialize_size += varSizelureInfo
@@ -439,6 +440,16 @@ public extension Pogoprotos.Map.Fort {
       if hasIsInBattle {
         jsonMap["isInBattle"] = isInBattle
       }
+      if !activeFortModifier.isEmpty {
+        var jsonArrayActiveFortModifier:Array<String> = []
+          for oneValueActiveFortModifier in activeFortModifier {
+            jsonArrayActiveFortModifier += [oneValueActiveFortModifier.toString()]
+          }
+        jsonMap["activeFortModifier"] = jsonArrayActiveFortModifier
+      }
+      if hasLureInfo {
+        jsonMap["lureInfo"] = try lureInfo.encode()
+      }
       if hasCooldownCompleteTimestampMs {
         jsonMap["cooldownCompleteTimestampMs"] = "\(cooldownCompleteTimestampMs)"
       }
@@ -447,12 +458,6 @@ public extension Pogoprotos.Map.Fort {
       }
       if hasRenderingType {
         jsonMap["renderingType"] = renderingType.toString()
-      }
-      if hasActiveFortModifier {
-        jsonMap["activeFortModifier"] = activeFortModifier.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-      }
-      if hasLureInfo {
-        jsonMap["lureInfo"] = try lureInfo.encode()
       }
       return jsonMap
     }
@@ -497,8 +502,10 @@ public extension Pogoprotos.Map.Fort {
       if hasIsInBattle {
         output += "\(indent) isInBattle: \(isInBattle) \n"
       }
-      if hasActiveFortModifier {
-        output += "\(indent) activeFortModifier: \(activeFortModifier) \n"
+      var activeFortModifierElementIndex:Int = 0
+      for oneValueOfactiveFortModifier in activeFortModifier {
+          output += "\(indent) activeFortModifier[\(activeFortModifierElementIndex)]: \(oneValueOfactiveFortModifier.description)\n"
+          activeFortModifierElementIndex += 1
       }
       if hasLureInfo {
         output += "\(indent) lureInfo {\n"
@@ -555,8 +562,8 @@ public extension Pogoprotos.Map.Fort {
             if hasIsInBattle {
                hashCode = (hashCode &* 31) &+ isInBattle.hashValue
             }
-            if hasActiveFortModifier {
-               hashCode = (hashCode &* 31) &+ activeFortModifier.hashValue
+            for oneValueOfactiveFortModifier in activeFortModifier {
+                hashCode = (hashCode &* 31) &+ Int(oneValueOfactiveFortModifier.rawValue)
             }
             if hasLureInfo {
                 if let hashValuelureInfo = lureInfo?.hashValue {
@@ -853,6 +860,73 @@ public extension Pogoprotos.Map.Fort {
            builderResult.isInBattle = false
            return self
       }
+      public var activeFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> {
+          get {
+              return builderResult.activeFortModifier
+          }
+          set (value) {
+              builderResult.activeFortModifier = value
+          }
+      }
+      public func setActiveFortModifier(value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Map.Fort.FortData.Builder {
+        self.activeFortModifier = value
+        return self
+      }
+      public func clearActiveFortModifier() -> Pogoprotos.Map.Fort.FortData.Builder {
+        builderResult.activeFortModifier.removeAll(keepCapacity: false)
+        return self
+      }
+      public var hasLureInfo:Bool {
+           get {
+               return builderResult.hasLureInfo
+           }
+      }
+      public var lureInfo:Pogoprotos.Map.Fort.FortLureInfo! {
+           get {
+               if lureInfoBuilder_ != nil {
+                  builderResult.lureInfo = lureInfoBuilder_.getMessage()
+               }
+               return builderResult.lureInfo
+           }
+           set (value) {
+               builderResult.hasLureInfo = true
+               builderResult.lureInfo = value
+           }
+      }
+      private var lureInfoBuilder_:Pogoprotos.Map.Fort.FortLureInfo.Builder! {
+           didSet {
+              builderResult.hasLureInfo = true
+           }
+      }
+      public func getLureInfoBuilder() -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+        if lureInfoBuilder_ == nil {
+           lureInfoBuilder_ = Pogoprotos.Map.Fort.FortLureInfo.Builder()
+           builderResult.lureInfo = lureInfoBuilder_.getMessage()
+           if lureInfo != nil {
+              try! lureInfoBuilder_.mergeFrom(lureInfo)
+           }
+        }
+        return lureInfoBuilder_
+      }
+      public func setLureInfo(value:Pogoprotos.Map.Fort.FortLureInfo!) -> Pogoprotos.Map.Fort.FortData.Builder {
+        self.lureInfo = value
+        return self
+      }
+      public func mergeLureInfo(value:Pogoprotos.Map.Fort.FortLureInfo) throws -> Pogoprotos.Map.Fort.FortData.Builder {
+        if builderResult.hasLureInfo {
+          builderResult.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(builderResult.lureInfo).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.lureInfo = value
+        }
+        builderResult.hasLureInfo = true
+        return self
+      }
+      public func clearLureInfo() -> Pogoprotos.Map.Fort.FortData.Builder {
+        lureInfoBuilder_ = nil
+        builderResult.hasLureInfo = false
+        builderResult.lureInfo = nil
+        return self
+      }
       public var hasCooldownCompleteTimestampMs:Bool {
            get {
                 return builderResult.hasCooldownCompleteTimestampMs
@@ -922,80 +996,6 @@ public extension Pogoprotos.Map.Fort {
            builderResult.renderingType = .Default
            return self
         }
-      public var hasActiveFortModifier:Bool {
-           get {
-                return builderResult.hasActiveFortModifier
-           }
-      }
-      public var activeFortModifier:NSData {
-           get {
-                return builderResult.activeFortModifier
-           }
-           set (value) {
-               builderResult.hasActiveFortModifier = true
-               builderResult.activeFortModifier = value
-           }
-      }
-      public func setActiveFortModifier(value:NSData) -> Pogoprotos.Map.Fort.FortData.Builder {
-        self.activeFortModifier = value
-        return self
-      }
-      public func clearActiveFortModifier() -> Pogoprotos.Map.Fort.FortData.Builder{
-           builderResult.hasActiveFortModifier = false
-           builderResult.activeFortModifier = NSData()
-           return self
-      }
-      public var hasLureInfo:Bool {
-           get {
-               return builderResult.hasLureInfo
-           }
-      }
-      public var lureInfo:Pogoprotos.Map.Fort.FortLureInfo! {
-           get {
-               if lureInfoBuilder_ != nil {
-                  builderResult.lureInfo = lureInfoBuilder_.getMessage()
-               }
-               return builderResult.lureInfo
-           }
-           set (value) {
-               builderResult.hasLureInfo = true
-               builderResult.lureInfo = value
-           }
-      }
-      private var lureInfoBuilder_:Pogoprotos.Map.Fort.FortLureInfo.Builder! {
-           didSet {
-              builderResult.hasLureInfo = true
-           }
-      }
-      public func getLureInfoBuilder() -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-        if lureInfoBuilder_ == nil {
-           lureInfoBuilder_ = Pogoprotos.Map.Fort.FortLureInfo.Builder()
-           builderResult.lureInfo = lureInfoBuilder_.getMessage()
-           if lureInfo != nil {
-              try! lureInfoBuilder_.mergeFrom(lureInfo)
-           }
-        }
-        return lureInfoBuilder_
-      }
-      public func setLureInfo(value:Pogoprotos.Map.Fort.FortLureInfo!) -> Pogoprotos.Map.Fort.FortData.Builder {
-        self.lureInfo = value
-        return self
-      }
-      public func mergeLureInfo(value:Pogoprotos.Map.Fort.FortLureInfo) throws -> Pogoprotos.Map.Fort.FortData.Builder {
-        if builderResult.hasLureInfo {
-          builderResult.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(builderResult.lureInfo).mergeFrom(value).buildPartial()
-        } else {
-          builderResult.lureInfo = value
-        }
-        builderResult.hasLureInfo = true
-        return self
-      }
-      public func clearLureInfo() -> Pogoprotos.Map.Fort.FortData.Builder {
-        lureInfoBuilder_ = nil
-        builderResult.hasLureInfo = false
-        builderResult.lureInfo = nil
-        return self
-      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -1053,6 +1053,12 @@ public extension Pogoprotos.Map.Fort {
         if other.hasIsInBattle {
              isInBattle = other.isInBattle
         }
+        if !other.activeFortModifier.isEmpty {
+           builderResult.activeFortModifier += other.activeFortModifier
+        }
+        if (other.hasLureInfo) {
+            try mergeLureInfo(other.lureInfo)
+        }
         if other.hasCooldownCompleteTimestampMs {
              cooldownCompleteTimestampMs = other.cooldownCompleteTimestampMs
         }
@@ -1061,12 +1067,6 @@ public extension Pogoprotos.Map.Fort {
         }
         if other.hasRenderingType {
              renderingType = other.renderingType
-        }
-        if other.hasActiveFortModifier {
-             activeFortModifier = other.activeFortModifier
-        }
-        if (other.hasLureInfo) {
-            try mergeLureInfo(other.lureInfo)
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -1131,8 +1131,13 @@ public extension Pogoprotos.Map.Fort {
           case 88:
             isInBattle = try input.readBool()
 
-          case 98:
-            activeFortModifier = try input.readData()
+          case 96:
+            let valueIntactiveFortModifier = try input.readEnum()
+            if let enumsactiveFortModifier = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntactiveFortModifier) {
+                 builderResult.activeFortModifier += [enumsactiveFortModifier]
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(12, value:Int64(valueIntactiveFortModifier))
+            }
 
           case 106:
             let subBuilder:Pogoprotos.Map.Fort.FortLureInfo.Builder = Pogoprotos.Map.Fort.FortLureInfo.Builder()
@@ -1204,6 +1209,18 @@ public extension Pogoprotos.Map.Fort {
         if let jsonValueIsInBattle = jsonMap["isInBattle"] as? Bool {
           resultDecodedBuilder.isInBattle = jsonValueIsInBattle
         }
+        if let jsonValueActiveFortModifier = jsonMap["activeFortModifier"] as? Array<String> {
+          var jsonArrayActiveFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> = []
+          for oneValueActiveFortModifier in jsonValueActiveFortModifier {
+            let enumFromStringActiveFortModifier = try Pogoprotos.Inventory.Item.ItemId.fromString(oneValueActiveFortModifier)
+            jsonArrayActiveFortModifier += [enumFromStringActiveFortModifier]
+          }
+          resultDecodedBuilder.activeFortModifier = jsonArrayActiveFortModifier
+        }
+        if let jsonValueLureInfo = jsonMap["lureInfo"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonValueLureInfo).build()
+
+        }
         if let jsonValueCooldownCompleteTimestampMs = jsonMap["cooldownCompleteTimestampMs"] as? String {
           resultDecodedBuilder.cooldownCompleteTimestampMs = Int64(jsonValueCooldownCompleteTimestampMs)!
         }
@@ -1212,13 +1229,6 @@ public extension Pogoprotos.Map.Fort {
         }
         if let jsonValueRenderingType = jsonMap["renderingType"] as? String {
           resultDecodedBuilder.renderingType = try Pogoprotos.Map.Fort.FortRenderingType.fromString(jsonValueRenderingType)
-        }
-        if let jsonValueActiveFortModifier = jsonMap["activeFortModifier"] as? String {
-          resultDecodedBuilder.activeFortModifier = NSData(base64EncodedString:jsonValueActiveFortModifier, options: NSDataBase64DecodingOptions(rawValue:0))!
-        }
-        if let jsonValueLureInfo = jsonMap["lureInfo"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonValueLureInfo).build()
-
         }
         return resultDecodedBuilder
       }

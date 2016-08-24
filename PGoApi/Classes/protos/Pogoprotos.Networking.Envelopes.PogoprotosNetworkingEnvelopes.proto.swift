@@ -88,9 +88,10 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Signature, rhs: Pogoprotos.
   fieldCheck = fieldCheck && (lhs.hasActivityStatus == rhs.hasActivityStatus) && (!lhs.hasActivityStatus || lhs.activityStatus == rhs.activityStatus)
   fieldCheck = fieldCheck && (lhs.hasLocationHash1 == rhs.hasLocationHash1) && (!lhs.hasLocationHash1 || lhs.locationHash1 == rhs.locationHash1)
   fieldCheck = fieldCheck && (lhs.hasLocationHash2 == rhs.hasLocationHash2) && (!lhs.hasLocationHash2 || lhs.locationHash2 == rhs.locationHash2)
-  fieldCheck = fieldCheck && (lhs.hasUnknown22 == rhs.hasUnknown22) && (!lhs.hasUnknown22 || lhs.unknown22 == rhs.unknown22)
+  fieldCheck = fieldCheck && (lhs.hasSessionHash == rhs.hasSessionHash) && (!lhs.hasSessionHash || lhs.sessionHash == rhs.sessionHash)
   fieldCheck = fieldCheck && (lhs.hasTimestamp == rhs.hasTimestamp) && (!lhs.hasTimestamp || lhs.timestamp == rhs.timestamp)
   fieldCheck = fieldCheck && (lhs.requestHash == rhs.requestHash)
+  fieldCheck = fieldCheck && (lhs.hasUnknown25 == rhs.hasUnknown25) && (!lhs.hasUnknown25 || lhs.unknown25 == rhs.unknown25)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -101,7 +102,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Signature.LocationFix, rhs:
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasProvider == rhs.hasProvider) && (!lhs.hasProvider || lhs.provider == rhs.provider)
-  fieldCheck = fieldCheck && (lhs.hasTimestampSinceStart == rhs.hasTimestampSinceStart) && (!lhs.hasTimestampSinceStart || lhs.timestampSinceStart == rhs.timestampSinceStart)
+  fieldCheck = fieldCheck && (lhs.hasTimestampSnapshot == rhs.hasTimestampSnapshot) && (!lhs.hasTimestampSnapshot || lhs.timestampSnapshot == rhs.timestampSnapshot)
   fieldCheck = fieldCheck && (lhs.hasLatitude == rhs.hasLatitude) && (!lhs.hasLatitude || lhs.latitude == rhs.latitude)
   fieldCheck = fieldCheck && (lhs.hasLongitude == rhs.hasLongitude) && (!lhs.hasLongitude || lhs.longitude == rhs.longitude)
   fieldCheck = fieldCheck && (lhs.hasHorizontalAccuracy == rhs.hasHorizontalAccuracy) && (!lhs.hasHorizontalAccuracy || lhs.horizontalAccuracy == rhs.horizontalAccuracy)
@@ -2634,9 +2635,9 @@ public extension Pogoprotos.Networking.Envelopes {
         public private(set) var hasProvider:Bool = false
         public private(set) var provider:String = ""
 
-        // in ms
-        public private(set) var hasTimestampSinceStart:Bool = false
-        public private(set) var timestampSinceStart:UInt64 = UInt64(0)
+        // in ms since start
+        public private(set) var hasTimestampSnapshot:Bool = false
+        public private(set) var timestampSnapshot:UInt64 = UInt64(0)
 
         public private(set) var hasLatitude:Bool = false
         public private(set) var latitude:Float = Float(0)
@@ -2679,8 +2680,8 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasProvider {
             try output.writeString(1, value:provider)
           }
-          if hasTimestampSinceStart {
-            try output.writeUInt64(2, value:timestampSinceStart)
+          if hasTimestampSnapshot {
+            try output.writeUInt64(2, value:timestampSnapshot)
           }
           if hasLatitude {
             try output.writeFloat(13, value:latitude)
@@ -2718,8 +2719,8 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasProvider {
             serialize_size += provider.computeStringSize(1)
           }
-          if hasTimestampSinceStart {
-            serialize_size += timestampSinceStart.computeUInt64Size(2)
+          if hasTimestampSnapshot {
+            serialize_size += timestampSnapshot.computeUInt64Size(2)
           }
           if hasLatitude {
             serialize_size += latitude.computeFloatSize(13)
@@ -2804,8 +2805,8 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasProvider {
             jsonMap["provider"] = provider
           }
-          if hasTimestampSinceStart {
-            jsonMap["timestampSinceStart"] = "\(timestampSinceStart)"
+          if hasTimestampSnapshot {
+            jsonMap["timestampSnapshot"] = "\(timestampSnapshot)"
           }
           if hasLatitude {
             jsonMap["latitude"] = NSNumber(float:latitude)
@@ -2844,8 +2845,8 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasProvider {
             output += "\(indent) provider: \(provider) \n"
           }
-          if hasTimestampSinceStart {
-            output += "\(indent) timestampSinceStart: \(timestampSinceStart) \n"
+          if hasTimestampSnapshot {
+            output += "\(indent) timestampSnapshot: \(timestampSnapshot) \n"
           }
           if hasLatitude {
             output += "\(indent) latitude: \(latitude) \n"
@@ -2880,8 +2881,8 @@ public extension Pogoprotos.Networking.Envelopes {
                 if hasProvider {
                    hashCode = (hashCode &* 31) &+ provider.hashValue
                 }
-                if hasTimestampSinceStart {
-                   hashCode = (hashCode &* 31) &+ timestampSinceStart.hashValue
+                if hasTimestampSnapshot {
+                   hashCode = (hashCode &* 31) &+ timestampSnapshot.hashValue
                 }
                 if hasLatitude {
                    hashCode = (hashCode &* 31) &+ latitude.hashValue
@@ -2958,27 +2959,27 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.provider = ""
                return self
           }
-          public var hasTimestampSinceStart:Bool {
+          public var hasTimestampSnapshot:Bool {
                get {
-                    return builderResult.hasTimestampSinceStart
+                    return builderResult.hasTimestampSnapshot
                }
           }
-          public var timestampSinceStart:UInt64 {
+          public var timestampSnapshot:UInt64 {
                get {
-                    return builderResult.timestampSinceStart
+                    return builderResult.timestampSnapshot
                }
                set (value) {
-                   builderResult.hasTimestampSinceStart = true
-                   builderResult.timestampSinceStart = value
+                   builderResult.hasTimestampSnapshot = true
+                   builderResult.timestampSnapshot = value
                }
           }
-          public func setTimestampSinceStart(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-            self.timestampSinceStart = value
+          public func setTimestampSnapshot(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+            self.timestampSnapshot = value
             return self
           }
-          public func clearTimestampSinceStart() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder{
-               builderResult.hasTimestampSinceStart = false
-               builderResult.timestampSinceStart = UInt64(0)
+          public func clearTimestampSnapshot() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder{
+               builderResult.hasTimestampSnapshot = false
+               builderResult.timestampSnapshot = UInt64(0)
                return self
           }
           public var hasLatitude:Bool {
@@ -3192,8 +3193,8 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasProvider {
                  provider = other.provider
             }
-            if other.hasTimestampSinceStart {
-                 timestampSinceStart = other.timestampSinceStart
+            if other.hasTimestampSnapshot {
+                 timestampSnapshot = other.timestampSnapshot
             }
             if other.hasLatitude {
                  latitude = other.latitude
@@ -3238,7 +3239,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 provider = try input.readString()
 
               case 16:
-                timestampSinceStart = try input.readUInt64()
+                timestampSnapshot = try input.readUInt64()
 
               case 109:
                 latitude = try input.readFloat()
@@ -3277,8 +3278,8 @@ public extension Pogoprotos.Networking.Envelopes {
             if let jsonValueProvider = jsonMap["provider"] as? String {
               resultDecodedBuilder.provider = jsonValueProvider
             }
-            if let jsonValueTimestampSinceStart = jsonMap["timestampSinceStart"] as? String {
-              resultDecodedBuilder.timestampSinceStart = UInt64(jsonValueTimestampSinceStart)!
+            if let jsonValueTimestampSnapshot = jsonMap["timestampSnapshot"] as? String {
+              resultDecodedBuilder.timestampSnapshot = UInt64(jsonValueTimestampSnapshot)!
             }
             if let jsonValueLatitude = jsonMap["latitude"] as? NSNumber {
               resultDecodedBuilder.latitude = jsonValueLatitude.floatValue
@@ -4000,7 +4001,7 @@ public extension Pogoprotos.Networking.Envelopes {
     //Nested type declaration start
 
       final public class SensorInfo : GeneratedMessage, GeneratedMessageProtocol {
-        // in ms
+        // in ms since start
         public private(set) var hasTimestampSnapshot:Bool = false
         public private(set) var timestampSnapshot:UInt64 = UInt64(0)
 
@@ -5882,6 +5883,7 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration start
 
+      // Only used in iOS - Android just sends an empty version
       final public class ActivityStatus : GeneratedMessage, GeneratedMessageProtocol {
         // all of these had 1 as their value
         public private(set) var hasStartTimeMs:Bool = false
@@ -6527,25 +6529,29 @@ public extension Pogoprotos.Networking.Envelopes {
     public private(set) var deviceInfo:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo!
     public private(set) var hasActivityStatus:Bool = false
     public private(set) var activityStatus:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus!
-    // Location1 hashed based on the auth_token - xxHash32
+    // Location1 hashed signed based on the auth_token or auth_info - xxHash32
     public private(set) var hasLocationHash1:Bool = false
-    public private(set) var locationHash1:UInt32 = UInt32(0)
+    public private(set) var locationHash1:UInt64 = UInt64(0)
 
-    // Location2 hashed based on the auth_token - xxHash32
+    // Location2 hashed (unsigned) - xxHash32
     public private(set) var hasLocationHash2:Bool = false
-    public private(set) var locationHash2:UInt32 = UInt32(0)
+    public private(set) var locationHash2:UInt64 = UInt64(0)
 
-    // possibly replay check. Generation unknown but pointed to by 0001B8614
-    public private(set) var hasUnknown22:Bool = false
-    public private(set) var unknown22:NSData = NSData()
+    // 16 bytes, unique per session
+    public private(set) var hasSessionHash:Bool = false
+    public private(set) var sessionHash:NSData = NSData()
 
     // epoch timestamp in ms
     public private(set) var hasTimestamp:Bool = false
     public private(set) var timestamp:UInt64 = UInt64(0)
 
-    // hashes of each request message in a hashArray - xxhash64
+    // hashes of each request message in a hashArray signed based on the auth_token or auth_info - xxhash64
     public private(set) var requestHash:Array<UInt64> = Array<UInt64>()
     private var requestHashMemoizedSerializedSize:Int32 = -1
+    // for 0.33 its static -8537042734809897855 or 0x898654dd2753a481, generated via xxHash64("\"b8fa9757195897aae92c53dbcf8a60fb3d86d745\"".ToByteArray(), 0x88533787)
+    public private(set) var hasUnknown25:Bool = false
+    public private(set) var unknown25:Int64 = Int64(0)
+
     required public init() {
          super.init()
     }
@@ -6572,13 +6578,13 @@ public extension Pogoprotos.Networking.Envelopes {
         try output.writeMessage(9, value:activityStatus)
       }
       if hasLocationHash1 {
-        try output.writeUInt32(10, value:locationHash1)
+        try output.writeUInt64(10, value:locationHash1)
       }
       if hasLocationHash2 {
-        try output.writeUInt32(20, value:locationHash2)
+        try output.writeUInt64(20, value:locationHash2)
       }
-      if hasUnknown22 {
-        try output.writeData(22, value:unknown22)
+      if hasSessionHash {
+        try output.writeData(22, value:sessionHash)
       }
       if hasTimestamp {
         try output.writeUInt64(23, value:timestamp)
@@ -6589,6 +6595,9 @@ public extension Pogoprotos.Networking.Envelopes {
         for oneValuerequestHash in requestHash {
           try output.writeUInt64NoTag(oneValuerequestHash)
         }
+      }
+      if hasUnknown25 {
+        try output.writeInt64(25, value:unknown25)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -6626,13 +6635,13 @@ public extension Pogoprotos.Networking.Envelopes {
           }
       }
       if hasLocationHash1 {
-        serialize_size += locationHash1.computeUInt32Size(10)
+        serialize_size += locationHash1.computeUInt64Size(10)
       }
       if hasLocationHash2 {
-        serialize_size += locationHash2.computeUInt32Size(20)
+        serialize_size += locationHash2.computeUInt64Size(20)
       }
-      if hasUnknown22 {
-        serialize_size += unknown22.computeDataSize(22)
+      if hasSessionHash {
+        serialize_size += sessionHash.computeDataSize(22)
       }
       if hasTimestamp {
         serialize_size += timestamp.computeUInt64Size(23)
@@ -6647,6 +6656,9 @@ public extension Pogoprotos.Networking.Envelopes {
         serialize_size += dataSizeRequestHash.computeInt32SizeNoTag()
       }
       requestHashMemoizedSerializedSize = dataSizeRequestHash
+      if hasUnknown25 {
+        serialize_size += unknown25.computeInt64Size(25)
+      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -6727,13 +6739,13 @@ public extension Pogoprotos.Networking.Envelopes {
         jsonMap["activityStatus"] = try activityStatus.encode()
       }
       if hasLocationHash1 {
-        jsonMap["locationHash1"] = NSNumber(unsignedInt:locationHash1)
+        jsonMap["locationHash1"] = "\(locationHash1)"
       }
       if hasLocationHash2 {
-        jsonMap["locationHash2"] = NSNumber(unsignedInt:locationHash2)
+        jsonMap["locationHash2"] = "\(locationHash2)"
       }
-      if hasUnknown22 {
-        jsonMap["unknown22"] = unknown22.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+      if hasSessionHash {
+        jsonMap["sessionHash"] = sessionHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
       }
       if hasTimestamp {
         jsonMap["timestamp"] = "\(timestamp)"
@@ -6744,6 +6756,9 @@ public extension Pogoprotos.Networking.Envelopes {
             jsonArrayRequestHash += ["\(oneValueRequestHash)"]
           }
         jsonMap["requestHash"] = jsonArrayRequestHash
+      }
+      if hasUnknown25 {
+        jsonMap["unknown25"] = "\(unknown25)"
       }
       return jsonMap
     }
@@ -6799,8 +6814,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasLocationHash2 {
         output += "\(indent) locationHash2: \(locationHash2) \n"
       }
-      if hasUnknown22 {
-        output += "\(indent) unknown22: \(unknown22) \n"
+      if hasSessionHash {
+        output += "\(indent) sessionHash: \(sessionHash) \n"
       }
       if hasTimestamp {
         output += "\(indent) timestamp: \(timestamp) \n"
@@ -6809,6 +6824,9 @@ public extension Pogoprotos.Networking.Envelopes {
       for oneValueRequestHash in requestHash  {
           output += "\(indent) requestHash[\(requestHashElementIndex)]: \(oneValueRequestHash)\n"
           requestHashElementIndex += 1
+      }
+      if hasUnknown25 {
+        output += "\(indent) unknown25: \(unknown25) \n"
       }
       output += unknownFields.getDescription(indent)
       return output
@@ -6848,14 +6866,17 @@ public extension Pogoprotos.Networking.Envelopes {
             if hasLocationHash2 {
                hashCode = (hashCode &* 31) &+ locationHash2.hashValue
             }
-            if hasUnknown22 {
-               hashCode = (hashCode &* 31) &+ unknown22.hashValue
+            if hasSessionHash {
+               hashCode = (hashCode &* 31) &+ sessionHash.hashValue
             }
             if hasTimestamp {
                hashCode = (hashCode &* 31) &+ timestamp.hashValue
             }
             for oneValueRequestHash in requestHash {
                 hashCode = (hashCode &* 31) &+ oneValueRequestHash.hashValue
+            }
+            if hasUnknown25 {
+               hashCode = (hashCode &* 31) &+ unknown25.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -7133,7 +7154,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 return builderResult.hasLocationHash1
            }
       }
-      public var locationHash1:UInt32 {
+      public var locationHash1:UInt64 {
            get {
                 return builderResult.locationHash1
            }
@@ -7142,13 +7163,13 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.locationHash1 = value
            }
       }
-      public func setLocationHash1(value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setLocationHash1(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.locationHash1 = value
         return self
       }
       public func clearLocationHash1() -> Pogoprotos.Networking.Envelopes.Signature.Builder{
            builderResult.hasLocationHash1 = false
-           builderResult.locationHash1 = UInt32(0)
+           builderResult.locationHash1 = UInt64(0)
            return self
       }
       public var hasLocationHash2:Bool {
@@ -7156,7 +7177,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 return builderResult.hasLocationHash2
            }
       }
-      public var locationHash2:UInt32 {
+      public var locationHash2:UInt64 {
            get {
                 return builderResult.locationHash2
            }
@@ -7165,36 +7186,36 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.locationHash2 = value
            }
       }
-      public func setLocationHash2(value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setLocationHash2(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.locationHash2 = value
         return self
       }
       public func clearLocationHash2() -> Pogoprotos.Networking.Envelopes.Signature.Builder{
            builderResult.hasLocationHash2 = false
-           builderResult.locationHash2 = UInt32(0)
+           builderResult.locationHash2 = UInt64(0)
            return self
       }
-      public var hasUnknown22:Bool {
+      public var hasSessionHash:Bool {
            get {
-                return builderResult.hasUnknown22
+                return builderResult.hasSessionHash
            }
       }
-      public var unknown22:NSData {
+      public var sessionHash:NSData {
            get {
-                return builderResult.unknown22
+                return builderResult.sessionHash
            }
            set (value) {
-               builderResult.hasUnknown22 = true
-               builderResult.unknown22 = value
+               builderResult.hasSessionHash = true
+               builderResult.sessionHash = value
            }
       }
-      public func setUnknown22(value:NSData) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-        self.unknown22 = value
+      public func setSessionHash(value:NSData) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+        self.sessionHash = value
         return self
       }
-      public func clearUnknown22() -> Pogoprotos.Networking.Envelopes.Signature.Builder{
-           builderResult.hasUnknown22 = false
-           builderResult.unknown22 = NSData()
+      public func clearSessionHash() -> Pogoprotos.Networking.Envelopes.Signature.Builder{
+           builderResult.hasSessionHash = false
+           builderResult.sessionHash = NSData()
            return self
       }
       public var hasTimestamp:Bool {
@@ -7235,6 +7256,29 @@ public extension Pogoprotos.Networking.Envelopes {
       public func clearRequestHash() -> Pogoprotos.Networking.Envelopes.Signature.Builder {
          builderResult.requestHash.removeAll(keepCapacity: false)
          return self
+      }
+      public var hasUnknown25:Bool {
+           get {
+                return builderResult.hasUnknown25
+           }
+      }
+      public var unknown25:Int64 {
+           get {
+                return builderResult.unknown25
+           }
+           set (value) {
+               builderResult.hasUnknown25 = true
+               builderResult.unknown25 = value
+           }
+      }
+      public func setUnknown25(value:Int64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+        self.unknown25 = value
+        return self
+      }
+      public func clearUnknown25() -> Pogoprotos.Networking.Envelopes.Signature.Builder{
+           builderResult.hasUnknown25 = false
+           builderResult.unknown25 = Int64(0)
+           return self
       }
       override public var internalGetResult:GeneratedMessage {
            get {
@@ -7284,14 +7328,17 @@ public extension Pogoprotos.Networking.Envelopes {
         if other.hasLocationHash2 {
              locationHash2 = other.locationHash2
         }
-        if other.hasUnknown22 {
-             unknown22 = other.unknown22
+        if other.hasSessionHash {
+             sessionHash = other.sessionHash
         }
         if other.hasTimestamp {
              timestamp = other.timestamp
         }
         if !other.requestHash.isEmpty {
             builderResult.requestHash += other.requestHash
+        }
+        if other.hasUnknown25 {
+             unknown25 = other.unknown25
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -7349,13 +7396,13 @@ public extension Pogoprotos.Networking.Envelopes {
             activityStatus = subBuilder.buildPartial()
 
           case 80:
-            locationHash1 = try input.readUInt32()
+            locationHash1 = try input.readUInt64()
 
           case 160:
-            locationHash2 = try input.readUInt32()
+            locationHash2 = try input.readUInt64()
 
           case 178:
-            unknown22 = try input.readData()
+            sessionHash = try input.readData()
 
           case 184:
             timestamp = try input.readUInt64()
@@ -7367,6 +7414,9 @@ public extension Pogoprotos.Networking.Envelopes {
               builderResult.requestHash += [try input.readUInt64()]
             }
             input.popLimit(limit)
+
+          case 200:
+            unknown25 = try input.readInt64()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
@@ -7406,14 +7456,14 @@ public extension Pogoprotos.Networking.Envelopes {
           resultDecodedBuilder.activityStatus = try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsonValueActivityStatus).build()
 
         }
-        if let jsonValueLocationHash1 = jsonMap["locationHash1"] as? NSNumber {
-          resultDecodedBuilder.locationHash1 = jsonValueLocationHash1.unsignedIntValue
+        if let jsonValueLocationHash1 = jsonMap["locationHash1"] as? String {
+          resultDecodedBuilder.locationHash1 = UInt64(jsonValueLocationHash1)!
         }
-        if let jsonValueLocationHash2 = jsonMap["locationHash2"] as? NSNumber {
-          resultDecodedBuilder.locationHash2 = jsonValueLocationHash2.unsignedIntValue
+        if let jsonValueLocationHash2 = jsonMap["locationHash2"] as? String {
+          resultDecodedBuilder.locationHash2 = UInt64(jsonValueLocationHash2)!
         }
-        if let jsonValueUnknown22 = jsonMap["unknown22"] as? String {
-          resultDecodedBuilder.unknown22 = NSData(base64EncodedString:jsonValueUnknown22, options: NSDataBase64DecodingOptions(rawValue:0))!
+        if let jsonValueSessionHash = jsonMap["sessionHash"] as? String {
+          resultDecodedBuilder.sessionHash = NSData(base64EncodedString:jsonValueSessionHash, options: NSDataBase64DecodingOptions(rawValue:0))!
         }
         if let jsonValueTimestamp = jsonMap["timestamp"] as? String {
           resultDecodedBuilder.timestamp = UInt64(jsonValueTimestamp)!
@@ -7424,6 +7474,9 @@ public extension Pogoprotos.Networking.Envelopes {
             jsonArrayRequestHash += [UInt64(oneValueRequestHash)!]
           }
           resultDecodedBuilder.requestHash = jsonArrayRequestHash
+        }
+        if let jsonValueUnknown25 = jsonMap["unknown25"] as? String {
+          resultDecodedBuilder.unknown25 = Int64(jsonValueUnknown25)!
         }
         return resultDecodedBuilder
       }

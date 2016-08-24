@@ -14,6 +14,7 @@ public protocol PGoAuth {
     var accessToken: String? { get set }
     var expires: Int? { get set }
     var loggedIn: Bool { get }
+    var expired: Bool { get set }
     var delegate: PGoAuthDelegate? { get set }
     var authType: PGoAuthType { get }
     var endpoint: String { get set }

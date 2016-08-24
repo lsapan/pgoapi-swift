@@ -11,7 +11,7 @@ import Foundation
 
 public class subFuncH {
     public func subFuncH(input_: Array<UInt32>) -> Array<UInt32> {
-        var v = Array<UInt32>(count: 471, repeatedValue: 0);
+        var v = Array<UInt32>(count: 471, repeatedValue: 0)
         var input = input_
         
         v[0] = ~input[7]
@@ -818,6 +818,6 @@ public class subFuncH {
         let part181 = ((v[466] | v[462]))
         input[81] = (v[467] ^ part181)
         input[79] = (v[463] & v[462])
-        return input;
+        return input
     }
 }

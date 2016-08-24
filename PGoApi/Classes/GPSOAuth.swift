@@ -32,6 +32,7 @@ public class GPSOAuth: PGoAuth {
     public var token: String?
     public var accessToken: String?
     public var expires: Int?
+    public var expired: Bool = false
     public var loggedIn: Bool = false
     public var delegate: PGoAuthDelegate?
     public var authType: PGoAuthType = .Google
@@ -49,7 +50,9 @@ public class GPSOAuth: PGoAuth {
         let bodySplit = body.componentsSeparatedByString("\n")
         for values in bodySplit {
             var keysValues = values.componentsSeparatedByString("=")
-            obj[keysValues[0]] = keysValues[1]
+            if keysValues.count >= 2 {
+                obj[keysValues[0]] = keysValues[1]
+            }
         }
         return obj;
     }

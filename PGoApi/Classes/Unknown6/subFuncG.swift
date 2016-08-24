@@ -11,7 +11,7 @@ import Foundation
 
 public class subFuncG {
     public func subFuncG(input_: Array<UInt32>) -> Array<UInt32> {
-        var v = Array<UInt32>(count: 447, repeatedValue: 0);
+        var v = Array<UInt32>(count: 447, repeatedValue: 0)
         var input = input_
         
         v[0] = (input[148] & input[38])

@@ -26,7 +26,7 @@ public struct PGoApiResponse {
 public struct PGoLocation {
     var lat:Double = 0
     var long:Double = 0
-    var alt:Double? = nil
+    var alt:Double = 6
 }
 
 public class PGoApiRequest {
@@ -39,6 +39,10 @@ public class PGoApiRequest {
         if (auth != nil) {
             self.auth = auth
         }
+    }
+    
+    public func getTimestamp() -> UInt64 {
+        return UInt64(NSDate().timeIntervalSince1970 * 1000.0)
     }
 
     public func makeRequest(intent: PGoApiIntent, delegate: PGoApiDelegate?) {
@@ -54,6 +58,13 @@ public class PGoApiRequest {
                 print("makeRequest() called without being logged in.")
                 return
             }
+            if (self.auth!.authToken != nil) {
+                if (self.auth!.authToken?.expireTimestampMs < getTimestamp()) {
+                    self.auth!.expired = true
+                    print("Auth token has expired.")
+                    return
+                }
+            }
         } else {
             print("makeRequest() called without initializing auth.")
             return
@@ -64,12 +75,10 @@ public class PGoApiRequest {
         methodList.removeAll()
     }
     
-    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = nil) {
+    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = 6.0) {
         Location.lat = latitude
         Location.long = longitude
-        if altitude != nil {
-            Location.alt = altitude!
-        }
+        Location.alt = altitude!
     }
     
     public func simulateAppStart() {

@@ -11,6 +11,8 @@ public func == (lhs: Pogoprotos.Networking.Responses.AddFortModifierResponse, rh
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasResult == rhs.hasResult) && (!lhs.hasResult || lhs.result == rhs.result)
+  fieldCheck = fieldCheck && (lhs.hasFortDetails == rhs.hasFortDetails) && (!lhs.hasFortDetails || lhs.fortDetails == rhs.fortDetails)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -76,6 +78,7 @@ public func == (lhs: Pogoprotos.Networking.Responses.ClaimCodenameResponse, rhs:
   fieldCheck = fieldCheck && (lhs.hasUserMessage == rhs.hasUserMessage) && (!lhs.hasUserMessage || lhs.userMessage == rhs.userMessage)
   fieldCheck = fieldCheck && (lhs.hasIsAssignable == rhs.hasIsAssignable) && (!lhs.hasIsAssignable || lhs.isAssignable == rhs.isAssignable)
   fieldCheck = fieldCheck && (lhs.hasStatus == rhs.hasStatus) && (!lhs.hasStatus || lhs.status == rhs.status)
+  fieldCheck = fieldCheck && (lhs.hasUpdatedPlayer == rhs.hasUpdatedPlayer) && (!lhs.hasUpdatedPlayer || lhs.updatedPlayer == rhs.updatedPlayer)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -691,8 +694,55 @@ public extension Pogoprotos.Networking.Responses {
     }
   }
 
-  // Initialized by assist.py
   final public class AddFortModifierResponse : GeneratedMessage, GeneratedMessageProtocol {
+
+
+      //Enum type declaration start 
+
+      public enum Result:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+        case NoResultSet = 0
+        case Success = 1
+        case FortAlreadyHasModifier = 2
+        case TooFarAway = 3
+        case NoItemInInventory = 4
+        public func toString() -> String {
+          switch self {
+          case .NoResultSet: return "NO_RESULT_SET"
+          case .Success: return "SUCCESS"
+          case .FortAlreadyHasModifier: return "FORT_ALREADY_HAS_MODIFIER"
+          case .TooFarAway: return "TOO_FAR_AWAY"
+          case .NoItemInInventory: return "NO_ITEM_IN_INVENTORY"
+          }
+        }
+        public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Result {
+          switch str {
+          case "NO_RESULT_SET":  return .NoResultSet
+          case "SUCCESS":  return .Success
+          case "FORT_ALREADY_HAS_MODIFIER":  return .FortAlreadyHasModifier
+          case "TOO_FAR_AWAY":  return .TooFarAway
+          case "NO_ITEM_IN_INVENTORY":  return .NoItemInInventory
+          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          }
+        }
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .NoResultSet: return ".NoResultSet"
+                case .Success: return ".Success"
+                case .FortAlreadyHasModifier: return ".FortAlreadyHasModifier"
+                case .TooFarAway: return ".TooFarAway"
+                case .NoItemInInventory: return ".NoItemInInventory"
+            }
+        }
+      }
+
+      //Enum type declaration end 
+
+    public private(set) var result:Pogoprotos.Networking.Responses.AddFortModifierResponse.Result = Pogoprotos.Networking.Responses.AddFortModifierResponse.Result.NoResultSet
+    public private(set) var hasResult:Bool = false
+    public private(set) var hasFortDetails:Bool = false
+    public private(set) var fortDetails:Pogoprotos.Networking.Responses.FortDetailsResponse!
     required public init() {
          super.init()
     }
@@ -700,6 +750,12 @@ public extension Pogoprotos.Networking.Responses {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasResult {
+        try output.writeEnum(1, value:result.rawValue)
+      }
+      if hasFortDetails {
+        try output.writeMessage(2, value:fortDetails)
+      }
       try unknownFields.writeToCodedOutputStream(output)
     }
     override public func serializedSize() -> Int32 {
@@ -709,6 +765,14 @@ public extension Pogoprotos.Networking.Responses {
       }
 
       serialize_size = 0
+      if (hasResult) {
+        serialize_size += result.rawValue.computeEnumSize(1)
+      }
+      if hasFortDetails {
+          if let varSizefortDetails = fortDetails?.computeMessageSize(2) {
+              serialize_size += varSizefortDetails
+          }
+      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -764,7 +828,13 @@ public extension Pogoprotos.Networking.Responses {
         throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
       }
 
-      let jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasResult {
+        jsonMap["result"] = result.toString()
+      }
+      if hasFortDetails {
+        jsonMap["fortDetails"] = try fortDetails.encode()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.AddFortModifierResponse {
@@ -775,12 +845,30 @@ public extension Pogoprotos.Networking.Responses {
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
+      if (hasResult) {
+        output += "\(indent) result: \(result.description)\n"
+      }
+      if hasFortDetails {
+        output += "\(indent) fortDetails {\n"
+        if let outDescFortDetails = fortDetails {
+          output += try outDescFortDetails.getDescription("\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
+            if hasResult {
+               hashCode = (hashCode &* 31) &+ Int(result.rawValue)
+            }
+            if hasFortDetails {
+                if let hashValuefortDetails = fortDetails?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuefortDetails
+                }
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -809,6 +897,80 @@ public extension Pogoprotos.Networking.Responses {
       required override public init () {
          super.init()
       }
+        public var hasResult:Bool{
+            get {
+                return builderResult.hasResult
+            }
+        }
+        public var result:Pogoprotos.Networking.Responses.AddFortModifierResponse.Result {
+            get {
+                return builderResult.result
+            }
+            set (value) {
+                builderResult.hasResult = true
+                builderResult.result = value
+            }
+        }
+        public func setResult(value:Pogoprotos.Networking.Responses.AddFortModifierResponse.Result) -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
+          self.result = value
+          return self
+        }
+        public func clearResult() -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
+           builderResult.hasResult = false
+           builderResult.result = .NoResultSet
+           return self
+        }
+      public var hasFortDetails:Bool {
+           get {
+               return builderResult.hasFortDetails
+           }
+      }
+      public var fortDetails:Pogoprotos.Networking.Responses.FortDetailsResponse! {
+           get {
+               if fortDetailsBuilder_ != nil {
+                  builderResult.fortDetails = fortDetailsBuilder_.getMessage()
+               }
+               return builderResult.fortDetails
+           }
+           set (value) {
+               builderResult.hasFortDetails = true
+               builderResult.fortDetails = value
+           }
+      }
+      private var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
+           didSet {
+              builderResult.hasFortDetails = true
+           }
+      }
+      public func getFortDetailsBuilder() -> Pogoprotos.Networking.Responses.FortDetailsResponse.Builder {
+        if fortDetailsBuilder_ == nil {
+           fortDetailsBuilder_ = Pogoprotos.Networking.Responses.FortDetailsResponse.Builder()
+           builderResult.fortDetails = fortDetailsBuilder_.getMessage()
+           if fortDetails != nil {
+              try! fortDetailsBuilder_.mergeFrom(fortDetails)
+           }
+        }
+        return fortDetailsBuilder_
+      }
+      public func setFortDetails(value:Pogoprotos.Networking.Responses.FortDetailsResponse!) -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
+        self.fortDetails = value
+        return self
+      }
+      public func mergeFortDetails(value:Pogoprotos.Networking.Responses.FortDetailsResponse) throws -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
+        if builderResult.hasFortDetails {
+          builderResult.fortDetails = try Pogoprotos.Networking.Responses.FortDetailsResponse.builderWithPrototype(builderResult.fortDetails).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.fortDetails = value
+        }
+        builderResult.hasFortDetails = true
+        return self
+      }
+      public func clearFortDetails() -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
+        fortDetailsBuilder_ = nil
+        builderResult.hasFortDetails = false
+        builderResult.fortDetails = nil
+        return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -833,6 +995,12 @@ public extension Pogoprotos.Networking.Responses {
         if other == Pogoprotos.Networking.Responses.AddFortModifierResponse() {
          return self
         }
+        if other.hasResult {
+             result = other.result
+        }
+        if (other.hasFortDetails) {
+            try mergeFortDetails(other.fortDetails)
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -848,6 +1016,22 @@ public extension Pogoprotos.Networking.Responses {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
+          case 8:
+            let valueIntresult = try input.readEnum()
+            if let enumsresult = Pogoprotos.Networking.Responses.AddFortModifierResponse.Result(rawValue:valueIntresult){
+                 result = enumsresult
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntresult))
+            }
+
+          case 18:
+            let subBuilder:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder = Pogoprotos.Networking.Responses.FortDetailsResponse.Builder()
+            if hasFortDetails {
+              try subBuilder.mergeFrom(fortDetails)
+            }
+            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            fortDetails = subBuilder.buildPartial()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -858,6 +1042,13 @@ public extension Pogoprotos.Networking.Responses {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder()
+        if let jsonValueResult = jsonMap["result"] as? String {
+          resultDecodedBuilder.result = try Pogoprotos.Networking.Responses.AddFortModifierResponse.Result.fromString(jsonValueResult)
+        }
+        if let jsonValueFortDetails = jsonMap["fortDetails"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.fortDetails = try Pogoprotos.Networking.Responses.FortDetailsResponse.Builder.decodeToBuilder(jsonValueFortDetails).build()
+
+        }
         return resultDecodedBuilder
       }
       override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Responses.AddFortModifierResponse.Builder {
@@ -2784,6 +2975,8 @@ public extension Pogoprotos.Networking.Responses {
 
     public private(set) var status:Pogoprotos.Networking.Responses.ClaimCodenameResponse.Status = Pogoprotos.Networking.Responses.ClaimCodenameResponse.Status.Unset
     public private(set) var hasStatus:Bool = false
+    public private(set) var hasUpdatedPlayer:Bool = false
+    public private(set) var updatedPlayer:Pogoprotos.Data.PlayerData!
     required public init() {
          super.init()
     }
@@ -2802,6 +2995,9 @@ public extension Pogoprotos.Networking.Responses {
       }
       if hasStatus {
         try output.writeEnum(4, value:status.rawValue)
+      }
+      if hasUpdatedPlayer {
+        try output.writeMessage(5, value:updatedPlayer)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -2823,6 +3019,11 @@ public extension Pogoprotos.Networking.Responses {
       }
       if (hasStatus) {
         serialize_size += status.rawValue.computeEnumSize(4)
+      }
+      if hasUpdatedPlayer {
+          if let varSizeupdatedPlayer = updatedPlayer?.computeMessageSize(5) {
+              serialize_size += varSizeupdatedPlayer
+          }
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -2892,6 +3093,9 @@ public extension Pogoprotos.Networking.Responses {
       if hasStatus {
         jsonMap["status"] = status.toString()
       }
+      if hasUpdatedPlayer {
+        jsonMap["updatedPlayer"] = try updatedPlayer.encode()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.ClaimCodenameResponse {
@@ -2914,6 +3118,13 @@ public extension Pogoprotos.Networking.Responses {
       if (hasStatus) {
         output += "\(indent) status: \(status.description)\n"
       }
+      if hasUpdatedPlayer {
+        output += "\(indent) updatedPlayer {\n"
+        if let outDescUpdatedPlayer = updatedPlayer {
+          output += try outDescUpdatedPlayer.getDescription("\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -2931,6 +3142,11 @@ public extension Pogoprotos.Networking.Responses {
             }
             if hasStatus {
                hashCode = (hashCode &* 31) &+ Int(status.rawValue)
+            }
+            if hasUpdatedPlayer {
+                if let hashValueupdatedPlayer = updatedPlayer?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValueupdatedPlayer
+                }
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -3052,6 +3268,57 @@ public extension Pogoprotos.Networking.Responses {
            builderResult.status = .Unset
            return self
         }
+      public var hasUpdatedPlayer:Bool {
+           get {
+               return builderResult.hasUpdatedPlayer
+           }
+      }
+      public var updatedPlayer:Pogoprotos.Data.PlayerData! {
+           get {
+               if updatedPlayerBuilder_ != nil {
+                  builderResult.updatedPlayer = updatedPlayerBuilder_.getMessage()
+               }
+               return builderResult.updatedPlayer
+           }
+           set (value) {
+               builderResult.hasUpdatedPlayer = true
+               builderResult.updatedPlayer = value
+           }
+      }
+      private var updatedPlayerBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+           didSet {
+              builderResult.hasUpdatedPlayer = true
+           }
+      }
+      public func getUpdatedPlayerBuilder() -> Pogoprotos.Data.PlayerData.Builder {
+        if updatedPlayerBuilder_ == nil {
+           updatedPlayerBuilder_ = Pogoprotos.Data.PlayerData.Builder()
+           builderResult.updatedPlayer = updatedPlayerBuilder_.getMessage()
+           if updatedPlayer != nil {
+              try! updatedPlayerBuilder_.mergeFrom(updatedPlayer)
+           }
+        }
+        return updatedPlayerBuilder_
+      }
+      public func setUpdatedPlayer(value:Pogoprotos.Data.PlayerData!) -> Pogoprotos.Networking.Responses.ClaimCodenameResponse.Builder {
+        self.updatedPlayer = value
+        return self
+      }
+      public func mergeUpdatedPlayer(value:Pogoprotos.Data.PlayerData) throws -> Pogoprotos.Networking.Responses.ClaimCodenameResponse.Builder {
+        if builderResult.hasUpdatedPlayer {
+          builderResult.updatedPlayer = try Pogoprotos.Data.PlayerData.builderWithPrototype(builderResult.updatedPlayer).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.updatedPlayer = value
+        }
+        builderResult.hasUpdatedPlayer = true
+        return self
+      }
+      public func clearUpdatedPlayer() -> Pogoprotos.Networking.Responses.ClaimCodenameResponse.Builder {
+        updatedPlayerBuilder_ = nil
+        builderResult.hasUpdatedPlayer = false
+        builderResult.updatedPlayer = nil
+        return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -3088,6 +3355,9 @@ public extension Pogoprotos.Networking.Responses {
         if other.hasStatus {
              status = other.status
         }
+        if (other.hasUpdatedPlayer) {
+            try mergeUpdatedPlayer(other.updatedPlayer)
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -3120,6 +3390,14 @@ public extension Pogoprotos.Networking.Responses {
                  try unknownFieldsBuilder.mergeVarintField(4, value:Int64(valueIntstatus))
             }
 
+          case 42:
+            let subBuilder:Pogoprotos.Data.PlayerData.Builder = Pogoprotos.Data.PlayerData.Builder()
+            if hasUpdatedPlayer {
+              try subBuilder.mergeFrom(updatedPlayer)
+            }
+            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            updatedPlayer = subBuilder.buildPartial()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -3141,6 +3419,10 @@ public extension Pogoprotos.Networking.Responses {
         }
         if let jsonValueStatus = jsonMap["status"] as? String {
           resultDecodedBuilder.status = try Pogoprotos.Networking.Responses.ClaimCodenameResponse.Status.fromString(jsonValueStatus)
+        }
+        if let jsonValueUpdatedPlayer = jsonMap["updatedPlayer"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.updatedPlayer = try Pogoprotos.Data.PlayerData.Builder.decodeToBuilder(jsonValueUpdatedPlayer).build()
+
         }
         return resultDecodedBuilder
       }

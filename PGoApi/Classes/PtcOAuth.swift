@@ -14,6 +14,7 @@ public class PtcOAuth: PGoAuth {
     public var password: String!
     public var accessToken: String?
     public var expires: Int?
+    public var expired: Bool = false
     public var loggedIn: Bool = false
     public var delegate: PGoAuthDelegate?
     public let authType: PGoAuthType = .Ptc
@@ -64,6 +65,13 @@ public class PtcOAuth: PGoAuth {
         // Remove "niantic" from the User-Agent
         let manager = Manager.sharedInstance
         manager.session.configuration.HTTPAdditionalHeaders = [:]
+        
+        // Clean cookies, credit to github.com/aipeople
+        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
+            for cookie in cookies {
+                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
+            }
+        }
         
         Alamofire.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
             .responseString { response in

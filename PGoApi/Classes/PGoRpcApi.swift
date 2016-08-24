@@ -36,7 +36,7 @@ class PGoRpcApi {
         self.auth = auth
         self.delegate = delegate
         self.api = api
-        self.timeSinceStart = UInt64(NSDate().timeIntervalSince1970 * 1000.0)
+        self.timeSinceStart = self.api.getTimestamp()
         self.locationHex = NSData()
         self.encrypt = PGoEncrypt()
         self.requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
@@ -98,11 +98,7 @@ class PGoRpcApi {
         let LocationData = NSMutableData()
         LocationData.appendData(locationToHex(self.api.Location.lat))
         LocationData.appendData(locationToHex(self.api.Location.long))
-        if self.api.Location.alt == nil {
-            LocationData.appendData(locationToHex(0))
-        } else {
-            LocationData.appendData(locationToHex(self.api.Location.alt!))
-        }
+        LocationData.appendData(locationToHex(self.api.Location.alt))
         self.locationHex = LocationData
         
         return xxh32.xxh32(0x1B845238, input: LocationData.getUInt8Array())
@@ -128,9 +124,7 @@ class PGoRpcApi {
         
         requestBuilder.latitude = self.api.Location.lat
         requestBuilder.longitude = self.api.Location.long
-        if self.api.Location.alt != nil {
-            requestBuilder.altitude = self.api.Location.alt!
-        }
+        requestBuilder.altitude = self.api.Location.alt
         
         print("Generating subrequests...")
         let signatureBuilder = Pogoprotos.Networking.Envelopes.Signature.Builder()
@@ -157,11 +151,11 @@ class PGoRpcApi {
         } else {
             requestBuilder.authTicket = auth.authToken!
             
-            signatureBuilder.locationHash2 = hashLocation()
-            signatureBuilder.locationHash1 = hashAuthTicket()
-            signatureBuilder.unknown22 = self.encrypt.randomBytes()
-            signatureBuilder.timestamp = UInt64(NSDate().timeIntervalSince1970 * 1000.0)
-            signatureBuilder.timestampSinceStart = UInt64(NSDate().timeIntervalSince1970 * 1000.0) - timeSinceStart
+            signatureBuilder.locationHash2 = UInt64(hashLocation())
+            signatureBuilder.locationHash1 = UInt64(hashAuthTicket())
+            signatureBuilder.unknown25 = -8537042734809897855
+            signatureBuilder.timestamp = self.api.getTimestamp()
+            signatureBuilder.timestampSinceStart = self.api.getTimestamp() - timeSinceStart
             
             let signature = try! signatureBuilder.build()
             
@@ -206,5 +200,4 @@ class PGoRpcApi {
         }
         return subresponses
     }
-    
 }

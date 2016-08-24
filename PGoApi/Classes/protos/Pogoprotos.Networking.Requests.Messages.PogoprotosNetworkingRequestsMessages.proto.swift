@@ -281,6 +281,7 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessag
   fieldCheck = fieldCheck && (lhs.hasPlayerLongitude == rhs.hasPlayerLongitude) && (!lhs.hasPlayerLongitude || lhs.playerLongitude == rhs.playerLongitude)
   fieldCheck = fieldCheck && (lhs.hasGymLatitude == rhs.hasGymLatitude) && (!lhs.hasGymLatitude || lhs.gymLatitude == rhs.gymLatitude)
   fieldCheck = fieldCheck && (lhs.hasGymLongitude == rhs.hasGymLongitude) && (!lhs.hasGymLongitude || lhs.gymLongitude == rhs.gymLongitude)
+  fieldCheck = fieldCheck && (lhs.hasClientVersion == rhs.hasClientVersion) && (!lhs.hasClientVersion || lhs.clientVersion == rhs.clientVersion)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -334,7 +335,6 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.GetPlayerMessage, r
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasAppVersion == rhs.hasAppVersion) && (!lhs.hasAppVersion || lhs.appVersion == rhs.appVersion)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -7717,6 +7717,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
     public private(set) var hasGymLongitude:Bool = false
     public private(set) var gymLongitude:Double = Double(0)
 
+    public private(set) var hasClientVersion:Bool = false
+    public private(set) var clientVersion:String = ""
+
     required public init() {
          super.init()
     }
@@ -7738,6 +7741,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       }
       if hasGymLongitude {
         try output.writeDouble(5, value:gymLongitude)
+      }
+      if hasClientVersion {
+        try output.writeString(6, value:clientVersion)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -7762,6 +7768,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       }
       if hasGymLongitude {
         serialize_size += gymLongitude.computeDoubleSize(5)
+      }
+      if hasClientVersion {
+        serialize_size += clientVersion.computeStringSize(6)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -7834,6 +7843,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       if hasGymLongitude {
         jsonMap["gymLongitude"] = NSNumber(double:gymLongitude)
       }
+      if hasClientVersion {
+        jsonMap["clientVersion"] = clientVersion
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage {
@@ -7859,6 +7871,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       if hasGymLongitude {
         output += "\(indent) gymLongitude: \(gymLongitude) \n"
       }
+      if hasClientVersion {
+        output += "\(indent) clientVersion: \(clientVersion) \n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -7879,6 +7894,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
             }
             if hasGymLongitude {
                hashCode = (hashCode &* 31) &+ gymLongitude.hashValue
+            }
+            if hasClientVersion {
+               hashCode = (hashCode &* 31) &+ clientVersion.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -8023,6 +8041,29 @@ public extension Pogoprotos.Networking.Requests.Messages {
            builderResult.gymLongitude = Double(0)
            return self
       }
+      public var hasClientVersion:Bool {
+           get {
+                return builderResult.hasClientVersion
+           }
+      }
+      public var clientVersion:String {
+           get {
+                return builderResult.clientVersion
+           }
+           set (value) {
+               builderResult.hasClientVersion = true
+               builderResult.clientVersion = value
+           }
+      }
+      public func setClientVersion(value:String) -> Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage.Builder {
+        self.clientVersion = value
+        return self
+      }
+      public func clearClientVersion() -> Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage.Builder{
+           builderResult.hasClientVersion = false
+           builderResult.clientVersion = ""
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -8062,6 +8103,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
         if other.hasGymLongitude {
              gymLongitude = other.gymLongitude
         }
+        if other.hasClientVersion {
+             clientVersion = other.clientVersion
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -8092,6 +8136,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
           case 41:
             gymLongitude = try input.readDouble()
 
+          case 50:
+            clientVersion = try input.readString()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -8116,6 +8163,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
         }
         if let jsonValueGymLongitude = jsonMap["gymLongitude"] as? NSNumber {
           resultDecodedBuilder.gymLongitude = jsonValueGymLongitude.doubleValue
+        }
+        if let jsonValueClientVersion = jsonMap["clientVersion"] as? String {
+          resultDecodedBuilder.clientVersion = jsonValueClientVersion
         }
         return resultDecodedBuilder
       }
@@ -9285,10 +9335,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
   }
 
   final public class GetPlayerMessage : GeneratedMessage, GeneratedMessageProtocol {
-    // Human readable app version, e.g. "0.31.1"
-    public private(set) var hasAppVersion:Bool = false
-    public private(set) var appVersion:String = ""
-
     required public init() {
          super.init()
     }
@@ -9296,9 +9342,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
      return true
     }
     override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
-      if hasAppVersion {
-        try output.writeString(1, value:appVersion)
-      }
       try unknownFields.writeToCodedOutputStream(output)
     }
     override public func serializedSize() -> Int32 {
@@ -9308,9 +9351,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
       }
 
       serialize_size = 0
-      if hasAppVersion {
-        serialize_size += appVersion.computeStringSize(1)
-      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -9366,10 +9406,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
         throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-      if hasAppVersion {
-        jsonMap["appVersion"] = appVersion
-      }
+      let jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage {
@@ -9380,18 +9417,12 @@ public extension Pogoprotos.Networking.Requests.Messages {
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
-      if hasAppVersion {
-        output += "\(indent) appVersion: \(appVersion) \n"
-      }
       output += unknownFields.getDescription(indent)
       return output
     }
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
-            if hasAppVersion {
-               hashCode = (hashCode &* 31) &+ appVersion.hashValue
-            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -9420,29 +9451,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
       required override public init () {
          super.init()
       }
-      public var hasAppVersion:Bool {
-           get {
-                return builderResult.hasAppVersion
-           }
-      }
-      public var appVersion:String {
-           get {
-                return builderResult.appVersion
-           }
-           set (value) {
-               builderResult.hasAppVersion = true
-               builderResult.appVersion = value
-           }
-      }
-      public func setAppVersion(value:String) -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder {
-        self.appVersion = value
-        return self
-      }
-      public func clearAppVersion() -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder{
-           builderResult.hasAppVersion = false
-           builderResult.appVersion = ""
-           return self
-      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -9467,9 +9475,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
         if other == Pogoprotos.Networking.Requests.Messages.GetPlayerMessage() {
          return self
         }
-        if other.hasAppVersion {
-             appVersion = other.appVersion
-        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -9485,9 +9490,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
-          case 10:
-            appVersion = try input.readString()
-
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -9498,9 +9500,6 @@ public extension Pogoprotos.Networking.Requests.Messages {
       }
       override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder()
-        if let jsonValueAppVersion = jsonMap["appVersion"] as? String {
-          resultDecodedBuilder.appVersion = jsonValueAppVersion
-        }
         return resultDecodedBuilder
       }
       override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder {
