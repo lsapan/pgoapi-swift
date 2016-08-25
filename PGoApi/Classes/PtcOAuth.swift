@@ -23,10 +23,9 @@ public class PtcOAuth: PGoAuth {
     public var manager: Manager
     
     public init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        manager = Alamofire.Manager(configuration: configuration)
+        manager = Manager.sharedInstance
     }
-
+    
     private func getTicket(lt: String, execution: String) {
         print("Requesting ticket...")
         
@@ -43,7 +42,7 @@ public class PtcOAuth: PGoAuth {
                 if let location = response.response!.allHeaderFields["Location"] as? String {
                     let ticketRange = location.rangeOfString("?ticket=")
                     let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
-
+                    
                     self.loginOAuth(ticket)
                 } else {
                     self.delegate?.didNotReceiveAuth()
@@ -61,6 +60,16 @@ public class PtcOAuth: PGoAuth {
             "grant_type": "refresh_token",
             "code": ticket
         ]
+        
+        // Remove "niantic" from the User-Agent
+        manager.session.configuration.HTTPAdditionalHeaders = [:]
+        
+        // Clean cookies, credit to github.com/aipeople
+        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
+            for cookie in cookies {
+                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
+            }
+        }
         
         Alamofire.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
             .responseString { response in
@@ -97,11 +106,11 @@ public class PtcOAuth: PGoAuth {
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
             return nil
         }
-
+        
         manager.session.configuration.HTTPAdditionalHeaders = [
             "User-Agent": "niantic"
         ]
-
+        
         Alamofire.request(.GET, PGoEndpoint.LoginInfo)
             .responseJSON { response in
                 if let JSON = response.result.value {
