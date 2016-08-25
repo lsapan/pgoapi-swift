@@ -98,7 +98,6 @@ public class PtcOAuth: PGoAuth {
             return nil
         }
 
-        let manager = Manager.sharedInstance
         manager.session.configuration.HTTPAdditionalHeaders = [
             "User-Agent": "niantic"
         ]
