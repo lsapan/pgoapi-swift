@@ -62,17 +62,6 @@ public class PtcOAuth: PGoAuth {
             "code": ticket
         ]
         
-        // Remove "niantic" from the User-Agent
-        let manager = Manager.sharedInstance
-        manager.session.configuration.HTTPAdditionalHeaders = [:]
-        
-        // Clean cookies, credit to github.com/aipeople
-        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
-            for cookie in cookies {
-                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
-            }
-        }
-        
         Alamofire.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
             .responseString { response in
                 let value = response.result.value!
