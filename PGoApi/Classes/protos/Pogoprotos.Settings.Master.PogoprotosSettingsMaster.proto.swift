@@ -234,6 +234,8 @@ public func == (lhs: Pogoprotos.Settings.Master.PokemonSettings, rhs: Pogoprotos
   fieldCheck = fieldCheck && (lhs.hasKmDistanceToHatch == rhs.hasKmDistanceToHatch) && (!lhs.hasKmDistanceToHatch || lhs.kmDistanceToHatch == rhs.kmDistanceToHatch)
   fieldCheck = fieldCheck && (lhs.hasFamilyId == rhs.hasFamilyId) && (!lhs.hasFamilyId || lhs.familyId == rhs.familyId)
   fieldCheck = fieldCheck && (lhs.hasCandyToEvolve == rhs.hasCandyToEvolve) && (!lhs.hasCandyToEvolve || lhs.candyToEvolve == rhs.candyToEvolve)
+  fieldCheck = fieldCheck && (lhs.hasKmBuddyDistance == rhs.hasKmBuddyDistance) && (!lhs.hasKmBuddyDistance || lhs.kmBuddyDistance == rhs.kmBuddyDistance)
+  fieldCheck = fieldCheck && (lhs.hasBuddySize == rhs.hasBuddySize) && (!lhs.hasBuddySize || lhs.buddySize == rhs.buddySize)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -8018,6 +8020,46 @@ public extension Pogoprotos.Settings.Master {
   }
 
   final public class PokemonSettings : GeneratedMessage, GeneratedMessageProtocol {
+
+
+      //Enum type declaration start 
+
+      public enum BuddySize:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+        case BuddyMedium = 0
+        case BuddyShoulder = 1
+        case BuddyBig = 2
+        case BuddyFlying = 3
+        public func toString() -> String {
+          switch self {
+          case .BuddyMedium: return "BUDDY_MEDIUM"
+          case .BuddyShoulder: return "BUDDY_SHOULDER"
+          case .BuddyBig: return "BUDDY_BIG"
+          case .BuddyFlying: return "BUDDY_FLYING"
+          }
+        }
+        public static func fromString(str:String) throws -> Pogoprotos.Settings.Master.PokemonSettings.BuddySize {
+          switch str {
+          case "BUDDY_MEDIUM":  return .BuddyMedium
+          case "BUDDY_SHOULDER":  return .BuddyShoulder
+          case "BUDDY_BIG":  return .BuddyBig
+          case "BUDDY_FLYING":  return .BuddyFlying
+          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          }
+        }
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .BuddyMedium: return ".BuddyMedium"
+                case .BuddyShoulder: return ".BuddyShoulder"
+                case .BuddyBig: return ".BuddyBig"
+                case .BuddyFlying: return ".BuddyFlying"
+            }
+        }
+      }
+
+      //Enum type declaration end 
+
     public private(set) var pokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
     public private(set) var hasPokemonId:Bool = false
     public private(set) var hasModelScale:Bool = false
@@ -8068,6 +8110,11 @@ public extension Pogoprotos.Settings.Master {
     public private(set) var hasCandyToEvolve:Bool = false
     public private(set) var candyToEvolve:Int32 = Int32(0)
 
+    public private(set) var hasKmBuddyDistance:Bool = false
+    public private(set) var kmBuddyDistance:Float = Float(0)
+
+    public private(set) var buddySize:Pogoprotos.Settings.Master.PokemonSettings.BuddySize = Pogoprotos.Settings.Master.PokemonSettings.BuddySize.BuddyMedium
+    public private(set) var hasBuddySize:Bool = false
     required public init() {
          super.init()
     }
@@ -8141,6 +8188,12 @@ public extension Pogoprotos.Settings.Master {
       }
       if hasCandyToEvolve {
         try output.writeInt32(22, value:candyToEvolve)
+      }
+      if hasKmBuddyDistance {
+        try output.writeFloat(23, value:kmBuddyDistance)
+      }
+      if hasBuddySize {
+        try output.writeEnum(24, value:buddySize.rawValue)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -8233,6 +8286,12 @@ public extension Pogoprotos.Settings.Master {
       }
       if hasCandyToEvolve {
         serialize_size += candyToEvolve.computeInt32Size(22)
+      }
+      if hasKmBuddyDistance {
+        serialize_size += kmBuddyDistance.computeFloatSize(23)
+      }
+      if (hasBuddySize) {
+        serialize_size += buddySize.rawValue.computeEnumSize(24)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -8369,6 +8428,12 @@ public extension Pogoprotos.Settings.Master {
       if hasCandyToEvolve {
         jsonMap["candyToEvolve"] = NSNumber(int:candyToEvolve)
       }
+      if hasKmBuddyDistance {
+        jsonMap["kmBuddyDistance"] = NSNumber(float:kmBuddyDistance)
+      }
+      if hasBuddySize {
+        jsonMap["buddySize"] = buddySize.toString()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Settings.Master.PokemonSettings {
@@ -8462,6 +8527,12 @@ public extension Pogoprotos.Settings.Master {
       if hasCandyToEvolve {
         output += "\(indent) candyToEvolve: \(candyToEvolve) \n"
       }
+      if hasKmBuddyDistance {
+        output += "\(indent) kmBuddyDistance: \(kmBuddyDistance) \n"
+      }
+      if (hasBuddySize) {
+        output += "\(indent) buddySize: \(buddySize.description)\n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -8536,6 +8607,12 @@ public extension Pogoprotos.Settings.Master {
             }
             if hasCandyToEvolve {
                hashCode = (hashCode &* 31) &+ candyToEvolve.hashValue
+            }
+            if hasKmBuddyDistance {
+               hashCode = (hashCode &* 31) &+ kmBuddyDistance.hashValue
+            }
+            if hasBuddySize {
+               hashCode = (hashCode &* 31) &+ Int(buddySize.rawValue)
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -9104,6 +9181,52 @@ public extension Pogoprotos.Settings.Master {
            builderResult.candyToEvolve = Int32(0)
            return self
       }
+      public var hasKmBuddyDistance:Bool {
+           get {
+                return builderResult.hasKmBuddyDistance
+           }
+      }
+      public var kmBuddyDistance:Float {
+           get {
+                return builderResult.kmBuddyDistance
+           }
+           set (value) {
+               builderResult.hasKmBuddyDistance = true
+               builderResult.kmBuddyDistance = value
+           }
+      }
+      public func setKmBuddyDistance(value:Float) -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
+        self.kmBuddyDistance = value
+        return self
+      }
+      public func clearKmBuddyDistance() -> Pogoprotos.Settings.Master.PokemonSettings.Builder{
+           builderResult.hasKmBuddyDistance = false
+           builderResult.kmBuddyDistance = Float(0)
+           return self
+      }
+        public var hasBuddySize:Bool{
+            get {
+                return builderResult.hasBuddySize
+            }
+        }
+        public var buddySize:Pogoprotos.Settings.Master.PokemonSettings.BuddySize {
+            get {
+                return builderResult.buddySize
+            }
+            set (value) {
+                builderResult.hasBuddySize = true
+                builderResult.buddySize = value
+            }
+        }
+        public func setBuddySize(value:Pogoprotos.Settings.Master.PokemonSettings.BuddySize) -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
+          self.buddySize = value
+          return self
+        }
+        public func clearBuddySize() -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
+           builderResult.hasBuddySize = false
+           builderResult.buddySize = .BuddyMedium
+           return self
+        }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -9190,6 +9313,12 @@ public extension Pogoprotos.Settings.Master {
         }
         if other.hasCandyToEvolve {
              candyToEvolve = other.candyToEvolve
+        }
+        if other.hasKmBuddyDistance {
+             kmBuddyDistance = other.kmBuddyDistance
+        }
+        if other.hasBuddySize {
+             buddySize = other.buddySize
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -9334,6 +9463,17 @@ public extension Pogoprotos.Settings.Master {
           case 176:
             candyToEvolve = try input.readInt32()
 
+          case 189:
+            kmBuddyDistance = try input.readFloat()
+
+          case 192:
+            let valueIntbuddySize = try input.readEnum()
+            if let enumsbuddySize = Pogoprotos.Settings.Master.PokemonSettings.BuddySize(rawValue:valueIntbuddySize){
+                 buddySize = enumsbuddySize
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(24, value:Int64(valueIntbuddySize))
+            }
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -9428,6 +9568,12 @@ public extension Pogoprotos.Settings.Master {
         }
         if let jsonValueCandyToEvolve = jsonMap["candyToEvolve"] as? NSNumber {
           resultDecodedBuilder.candyToEvolve = jsonValueCandyToEvolve.intValue
+        }
+        if let jsonValueKmBuddyDistance = jsonMap["kmBuddyDistance"] as? NSNumber {
+          resultDecodedBuilder.kmBuddyDistance = jsonValueKmBuddyDistance.floatValue
+        }
+        if let jsonValueBuddySize = jsonMap["buddySize"] as? String {
+          resultDecodedBuilder.buddySize = try Pogoprotos.Settings.Master.PokemonSettings.BuddySize.fromString(jsonValueBuddySize)
         }
         return resultDecodedBuilder
       }

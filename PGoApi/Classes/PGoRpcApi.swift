@@ -120,11 +120,11 @@ class PGoRpcApi {
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
         requestBuilder.requestId = self.requestId
-        requestBuilder.unknown12 = 989
+        requestBuilder.msSinceLastLocationfix = 989
         
         requestBuilder.latitude = self.api.Location.lat
         requestBuilder.longitude = self.api.Location.long
-        requestBuilder.altitude = self.api.Location.alt
+        requestBuilder.accuracy = self.api.Location.alt
         
         print("Generating subrequests...")
         let signatureBuilder = Pogoprotos.Networking.Envelopes.Signature.Builder()
@@ -153,18 +153,21 @@ class PGoRpcApi {
             
             signatureBuilder.locationHash2 = UInt64(hashLocation())
             signatureBuilder.locationHash1 = UInt64(hashAuthTicket())
-            signatureBuilder.unknown25 = -8537042734809897855
+            signatureBuilder.unknown25 = 7363665268261373700
             signatureBuilder.timestamp = self.api.getTimestamp()
             signatureBuilder.timestampSinceStart = self.api.getTimestamp() - timeSinceStart
             
             let signature = try! signatureBuilder.build()
             
-            let unknown6 = requestBuilder.getUnknown6Builder()
+            let unknown6 = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
             let unknown2 = unknown6.getUnknown2Builder()
             
             unknown6.requestType = 6
             let sigData = self.encrypt.encrypt(signature.data().getUInt8Array())
             unknown2.encryptedSignature = NSData(bytes: sigData, length: sigData.count)
+            
+            let unknown6Version35 = try! unknown6.build()
+            requestBuilder.unknown6 = [unknown6Version35]
         }
         
         self.requestId += 1

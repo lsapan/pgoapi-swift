@@ -127,7 +127,7 @@ public func == (lhs: Pogoprotos.Data.Player.PlayerStats, rhs: Pogoprotos.Data.Pl
   fieldCheck = fieldCheck && (lhs.hasPrestigeRaisedTotal == rhs.hasPrestigeRaisedTotal) && (!lhs.hasPrestigeRaisedTotal || lhs.prestigeRaisedTotal == rhs.prestigeRaisedTotal)
   fieldCheck = fieldCheck && (lhs.hasPrestigeDroppedTotal == rhs.hasPrestigeDroppedTotal) && (!lhs.hasPrestigeDroppedTotal || lhs.prestigeDroppedTotal == rhs.prestigeDroppedTotal)
   fieldCheck = fieldCheck && (lhs.hasPokemonDeployed == rhs.hasPokemonDeployed) && (!lhs.hasPokemonDeployed || lhs.pokemonDeployed == rhs.pokemonDeployed)
-  fieldCheck = fieldCheck && (lhs.hasPokemonCaughtByType == rhs.hasPokemonCaughtByType) && (!lhs.hasPokemonCaughtByType || lhs.pokemonCaughtByType == rhs.pokemonCaughtByType)
+  fieldCheck = fieldCheck && (lhs.pokemonCaughtByType == rhs.pokemonCaughtByType)
   fieldCheck = fieldCheck && (lhs.hasSmallRattataCaught == rhs.hasSmallRattataCaught) && (!lhs.hasSmallRattataCaught || lhs.smallRattataCaught == rhs.smallRattataCaught)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
@@ -2847,10 +2847,8 @@ public extension Pogoprotos.Data.Player {
     public private(set) var hasPokemonDeployed:Bool = false
     public private(set) var pokemonDeployed:Int32 = Int32(0)
 
-    // TODO: repeated PokemonType ??
-    public private(set) var hasPokemonCaughtByType:Bool = false
-    public private(set) var pokemonCaughtByType:NSData = NSData()
-
+    public private(set) var pokemonCaughtByType:Array<Int32> = Array<Int32>()
+    private var pokemonCaughtByTypeMemoizedSerializedSize:Int32 = -1
     public private(set) var hasSmallRattataCaught:Bool = false
     public private(set) var smallRattataCaught:Int32 = Int32(0)
 
@@ -2924,8 +2922,12 @@ public extension Pogoprotos.Data.Player {
       if hasPokemonDeployed {
         try output.writeInt32(21, value:pokemonDeployed)
       }
-      if hasPokemonCaughtByType {
-        try output.writeData(22, value:pokemonCaughtByType)
+      if !pokemonCaughtByType.isEmpty {
+        try output.writeRawVarint32(178)
+        try output.writeRawVarint32(pokemonCaughtByTypeMemoizedSerializedSize)
+        for oneValuepokemonCaughtByType in pokemonCaughtByType {
+          try output.writeInt32NoTag(oneValuepokemonCaughtByType)
+        }
       }
       if hasSmallRattataCaught {
         try output.writeInt32(23, value:smallRattataCaught)
@@ -3002,9 +3004,16 @@ public extension Pogoprotos.Data.Player {
       if hasPokemonDeployed {
         serialize_size += pokemonDeployed.computeInt32Size(21)
       }
-      if hasPokemonCaughtByType {
-        serialize_size += pokemonCaughtByType.computeDataSize(22)
+      var dataSizePokemonCaughtByType:Int32 = 0
+      for oneValuepokemonCaughtByType in pokemonCaughtByType {
+          dataSizePokemonCaughtByType += oneValuepokemonCaughtByType.computeInt32SizeNoTag()
       }
+      serialize_size += dataSizePokemonCaughtByType
+      if !pokemonCaughtByType.isEmpty {
+        serialize_size += 2
+        serialize_size += dataSizePokemonCaughtByType.computeInt32SizeNoTag()
+      }
+      pokemonCaughtByTypeMemoizedSerializedSize = dataSizePokemonCaughtByType
       if hasSmallRattataCaught {
         serialize_size += smallRattataCaught.computeInt32Size(23)
       }
@@ -3127,8 +3136,12 @@ public extension Pogoprotos.Data.Player {
       if hasPokemonDeployed {
         jsonMap["pokemonDeployed"] = NSNumber(int:pokemonDeployed)
       }
-      if hasPokemonCaughtByType {
-        jsonMap["pokemonCaughtByType"] = pokemonCaughtByType.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+      if !pokemonCaughtByType.isEmpty {
+        var jsonArrayPokemonCaughtByType:Array<NSNumber> = []
+          for oneValuePokemonCaughtByType in pokemonCaughtByType {
+            jsonArrayPokemonCaughtByType += [NSNumber(int:oneValuePokemonCaughtByType)]
+          }
+        jsonMap["pokemonCaughtByType"] = jsonArrayPokemonCaughtByType
       }
       if hasSmallRattataCaught {
         jsonMap["smallRattataCaught"] = NSNumber(int:smallRattataCaught)
@@ -3206,8 +3219,10 @@ public extension Pogoprotos.Data.Player {
       if hasPokemonDeployed {
         output += "\(indent) pokemonDeployed: \(pokemonDeployed) \n"
       }
-      if hasPokemonCaughtByType {
-        output += "\(indent) pokemonCaughtByType: \(pokemonCaughtByType) \n"
+      var pokemonCaughtByTypeElementIndex:Int = 0
+      for oneValuePokemonCaughtByType in pokemonCaughtByType  {
+          output += "\(indent) pokemonCaughtByType[\(pokemonCaughtByTypeElementIndex)]: \(oneValuePokemonCaughtByType)\n"
+          pokemonCaughtByTypeElementIndex += 1
       }
       if hasSmallRattataCaught {
         output += "\(indent) smallRattataCaught: \(smallRattataCaught) \n"
@@ -3281,8 +3296,8 @@ public extension Pogoprotos.Data.Player {
             if hasPokemonDeployed {
                hashCode = (hashCode &* 31) &+ pokemonDeployed.hashValue
             }
-            if hasPokemonCaughtByType {
-               hashCode = (hashCode &* 31) &+ pokemonCaughtByType.hashValue
+            for oneValuePokemonCaughtByType in pokemonCaughtByType {
+                hashCode = (hashCode &* 31) &+ oneValuePokemonCaughtByType.hashValue
             }
             if hasSmallRattataCaught {
                hashCode = (hashCode &* 31) &+ smallRattataCaught.hashValue
@@ -3798,28 +3813,21 @@ public extension Pogoprotos.Data.Player {
            builderResult.pokemonDeployed = Int32(0)
            return self
       }
-      public var hasPokemonCaughtByType:Bool {
+      public var pokemonCaughtByType:Array<Int32> {
            get {
-                return builderResult.hasPokemonCaughtByType
+               return builderResult.pokemonCaughtByType
+           }
+           set (array) {
+               builderResult.pokemonCaughtByType = array
            }
       }
-      public var pokemonCaughtByType:NSData {
-           get {
-                return builderResult.pokemonCaughtByType
-           }
-           set (value) {
-               builderResult.hasPokemonCaughtByType = true
-               builderResult.pokemonCaughtByType = value
-           }
-      }
-      public func setPokemonCaughtByType(value:NSData) -> Pogoprotos.Data.Player.PlayerStats.Builder {
+      public func setPokemonCaughtByType(value:Array<Int32>) -> Pogoprotos.Data.Player.PlayerStats.Builder {
         self.pokemonCaughtByType = value
         return self
       }
-      public func clearPokemonCaughtByType() -> Pogoprotos.Data.Player.PlayerStats.Builder{
-           builderResult.hasPokemonCaughtByType = false
-           builderResult.pokemonCaughtByType = NSData()
-           return self
+      public func clearPokemonCaughtByType() -> Pogoprotos.Data.Player.PlayerStats.Builder {
+         builderResult.pokemonCaughtByType.removeAll(keepCapacity: false)
+         return self
       }
       public var hasSmallRattataCaught:Bool {
            get {
@@ -3931,8 +3939,8 @@ public extension Pogoprotos.Data.Player {
         if other.hasPokemonDeployed {
              pokemonDeployed = other.pokemonDeployed
         }
-        if other.hasPokemonCaughtByType {
-             pokemonCaughtByType = other.pokemonCaughtByType
+        if !other.pokemonCaughtByType.isEmpty {
+            builderResult.pokemonCaughtByType += other.pokemonCaughtByType
         }
         if other.hasSmallRattataCaught {
              smallRattataCaught = other.smallRattataCaught
@@ -4016,7 +4024,12 @@ public extension Pogoprotos.Data.Player {
             pokemonDeployed = try input.readInt32()
 
           case 178:
-            pokemonCaughtByType = try input.readData()
+            let length:Int32 = try input.readRawVarint32()
+            let limit:Int32 = try input.pushLimit(length)
+            while (input.bytesUntilLimit() > 0) {
+              builderResult.pokemonCaughtByType += [try input.readInt32()]
+            }
+            input.popLimit(limit)
 
           case 184:
             smallRattataCaught = try input.readInt32()
@@ -4094,8 +4107,12 @@ public extension Pogoprotos.Data.Player {
         if let jsonValuePokemonDeployed = jsonMap["pokemonDeployed"] as? NSNumber {
           resultDecodedBuilder.pokemonDeployed = jsonValuePokemonDeployed.intValue
         }
-        if let jsonValuePokemonCaughtByType = jsonMap["pokemonCaughtByType"] as? String {
-          resultDecodedBuilder.pokemonCaughtByType = NSData(base64EncodedString:jsonValuePokemonCaughtByType, options: NSDataBase64DecodingOptions(rawValue:0))!
+        if let jsonValuePokemonCaughtByType = jsonMap["pokemonCaughtByType"] as? Array<NSNumber> {
+          var jsonArrayPokemonCaughtByType:Array<Int32> = []
+          for oneValuePokemonCaughtByType in jsonValuePokemonCaughtByType {
+            jsonArrayPokemonCaughtByType += [oneValuePokemonCaughtByType.intValue]
+          }
+          resultDecodedBuilder.pokemonCaughtByType = jsonArrayPokemonCaughtByType
         }
         if let jsonValueSmallRattataCaught = jsonMap["smallRattataCaught"] as? NSNumber {
           resultDecodedBuilder.smallRattataCaught = jsonValueSmallRattataCaught.intValue

@@ -26,13 +26,13 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.RequestEnvelope, rhs: Pogop
   fieldCheck = fieldCheck && (lhs.hasStatusCode == rhs.hasStatusCode) && (!lhs.hasStatusCode || lhs.statusCode == rhs.statusCode)
   fieldCheck = fieldCheck && (lhs.hasRequestId == rhs.hasRequestId) && (!lhs.hasRequestId || lhs.requestId == rhs.requestId)
   fieldCheck = fieldCheck && (lhs.requests == rhs.requests)
-  fieldCheck = fieldCheck && (lhs.hasUnknown6 == rhs.hasUnknown6) && (!lhs.hasUnknown6 || lhs.unknown6 == rhs.unknown6)
+  fieldCheck = fieldCheck && (lhs.unknown6 == rhs.unknown6)
   fieldCheck = fieldCheck && (lhs.hasLatitude == rhs.hasLatitude) && (!lhs.hasLatitude || lhs.latitude == rhs.latitude)
   fieldCheck = fieldCheck && (lhs.hasLongitude == rhs.hasLongitude) && (!lhs.hasLongitude || lhs.longitude == rhs.longitude)
-  fieldCheck = fieldCheck && (lhs.hasAltitude == rhs.hasAltitude) && (!lhs.hasAltitude || lhs.altitude == rhs.altitude)
+  fieldCheck = fieldCheck && (lhs.hasAccuracy == rhs.hasAccuracy) && (!lhs.hasAccuracy || lhs.accuracy == rhs.accuracy)
   fieldCheck = fieldCheck && (lhs.hasAuthInfo == rhs.hasAuthInfo) && (!lhs.hasAuthInfo || lhs.authInfo == rhs.authInfo)
   fieldCheck = fieldCheck && (lhs.hasAuthTicket == rhs.hasAuthTicket) && (!lhs.hasAuthTicket || lhs.authTicket == rhs.authTicket)
-  fieldCheck = fieldCheck && (lhs.hasUnknown12 == rhs.hasUnknown12) && (!lhs.hasUnknown12 || lhs.unknown12 == rhs.unknown12)
+  fieldCheck = fieldCheck && (lhs.hasMsSinceLastLocationfix == rhs.hasMsSinceLastLocationfix) && (!lhs.hasMsSinceLastLocationfix || lhs.msSinceLastLocationfix == rhs.msSinceLastLocationfix)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -105,8 +105,8 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Signature.LocationFix, rhs:
   fieldCheck = fieldCheck && (lhs.hasTimestampSnapshot == rhs.hasTimestampSnapshot) && (!lhs.hasTimestampSnapshot || lhs.timestampSnapshot == rhs.timestampSnapshot)
   fieldCheck = fieldCheck && (lhs.hasLatitude == rhs.hasLatitude) && (!lhs.hasLatitude || lhs.latitude == rhs.latitude)
   fieldCheck = fieldCheck && (lhs.hasLongitude == rhs.hasLongitude) && (!lhs.hasLongitude || lhs.longitude == rhs.longitude)
+  fieldCheck = fieldCheck && (lhs.hasUnknown20 == rhs.hasUnknown20) && (!lhs.hasUnknown20 || lhs.unknown20 == rhs.unknown20)
   fieldCheck = fieldCheck && (lhs.hasHorizontalAccuracy == rhs.hasHorizontalAccuracy) && (!lhs.hasHorizontalAccuracy || lhs.horizontalAccuracy == rhs.horizontalAccuracy)
-  fieldCheck = fieldCheck && (lhs.hasAltitude == rhs.hasAltitude) && (!lhs.hasAltitude || lhs.altitude == rhs.altitude)
   fieldCheck = fieldCheck && (lhs.hasVerticalAccuracy == rhs.hasVerticalAccuracy) && (!lhs.hasVerticalAccuracy || lhs.verticalAccuracy == rhs.verticalAccuracy)
   fieldCheck = fieldCheck && (lhs.hasProviderStatus == rhs.hasProviderStatus) && (!lhs.hasProviderStatus || lhs.providerStatus == rhs.providerStatus)
   fieldCheck = fieldCheck && (lhs.hasFloor == rhs.hasFloor) && (!lhs.hasFloor || lhs.floor == rhs.floor)
@@ -122,9 +122,9 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo, r
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasTimeToFix == rhs.hasTimeToFix) && (!lhs.hasTimeToFix || lhs.timeToFix == rhs.timeToFix)
   fieldCheck = fieldCheck && (lhs.satellitesPrn == rhs.satellitesPrn)
-  fieldCheck = fieldCheck && (lhs.snr == rhs.snr)
   fieldCheck = fieldCheck && (lhs.azimuth == rhs.azimuth)
   fieldCheck = fieldCheck && (lhs.elevation == rhs.elevation)
+  fieldCheck = fieldCheck && (lhs.snr == rhs.snr)
   fieldCheck = fieldCheck && (lhs.hasAlmanac == rhs.hasAlmanac)
   fieldCheck = fieldCheck && (lhs.hasEphemeris == rhs.hasEphemeris)
   fieldCheck = fieldCheck && (lhs.usedInFix == rhs.usedInFix)
@@ -1239,23 +1239,22 @@ public extension Pogoprotos.Networking.Envelopes {
     public private(set) var requestId:UInt64 = UInt64(0)
 
     public private(set) var requests:Array<Pogoprotos.Networking.Requests.Request>  = Array<Pogoprotos.Networking.Requests.Request>()
-    public private(set) var hasUnknown6:Bool = false
-    public private(set) var unknown6:Pogoprotos.Networking.Envelopes.Unknown6!
+    public private(set) var unknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6>  = Array<Pogoprotos.Networking.Envelopes.Unknown6>()
     public private(set) var hasLatitude:Bool = false
     public private(set) var latitude:Double = Double(0)
 
     public private(set) var hasLongitude:Bool = false
     public private(set) var longitude:Double = Double(0)
 
-    public private(set) var hasAltitude:Bool = false
-    public private(set) var altitude:Double = Double(0)
+    public private(set) var hasAccuracy:Bool = false
+    public private(set) var accuracy:Double = Double(0)
 
     public private(set) var hasAuthInfo:Bool = false
     public private(set) var authInfo:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo!
     public private(set) var hasAuthTicket:Bool = false
     public private(set) var authTicket:Pogoprotos.Networking.Envelopes.AuthTicket!
-    public private(set) var hasUnknown12:Bool = false
-    public private(set) var unknown12:Int64 = Int64(0)
+    public private(set) var hasMsSinceLastLocationfix:Bool = false
+    public private(set) var msSinceLastLocationfix:Int64 = Int64(0)
 
     required public init() {
          super.init()
@@ -1273,8 +1272,8 @@ public extension Pogoprotos.Networking.Envelopes {
       for oneElementRequests in requests {
           try output.writeMessage(4, value:oneElementRequests)
       }
-      if hasUnknown6 {
-        try output.writeMessage(6, value:unknown6)
+      for oneElementUnknown6 in unknown6 {
+          try output.writeMessage(6, value:oneElementUnknown6)
       }
       if hasLatitude {
         try output.writeDouble(7, value:latitude)
@@ -1282,8 +1281,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasLongitude {
         try output.writeDouble(8, value:longitude)
       }
-      if hasAltitude {
-        try output.writeDouble(9, value:altitude)
+      if hasAccuracy {
+        try output.writeDouble(9, value:accuracy)
       }
       if hasAuthInfo {
         try output.writeMessage(10, value:authInfo)
@@ -1291,8 +1290,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasAuthTicket {
         try output.writeMessage(11, value:authTicket)
       }
-      if hasUnknown12 {
-        try output.writeInt64(12, value:unknown12)
+      if hasMsSinceLastLocationfix {
+        try output.writeInt64(12, value:msSinceLastLocationfix)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -1312,10 +1311,8 @@ public extension Pogoprotos.Networking.Envelopes {
       for oneElementRequests in requests {
           serialize_size += oneElementRequests.computeMessageSize(4)
       }
-      if hasUnknown6 {
-          if let varSizeunknown6 = unknown6?.computeMessageSize(6) {
-              serialize_size += varSizeunknown6
-          }
+      for oneElementUnknown6 in unknown6 {
+          serialize_size += oneElementUnknown6.computeMessageSize(6)
       }
       if hasLatitude {
         serialize_size += latitude.computeDoubleSize(7)
@@ -1323,8 +1320,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasLongitude {
         serialize_size += longitude.computeDoubleSize(8)
       }
-      if hasAltitude {
-        serialize_size += altitude.computeDoubleSize(9)
+      if hasAccuracy {
+        serialize_size += accuracy.computeDoubleSize(9)
       }
       if hasAuthInfo {
           if let varSizeauthInfo = authInfo?.computeMessageSize(10) {
@@ -1336,8 +1333,8 @@ public extension Pogoprotos.Networking.Envelopes {
               serialize_size += varSizeauthTicket
           }
       }
-      if hasUnknown12 {
-        serialize_size += unknown12.computeInt64Size(12)
+      if hasMsSinceLastLocationfix {
+        serialize_size += msSinceLastLocationfix.computeInt64Size(12)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -1409,8 +1406,13 @@ public extension Pogoprotos.Networking.Envelopes {
           }
         jsonMap["requests"] = jsonArrayRequests
       }
-      if hasUnknown6 {
-        jsonMap["unknown6"] = try unknown6.encode()
+      if !unknown6.isEmpty {
+        var jsonArrayUnknown6:Array<Dictionary<String,AnyObject>> = []
+          for oneValueUnknown6 in unknown6 {
+            let ecodedMessageUnknown6 = try oneValueUnknown6.encode()
+            jsonArrayUnknown6 += [ecodedMessageUnknown6]
+          }
+        jsonMap["unknown6"] = jsonArrayUnknown6
       }
       if hasLatitude {
         jsonMap["latitude"] = NSNumber(double:latitude)
@@ -1418,8 +1420,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasLongitude {
         jsonMap["longitude"] = NSNumber(double:longitude)
       }
-      if hasAltitude {
-        jsonMap["altitude"] = NSNumber(double:altitude)
+      if hasAccuracy {
+        jsonMap["accuracy"] = NSNumber(double:accuracy)
       }
       if hasAuthInfo {
         jsonMap["authInfo"] = try authInfo.encode()
@@ -1427,8 +1429,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasAuthTicket {
         jsonMap["authTicket"] = try authTicket.encode()
       }
-      if hasUnknown12 {
-        jsonMap["unknown12"] = "\(unknown12)"
+      if hasMsSinceLastLocationfix {
+        jsonMap["msSinceLastLocationfix"] = "\(msSinceLastLocationfix)"
       }
       return jsonMap
     }
@@ -1453,12 +1455,12 @@ public extension Pogoprotos.Networking.Envelopes {
           output += "\(indent)}\n"
           requestsElementIndex += 1
       }
-      if hasUnknown6 {
-        output += "\(indent) unknown6 {\n"
-        if let outDescUnknown6 = unknown6 {
-          output += try outDescUnknown6.getDescription("\(indent)  ")
-        }
-        output += "\(indent) }\n"
+      var unknown6ElementIndex:Int = 0
+      for oneElementUnknown6 in unknown6 {
+          output += "\(indent) unknown6[\(unknown6ElementIndex)] {\n"
+          output += try oneElementUnknown6.getDescription("\(indent)  ")
+          output += "\(indent)}\n"
+          unknown6ElementIndex += 1
       }
       if hasLatitude {
         output += "\(indent) latitude: \(latitude) \n"
@@ -1466,8 +1468,8 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasLongitude {
         output += "\(indent) longitude: \(longitude) \n"
       }
-      if hasAltitude {
-        output += "\(indent) altitude: \(altitude) \n"
+      if hasAccuracy {
+        output += "\(indent) accuracy: \(accuracy) \n"
       }
       if hasAuthInfo {
         output += "\(indent) authInfo {\n"
@@ -1483,8 +1485,8 @@ public extension Pogoprotos.Networking.Envelopes {
         }
         output += "\(indent) }\n"
       }
-      if hasUnknown12 {
-        output += "\(indent) unknown12: \(unknown12) \n"
+      if hasMsSinceLastLocationfix {
+        output += "\(indent) msSinceLastLocationfix: \(msSinceLastLocationfix) \n"
       }
       output += unknownFields.getDescription(indent)
       return output
@@ -1501,10 +1503,8 @@ public extension Pogoprotos.Networking.Envelopes {
             for oneElementRequests in requests {
                 hashCode = (hashCode &* 31) &+ oneElementRequests.hashValue
             }
-            if hasUnknown6 {
-                if let hashValueunknown6 = unknown6?.hashValue {
-                    hashCode = (hashCode &* 31) &+ hashValueunknown6
-                }
+            for oneElementUnknown6 in unknown6 {
+                hashCode = (hashCode &* 31) &+ oneElementUnknown6.hashValue
             }
             if hasLatitude {
                hashCode = (hashCode &* 31) &+ latitude.hashValue
@@ -1512,8 +1512,8 @@ public extension Pogoprotos.Networking.Envelopes {
             if hasLongitude {
                hashCode = (hashCode &* 31) &+ longitude.hashValue
             }
-            if hasAltitude {
-               hashCode = (hashCode &* 31) &+ altitude.hashValue
+            if hasAccuracy {
+               hashCode = (hashCode &* 31) &+ accuracy.hashValue
             }
             if hasAuthInfo {
                 if let hashValueauthInfo = authInfo?.hashValue {
@@ -1525,8 +1525,8 @@ public extension Pogoprotos.Networking.Envelopes {
                     hashCode = (hashCode &* 31) &+ hashValueauthTicket
                 }
             }
-            if hasUnknown12 {
-               hashCode = (hashCode &* 31) &+ unknown12.hashValue
+            if hasMsSinceLastLocationfix {
+               hashCode = (hashCode &* 31) &+ msSinceLastLocationfix.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -1618,55 +1618,20 @@ public extension Pogoprotos.Networking.Envelopes {
         builderResult.requests.removeAll(keepCapacity: false)
         return self
       }
-      public var hasUnknown6:Bool {
+      public var unknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6> {
            get {
-               return builderResult.hasUnknown6
-           }
-      }
-      public var unknown6:Pogoprotos.Networking.Envelopes.Unknown6! {
-           get {
-               if unknown6Builder_ != nil {
-                  builderResult.unknown6 = unknown6Builder_.getMessage()
-               }
                return builderResult.unknown6
            }
            set (value) {
-               builderResult.hasUnknown6 = true
                builderResult.unknown6 = value
            }
       }
-      private var unknown6Builder_:Pogoprotos.Networking.Envelopes.Unknown6.Builder! {
-           didSet {
-              builderResult.hasUnknown6 = true
-           }
-      }
-      public func getUnknown6Builder() -> Pogoprotos.Networking.Envelopes.Unknown6.Builder {
-        if unknown6Builder_ == nil {
-           unknown6Builder_ = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
-           builderResult.unknown6 = unknown6Builder_.getMessage()
-           if unknown6 != nil {
-              try! unknown6Builder_.mergeFrom(unknown6)
-           }
-        }
-        return unknown6Builder_
-      }
-      public func setUnknown6(value:Pogoprotos.Networking.Envelopes.Unknown6!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setUnknown6(value:Array<Pogoprotos.Networking.Envelopes.Unknown6>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.unknown6 = value
         return self
       }
-      public func mergeUnknown6(value:Pogoprotos.Networking.Envelopes.Unknown6) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        if builderResult.hasUnknown6 {
-          builderResult.unknown6 = try Pogoprotos.Networking.Envelopes.Unknown6.builderWithPrototype(builderResult.unknown6).mergeFrom(value).buildPartial()
-        } else {
-          builderResult.unknown6 = value
-        }
-        builderResult.hasUnknown6 = true
-        return self
-      }
       public func clearUnknown6() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        unknown6Builder_ = nil
-        builderResult.hasUnknown6 = false
-        builderResult.unknown6 = nil
+        builderResult.unknown6.removeAll(keepCapacity: false)
         return self
       }
       public var hasLatitude:Bool {
@@ -1715,27 +1680,27 @@ public extension Pogoprotos.Networking.Envelopes {
            builderResult.longitude = Double(0)
            return self
       }
-      public var hasAltitude:Bool {
+      public var hasAccuracy:Bool {
            get {
-                return builderResult.hasAltitude
+                return builderResult.hasAccuracy
            }
       }
-      public var altitude:Double {
+      public var accuracy:Double {
            get {
-                return builderResult.altitude
+                return builderResult.accuracy
            }
            set (value) {
-               builderResult.hasAltitude = true
-               builderResult.altitude = value
+               builderResult.hasAccuracy = true
+               builderResult.accuracy = value
            }
       }
-      public func setAltitude(value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        self.altitude = value
+      public func setAccuracy(value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+        self.accuracy = value
         return self
       }
-      public func clearAltitude() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder{
-           builderResult.hasAltitude = false
-           builderResult.altitude = Double(0)
+      public func clearAccuracy() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder{
+           builderResult.hasAccuracy = false
+           builderResult.accuracy = Double(0)
            return self
       }
       public var hasAuthInfo:Bool {
@@ -1840,27 +1805,27 @@ public extension Pogoprotos.Networking.Envelopes {
         builderResult.authTicket = nil
         return self
       }
-      public var hasUnknown12:Bool {
+      public var hasMsSinceLastLocationfix:Bool {
            get {
-                return builderResult.hasUnknown12
+                return builderResult.hasMsSinceLastLocationfix
            }
       }
-      public var unknown12:Int64 {
+      public var msSinceLastLocationfix:Int64 {
            get {
-                return builderResult.unknown12
+                return builderResult.msSinceLastLocationfix
            }
            set (value) {
-               builderResult.hasUnknown12 = true
-               builderResult.unknown12 = value
+               builderResult.hasMsSinceLastLocationfix = true
+               builderResult.msSinceLastLocationfix = value
            }
       }
-      public func setUnknown12(value:Int64) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        self.unknown12 = value
+      public func setMsSinceLastLocationfix(value:Int64) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+        self.msSinceLastLocationfix = value
         return self
       }
-      public func clearUnknown12() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder{
-           builderResult.hasUnknown12 = false
-           builderResult.unknown12 = Int64(0)
+      public func clearMsSinceLastLocationfix() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder{
+           builderResult.hasMsSinceLastLocationfix = false
+           builderResult.msSinceLastLocationfix = Int64(0)
            return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -1896,8 +1861,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if !other.requests.isEmpty  {
            builderResult.requests += other.requests
         }
-        if (other.hasUnknown6) {
-            try mergeUnknown6(other.unknown6)
+        if !other.unknown6.isEmpty  {
+           builderResult.unknown6 += other.unknown6
         }
         if other.hasLatitude {
              latitude = other.latitude
@@ -1905,8 +1870,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if other.hasLongitude {
              longitude = other.longitude
         }
-        if other.hasAltitude {
-             altitude = other.altitude
+        if other.hasAccuracy {
+             accuracy = other.accuracy
         }
         if (other.hasAuthInfo) {
             try mergeAuthInfo(other.authInfo)
@@ -1914,8 +1879,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if (other.hasAuthTicket) {
             try mergeAuthTicket(other.authTicket)
         }
-        if other.hasUnknown12 {
-             unknown12 = other.unknown12
+        if other.hasMsSinceLastLocationfix {
+             msSinceLastLocationfix = other.msSinceLastLocationfix
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -1944,12 +1909,9 @@ public extension Pogoprotos.Networking.Envelopes {
             requests += [subBuilder.buildPartial()]
 
           case 50:
-            let subBuilder:Pogoprotos.Networking.Envelopes.Unknown6.Builder = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
-            if hasUnknown6 {
-              try subBuilder.mergeFrom(unknown6)
-            }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
-            unknown6 = subBuilder.buildPartial()
+            let subBuilder = Pogoprotos.Networking.Envelopes.Unknown6.Builder()
+            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+            unknown6 += [subBuilder.buildPartial()]
 
           case 57:
             latitude = try input.readDouble()
@@ -1958,7 +1920,7 @@ public extension Pogoprotos.Networking.Envelopes {
             longitude = try input.readDouble()
 
           case 73:
-            altitude = try input.readDouble()
+            accuracy = try input.readDouble()
 
           case 82:
             let subBuilder:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder()
@@ -1977,7 +1939,7 @@ public extension Pogoprotos.Networking.Envelopes {
             authTicket = subBuilder.buildPartial()
 
           case 96:
-            unknown12 = try input.readInt64()
+            msSinceLastLocationfix = try input.readInt64()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
@@ -2004,9 +1966,14 @@ public extension Pogoprotos.Networking.Envelopes {
           }
           resultDecodedBuilder.requests = jsonArrayRequests
         }
-        if let jsonValueUnknown6 = jsonMap["unknown6"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.unknown6 = try Pogoprotos.Networking.Envelopes.Unknown6.Builder.decodeToBuilder(jsonValueUnknown6).build()
+        if let jsonValueUnknown6 = jsonMap["unknown6"] as? Array<Dictionary<String,AnyObject>> {
+          var jsonArrayUnknown6:Array<Pogoprotos.Networking.Envelopes.Unknown6> = []
+          for oneValueUnknown6 in jsonValueUnknown6 {
+            let messageFromStringUnknown6 = try Pogoprotos.Networking.Envelopes.Unknown6.Builder.decodeToBuilder(oneValueUnknown6).build()
 
+            jsonArrayUnknown6 += [messageFromStringUnknown6]
+          }
+          resultDecodedBuilder.unknown6 = jsonArrayUnknown6
         }
         if let jsonValueLatitude = jsonMap["latitude"] as? NSNumber {
           resultDecodedBuilder.latitude = jsonValueLatitude.doubleValue
@@ -2014,8 +1981,8 @@ public extension Pogoprotos.Networking.Envelopes {
         if let jsonValueLongitude = jsonMap["longitude"] as? NSNumber {
           resultDecodedBuilder.longitude = jsonValueLongitude.doubleValue
         }
-        if let jsonValueAltitude = jsonMap["altitude"] as? NSNumber {
-          resultDecodedBuilder.altitude = jsonValueAltitude.doubleValue
+        if let jsonValueAccuracy = jsonMap["accuracy"] as? NSNumber {
+          resultDecodedBuilder.accuracy = jsonValueAccuracy.doubleValue
         }
         if let jsonValueAuthInfo = jsonMap["authInfo"] as? Dictionary<String,AnyObject> {
           resultDecodedBuilder.authInfo = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsonValueAuthInfo).build()
@@ -2025,8 +1992,8 @@ public extension Pogoprotos.Networking.Envelopes {
           resultDecodedBuilder.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonValueAuthTicket).build()
 
         }
-        if let jsonValueUnknown12 = jsonMap["unknown12"] as? String {
-          resultDecodedBuilder.unknown12 = Int64(jsonValueUnknown12)!
+        if let jsonValueMsSinceLastLocationfix = jsonMap["msSinceLastLocationfix"] as? String {
+          resultDecodedBuilder.msSinceLastLocationfix = Int64(jsonValueMsSinceLastLocationfix)!
         }
         return resultDecodedBuilder
       }
@@ -2648,11 +2615,12 @@ public extension Pogoprotos.Networking.Envelopes {
         // ??? shows up in struct, dunno where these go
         // float device_speed;
         // float device_course;
+        public private(set) var hasUnknown20:Bool = false
+        public private(set) var unknown20:Float = Float(0)
+
+        // in meters, both on Android and iOS
         public private(set) var hasHorizontalAccuracy:Bool = false
         public private(set) var horizontalAccuracy:Float = Float(0)
-
-        public private(set) var hasAltitude:Bool = false
-        public private(set) var altitude:Float = Float(0)
 
         // iOS only? (range seems to be ~10-12)
         public private(set) var hasVerticalAccuracy:Bool = false
@@ -2689,11 +2657,11 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasLongitude {
             try output.writeFloat(14, value:longitude)
           }
-          if hasHorizontalAccuracy {
-            try output.writeFloat(20, value:horizontalAccuracy)
+          if hasUnknown20 {
+            try output.writeFloat(20, value:unknown20)
           }
-          if hasAltitude {
-            try output.writeFloat(21, value:altitude)
+          if hasHorizontalAccuracy {
+            try output.writeFloat(21, value:horizontalAccuracy)
           }
           if hasVerticalAccuracy {
             try output.writeFloat(22, value:verticalAccuracy)
@@ -2728,11 +2696,11 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasLongitude {
             serialize_size += longitude.computeFloatSize(14)
           }
-          if hasHorizontalAccuracy {
-            serialize_size += horizontalAccuracy.computeFloatSize(20)
+          if hasUnknown20 {
+            serialize_size += unknown20.computeFloatSize(20)
           }
-          if hasAltitude {
-            serialize_size += altitude.computeFloatSize(21)
+          if hasHorizontalAccuracy {
+            serialize_size += horizontalAccuracy.computeFloatSize(21)
           }
           if hasVerticalAccuracy {
             serialize_size += verticalAccuracy.computeFloatSize(22)
@@ -2814,11 +2782,11 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasLongitude {
             jsonMap["longitude"] = NSNumber(float:longitude)
           }
+          if hasUnknown20 {
+            jsonMap["unknown20"] = NSNumber(float:unknown20)
+          }
           if hasHorizontalAccuracy {
             jsonMap["horizontalAccuracy"] = NSNumber(float:horizontalAccuracy)
-          }
-          if hasAltitude {
-            jsonMap["altitude"] = NSNumber(float:altitude)
           }
           if hasVerticalAccuracy {
             jsonMap["verticalAccuracy"] = NSNumber(float:verticalAccuracy)
@@ -2854,11 +2822,11 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasLongitude {
             output += "\(indent) longitude: \(longitude) \n"
           }
+          if hasUnknown20 {
+            output += "\(indent) unknown20: \(unknown20) \n"
+          }
           if hasHorizontalAccuracy {
             output += "\(indent) horizontalAccuracy: \(horizontalAccuracy) \n"
-          }
-          if hasAltitude {
-            output += "\(indent) altitude: \(altitude) \n"
           }
           if hasVerticalAccuracy {
             output += "\(indent) verticalAccuracy: \(verticalAccuracy) \n"
@@ -2890,11 +2858,11 @@ public extension Pogoprotos.Networking.Envelopes {
                 if hasLongitude {
                    hashCode = (hashCode &* 31) &+ longitude.hashValue
                 }
+                if hasUnknown20 {
+                   hashCode = (hashCode &* 31) &+ unknown20.hashValue
+                }
                 if hasHorizontalAccuracy {
                    hashCode = (hashCode &* 31) &+ horizontalAccuracy.hashValue
-                }
-                if hasAltitude {
-                   hashCode = (hashCode &* 31) &+ altitude.hashValue
                 }
                 if hasVerticalAccuracy {
                    hashCode = (hashCode &* 31) &+ verticalAccuracy.hashValue
@@ -3028,6 +2996,29 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.longitude = Float(0)
                return self
           }
+          public var hasUnknown20:Bool {
+               get {
+                    return builderResult.hasUnknown20
+               }
+          }
+          public var unknown20:Float {
+               get {
+                    return builderResult.unknown20
+               }
+               set (value) {
+                   builderResult.hasUnknown20 = true
+                   builderResult.unknown20 = value
+               }
+          }
+          public func setUnknown20(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+            self.unknown20 = value
+            return self
+          }
+          public func clearUnknown20() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder{
+               builderResult.hasUnknown20 = false
+               builderResult.unknown20 = Float(0)
+               return self
+          }
           public var hasHorizontalAccuracy:Bool {
                get {
                     return builderResult.hasHorizontalAccuracy
@@ -3049,29 +3040,6 @@ public extension Pogoprotos.Networking.Envelopes {
           public func clearHorizontalAccuracy() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder{
                builderResult.hasHorizontalAccuracy = false
                builderResult.horizontalAccuracy = Float(0)
-               return self
-          }
-          public var hasAltitude:Bool {
-               get {
-                    return builderResult.hasAltitude
-               }
-          }
-          public var altitude:Float {
-               get {
-                    return builderResult.altitude
-               }
-               set (value) {
-                   builderResult.hasAltitude = true
-                   builderResult.altitude = value
-               }
-          }
-          public func setAltitude(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-            self.altitude = value
-            return self
-          }
-          public func clearAltitude() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder{
-               builderResult.hasAltitude = false
-               builderResult.altitude = Float(0)
                return self
           }
           public var hasVerticalAccuracy:Bool {
@@ -3202,11 +3170,11 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasLongitude {
                  longitude = other.longitude
             }
+            if other.hasUnknown20 {
+                 unknown20 = other.unknown20
+            }
             if other.hasHorizontalAccuracy {
                  horizontalAccuracy = other.horizontalAccuracy
-            }
-            if other.hasAltitude {
-                 altitude = other.altitude
             }
             if other.hasVerticalAccuracy {
                  verticalAccuracy = other.verticalAccuracy
@@ -3248,10 +3216,10 @@ public extension Pogoprotos.Networking.Envelopes {
                 longitude = try input.readFloat()
 
               case 165:
-                horizontalAccuracy = try input.readFloat()
+                unknown20 = try input.readFloat()
 
               case 173:
-                altitude = try input.readFloat()
+                horizontalAccuracy = try input.readFloat()
 
               case 181:
                 verticalAccuracy = try input.readFloat()
@@ -3287,11 +3255,11 @@ public extension Pogoprotos.Networking.Envelopes {
             if let jsonValueLongitude = jsonMap["longitude"] as? NSNumber {
               resultDecodedBuilder.longitude = jsonValueLongitude.floatValue
             }
+            if let jsonValueUnknown20 = jsonMap["unknown20"] as? NSNumber {
+              resultDecodedBuilder.unknown20 = jsonValueUnknown20.floatValue
+            }
             if let jsonValueHorizontalAccuracy = jsonMap["horizontalAccuracy"] as? NSNumber {
               resultDecodedBuilder.horizontalAccuracy = jsonValueHorizontalAccuracy.floatValue
-            }
-            if let jsonValueAltitude = jsonMap["altitude"] as? NSNumber {
-              resultDecodedBuilder.altitude = jsonValueAltitude.floatValue
             }
             if let jsonValueVerticalAccuracy = jsonMap["verticalAccuracy"] as? NSNumber {
               resultDecodedBuilder.verticalAccuracy = jsonValueVerticalAccuracy.floatValue
@@ -3331,12 +3299,12 @@ public extension Pogoprotos.Networking.Envelopes {
 
         public private(set) var satellitesPrn:Array<Int32> = Array<Int32>()
         private var satellitesPrnMemoizedSerializedSize:Int32 = -1
-        public private(set) var snr:Array<Float> = Array<Float>()
-        private var snrMemoizedSerializedSize:Int32 = -1
         public private(set) var azimuth:Array<Float> = Array<Float>()
         private var azimuthMemoizedSerializedSize:Int32 = -1
         public private(set) var elevation:Array<Float> = Array<Float>()
         private var elevationMemoizedSerializedSize:Int32 = -1
+        public private(set) var snr:Array<Float> = Array<Float>()
+        private var snrMemoizedSerializedSize:Int32 = -1
         public private(set) var hasAlmanac:Array<Bool> = Array<Bool>()
         private var hasAlmanacMemoizedSerializedSize:Int32 = -1
         public private(set) var hasEphemeris:Array<Bool> = Array<Bool>()
@@ -3360,25 +3328,25 @@ public extension Pogoprotos.Networking.Envelopes {
               try output.writeInt32NoTag(oneValuesatellitesPrn)
             }
           }
-          if !snr.isEmpty {
-            try output.writeRawVarint32(26)
-            try output.writeRawVarint32(snrMemoizedSerializedSize)
-            for oneValuesnr in snr {
-              try output.writeFloatNoTag(oneValuesnr)
-            }
-          }
           if !azimuth.isEmpty {
-            try output.writeRawVarint32(34)
+            try output.writeRawVarint32(26)
             try output.writeRawVarint32(azimuthMemoizedSerializedSize)
             for oneValueazimuth in azimuth {
               try output.writeFloatNoTag(oneValueazimuth)
             }
           }
           if !elevation.isEmpty {
-            try output.writeRawVarint32(42)
+            try output.writeRawVarint32(34)
             try output.writeRawVarint32(elevationMemoizedSerializedSize)
             for oneValueelevation in elevation {
               try output.writeFloatNoTag(oneValueelevation)
+            }
+          }
+          if !snr.isEmpty {
+            try output.writeRawVarint32(42)
+            try output.writeRawVarint32(snrMemoizedSerializedSize)
+            for oneValuesnr in snr {
+              try output.writeFloatNoTag(oneValuesnr)
             }
           }
           if !hasAlmanac.isEmpty {
@@ -3424,14 +3392,6 @@ public extension Pogoprotos.Networking.Envelopes {
             serialize_size += dataSizeSatellitesPrn.computeInt32SizeNoTag()
           }
           satellitesPrnMemoizedSerializedSize = dataSizeSatellitesPrn
-          var dataSizeSnr:Int32 = 0
-          dataSizeSnr = 4 * Int32(snr.count)
-          serialize_size += dataSizeSnr
-          if !snr.isEmpty {
-            serialize_size += 1
-            serialize_size += dataSizeSnr.computeInt32SizeNoTag()
-          }
-          snrMemoizedSerializedSize = dataSizeSnr
           var dataSizeAzimuth:Int32 = 0
           dataSizeAzimuth = 4 * Int32(azimuth.count)
           serialize_size += dataSizeAzimuth
@@ -3448,6 +3408,14 @@ public extension Pogoprotos.Networking.Envelopes {
             serialize_size += dataSizeElevation.computeInt32SizeNoTag()
           }
           elevationMemoizedSerializedSize = dataSizeElevation
+          var dataSizeSnr:Int32 = 0
+          dataSizeSnr = 4 * Int32(snr.count)
+          serialize_size += dataSizeSnr
+          if !snr.isEmpty {
+            serialize_size += 1
+            serialize_size += dataSizeSnr.computeInt32SizeNoTag()
+          }
+          snrMemoizedSerializedSize = dataSizeSnr
           var dataSizeHasAlmanac:Int32 = 0
           dataSizeHasAlmanac = 1 * Int32(hasAlmanac.count)
           serialize_size += dataSizeHasAlmanac
@@ -3538,13 +3506,6 @@ public extension Pogoprotos.Networking.Envelopes {
               }
             jsonMap["satellitesPrn"] = jsonArraySatellitesPrn
           }
-          if !snr.isEmpty {
-            var jsonArraySnr:Array<NSNumber> = []
-              for oneValueSnr in snr {
-                jsonArraySnr += [NSNumber(float:oneValueSnr)]
-              }
-            jsonMap["snr"] = jsonArraySnr
-          }
           if !azimuth.isEmpty {
             var jsonArrayAzimuth:Array<NSNumber> = []
               for oneValueAzimuth in azimuth {
@@ -3558,6 +3519,13 @@ public extension Pogoprotos.Networking.Envelopes {
                 jsonArrayElevation += [NSNumber(float:oneValueElevation)]
               }
             jsonMap["elevation"] = jsonArrayElevation
+          }
+          if !snr.isEmpty {
+            var jsonArraySnr:Array<NSNumber> = []
+              for oneValueSnr in snr {
+                jsonArraySnr += [NSNumber(float:oneValueSnr)]
+              }
+            jsonMap["snr"] = jsonArraySnr
           }
           if !hasAlmanac.isEmpty {
             jsonMap["hasAlmanac"] = hasAlmanac
@@ -3586,11 +3554,6 @@ public extension Pogoprotos.Networking.Envelopes {
               output += "\(indent) satellitesPrn[\(satellitesPrnElementIndex)]: \(oneValueSatellitesPrn)\n"
               satellitesPrnElementIndex += 1
           }
-          var snrElementIndex:Int = 0
-          for oneValueSnr in snr  {
-              output += "\(indent) snr[\(snrElementIndex)]: \(oneValueSnr)\n"
-              snrElementIndex += 1
-          }
           var azimuthElementIndex:Int = 0
           for oneValueAzimuth in azimuth  {
               output += "\(indent) azimuth[\(azimuthElementIndex)]: \(oneValueAzimuth)\n"
@@ -3600,6 +3563,11 @@ public extension Pogoprotos.Networking.Envelopes {
           for oneValueElevation in elevation  {
               output += "\(indent) elevation[\(elevationElementIndex)]: \(oneValueElevation)\n"
               elevationElementIndex += 1
+          }
+          var snrElementIndex:Int = 0
+          for oneValueSnr in snr  {
+              output += "\(indent) snr[\(snrElementIndex)]: \(oneValueSnr)\n"
+              snrElementIndex += 1
           }
           var hasAlmanacElementIndex:Int = 0
           for oneValueHasAlmanac in hasAlmanac  {
@@ -3628,14 +3596,14 @@ public extension Pogoprotos.Networking.Envelopes {
                 for oneValueSatellitesPrn in satellitesPrn {
                     hashCode = (hashCode &* 31) &+ oneValueSatellitesPrn.hashValue
                 }
-                for oneValueSnr in snr {
-                    hashCode = (hashCode &* 31) &+ oneValueSnr.hashValue
-                }
                 for oneValueAzimuth in azimuth {
                     hashCode = (hashCode &* 31) &+ oneValueAzimuth.hashValue
                 }
                 for oneValueElevation in elevation {
                     hashCode = (hashCode &* 31) &+ oneValueElevation.hashValue
+                }
+                for oneValueSnr in snr {
+                    hashCode = (hashCode &* 31) &+ oneValueSnr.hashValue
                 }
                 for oneValueHasAlmanac in hasAlmanac {
                     hashCode = (hashCode &* 31) &+ oneValueHasAlmanac.hashValue
@@ -3713,22 +3681,6 @@ public extension Pogoprotos.Networking.Envelopes {
              builderResult.satellitesPrn.removeAll(keepCapacity: false)
              return self
           }
-          public var snr:Array<Float> {
-               get {
-                   return builderResult.snr
-               }
-               set (array) {
-                   builderResult.snr = array
-               }
-          }
-          public func setSnr(value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-            self.snr = value
-            return self
-          }
-          public func clearSnr() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.snr.removeAll(keepCapacity: false)
-             return self
-          }
           public var azimuth:Array<Float> {
                get {
                    return builderResult.azimuth
@@ -3759,6 +3711,22 @@ public extension Pogoprotos.Networking.Envelopes {
           }
           public func clearElevation() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
              builderResult.elevation.removeAll(keepCapacity: false)
+             return self
+          }
+          public var snr:Array<Float> {
+               get {
+                   return builderResult.snr
+               }
+               set (array) {
+                   builderResult.snr = array
+               }
+          }
+          public func setSnr(value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+            self.snr = value
+            return self
+          }
+          public func clearSnr() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+             builderResult.snr.removeAll(keepCapacity: false)
              return self
           }
           public var hasAlmanac:Array<Bool> {
@@ -3839,14 +3807,14 @@ public extension Pogoprotos.Networking.Envelopes {
             if !other.satellitesPrn.isEmpty {
                 builderResult.satellitesPrn += other.satellitesPrn
             }
-            if !other.snr.isEmpty {
-                builderResult.snr += other.snr
-            }
             if !other.azimuth.isEmpty {
                 builderResult.azimuth += other.azimuth
             }
             if !other.elevation.isEmpty {
                 builderResult.elevation += other.elevation
+            }
+            if !other.snr.isEmpty {
+                builderResult.snr += other.snr
             }
             if !other.hasAlmanac.isEmpty {
                 builderResult.hasAlmanac += other.hasAlmanac
@@ -3887,7 +3855,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 let length:Int32 = try input.readRawVarint32()
                 let limit:Int32 = try input.pushLimit(length)
                 while (input.bytesUntilLimit() > 0) {
-                  builderResult.snr += [try input.readFloat()]
+                  builderResult.azimuth += [try input.readFloat()]
                 }
                 input.popLimit(limit)
 
@@ -3895,7 +3863,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 let length:Int32 = try input.readRawVarint32()
                 let limit:Int32 = try input.pushLimit(length)
                 while (input.bytesUntilLimit() > 0) {
-                  builderResult.azimuth += [try input.readFloat()]
+                  builderResult.elevation += [try input.readFloat()]
                 }
                 input.popLimit(limit)
 
@@ -3903,7 +3871,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 let length:Int32 = try input.readRawVarint32()
                 let limit:Int32 = try input.pushLimit(length)
                 while (input.bytesUntilLimit() > 0) {
-                  builderResult.elevation += [try input.readFloat()]
+                  builderResult.snr += [try input.readFloat()]
                 }
                 input.popLimit(limit)
 
@@ -3951,13 +3919,6 @@ public extension Pogoprotos.Networking.Envelopes {
               }
               resultDecodedBuilder.satellitesPrn = jsonArraySatellitesPrn
             }
-            if let jsonValueSnr = jsonMap["snr"] as? Array<NSNumber> {
-              var jsonArraySnr:Array<Float> = []
-              for oneValueSnr in jsonValueSnr {
-                jsonArraySnr += [oneValueSnr.floatValue]
-              }
-              resultDecodedBuilder.snr = jsonArraySnr
-            }
             if let jsonValueAzimuth = jsonMap["azimuth"] as? Array<NSNumber> {
               var jsonArrayAzimuth:Array<Float> = []
               for oneValueAzimuth in jsonValueAzimuth {
@@ -3971,6 +3932,13 @@ public extension Pogoprotos.Networking.Envelopes {
                 jsonArrayElevation += [oneValueElevation.floatValue]
               }
               resultDecodedBuilder.elevation = jsonArrayElevation
+            }
+            if let jsonValueSnr = jsonMap["snr"] as? Array<NSNumber> {
+              var jsonArraySnr:Array<Float> = []
+              for oneValueSnr in jsonValueSnr {
+                jsonArraySnr += [oneValueSnr.floatValue]
+              }
+              resultDecodedBuilder.snr = jsonArraySnr
             }
             if let jsonValueHasAlmanac = jsonMap["hasAlmanac"] as? Array<Bool> {
               resultDecodedBuilder.hasAlmanac = jsonValueHasAlmanac

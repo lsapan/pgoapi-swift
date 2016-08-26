@@ -21,6 +21,18 @@ public func == (lhs: Pogoprotos.Data.AssetDigestEntry, rhs: Pogoprotos.Data.Asse
   return fieldCheck
 }
 
+public func == (lhs: Pogoprotos.Data.BuddyPokemon, rhs: Pogoprotos.Data.BuddyPokemon) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasId == rhs.hasId) && (!lhs.hasId || lhs.id == rhs.id)
+  fieldCheck = fieldCheck && (lhs.hasStartKmWalked == rhs.hasStartKmWalked) && (!lhs.hasStartKmWalked || lhs.startKmWalked == rhs.startKmWalked)
+  fieldCheck = fieldCheck && (lhs.hasLastKmAwarded == rhs.hasLastKmAwarded) && (!lhs.hasLastKmAwarded || lhs.lastKmAwarded == rhs.lastKmAwarded)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
 public func == (lhs: Pogoprotos.Data.DownloadUrlEntry, rhs: Pogoprotos.Data.DownloadUrlEntry) -> Bool {
   if (lhs === rhs) {
     return true
@@ -65,6 +77,7 @@ public func == (lhs: Pogoprotos.Data.PlayerData, rhs: Pogoprotos.Data.PlayerData
   fieldCheck = fieldCheck && (lhs.hasContactSettings == rhs.hasContactSettings) && (!lhs.hasContactSettings || lhs.contactSettings == rhs.contactSettings)
   fieldCheck = fieldCheck && (lhs.currencies == rhs.currencies)
   fieldCheck = fieldCheck && (lhs.hasRemainingCodenameClaims == rhs.hasRemainingCodenameClaims) && (!lhs.hasRemainingCodenameClaims || lhs.remainingCodenameClaims == rhs.remainingCodenameClaims)
+  fieldCheck = fieldCheck && (lhs.hasBuddyPokemon == rhs.hasBuddyPokemon) && (!lhs.hasBuddyPokemon || lhs.buddyPokemon == rhs.buddyPokemon)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -118,6 +131,7 @@ public func == (lhs: Pogoprotos.Data.PokemonData, rhs: Pogoprotos.Data.PokemonDa
   fieldCheck = fieldCheck && (lhs.hasFavorite == rhs.hasFavorite) && (!lhs.hasFavorite || lhs.favorite == rhs.favorite)
   fieldCheck = fieldCheck && (lhs.hasNickname == rhs.hasNickname) && (!lhs.hasNickname || lhs.nickname == rhs.nickname)
   fieldCheck = fieldCheck && (lhs.hasFromFort == rhs.hasFromFort) && (!lhs.hasFromFort || lhs.fromFort == rhs.fromFort)
+  fieldCheck = fieldCheck && (lhs.hasBuddyCandyAwarded == rhs.hasBuddyCandyAwarded) && (!lhs.hasBuddyCandyAwarded || lhs.buddyCandyAwarded == rhs.buddyCandyAwarded)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -617,6 +631,335 @@ public extension Pogoprotos.Data {
           throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Data.AssetDigestEntry.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
+  final public class BuddyPokemon : GeneratedMessage, GeneratedMessageProtocol {
+    public private(set) var hasId:Bool = false
+    public private(set) var id:UInt64 = UInt64(0)
+
+    public private(set) var hasStartKmWalked:Bool = false
+    public private(set) var startKmWalked:Double = Double(0)
+
+    public private(set) var hasLastKmAwarded:Bool = false
+    public private(set) var lastKmAwarded:Double = Double(0)
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasId {
+        try output.writeFixed64(1, value:id)
+      }
+      if hasStartKmWalked {
+        try output.writeDouble(2, value:startKmWalked)
+      }
+      if hasLastKmAwarded {
+        try output.writeDouble(3, value:lastKmAwarded)
+      }
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasId {
+        serialize_size += id.computeFixed64Size(1)
+      }
+      if hasStartKmWalked {
+        serialize_size += startKmWalked.computeDoubleSize(2)
+      }
+      if hasLastKmAwarded {
+        serialize_size += lastKmAwarded.computeDoubleSize(3)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Data.BuddyPokemon> {
+      var mergedArray = Array<Pogoprotos.Data.BuddyPokemon>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.BuddyPokemon? {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Data.BuddyPokemon.Builder {
+      return Pogoprotos.Data.BuddyPokemon.classBuilder() as! Pogoprotos.Data.BuddyPokemon.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Data.BuddyPokemon.Builder {
+      return classBuilder() as! Pogoprotos.Data.BuddyPokemon.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Data.BuddyPokemon.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Data.BuddyPokemon.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+      return try Pogoprotos.Data.BuddyPokemon.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Data.BuddyPokemon) throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+      return try Pogoprotos.Data.BuddyPokemon.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasId {
+        jsonMap["id"] = "\(id)"
+      }
+      if hasStartKmWalked {
+        jsonMap["startKmWalked"] = NSNumber(double:startKmWalked)
+      }
+      if hasLastKmAwarded {
+        jsonMap["lastKmAwarded"] = NSNumber(double:lastKmAwarded)
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Data.BuddyPokemon {
+      return try Pogoprotos.Data.BuddyPokemon.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasId {
+        output += "\(indent) id: \(id) \n"
+      }
+      if hasStartKmWalked {
+        output += "\(indent) startKmWalked: \(startKmWalked) \n"
+      }
+      if hasLastKmAwarded {
+        output += "\(indent) lastKmAwarded: \(lastKmAwarded) \n"
+      }
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasId {
+               hashCode = (hashCode &* 31) &+ id.hashValue
+            }
+            if hasStartKmWalked {
+               hashCode = (hashCode &* 31) &+ startKmWalked.hashValue
+            }
+            if hasLastKmAwarded {
+               hashCode = (hashCode &* 31) &+ lastKmAwarded.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Data.BuddyPokemon"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Data.BuddyPokemon"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Data.BuddyPokemon.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Data.BuddyPokemon = Pogoprotos.Data.BuddyPokemon()
+      public func getMessage() -> Pogoprotos.Data.BuddyPokemon {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasId:Bool {
+           get {
+                return builderResult.hasId
+           }
+      }
+      public var id:UInt64 {
+           get {
+                return builderResult.id
+           }
+           set (value) {
+               builderResult.hasId = true
+               builderResult.id = value
+           }
+      }
+      public func setId(value:UInt64) -> Pogoprotos.Data.BuddyPokemon.Builder {
+        self.id = value
+        return self
+      }
+      public func clearId() -> Pogoprotos.Data.BuddyPokemon.Builder{
+           builderResult.hasId = false
+           builderResult.id = UInt64(0)
+           return self
+      }
+      public var hasStartKmWalked:Bool {
+           get {
+                return builderResult.hasStartKmWalked
+           }
+      }
+      public var startKmWalked:Double {
+           get {
+                return builderResult.startKmWalked
+           }
+           set (value) {
+               builderResult.hasStartKmWalked = true
+               builderResult.startKmWalked = value
+           }
+      }
+      public func setStartKmWalked(value:Double) -> Pogoprotos.Data.BuddyPokemon.Builder {
+        self.startKmWalked = value
+        return self
+      }
+      public func clearStartKmWalked() -> Pogoprotos.Data.BuddyPokemon.Builder{
+           builderResult.hasStartKmWalked = false
+           builderResult.startKmWalked = Double(0)
+           return self
+      }
+      public var hasLastKmAwarded:Bool {
+           get {
+                return builderResult.hasLastKmAwarded
+           }
+      }
+      public var lastKmAwarded:Double {
+           get {
+                return builderResult.lastKmAwarded
+           }
+           set (value) {
+               builderResult.hasLastKmAwarded = true
+               builderResult.lastKmAwarded = value
+           }
+      }
+      public func setLastKmAwarded(value:Double) -> Pogoprotos.Data.BuddyPokemon.Builder {
+        self.lastKmAwarded = value
+        return self
+      }
+      public func clearLastKmAwarded() -> Pogoprotos.Data.BuddyPokemon.Builder{
+           builderResult.hasLastKmAwarded = false
+           builderResult.lastKmAwarded = Double(0)
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Data.BuddyPokemon.Builder {
+        builderResult = Pogoprotos.Data.BuddyPokemon()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+        return try Pogoprotos.Data.BuddyPokemon.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Data.BuddyPokemon {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Data.BuddyPokemon {
+        let returnMe:Pogoprotos.Data.BuddyPokemon = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Data.BuddyPokemon) throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+        if other == Pogoprotos.Data.BuddyPokemon() {
+         return self
+        }
+        if other.hasId {
+             id = other.id
+        }
+        if other.hasStartKmWalked {
+             startKmWalked = other.startKmWalked
+        }
+        if other.hasLastKmAwarded {
+             lastKmAwarded = other.lastKmAwarded
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 9:
+            id = try input.readFixed64()
+
+          case 17:
+            startKmWalked = try input.readDouble()
+
+          case 25:
+            lastKmAwarded = try input.readDouble()
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+        let resultDecodedBuilder = Pogoprotos.Data.BuddyPokemon.Builder()
+        if let jsonValueId = jsonMap["id"] as? String {
+          resultDecodedBuilder.id = UInt64(jsonValueId)!
+        }
+        if let jsonValueStartKmWalked = jsonMap["startKmWalked"] as? NSNumber {
+          resultDecodedBuilder.startKmWalked = jsonValueStartKmWalked.doubleValue
+        }
+        if let jsonValueLastKmAwarded = jsonMap["lastKmAwarded"] as? NSNumber {
+          resultDecodedBuilder.lastKmAwarded = jsonValueLastKmAwarded.doubleValue
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Data.BuddyPokemon.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Data.BuddyPokemon.Builder.decodeToBuilder(jsDataCast)
       }
     }
 
@@ -1463,6 +1806,8 @@ public extension Pogoprotos.Data {
     public private(set) var hasRemainingCodenameClaims:Bool = false
     public private(set) var remainingCodenameClaims:Int32 = Int32(0)
 
+    public private(set) var hasBuddyPokemon:Bool = false
+    public private(set) var buddyPokemon:Pogoprotos.Data.BuddyPokemon!
     required public init() {
          super.init()
     }
@@ -1509,6 +1854,9 @@ public extension Pogoprotos.Data {
       }
       if hasRemainingCodenameClaims {
         try output.writeInt32(15, value:remainingCodenameClaims)
+      }
+      if hasBuddyPokemon {
+        try output.writeMessage(16, value:buddyPokemon)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -1569,6 +1917,11 @@ public extension Pogoprotos.Data {
       }
       if hasRemainingCodenameClaims {
         serialize_size += remainingCodenameClaims.computeInt32Size(15)
+      }
+      if hasBuddyPokemon {
+          if let varSizebuddyPokemon = buddyPokemon?.computeMessageSize(16) {
+              serialize_size += varSizebuddyPokemon
+          }
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -1671,6 +2024,9 @@ public extension Pogoprotos.Data {
       if hasRemainingCodenameClaims {
         jsonMap["remainingCodenameClaims"] = NSNumber(int:remainingCodenameClaims)
       }
+      if hasBuddyPokemon {
+        jsonMap["buddyPokemon"] = try buddyPokemon.encode()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.PlayerData {
@@ -1739,6 +2095,13 @@ public extension Pogoprotos.Data {
       if hasRemainingCodenameClaims {
         output += "\(indent) remainingCodenameClaims: \(remainingCodenameClaims) \n"
       }
+      if hasBuddyPokemon {
+        output += "\(indent) buddyPokemon {\n"
+        if let outDescBuddyPokemon = buddyPokemon {
+          output += try outDescBuddyPokemon.getDescription("\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -1788,6 +2151,11 @@ public extension Pogoprotos.Data {
             }
             if hasRemainingCodenameClaims {
                hashCode = (hashCode &* 31) &+ remainingCodenameClaims.hashValue
+            }
+            if hasBuddyPokemon {
+                if let hashValuebuddyPokemon = buddyPokemon?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuebuddyPokemon
+                }
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -2191,6 +2559,57 @@ public extension Pogoprotos.Data {
            builderResult.remainingCodenameClaims = Int32(0)
            return self
       }
+      public var hasBuddyPokemon:Bool {
+           get {
+               return builderResult.hasBuddyPokemon
+           }
+      }
+      public var buddyPokemon:Pogoprotos.Data.BuddyPokemon! {
+           get {
+               if buddyPokemonBuilder_ != nil {
+                  builderResult.buddyPokemon = buddyPokemonBuilder_.getMessage()
+               }
+               return builderResult.buddyPokemon
+           }
+           set (value) {
+               builderResult.hasBuddyPokemon = true
+               builderResult.buddyPokemon = value
+           }
+      }
+      private var buddyPokemonBuilder_:Pogoprotos.Data.BuddyPokemon.Builder! {
+           didSet {
+              builderResult.hasBuddyPokemon = true
+           }
+      }
+      public func getBuddyPokemonBuilder() -> Pogoprotos.Data.BuddyPokemon.Builder {
+        if buddyPokemonBuilder_ == nil {
+           buddyPokemonBuilder_ = Pogoprotos.Data.BuddyPokemon.Builder()
+           builderResult.buddyPokemon = buddyPokemonBuilder_.getMessage()
+           if buddyPokemon != nil {
+              try! buddyPokemonBuilder_.mergeFrom(buddyPokemon)
+           }
+        }
+        return buddyPokemonBuilder_
+      }
+      public func setBuddyPokemon(value:Pogoprotos.Data.BuddyPokemon!) -> Pogoprotos.Data.PlayerData.Builder {
+        self.buddyPokemon = value
+        return self
+      }
+      public func mergeBuddyPokemon(value:Pogoprotos.Data.BuddyPokemon) throws -> Pogoprotos.Data.PlayerData.Builder {
+        if builderResult.hasBuddyPokemon {
+          builderResult.buddyPokemon = try Pogoprotos.Data.BuddyPokemon.builderWithPrototype(builderResult.buddyPokemon).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.buddyPokemon = value
+        }
+        builderResult.hasBuddyPokemon = true
+        return self
+      }
+      public func clearBuddyPokemon() -> Pogoprotos.Data.PlayerData.Builder {
+        buddyPokemonBuilder_ = nil
+        builderResult.hasBuddyPokemon = false
+        builderResult.buddyPokemon = nil
+        return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -2250,6 +2669,9 @@ public extension Pogoprotos.Data {
         }
         if other.hasRemainingCodenameClaims {
              remainingCodenameClaims = other.remainingCodenameClaims
+        }
+        if (other.hasBuddyPokemon) {
+            try mergeBuddyPokemon(other.buddyPokemon)
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -2339,6 +2761,14 @@ public extension Pogoprotos.Data {
           case 120:
             remainingCodenameClaims = try input.readInt32()
 
+          case 130:
+            let subBuilder:Pogoprotos.Data.BuddyPokemon.Builder = Pogoprotos.Data.BuddyPokemon.Builder()
+            if hasBuddyPokemon {
+              try subBuilder.mergeFrom(buddyPokemon)
+            }
+            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            buddyPokemon = subBuilder.buildPartial()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -2399,6 +2829,10 @@ public extension Pogoprotos.Data {
         }
         if let jsonValueRemainingCodenameClaims = jsonMap["remainingCodenameClaims"] as? NSNumber {
           resultDecodedBuilder.remainingCodenameClaims = jsonValueRemainingCodenameClaims.intValue
+        }
+        if let jsonValueBuddyPokemon = jsonMap["buddyPokemon"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.buddyPokemon = try Pogoprotos.Data.BuddyPokemon.Builder.decodeToBuilder(jsonValueBuddyPokemon).build()
+
         }
         return resultDecodedBuilder
       }
@@ -2933,6 +3367,9 @@ public extension Pogoprotos.Data {
     public private(set) var hasFromFort:Bool = false
     public private(set) var fromFort:Int32 = Int32(0)
 
+    public private(set) var hasBuddyCandyAwarded:Bool = false
+    public private(set) var buddyCandyAwarded:Int32 = Int32(0)
+
     required public init() {
          super.init()
     }
@@ -3029,6 +3466,9 @@ public extension Pogoprotos.Data {
       }
       if hasFromFort {
         try output.writeInt32(31, value:fromFort)
+      }
+      if hasBuddyCandyAwarded {
+        try output.writeInt32(32, value:buddyCandyAwarded)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -3128,6 +3568,9 @@ public extension Pogoprotos.Data {
       }
       if hasFromFort {
         serialize_size += fromFort.computeInt32Size(31)
+      }
+      if hasBuddyCandyAwarded {
+        serialize_size += buddyCandyAwarded.computeInt32Size(32)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -3275,6 +3718,9 @@ public extension Pogoprotos.Data {
       if hasFromFort {
         jsonMap["fromFort"] = NSNumber(int:fromFort)
       }
+      if hasBuddyCandyAwarded {
+        jsonMap["buddyCandyAwarded"] = NSNumber(int:buddyCandyAwarded)
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.PokemonData {
@@ -3375,6 +3821,9 @@ public extension Pogoprotos.Data {
       if hasFromFort {
         output += "\(indent) fromFort: \(fromFort) \n"
       }
+      if hasBuddyCandyAwarded {
+        output += "\(indent) buddyCandyAwarded: \(buddyCandyAwarded) \n"
+      }
       output += unknownFields.getDescription(indent)
       return output
     }
@@ -3470,6 +3919,9 @@ public extension Pogoprotos.Data {
             }
             if hasFromFort {
                hashCode = (hashCode &* 31) &+ fromFort.hashValue
+            }
+            if hasBuddyCandyAwarded {
+               hashCode = (hashCode &* 31) &+ buddyCandyAwarded.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -4189,6 +4641,29 @@ public extension Pogoprotos.Data {
            builderResult.fromFort = Int32(0)
            return self
       }
+      public var hasBuddyCandyAwarded:Bool {
+           get {
+                return builderResult.hasBuddyCandyAwarded
+           }
+      }
+      public var buddyCandyAwarded:Int32 {
+           get {
+                return builderResult.buddyCandyAwarded
+           }
+           set (value) {
+               builderResult.hasBuddyCandyAwarded = true
+               builderResult.buddyCandyAwarded = value
+           }
+      }
+      public func setBuddyCandyAwarded(value:Int32) -> Pogoprotos.Data.PokemonData.Builder {
+        self.buddyCandyAwarded = value
+        return self
+      }
+      public func clearBuddyCandyAwarded() -> Pogoprotos.Data.PokemonData.Builder{
+           builderResult.hasBuddyCandyAwarded = false
+           builderResult.buddyCandyAwarded = Int32(0)
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -4302,6 +4777,9 @@ public extension Pogoprotos.Data {
         }
         if other.hasFromFort {
              fromFort = other.fromFort
+        }
+        if other.hasBuddyCandyAwarded {
+             buddyCandyAwarded = other.buddyCandyAwarded
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -4428,6 +4906,9 @@ public extension Pogoprotos.Data {
           case 248:
             fromFort = try input.readInt32()
 
+          case 256:
+            buddyCandyAwarded = try input.readInt32()
+
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -4527,6 +5008,9 @@ public extension Pogoprotos.Data {
         }
         if let jsonValueFromFort = jsonMap["fromFort"] as? NSNumber {
           resultDecodedBuilder.fromFort = jsonValueFromFort.intValue
+        }
+        if let jsonValueBuddyCandyAwarded = jsonMap["buddyCandyAwarded"] as? NSNumber {
+          resultDecodedBuilder.buddyCandyAwarded = jsonValueBuddyCandyAwarded.intValue
         }
         return resultDecodedBuilder
       }

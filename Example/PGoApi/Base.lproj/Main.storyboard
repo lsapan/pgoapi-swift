@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PGoApi Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPT-vE-mQZ">
-                                <rect key="frame" x="203" y="20" width="194" height="32.5"/>
+                                <rect key="frame" x="203" y="20" width="194" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,8 +41,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="latitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iz1-5i-1sX">
+                                <rect key="frame" x="60" y="205" width="235" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="longitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDV-li-zhR">
+                                <rect key="frame" x="305" y="205" width="235" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZw-od-Z4O">
-                                <rect key="frame" x="267.5" y="213" width="65" height="45"/>
+                                <rect key="frame" x="268" y="243" width="65" height="45"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
@@ -55,10 +65,16 @@
                             <constraint firstItem="EZw-od-Z4O" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="083-XP-80G"/>
                             <constraint firstItem="Iit-pP-xvg" firstAttribute="top" secondItem="fCw-H3-Dtz" secondAttribute="bottom" constant="24" id="0Ld-rr-DJO"/>
                             <constraint firstItem="Iit-pP-xvg" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="5gC-Kp-dlb"/>
+                            <constraint firstItem="NDV-li-zhR" firstAttribute="width" secondItem="iz1-5i-1sX" secondAttribute="width" id="8XB-xu-GfR"/>
                             <constraint firstItem="1bx-Ge-sFr" firstAttribute="top" secondItem="Iit-pP-xvg" secondAttribute="bottom" constant="8" id="BTc-Dt-85k"/>
                             <constraint firstItem="1bx-Ge-sFr" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="0.8" id="EGf-GI-Gsr"/>
-                            <constraint firstItem="EZw-od-Z4O" firstAttribute="top" secondItem="1bx-Ge-sFr" secondAttribute="bottom" constant="16" id="Vqm-JB-ZGE"/>
+                            <constraint firstItem="NDV-li-zhR" firstAttribute="baseline" secondItem="iz1-5i-1sX" secondAttribute="baseline" id="JhZ-p4-2QA"/>
+                            <constraint firstItem="NDV-li-zhR" firstAttribute="leading" secondItem="iz1-5i-1sX" secondAttribute="trailing" constant="10" id="Qyv-vf-YFc"/>
+                            <constraint firstItem="EZw-od-Z4O" firstAttribute="top" secondItem="1bx-Ge-sFr" secondAttribute="bottom" constant="46" id="Vqm-JB-ZGE"/>
+                            <constraint firstItem="iz1-5i-1sX" firstAttribute="top" secondItem="1bx-Ge-sFr" secondAttribute="bottom" constant="8" symbolic="YES" id="X1h-Ux-vta"/>
                             <constraint firstItem="fCw-H3-Dtz" firstAttribute="top" secondItem="fPT-vE-mQZ" secondAttribute="bottom" constant="24" id="Yrw-eo-sGZ"/>
+                            <constraint firstItem="NDV-li-zhR" firstAttribute="trailing" secondItem="1bx-Ge-sFr" secondAttribute="trailing" id="erR-da-pFl"/>
+                            <constraint firstItem="iz1-5i-1sX" firstAttribute="leading" secondItem="1bx-Ge-sFr" secondAttribute="leading" id="hvh-Zv-B5m"/>
                             <constraint firstItem="1bx-Ge-sFr" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="lmq-EN-S8f"/>
                             <constraint firstItem="fPT-vE-mQZ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="nga-ja-ECK"/>
                             <constraint firstItem="fPT-vE-mQZ" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="rYa-xz-eTf"/>
@@ -68,13 +84,32 @@
                     </view>
                     <connections>
                         <outlet property="authSegment" destination="fCw-H3-Dtz" id="iqd-vP-PwL"/>
+                        <outlet property="latField" destination="iz1-5i-1sX" id="Cks-NG-ytJ"/>
+                        <outlet property="longField" destination="NDV-li-zhR" id="VyR-Ij-ZSO"/>
                         <outlet property="passwordTextField" destination="1bx-Ge-sFr" id="5xR-DX-ZEk"/>
                         <outlet property="usernameTextField" destination="Iit-pP-xvg" id="hGX-9z-vJz"/>
+                        <segue destination="Inc-o0-Qys" kind="presentation" identifier="showMap" id="dnt-23-JMS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="391" y="337"/>
+        </scene>
+        <!--Pokemon Map-->
+        <scene sceneID="EvY-3g-4TK">
+            <objects>
+                <viewController id="Inc-o0-Qys" customClass="PokemonMap" customModule="PGoApi_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="OnQ-OK-YjB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </mapView>
+                    <connections>
+                        <outlet property="mapView" destination="OnQ-OK-YjB" id="umT-tw-DfP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O9g-my-A9y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1225" y="337"/>
         </scene>
     </scenes>
 </document>

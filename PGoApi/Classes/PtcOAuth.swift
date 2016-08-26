@@ -23,10 +23,9 @@ public class PtcOAuth: PGoAuth {
     public var manager: Manager
     
     public init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        manager = Alamofire.Manager(configuration: configuration)
+        manager = Manager.sharedInstance
     }
-
+    
     private func getTicket(lt: String, execution: String) {
         print("Requesting ticket...")
         
@@ -43,7 +42,7 @@ public class PtcOAuth: PGoAuth {
                 if let location = response.response!.allHeaderFields["Location"] as? String {
                     let ticketRange = location.rangeOfString("?ticket=")
                     let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
-
+                    
                     self.loginOAuth(ticket)
                 } else {
                     self.delegate?.didNotReceiveAuth()
@@ -63,7 +62,6 @@ public class PtcOAuth: PGoAuth {
         ]
         
         // Remove "niantic" from the User-Agent
-        let manager = Manager.sharedInstance
         manager.session.configuration.HTTPAdditionalHeaders = [:]
         
         // Clean cookies, credit to github.com/aipeople
@@ -108,12 +106,11 @@ public class PtcOAuth: PGoAuth {
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
             return nil
         }
-
-        let manager = Manager.sharedInstance
+        
         manager.session.configuration.HTTPAdditionalHeaders = [
             "User-Agent": "niantic"
         ]
-
+        
         Alamofire.request(.GET, PGoEndpoint.LoginInfo)
             .responseJSON { response in
                 if let JSON = response.result.value {

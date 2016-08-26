@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ProtocolBuffers
 
 
 public protocol PGoApiDelegate {
