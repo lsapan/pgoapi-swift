@@ -195,6 +195,8 @@ public extension Pogoprotos.Networking.Requests {
 
     // Implemented [R & M]
     case SetContactSettings = 151
+    case SetBuddyPokemon = 152
+    case GetBuddyWalked = 153
 
     // Implemented [R & M]
     case GetAssetDigest = 300
@@ -222,6 +224,8 @@ public extension Pogoprotos.Networking.Requests {
 
     // Can't find this one
     case LoadSpawnPoints = 500
+    case CheckChallenge = 600
+    case VerifyChallenge = 601
 
     // Implemented [R & M]
     case Echo = 666
@@ -302,6 +306,8 @@ public extension Pogoprotos.Networking.Requests {
       case .NicknamePokemon: return "NICKNAME_POKEMON"
       case .EquipBadge: return "EQUIP_BADGE"
       case .SetContactSettings: return "SET_CONTACT_SETTINGS"
+      case .SetBuddyPokemon: return "SET_BUDDY_POKEMON"
+      case .GetBuddyWalked: return "GET_BUDDY_WALKED"
       case .GetAssetDigest: return "GET_ASSET_DIGEST"
       case .GetDownloadUrls: return "GET_DOWNLOAD_URLS"
       case .GetSuggestedCodenames: return "GET_SUGGESTED_CODENAMES"
@@ -311,6 +317,8 @@ public extension Pogoprotos.Networking.Requests {
       case .SetPlayerTeam: return "SET_PLAYER_TEAM"
       case .MarkTutorialComplete: return "MARK_TUTORIAL_COMPLETE"
       case .LoadSpawnPoints: return "LOAD_SPAWN_POINTS"
+      case .CheckChallenge: return "CHECK_CHALLENGE"
+      case .VerifyChallenge: return "VERIFY_CHALLENGE"
       case .Echo: return "ECHO"
       case .DebugUpdateInventory: return "DEBUG_UPDATE_INVENTORY"
       case .DebugDeletePlayer: return "DEBUG_DELETE_PLAYER"
@@ -377,6 +385,8 @@ public extension Pogoprotos.Networking.Requests {
       case "NICKNAME_POKEMON":  return .NicknamePokemon
       case "EQUIP_BADGE":  return .EquipBadge
       case "SET_CONTACT_SETTINGS":  return .SetContactSettings
+      case "SET_BUDDY_POKEMON":  return .SetBuddyPokemon
+      case "GET_BUDDY_WALKED":  return .GetBuddyWalked
       case "GET_ASSET_DIGEST":  return .GetAssetDigest
       case "GET_DOWNLOAD_URLS":  return .GetDownloadUrls
       case "GET_SUGGESTED_CODENAMES":  return .GetSuggestedCodenames
@@ -386,6 +396,8 @@ public extension Pogoprotos.Networking.Requests {
       case "SET_PLAYER_TEAM":  return .SetPlayerTeam
       case "MARK_TUTORIAL_COMPLETE":  return .MarkTutorialComplete
       case "LOAD_SPAWN_POINTS":  return .LoadSpawnPoints
+      case "CHECK_CHALLENGE":  return .CheckChallenge
+      case "VERIFY_CHALLENGE":  return .VerifyChallenge
       case "ECHO":  return .Echo
       case "DEBUG_UPDATE_INVENTORY":  return .DebugUpdateInventory
       case "DEBUG_DELETE_PLAYER":  return .DebugDeletePlayer
@@ -455,6 +467,8 @@ public extension Pogoprotos.Networking.Requests {
             case .NicknamePokemon: return ".NicknamePokemon"
             case .EquipBadge: return ".EquipBadge"
             case .SetContactSettings: return ".SetContactSettings"
+            case .SetBuddyPokemon: return ".SetBuddyPokemon"
+            case .GetBuddyWalked: return ".GetBuddyWalked"
             case .GetAssetDigest: return ".GetAssetDigest"
             case .GetDownloadUrls: return ".GetDownloadUrls"
             case .GetSuggestedCodenames: return ".GetSuggestedCodenames"
@@ -464,6 +478,8 @@ public extension Pogoprotos.Networking.Requests {
             case .SetPlayerTeam: return ".SetPlayerTeam"
             case .MarkTutorialComplete: return ".MarkTutorialComplete"
             case .LoadSpawnPoints: return ".LoadSpawnPoints"
+            case .CheckChallenge: return ".CheckChallenge"
+            case .VerifyChallenge: return ".VerifyChallenge"
             case .Echo: return ".Echo"
             case .DebugUpdateInventory: return ".DebugUpdateInventory"
             case .DebugDeletePlayer: return ".DebugDeletePlayer"

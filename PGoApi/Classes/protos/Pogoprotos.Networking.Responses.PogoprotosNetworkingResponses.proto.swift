@@ -56,6 +56,17 @@ public func == (lhs: Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse,
   return fieldCheck
 }
 
+public func == (lhs: Pogoprotos.Networking.Responses.CheckChallengeResponse, rhs: Pogoprotos.Networking.Responses.CheckChallengeResponse) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasShowChallenge == rhs.hasShowChallenge) && (!lhs.hasShowChallenge || lhs.showChallenge == rhs.showChallenge)
+  fieldCheck = fieldCheck && (lhs.hasChallengeUrl == rhs.hasChallengeUrl) && (!lhs.hasChallengeUrl || lhs.challengeUrl == rhs.challengeUrl)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
 public func == (lhs: Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse, rhs: Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse) -> Bool {
   if (lhs === rhs) {
     return true
@@ -311,6 +322,18 @@ public func == (lhs: Pogoprotos.Networking.Responses.GetAssetDigestResponse, rhs
   return fieldCheck
 }
 
+public func == (lhs: Pogoprotos.Networking.Responses.GetBuddyWalkedResponse, rhs: Pogoprotos.Networking.Responses.GetBuddyWalkedResponse) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasSuccess == rhs.hasSuccess) && (!lhs.hasSuccess || lhs.success == rhs.success)
+  fieldCheck = fieldCheck && (lhs.hasFamilyCandyId == rhs.hasFamilyCandyId) && (!lhs.hasFamilyCandyId || lhs.familyCandyId == rhs.familyCandyId)
+  fieldCheck = fieldCheck && (lhs.hasCandyEarnedCount == rhs.hasCandyEarnedCount) && (!lhs.hasCandyEarnedCount || lhs.candyEarnedCount == rhs.candyEarnedCount)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
 public func == (lhs: Pogoprotos.Networking.Responses.GetDownloadUrlsResponse, rhs: Pogoprotos.Networking.Responses.GetDownloadUrlsResponse) -> Bool {
   if (lhs === rhs) {
     return true
@@ -511,6 +534,17 @@ public func == (lhs: Pogoprotos.Networking.Responses.SetAvatarResponse, rhs: Pog
   return fieldCheck
 }
 
+public func == (lhs: Pogoprotos.Networking.Responses.SetBuddyPokemonResponse, rhs: Pogoprotos.Networking.Responses.SetBuddyPokemonResponse) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasResult == rhs.hasResult) && (!lhs.hasResult || lhs.result == rhs.result)
+  fieldCheck = fieldCheck && (lhs.hasUpdatedBuddy == rhs.hasUpdatedBuddy) && (!lhs.hasUpdatedBuddy || lhs.updatedBuddy == rhs.updatedBuddy)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
 public func == (lhs: Pogoprotos.Networking.Responses.SetContactSettingsResponse, rhs: Pogoprotos.Networking.Responses.SetContactSettingsResponse) -> Bool {
   if (lhs === rhs) {
     return true
@@ -658,6 +692,16 @@ public func == (lhs: Pogoprotos.Networking.Responses.UseItemXpBoostResponse, rhs
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasResult == rhs.hasResult) && (!lhs.hasResult || lhs.result == rhs.result)
   fieldCheck = fieldCheck && (lhs.hasAppliedItems == rhs.hasAppliedItems) && (!lhs.hasAppliedItems || lhs.appliedItems == rhs.appliedItems)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Networking.Responses.VerifyChallengeResponse, rhs: Pogoprotos.Networking.Responses.VerifyChallengeResponse) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasSuccess == rhs.hasSuccess) && (!lhs.hasSuccess || lhs.success == rhs.success)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -2479,6 +2523,285 @@ public extension Pogoprotos.Networking.Responses {
           throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
+  final public class CheckChallengeResponse : GeneratedMessage, GeneratedMessageProtocol {
+    public private(set) var hasShowChallenge:Bool = false
+    public private(set) var showChallenge:Bool = false
+
+    public private(set) var hasChallengeUrl:Bool = false
+    public private(set) var challengeUrl:String = ""
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasShowChallenge {
+        try output.writeBool(1, value:showChallenge)
+      }
+      if hasChallengeUrl {
+        try output.writeString(2, value:challengeUrl)
+      }
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasShowChallenge {
+        serialize_size += showChallenge.computeBoolSize(1)
+      }
+      if hasChallengeUrl {
+        serialize_size += challengeUrl.computeStringSize(2)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Responses.CheckChallengeResponse> {
+      var mergedArray = Array<Pogoprotos.Networking.Responses.CheckChallengeResponse>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse? {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Responses.PogoprotosNetworkingResponsesRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+      return Pogoprotos.Networking.Responses.CheckChallengeResponse.classBuilder() as! Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Responses.CheckChallengeResponse) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasShowChallenge {
+        jsonMap["showChallenge"] = showChallenge
+      }
+      if hasChallengeUrl {
+        jsonMap["challengeUrl"] = challengeUrl
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+      return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasShowChallenge {
+        output += "\(indent) showChallenge: \(showChallenge) \n"
+      }
+      if hasChallengeUrl {
+        output += "\(indent) challengeUrl: \(challengeUrl) \n"
+      }
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasShowChallenge {
+               hashCode = (hashCode &* 31) &+ showChallenge.hashValue
+            }
+            if hasChallengeUrl {
+               hashCode = (hashCode &* 31) &+ challengeUrl.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Responses.CheckChallengeResponse"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Responses.CheckChallengeResponse"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Networking.Responses.CheckChallengeResponse.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Responses.CheckChallengeResponse = Pogoprotos.Networking.Responses.CheckChallengeResponse()
+      public func getMessage() -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasShowChallenge:Bool {
+           get {
+                return builderResult.hasShowChallenge
+           }
+      }
+      public var showChallenge:Bool {
+           get {
+                return builderResult.showChallenge
+           }
+           set (value) {
+               builderResult.hasShowChallenge = true
+               builderResult.showChallenge = value
+           }
+      }
+      public func setShowChallenge(value:Bool) -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        self.showChallenge = value
+        return self
+      }
+      public func clearShowChallenge() -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder{
+           builderResult.hasShowChallenge = false
+           builderResult.showChallenge = false
+           return self
+      }
+      public var hasChallengeUrl:Bool {
+           get {
+                return builderResult.hasChallengeUrl
+           }
+      }
+      public var challengeUrl:String {
+           get {
+                return builderResult.challengeUrl
+           }
+           set (value) {
+               builderResult.hasChallengeUrl = true
+               builderResult.challengeUrl = value
+           }
+      }
+      public func setChallengeUrl(value:String) -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        self.challengeUrl = value
+        return self
+      }
+      public func clearChallengeUrl() -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder{
+           builderResult.hasChallengeUrl = false
+           builderResult.challengeUrl = ""
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        builderResult = Pogoprotos.Networking.Responses.CheckChallengeResponse()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        return try Pogoprotos.Networking.Responses.CheckChallengeResponse.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
+        let returnMe:Pogoprotos.Networking.Responses.CheckChallengeResponse = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Responses.CheckChallengeResponse) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        if other == Pogoprotos.Networking.Responses.CheckChallengeResponse() {
+         return self
+        }
+        if other.hasShowChallenge {
+             showChallenge = other.showChallenge
+        }
+        if other.hasChallengeUrl {
+             challengeUrl = other.challengeUrl
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            showChallenge = try input.readBool()
+
+          case 18:
+            challengeUrl = try input.readString()
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder()
+        if let jsonValueShowChallenge = jsonMap["showChallenge"] as? Bool {
+          resultDecodedBuilder.showChallenge = jsonValueShowChallenge
+        }
+        if let jsonValueChallengeUrl = jsonMap["challengeUrl"] as? String {
+          resultDecodedBuilder.challengeUrl = jsonValueChallengeUrl
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Responses.CheckChallengeResponse.Builder.decodeToBuilder(jsDataCast)
       }
     }
 
@@ -9377,6 +9700,7 @@ public extension Pogoprotos.Networking.Responses {
         case ErrorPlayerHasNoTeam = 6
         case ErrorPokemonNotFullHp = 7
         case ErrorPlayerBelowMinimumLevel = 8
+        case ErrorPokemonIsBuddy = 9
         public func toString() -> String {
           switch self {
           case .NoResultSet: return "NO_RESULT_SET"
@@ -9388,6 +9712,7 @@ public extension Pogoprotos.Networking.Responses {
           case .ErrorPlayerHasNoTeam: return "ERROR_PLAYER_HAS_NO_TEAM"
           case .ErrorPokemonNotFullHp: return "ERROR_POKEMON_NOT_FULL_HP"
           case .ErrorPlayerBelowMinimumLevel: return "ERROR_PLAYER_BELOW_MINIMUM_LEVEL"
+          case .ErrorPokemonIsBuddy: return "ERROR_POKEMON_IS_BUDDY"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.FortDeployPokemonResponse.Result {
@@ -9401,6 +9726,7 @@ public extension Pogoprotos.Networking.Responses {
           case "ERROR_PLAYER_HAS_NO_TEAM":  return .ErrorPlayerHasNoTeam
           case "ERROR_POKEMON_NOT_FULL_HP":  return .ErrorPokemonNotFullHp
           case "ERROR_PLAYER_BELOW_MINIMUM_LEVEL":  return .ErrorPlayerBelowMinimumLevel
+          case "ERROR_POKEMON_IS_BUDDY":  return .ErrorPokemonIsBuddy
           default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
@@ -9417,6 +9743,7 @@ public extension Pogoprotos.Networking.Responses {
                 case .ErrorPlayerHasNoTeam: return ".ErrorPlayerHasNoTeam"
                 case .ErrorPokemonNotFullHp: return ".ErrorPokemonNotFullHp"
                 case .ErrorPlayerBelowMinimumLevel: return ".ErrorPlayerBelowMinimumLevel"
+                case .ErrorPokemonIsBuddy: return ".ErrorPokemonIsBuddy"
             }
         }
       }
@@ -11191,6 +11518,7 @@ public extension Pogoprotos.Networking.Responses {
         case OutOfRange = 2
         case InCooldownPeriod = 3
         case InventoryFull = 4
+        case ExceededDailyLimit = 5
         public func toString() -> String {
           switch self {
           case .NoResultSet: return "NO_RESULT_SET"
@@ -11198,6 +11526,7 @@ public extension Pogoprotos.Networking.Responses {
           case .OutOfRange: return "OUT_OF_RANGE"
           case .InCooldownPeriod: return "IN_COOLDOWN_PERIOD"
           case .InventoryFull: return "INVENTORY_FULL"
+          case .ExceededDailyLimit: return "EXCEEDED_DAILY_LIMIT"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.FortSearchResponse.Result {
@@ -11207,6 +11536,7 @@ public extension Pogoprotos.Networking.Responses {
           case "OUT_OF_RANGE":  return .OutOfRange
           case "IN_COOLDOWN_PERIOD":  return .InCooldownPeriod
           case "INVENTORY_FULL":  return .InventoryFull
+          case "EXCEEDED_DAILY_LIMIT":  return .ExceededDailyLimit
           default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
@@ -11219,6 +11549,7 @@ public extension Pogoprotos.Networking.Responses {
                 case .OutOfRange: return ".OutOfRange"
                 case .InCooldownPeriod: return ".InCooldownPeriod"
                 case .InventoryFull: return ".InventoryFull"
+                case .ExceededDailyLimit: return ".ExceededDailyLimit"
             }
         }
       }
@@ -12088,6 +12419,339 @@ public extension Pogoprotos.Networking.Responses {
           throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Networking.Responses.GetAssetDigestResponse.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
+  final public class GetBuddyWalkedResponse : GeneratedMessage, GeneratedMessageProtocol {
+    public private(set) var hasSuccess:Bool = false
+    public private(set) var success:Bool = false
+
+    public private(set) var familyCandyId:Pogoprotos.Enums.PokemonFamilyId = Pogoprotos.Enums.PokemonFamilyId.FamilyUnset
+    public private(set) var hasFamilyCandyId:Bool = false
+    public private(set) var hasCandyEarnedCount:Bool = false
+    public private(set) var candyEarnedCount:Int32 = Int32(0)
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasSuccess {
+        try output.writeBool(1, value:success)
+      }
+      if hasFamilyCandyId {
+        try output.writeEnum(2, value:familyCandyId.rawValue)
+      }
+      if hasCandyEarnedCount {
+        try output.writeInt32(3, value:candyEarnedCount)
+      }
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasSuccess {
+        serialize_size += success.computeBoolSize(1)
+      }
+      if (hasFamilyCandyId) {
+        serialize_size += familyCandyId.rawValue.computeEnumSize(2)
+      }
+      if hasCandyEarnedCount {
+        serialize_size += candyEarnedCount.computeInt32Size(3)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Responses.GetBuddyWalkedResponse> {
+      var mergedArray = Array<Pogoprotos.Networking.Responses.GetBuddyWalkedResponse>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse? {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Responses.PogoprotosNetworkingResponsesRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+      return Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.classBuilder() as! Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Responses.GetBuddyWalkedResponse) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasSuccess {
+        jsonMap["success"] = success
+      }
+      if hasFamilyCandyId {
+        jsonMap["familyCandyId"] = familyCandyId.toString()
+      }
+      if hasCandyEarnedCount {
+        jsonMap["candyEarnedCount"] = NSNumber(int:candyEarnedCount)
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+      return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasSuccess {
+        output += "\(indent) success: \(success) \n"
+      }
+      if (hasFamilyCandyId) {
+        output += "\(indent) familyCandyId: \(familyCandyId.description)\n"
+      }
+      if hasCandyEarnedCount {
+        output += "\(indent) candyEarnedCount: \(candyEarnedCount) \n"
+      }
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasSuccess {
+               hashCode = (hashCode &* 31) &+ success.hashValue
+            }
+            if hasFamilyCandyId {
+               hashCode = (hashCode &* 31) &+ Int(familyCandyId.rawValue)
+            }
+            if hasCandyEarnedCount {
+               hashCode = (hashCode &* 31) &+ candyEarnedCount.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Responses.GetBuddyWalkedResponse"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Responses.GetBuddyWalkedResponse"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Responses.GetBuddyWalkedResponse = Pogoprotos.Networking.Responses.GetBuddyWalkedResponse()
+      public func getMessage() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasSuccess:Bool {
+           get {
+                return builderResult.hasSuccess
+           }
+      }
+      public var success:Bool {
+           get {
+                return builderResult.success
+           }
+           set (value) {
+               builderResult.hasSuccess = true
+               builderResult.success = value
+           }
+      }
+      public func setSuccess(value:Bool) -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        self.success = value
+        return self
+      }
+      public func clearSuccess() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder{
+           builderResult.hasSuccess = false
+           builderResult.success = false
+           return self
+      }
+        public var hasFamilyCandyId:Bool{
+            get {
+                return builderResult.hasFamilyCandyId
+            }
+        }
+        public var familyCandyId:Pogoprotos.Enums.PokemonFamilyId {
+            get {
+                return builderResult.familyCandyId
+            }
+            set (value) {
+                builderResult.hasFamilyCandyId = true
+                builderResult.familyCandyId = value
+            }
+        }
+        public func setFamilyCandyId(value:Pogoprotos.Enums.PokemonFamilyId) -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+          self.familyCandyId = value
+          return self
+        }
+        public func clearFamilyCandyId() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+           builderResult.hasFamilyCandyId = false
+           builderResult.familyCandyId = .FamilyUnset
+           return self
+        }
+      public var hasCandyEarnedCount:Bool {
+           get {
+                return builderResult.hasCandyEarnedCount
+           }
+      }
+      public var candyEarnedCount:Int32 {
+           get {
+                return builderResult.candyEarnedCount
+           }
+           set (value) {
+               builderResult.hasCandyEarnedCount = true
+               builderResult.candyEarnedCount = value
+           }
+      }
+      public func setCandyEarnedCount(value:Int32) -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        self.candyEarnedCount = value
+        return self
+      }
+      public func clearCandyEarnedCount() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder{
+           builderResult.hasCandyEarnedCount = false
+           builderResult.candyEarnedCount = Int32(0)
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        builderResult = Pogoprotos.Networking.Responses.GetBuddyWalkedResponse()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
+        let returnMe:Pogoprotos.Networking.Responses.GetBuddyWalkedResponse = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Responses.GetBuddyWalkedResponse) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        if other == Pogoprotos.Networking.Responses.GetBuddyWalkedResponse() {
+         return self
+        }
+        if other.hasSuccess {
+             success = other.success
+        }
+        if other.hasFamilyCandyId {
+             familyCandyId = other.familyCandyId
+        }
+        if other.hasCandyEarnedCount {
+             candyEarnedCount = other.candyEarnedCount
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            success = try input.readBool()
+
+          case 16:
+            let valueIntfamilyCandyId = try input.readEnum()
+            if let enumsfamilyCandyId = Pogoprotos.Enums.PokemonFamilyId(rawValue:valueIntfamilyCandyId){
+                 familyCandyId = enumsfamilyCandyId
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(2, value:Int64(valueIntfamilyCandyId))
+            }
+
+          case 24:
+            candyEarnedCount = try input.readInt32()
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder()
+        if let jsonValueSuccess = jsonMap["success"] as? Bool {
+          resultDecodedBuilder.success = jsonValueSuccess
+        }
+        if let jsonValueFamilyCandyId = jsonMap["familyCandyId"] as? String {
+          resultDecodedBuilder.familyCandyId = try Pogoprotos.Enums.PokemonFamilyId.fromString(jsonValueFamilyCandyId)
+        }
+        if let jsonValueCandyEarnedCount = jsonMap["candyEarnedCount"] as? NSNumber {
+          resultDecodedBuilder.candyEarnedCount = jsonValueCandyEarnedCount.intValue
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.Builder.decodeToBuilder(jsDataCast)
       }
     }
 
@@ -17610,6 +18274,7 @@ public extension Pogoprotos.Networking.Responses {
         case PokemonDeployed = 2
         case Failed = 3
         case ErrorPokemonIsEgg = 4
+        case ErrorPokemonIsBuddy = 5
         public func toString() -> String {
           switch self {
           case .Unset: return "UNSET"
@@ -17617,6 +18282,7 @@ public extension Pogoprotos.Networking.Responses {
           case .PokemonDeployed: return "POKEMON_DEPLOYED"
           case .Failed: return "FAILED"
           case .ErrorPokemonIsEgg: return "ERROR_POKEMON_IS_EGG"
+          case .ErrorPokemonIsBuddy: return "ERROR_POKEMON_IS_BUDDY"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.ReleasePokemonResponse.Result {
@@ -17626,6 +18292,7 @@ public extension Pogoprotos.Networking.Responses {
           case "POKEMON_DEPLOYED":  return .PokemonDeployed
           case "FAILED":  return .Failed
           case "ERROR_POKEMON_IS_EGG":  return .ErrorPokemonIsEgg
+          case "ERROR_POKEMON_IS_BUDDY":  return .ErrorPokemonIsBuddy
           default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
@@ -17638,6 +18305,7 @@ public extension Pogoprotos.Networking.Responses {
                 case .PokemonDeployed: return ".PokemonDeployed"
                 case .Failed: return ".Failed"
                 case .ErrorPokemonIsEgg: return ".ErrorPokemonIsEgg"
+                case .ErrorPokemonIsBuddy: return ".ErrorPokemonIsBuddy"
             }
         }
       }
@@ -18285,6 +18953,374 @@ public extension Pogoprotos.Networking.Responses {
           throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Networking.Responses.SetAvatarResponse.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
+  final public class SetBuddyPokemonResponse : GeneratedMessage, GeneratedMessageProtocol {
+
+
+      //Enum type declaration start 
+
+      public enum Result:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+        case Unest = 0
+        case Success = 1
+        case ErrorPokemonDeployed = 2
+        case ErrorPokemonNotOwned = 3
+        case ErrorPokemonIsEgg = 4
+        public func toString() -> String {
+          switch self {
+          case .Unest: return "UNEST"
+          case .Success: return "SUCCESS"
+          case .ErrorPokemonDeployed: return "ERROR_POKEMON_DEPLOYED"
+          case .ErrorPokemonNotOwned: return "ERROR_POKEMON_NOT_OWNED"
+          case .ErrorPokemonIsEgg: return "ERROR_POKEMON_IS_EGG"
+          }
+        }
+        public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result {
+          switch str {
+          case "UNEST":  return .Unest
+          case "SUCCESS":  return .Success
+          case "ERROR_POKEMON_DEPLOYED":  return .ErrorPokemonDeployed
+          case "ERROR_POKEMON_NOT_OWNED":  return .ErrorPokemonNotOwned
+          case "ERROR_POKEMON_IS_EGG":  return .ErrorPokemonIsEgg
+          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          }
+        }
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .Unest: return ".Unest"
+                case .Success: return ".Success"
+                case .ErrorPokemonDeployed: return ".ErrorPokemonDeployed"
+                case .ErrorPokemonNotOwned: return ".ErrorPokemonNotOwned"
+                case .ErrorPokemonIsEgg: return ".ErrorPokemonIsEgg"
+            }
+        }
+      }
+
+      //Enum type declaration end 
+
+    public private(set) var result:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result.Unest
+    public private(set) var hasResult:Bool = false
+    public private(set) var hasUpdatedBuddy:Bool = false
+    public private(set) var updatedBuddy:Pogoprotos.Data.BuddyPokemon!
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasResult {
+        try output.writeEnum(1, value:result.rawValue)
+      }
+      if hasUpdatedBuddy {
+        try output.writeMessage(2, value:updatedBuddy)
+      }
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if (hasResult) {
+        serialize_size += result.rawValue.computeEnumSize(1)
+      }
+      if hasUpdatedBuddy {
+          if let varSizeupdatedBuddy = updatedBuddy?.computeMessageSize(2) {
+              serialize_size += varSizeupdatedBuddy
+          }
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Responses.SetBuddyPokemonResponse> {
+      var mergedArray = Array<Pogoprotos.Networking.Responses.SetBuddyPokemonResponse>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse? {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Responses.PogoprotosNetworkingResponsesRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+      return Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.classBuilder() as! Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasResult {
+        jsonMap["result"] = result.toString()
+      }
+      if hasUpdatedBuddy {
+        jsonMap["updatedBuddy"] = try updatedBuddy.encode()
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+      return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if (hasResult) {
+        output += "\(indent) result: \(result.description)\n"
+      }
+      if hasUpdatedBuddy {
+        output += "\(indent) updatedBuddy {\n"
+        if let outDescUpdatedBuddy = updatedBuddy {
+          output += try outDescUpdatedBuddy.getDescription("\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasResult {
+               hashCode = (hashCode &* 31) &+ Int(result.rawValue)
+            }
+            if hasUpdatedBuddy {
+                if let hashValueupdatedBuddy = updatedBuddy?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValueupdatedBuddy
+                }
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Responses.SetBuddyPokemonResponse"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Responses.SetBuddyPokemonResponse"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse()
+      public func getMessage() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+        public var hasResult:Bool{
+            get {
+                return builderResult.hasResult
+            }
+        }
+        public var result:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result {
+            get {
+                return builderResult.result
+            }
+            set (value) {
+                builderResult.hasResult = true
+                builderResult.result = value
+            }
+        }
+        public func setResult(value:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result) -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+          self.result = value
+          return self
+        }
+        public func clearResult() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+           builderResult.hasResult = false
+           builderResult.result = .Unest
+           return self
+        }
+      public var hasUpdatedBuddy:Bool {
+           get {
+               return builderResult.hasUpdatedBuddy
+           }
+      }
+      public var updatedBuddy:Pogoprotos.Data.BuddyPokemon! {
+           get {
+               if updatedBuddyBuilder_ != nil {
+                  builderResult.updatedBuddy = updatedBuddyBuilder_.getMessage()
+               }
+               return builderResult.updatedBuddy
+           }
+           set (value) {
+               builderResult.hasUpdatedBuddy = true
+               builderResult.updatedBuddy = value
+           }
+      }
+      private var updatedBuddyBuilder_:Pogoprotos.Data.BuddyPokemon.Builder! {
+           didSet {
+              builderResult.hasUpdatedBuddy = true
+           }
+      }
+      public func getUpdatedBuddyBuilder() -> Pogoprotos.Data.BuddyPokemon.Builder {
+        if updatedBuddyBuilder_ == nil {
+           updatedBuddyBuilder_ = Pogoprotos.Data.BuddyPokemon.Builder()
+           builderResult.updatedBuddy = updatedBuddyBuilder_.getMessage()
+           if updatedBuddy != nil {
+              try! updatedBuddyBuilder_.mergeFrom(updatedBuddy)
+           }
+        }
+        return updatedBuddyBuilder_
+      }
+      public func setUpdatedBuddy(value:Pogoprotos.Data.BuddyPokemon!) -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        self.updatedBuddy = value
+        return self
+      }
+      public func mergeUpdatedBuddy(value:Pogoprotos.Data.BuddyPokemon) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        if builderResult.hasUpdatedBuddy {
+          builderResult.updatedBuddy = try Pogoprotos.Data.BuddyPokemon.builderWithPrototype(builderResult.updatedBuddy).mergeFrom(value).buildPartial()
+        } else {
+          builderResult.updatedBuddy = value
+        }
+        builderResult.hasUpdatedBuddy = true
+        return self
+      }
+      public func clearUpdatedBuddy() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        updatedBuddyBuilder_ = nil
+        builderResult.hasUpdatedBuddy = false
+        builderResult.updatedBuddy = nil
+        return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        builderResult = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
+        let returnMe:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        if other == Pogoprotos.Networking.Responses.SetBuddyPokemonResponse() {
+         return self
+        }
+        if other.hasResult {
+             result = other.result
+        }
+        if (other.hasUpdatedBuddy) {
+            try mergeUpdatedBuddy(other.updatedBuddy)
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            let valueIntresult = try input.readEnum()
+            if let enumsresult = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result(rawValue:valueIntresult){
+                 result = enumsresult
+            } else {
+                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntresult))
+            }
+
+          case 18:
+            let subBuilder:Pogoprotos.Data.BuddyPokemon.Builder = Pogoprotos.Data.BuddyPokemon.Builder()
+            if hasUpdatedBuddy {
+              try subBuilder.mergeFrom(updatedBuddy)
+            }
+            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            updatedBuddy = subBuilder.buildPartial()
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder()
+        if let jsonValueResult = jsonMap["result"] as? String {
+          resultDecodedBuilder.result = try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Result.fromString(jsonValueResult)
+        }
+        if let jsonValueUpdatedBuddy = jsonMap["updatedBuddy"] as? Dictionary<String,AnyObject> {
+          resultDecodedBuilder.updatedBuddy = try Pogoprotos.Data.BuddyPokemon.Builder.decodeToBuilder(jsonValueUpdatedBuddy).build()
+
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.Builder.decodeToBuilder(jsDataCast)
       }
     }
 
@@ -23249,6 +24285,235 @@ public extension Pogoprotos.Networking.Responses {
           throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Networking.Responses.UseItemXpBoostResponse.Builder.decodeToBuilder(jsDataCast)
+      }
+    }
+
+  }
+
+  final public class VerifyChallengeResponse : GeneratedMessage, GeneratedMessageProtocol {
+    public private(set) var hasSuccess:Bool = false
+    public private(set) var success:Bool = false
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+      if hasSuccess {
+        try output.writeBool(1, value:success)
+      }
+      try unknownFields.writeToCodedOutputStream(output)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasSuccess {
+        serialize_size += success.computeBoolSize(1)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Responses.VerifyChallengeResponse> {
+      var mergedArray = Array<Pogoprotos.Networking.Responses.VerifyChallengeResponse>()
+      while let value = try parseFromDelimitedFromInputStream(input) {
+        mergedArray += [value]
+      }
+      return mergedArray
+    }
+    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse? {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
+    }
+    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Responses.PogoprotosNetworkingResponsesRoot.sharedInstance.extensionRegistry).build()
+    }
+    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFromInputStream(input).build()
+    }
+    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFromCodedInputStream(input).build()
+    }
+    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+      return Pogoprotos.Networking.Responses.VerifyChallengeResponse.classBuilder() as! Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder
+    }
+    override public class func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder()
+    }
+    override public func classBuilder() -> MessageBuilder {
+      return Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.builderWithPrototype(self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Responses.VerifyChallengeResponse) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder().mergeFrom(prototype)
+    }
+    override public func encode() throws -> Dictionary<String,AnyObject> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      if hasSuccess {
+        jsonMap["success"] = success
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder.decodeToBuilder(jsonMap).build()
+    }
+    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+      return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder.fromJSONToBuilder(data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasSuccess {
+        output += "\(indent) success: \(success) \n"
+      }
+      output += unknownFields.getDescription(indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasSuccess {
+               hashCode = (hashCode &* 31) &+ success.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Responses.VerifyChallengeResponse"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Responses.VerifyChallengeResponse"
+    }
+    override public func classMetaType() -> GeneratedMessage.Type {
+        return Pogoprotos.Networking.Responses.VerifyChallengeResponse.self
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Responses.VerifyChallengeResponse = Pogoprotos.Networking.Responses.VerifyChallengeResponse()
+      public func getMessage() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasSuccess:Bool {
+           get {
+                return builderResult.hasSuccess
+           }
+      }
+      public var success:Bool {
+           get {
+                return builderResult.success
+           }
+           set (value) {
+               builderResult.hasSuccess = true
+               builderResult.success = value
+           }
+      }
+      public func setSuccess(value:Bool) -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        self.success = value
+        return self
+      }
+      public func clearSuccess() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder{
+           builderResult.hasSuccess = false
+           builderResult.success = false
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        builderResult = Pogoprotos.Networking.Responses.VerifyChallengeResponse()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.builderWithPrototype(builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
+        let returnMe:Pogoprotos.Networking.Responses.VerifyChallengeResponse = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Responses.VerifyChallengeResponse) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        if other == Pogoprotos.Networking.Responses.VerifyChallengeResponse() {
+         return self
+        }
+        if other.hasSuccess {
+             success = other.success
+        }
+        try mergeUnknownFields(other.unknownFields)
+        return self
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+        while (true) {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            success = try input.readBool()
+
+          default:
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder()
+        if let jsonValueSuccess = jsonMap["success"] as? Bool {
+          resultDecodedBuilder.success = jsonValueSuccess
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder {
+        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
+          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Responses.VerifyChallengeResponse.Builder.decodeToBuilder(jsDataCast)
       }
     }
 
