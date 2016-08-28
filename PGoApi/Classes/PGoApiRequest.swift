@@ -35,12 +35,14 @@ public class PGoApiRequest {
     private var auth: PGoAuth?
     public var methodList: [PGoApiMethod] = []
     public var requestId: UInt64 = 0
+    public var timeSinceStart:UInt64 = 0
     
     public init(auth: PGoAuth? = nil) {
         if (auth != nil) {
             self.auth = auth
         }
         requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
+        self.timeSinceStart = getTimestamp()
     }
     
     

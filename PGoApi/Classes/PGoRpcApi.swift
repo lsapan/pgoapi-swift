@@ -20,7 +20,6 @@ class PGoRpcApi {
     let subrequests: [PGoApiMethod]
     let api: PGoApiRequest
     let encrypt: PGoEncrypt
-    private var timeSinceStart:UInt64 = 0
     private var locationHex: NSData
     private var manager: Manager? = nil
     
@@ -35,7 +34,6 @@ class PGoRpcApi {
         self.auth = auth
         self.delegate = delegate
         self.api = api
-        self.timeSinceStart = self.api.getTimestamp()
         self.locationHex = NSData()
         self.encrypt = PGoEncrypt()
     }
@@ -149,7 +147,7 @@ class PGoRpcApi {
             signatureBuilder.locationHash1 = UInt64(hashAuthTicket())
             signatureBuilder.unknown25 = 7363665268261373700
             signatureBuilder.timestamp = self.api.getTimestamp()
-            signatureBuilder.timestampSinceStart = self.api.getTimestamp() - timeSinceStart
+            signatureBuilder.timestampSinceStart = self.api.getTimestamp() - self.api.timeSinceStart
             
             let signature = try! signatureBuilder.build()
             
