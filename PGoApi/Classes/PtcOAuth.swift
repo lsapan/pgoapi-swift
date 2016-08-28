@@ -21,6 +21,7 @@ public class PtcOAuth: PGoAuth {
     public var endpoint: String = PGoEndpoint.Rpc
     public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
     public var manager: Manager
+    public var banned: Bool = false
     
     public init() {
         manager = Manager.sharedInstance
