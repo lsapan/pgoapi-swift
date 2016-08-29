@@ -20,9 +20,7 @@ class PGoRpcApi {
     let subrequests: [PGoApiMethod]
     let api: PGoApiRequest
     let encrypt: PGoEncrypt
-    private var timeSinceStart:UInt64 = 0
     private var locationHex: NSData
-    private var requestId: UInt64 = 0
     private var manager: Manager? = nil
     
     internal init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, api: PGoApiRequest, delegate: PGoApiDelegate?) {
@@ -36,10 +34,8 @@ class PGoRpcApi {
         self.auth = auth
         self.delegate = delegate
         self.api = api
-        self.timeSinceStart = self.api.getTimestamp()
         self.locationHex = NSData()
         self.encrypt = PGoEncrypt()
-        self.requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
     }
     
     internal func request() {
@@ -104,10 +100,6 @@ class PGoRpcApi {
         return xxh32.xxh32(0x1B845238, input: LocationData.getUInt8Array())
     }
     
-    private func randomUInt64(min: UInt64, max: UInt64) -> UInt64 {
-        return UInt64(Double(max - min) * drand48() + Double(min))
-    }
-    
     private func hashRequest(requestData:NSData) -> UInt64 {
         let xxh64:xxhash = xxhash()
         let firstHash = xxh64.xxh64(0x1B845238, input: auth.authToken!.data().getUInt8Array())
@@ -119,7 +111,7 @@ class PGoRpcApi {
         
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
-        requestBuilder.requestId = self.requestId
+        requestBuilder.requestId = self.api.requestId
         requestBuilder.msSinceLastLocationfix = 989
         
         requestBuilder.latitude = self.api.Location.lat
@@ -155,7 +147,7 @@ class PGoRpcApi {
             signatureBuilder.locationHash1 = UInt64(hashAuthTicket())
             signatureBuilder.unknown25 = 7363665268261373700
             signatureBuilder.timestamp = self.api.getTimestamp()
-            signatureBuilder.timestampSinceStart = self.api.getTimestamp() - timeSinceStart
+            signatureBuilder.timestampSinceStart = self.api.getTimestamp() - self.api.timeSinceStart
             
             let signature = try! signatureBuilder.build()
             
@@ -170,7 +162,7 @@ class PGoRpcApi {
             requestBuilder.unknown6 = [unknown6Version35]
         }
         
-        self.requestId += 1
+        self.api.requestId += 1
         
         print("Building request...")
         return try! requestBuilder.build()
@@ -180,6 +172,11 @@ class PGoRpcApi {
         print("Parsing main response...")
         
         let response = try! Pogoprotos.Networking.Envelopes.ResponseEnvelope.parseFromData(data)
+        if response.statusCode == 3 {
+            self.auth.banned = true
+            print("WARNING: Account is banned.")
+        }
+        
         let subresponses = parseSubResponses(response)
         if auth.authToken == nil {
             if response.hasAuthTicket {

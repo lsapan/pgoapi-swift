@@ -34,11 +34,20 @@ public class PGoApiRequest {
     public var Location = PGoLocation()
     private var auth: PGoAuth?
     public var methodList: [PGoApiMethod] = []
+    public var requestId: UInt64 = 0
+    public var timeSinceStart:UInt64 = 0
     
     public init(auth: PGoAuth? = nil) {
         if (auth != nil) {
             self.auth = auth
         }
+        requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
+        self.timeSinceStart = getTimestamp()
+    }
+    
+    
+    private func randomUInt64(min: UInt64, max: UInt64) -> UInt64 {
+        return UInt64(Double(max - min) * drand48() + Double(min))
     }
     
     public func getTimestamp() -> UInt64 {
@@ -54,11 +63,14 @@ public class PGoApiRequest {
         }
         
         if self.auth != nil {
+            if self.auth!.expired || self.auth!.banned {
+                return
+            }
             if !self.auth!.loggedIn {
                 print("makeRequest() called without being logged in.")
                 return
             }
-            if (self.auth!.authToken != nil) {
+            if self.auth!.authToken != nil {
                 if (self.auth!.authToken?.expireTimestampMs < getTimestamp()) {
                     self.auth!.expired = true
                     print("Auth token has expired.")

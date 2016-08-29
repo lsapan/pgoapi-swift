@@ -39,6 +39,7 @@ public class GPSOAuth: PGoAuth {
     public var endpoint: String = PGoEndpoint.Rpc
     public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
     public var manager: Manager
+    public var banned: Bool = false
 
     public init() {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
