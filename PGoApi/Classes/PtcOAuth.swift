@@ -24,7 +24,8 @@ public class PtcOAuth: PGoAuth {
     public var banned: Bool = false
     
     public init() {
-        manager = Manager.sharedInstance
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        manager = Alamofire.Manager(configuration: configuration)
     }
     
     private func getTicket(lt: String, execution: String) {
