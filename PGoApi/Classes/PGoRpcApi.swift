@@ -42,7 +42,7 @@ class PGoRpcApi {
     internal func request() {
         let requestData = buildMainRequest().data()
         
-        Alamofire.request(.POST, auth.endpoint, parameters: [:], encoding: .Custom({
+        manager!.request(.POST, auth.endpoint, parameters: [:], encoding: .Custom({
             (convertible, params) in
             let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
             mutableRequest.HTTPBody = requestData

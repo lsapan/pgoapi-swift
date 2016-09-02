@@ -64,7 +64,7 @@ public class GPSOAuth: PGoAuth {
         params["Passwd"] = self.password
         params["service"] = "ac2dm"
         
-        Alamofire.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
+        manager.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
             .responseJSON { (response) in
                 let responseString = NSString(data: response.data!, encoding: NSUTF8StringEncoding)
                 let googleDict = self.parseKeyValues(responseString! as String)
@@ -86,7 +86,7 @@ public class GPSOAuth: PGoAuth {
         params["app"] = "com.nianticlabs.pokemongo"
         params["client_sig"] = "321187995bc7cdc2b5fc91b11a96e2baa8602c62"
         
-        Alamofire.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
+        manager.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
             .responseJSON { (response) in
                 let responseString = NSString(data: response.data!, encoding: NSUTF8StringEncoding)
                 let googleDict = self.parseKeyValues(responseString! as String)
