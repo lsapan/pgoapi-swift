@@ -159,7 +159,7 @@ class PGoRpcApi {
             locFix.course = Float(self.api.Location.course!) + Float.random(min: -0.01, max: 0.01)
         }
         if self.api.Location.floor != nil {
-            locFix.course = Float(self.api.Location.floor!) + Float.random(min: -0.01, max: 0.01)
+            locFix.floor = self.api.Location.floor!
         }
         locFix.course = Float(self.api.Location.horizontalAccuracy) + Float.random(min: -0.01, max: 0.01)
         locFix.providerStatus = 3
@@ -178,17 +178,42 @@ class PGoRpcApi {
     private func getDeviceInfo() -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
         let deviceInfoBuilder = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
         deviceInfoBuilder.deviceId = self.api.device.deviceId
-        deviceInfoBuilder.androidBoardName = self.api.device.androidBoardName
-        deviceInfoBuilder.deviceBrand = self.api.device.deviceBrand
-        deviceInfoBuilder.deviceModel = self.api.device.deviceModel
-        deviceInfoBuilder.deviceModelIdentifier = self.api.device.deviceModelIdentifier
-        deviceInfoBuilder.deviceModelBoot = self.api.device.deviceModelBoot
-        deviceInfoBuilder.hardwareManufacturer = self.api.device.hardwareManufacturer
-        deviceInfoBuilder.hardwareModel = self.api.device.hardwareModel
-        deviceInfoBuilder.firmwareBrand = self.api.device.firmwareBrand
-        deviceInfoBuilder.firmwareTags = self.api.device.firmwareTags
-        deviceInfoBuilder.firmwareType = self.api.device.firmwareType
-        deviceInfoBuilder.firmwareFingerprint = self.api.device.firmwareFingerprint
+        if self.api.device.androidBoardName != nil {
+            deviceInfoBuilder.androidBoardName = self.api.device.androidBoardName!
+        }
+        if self.api.device.androidBootloader != nil {
+            deviceInfoBuilder.androidBootloader = self.api.device.androidBootloader!
+        }
+        if self.api.device.deviceBrand != nil {
+            deviceInfoBuilder.deviceBrand = self.api.device.deviceBrand!
+        }
+        if self.api.device.deviceModel != nil {
+            deviceInfoBuilder.deviceModel = self.api.device.deviceModel!
+        }
+        if self.api.device.deviceModelIdentifier != nil {
+            deviceInfoBuilder.deviceModelIdentifier = self.api.device.deviceModelIdentifier!
+        }
+        if self.api.device.deviceModelBoot != nil {
+            deviceInfoBuilder.deviceModelBoot = self.api.device.deviceModelBoot!
+        }
+        if self.api.device.hardwareManufacturer != nil {
+            deviceInfoBuilder.hardwareManufacturer = self.api.device.hardwareManufacturer!
+        }
+        if self.api.device.hardwareModel != nil {
+            deviceInfoBuilder.hardwareModel = self.api.device.hardwareModel!
+        }
+        if self.api.device.firmwareBrand != nil {
+            deviceInfoBuilder.firmwareBrand = self.api.device.firmwareBrand!
+        }
+        if self.api.device.firmwareTags != nil {
+            deviceInfoBuilder.firmwareTags = self.api.device.firmwareTags!
+        }
+        if self.api.device.firmwareType != nil {
+            deviceInfoBuilder.firmwareType = self.api.device.firmwareType!
+        }
+        if self.api.device.firmwareFingerprint != nil {
+            deviceInfoBuilder.firmwareFingerprint = self.api.device.firmwareFingerprint!
+        }
         return try! deviceInfoBuilder.build()
     }
     
