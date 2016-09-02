@@ -62,7 +62,7 @@ public class PGoApiRequest {
         } else {
             self.Settings.requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
             self.Settings.timeSinceStart = getTimestamp()
-            self.Settings.realisticStartTimeAdjustment = randomUInt64(500, max: 2000)
+            self.Settings.realisticStartTimeAdjustment = randomUInt64(750, max: 2000)
         }
         
         if Location != nil {
