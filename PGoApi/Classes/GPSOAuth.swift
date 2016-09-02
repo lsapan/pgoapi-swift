@@ -78,7 +78,7 @@ public class GPSOAuth: PGoAuth {
         }
     }
     
-    private func loginOAuth(token: String) {
+    public func loginOAuth(token: String) {
         var params = baseParams
         params["Email"] = self.email
         params["EncryptedPasswd"] = token
