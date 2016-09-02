@@ -130,8 +130,8 @@ class PGoRpcApi {
             msSinceLastLocationFix = generateLocationFixArray()
         } else {
             if self.api.Settings.LocationFixes[0].timestampSnapshot + 1000 < self.api.getTimestamp() {
-                self.api.Settings.LocationFixes[0].timestampSnapshot += self.api.getTimestampSinceStart()
                 self.api.Settings.LocationFixes[1].timestampSnapshot += self.api.getTimestampSinceStart()
+                self.api.Settings.LocationFixes[2].timestampSnapshot += self.api.getTimestampSinceStart()
                 msSinceLastLocationFix = self.api.randomUInt64(200, max: 300)
                 self.api.Settings.LocationFixes.removeFirst()
                 self.api.Settings.LocationFixes.append(generateLocationFix(msSinceLastLocationFix))
