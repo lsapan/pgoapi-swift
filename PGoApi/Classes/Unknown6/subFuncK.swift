@@ -9,8 +9,8 @@
 import Foundation
 
 
-public class subFuncK {
-    public func subFuncK(input_: Array<UInt32>) -> Array<UInt32> {
+internal class subFuncK {
+    internal func subFuncK(input_: Array<UInt32>) -> Array<UInt32> {
         var v = Array<UInt32>(count: 482, repeatedValue: 0)
         var input = input_
         
