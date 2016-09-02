@@ -31,6 +31,7 @@ public struct PGoLocation {
     public var speed: Double? = nil
     public var course: Double? = nil
     public var floor: Double? = nil
+    public init() {}
 }
 
 public struct PGoSettings {
