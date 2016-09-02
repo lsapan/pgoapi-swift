@@ -35,6 +35,10 @@ public struct Pogoprotos {
     
     public struct Networking {
         public struct Envelopes { }
+        public struct Platform {
+            public struct Requests { }
+            public struct Responses { }
+        }
         public struct Requests {
             public struct Messages { }
         }

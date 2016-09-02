@@ -24,7 +24,8 @@ public class PtcOAuth: PGoAuth {
     public var banned: Bool = false
     
     public init() {
-        manager = Manager.sharedInstance
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        manager = Alamofire.Manager(configuration: configuration)
     }
     
     private func getTicket(lt: String, execution: String) {
@@ -38,7 +39,7 @@ public class PtcOAuth: PGoAuth {
             "password": password
         ]
         
-        Alamofire.request(.POST, PGoEndpoint.LoginInfo, parameters: parameters)
+        manager.request(.POST, PGoEndpoint.LoginInfo, parameters: parameters)
             .responseData { response in
                 if let location = response.response!.allHeaderFields["Location"] as? String {
                     let ticketRange = location.rangeOfString("?ticket=")
@@ -72,7 +73,7 @@ public class PtcOAuth: PGoAuth {
             }
         }
         
-        Alamofire.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
+        manager.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
             .responseString { response in
                 let value = response.result.value!
                 let regex = try! NSRegularExpression(pattern: "access_token=([A-Za-z0-9\\-.]+)&expires=([0-9]+)", options: [])
@@ -103,7 +104,7 @@ public class PtcOAuth: PGoAuth {
         self.username = username
         self.password = password
         
-        let delegate = Alamofire.Manager.sharedInstance.delegate
+        let delegate = manager.delegate
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
             return nil
         }
@@ -112,7 +113,7 @@ public class PtcOAuth: PGoAuth {
             "User-Agent": "niantic"
         ]
         
-        Alamofire.request(.GET, PGoEndpoint.LoginInfo)
+        manager.request(.GET, PGoEndpoint.LoginInfo)
             .responseJSON { response in
                 if let JSON = response.result.value {
                     let lt = JSON["lt"] as! String

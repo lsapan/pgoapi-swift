@@ -18,13 +18,10 @@ public struct PGoEndpoint {
     public static let GoogleLogin = "https://android.clients.google.com/auth"
 }
 
-public struct PGoSetting {
-    public static let SettingsHash = "54b359c97e46900f87211ef6e6dd0b7f2a3ea1f5"
-}
-
 public enum PGoApiIntent {
     case Login
     case SimulateAppStart
+    case HeartBeat
     case PlayerUpdate
     case GetPlayer
     case GetInventory
@@ -95,6 +92,27 @@ public enum PGoApiIntent {
     case SfidaAction
     case SfidaDowser
     case SfidaCapture
+    //case getBuddyWalked
+    //case setBuddyPokemon
+    case checkChallenge
+    case verifyChallenge
+}
+
+public struct PGoDeviceInfo {
+    public var deviceId = NSData.randomBytes(8).getHexString
+    public var androidBoardName = "universal8890"
+    public var androidBootloader = "unknown"
+    public var deviceBrand = "samsung"
+    public var deviceModel = "herolte"
+    public var deviceModelIdentifier = "MMB29K.G930FXXU1APC8"
+    public var deviceModelBoot = "unknown"
+    public var hardwareManufacturer = "samsung"
+    public var hardwareModel = "SM-G930F"
+    public var firmwareBrand = "heroltexx"
+    public var firmwareTags = "release-keys"
+    public var firmwareType = "user"
+    public var firmwareFingerprint = "samsung/heroltexx/herolte:6.0.1/MMB29K/G930FXXU1APC8:user/release-keys"
+    public init() {}
 }
 
 public enum PGoAuthType: CustomStringConvertible {

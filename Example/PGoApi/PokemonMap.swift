@@ -44,6 +44,8 @@ class PokemonMap: UIViewController, MKMapViewDelegate {
                 annotate(pokemon.latitude, long: pokemon.longitude, name: "Pokemon \(pokemon.pokemonData.pokemonId)")
             }
         }
+        
+        self.mapView.showAnnotations(self.mapView.annotations, animated: true)
     }
     
     func annotate(lat: Double, long: Double, name: String) {

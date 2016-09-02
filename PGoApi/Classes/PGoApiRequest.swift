@@ -24,62 +24,122 @@ public struct PGoApiResponse {
 }
 
 public struct PGoLocation {
-    var lat:Double = 0
-    var long:Double = 0
-    var alt:Double = 6
+    public var lat:Double = 0
+    public var long:Double = 0
+    public var alt:Double = 6
+    public var horizontalAccuracy: Double = 3.9
+    public var speed: Double? = nil
+    public var course: Double? = nil
+    public var floor: Double? = nil
+    public init() {}
+}
+
+public struct PGoSettings {
+    public var requestId: UInt64 = 0
+    public var timeSinceStart:UInt64 = 0
+    public var realisticStartTimeAdjustment:UInt64 = 0
+    public var downloadSettingsHash: String? = nil
+    public var sessionHash: NSData? = nil
+    public var LocationFixes: Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder> =  []
+    public var versionHash: Int64 = 7363665268261373700 //0.35
+    public var refreshAuthTokens: Bool = true
+    public var checkChallenge: Bool = false
+    public init() {}
 }
 
 public class PGoApiRequest {
-    
     public var Location = PGoLocation()
-    private var auth: PGoAuth?
-    public var methodList: [PGoApiMethod] = []
-    public var requestId: UInt64 = 0
-    public var timeSinceStart:UInt64 = 0
+    public var auth: PGoAuth?
+    public var Settings = PGoSettings()
+    internal var methodList: [PGoApiMethod] = []
+    public var device = PGoDeviceInfo()
     
-    public init(auth: PGoAuth? = nil) {
-        if (auth != nil) {
-            self.auth = auth
+    public init(auth: PGoAuth, Settings: PGoSettings? = nil, Location: PGoLocation? = nil, device: PGoDeviceInfo? = nil) {
+        self.auth = auth
+        
+        if Settings != nil {
+            self.Settings = Settings!
+        } else {
+            self.Settings.requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
+            self.Settings.timeSinceStart = getTimestamp()
+            self.Settings.realisticStartTimeAdjustment = randomUInt64(500, max: 2000)
         }
-        requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
-        self.timeSinceStart = getTimestamp()
+        
+        if Location != nil {
+            self.Location = Location!
+        }
+        
+        if device != nil {
+            self.device = device!
+        }
     }
     
     
-    private func randomUInt64(min: UInt64, max: UInt64) -> UInt64 {
+    internal func randomUInt64(min: UInt64, max: UInt64) -> UInt64 {
         return UInt64(Double(max - min) * drand48() + Double(min))
     }
     
-    public func getTimestamp() -> UInt64 {
+    internal func getTimestamp() -> UInt64 {
         return UInt64(NSDate().timeIntervalSince1970 * 1000.0)
     }
-
+    
+    internal func getTimestampSinceStart() -> UInt64 {
+        return getTimestamp() - Settings.timeSinceStart
+    }
+    
+    public func refreshAuthToken() {
+        self.auth!.authToken = nil
+        print("Attempting to refresh auth token..")
+    }
+    
     public func makeRequest(intent: PGoApiIntent, delegate: PGoApiDelegate?) {
         // analogous to call in pgoapi.py
         
         if methodList.count == 0 {
+            delegate?.didReceiveApiException(intent, exception: .NoApiMethodsCalled)
             print("makeRequest() called without any methods in methodList.")
             return
         }
         
         if self.auth != nil {
-            if self.auth!.expired || self.auth!.banned {
-                return
-            }
             if !self.auth!.loggedIn {
                 print("makeRequest() called without being logged in.")
+                delegate?.didReceiveApiException(intent, exception: .NotLoggedIn)
                 return
             }
+            
             if self.auth!.authToken != nil {
                 if (self.auth!.authToken?.expireTimestampMs < getTimestamp()) {
-                    self.auth!.expired = true
                     print("Auth token has expired.")
+                    if (Settings.refreshAuthTokens) {
+                        refreshAuthToken()
+                    } else {
+                        delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)
+                        return
+                    }
+                }
+            }
+            
+            if self.auth!.banned {
+                delegate?.didReceiveApiException(intent, exception: .Banned)
+                return
+            } else if self.auth!.expired {
+                if (Settings.refreshAuthTokens) {
+                    refreshAuthToken()
+                } else {
+                    delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)
                     return
                 }
             }
+            
         } else {
+            delegate?.didReceiveApiException(intent, exception: .NoAuth)
             print("makeRequest() called without initializing auth.")
             return
+        }
+        
+        if Settings.checkChallenge {
+            checkChallenge()
         }
         
         let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: self.auth!, api: self, delegate: delegate)
@@ -87,14 +147,82 @@ public class PGoApiRequest {
         methodList.removeAll()
     }
     
-    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = 6.0) {
+    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = 6.0, horizontalAccuracy: Double? = 3.9, floor: Double? = nil, speed: Double? = nil, course: Double? = nil) {
         Location.lat = latitude
         Location.long = longitude
         Location.alt = altitude!
+        Location.horizontalAccuracy = horizontalAccuracy!
+        Location.speed = speed
+        Location.course = course
+        Location.floor = floor
+    }
+    
+    public func setSettings(refreshAuthTokens: Bool, checkChallenge: Bool) {
+        Settings.refreshAuthTokens = refreshAuthTokens
+        Settings.checkChallenge = checkChallenge
+    }
+    
+    public func setDevice(deviceId: String? = nil, androidBoardName: String? = nil, androidBootloader: String? = nil, deviceModel: String? = nil, deviceBrand: String? = nil, deviceModelIdentifier: String? = nil, deviceModelBoot: String? = nil, hardwareManufacturer: String? = nil, hardwareModel: String? = nil, firmwareBrand: String? = nil, firmwareTags: String? = nil, firmwareType: String? = nil, firmwareFingerprint: String? = nil) {
+        if deviceId != nil {
+            self.device.deviceId = deviceId!
+        }
+        
+        if androidBoardName != nil {
+            self.device.androidBoardName = androidBoardName!
+        }
+        
+        if androidBootloader != nil {
+            self.device.androidBootloader = androidBootloader!
+        }
+        
+        if deviceBrand != nil {
+            self.device.deviceBrand = deviceBrand!
+        }
+        
+        if deviceModel != nil {
+            self.device.deviceModel = deviceModel!
+        }
+        
+        if deviceModelIdentifier != nil {
+            self.device.deviceModelIdentifier = deviceModelIdentifier!
+        }
+        
+        if deviceModelBoot != nil {
+            self.device.deviceModelBoot = deviceModelBoot!
+        }
+        
+        if hardwareManufacturer != nil {
+            self.device.hardwareManufacturer = hardwareManufacturer!
+        }
+        
+        if hardwareModel != nil {
+            self.device.hardwareModel = hardwareModel!
+        }
+        
+        if firmwareBrand != nil {
+            self.device.firmwareBrand = firmwareBrand!
+        }
+        
+        if firmwareTags != nil {
+            self.device.firmwareTags = firmwareTags!
+        }
+        
+        if firmwareType != nil {
+            self.device.firmwareType = firmwareType!
+        }
+        
+        if firmwareFingerprint != nil {
+            self.device.firmwareFingerprint = firmwareFingerprint!
+        }
     }
     
     public func simulateAppStart() {
         getPlayer()
+        heartBeat()
+        downloadRemoteConfigVersion(appVersion: 3500)
+    }
+    
+    public func heartBeat() {
         getHatchedEggs()
         getInventory()
         checkAwardedBadges()
@@ -110,17 +238,24 @@ public class PGoApiRequest {
         }))
     }
     
-    public func getPlayer() {
+    public func getPlayer(country: String? = "US", language: String? = "en") {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder()
+        let playerLocale = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale.Builder()
+        playerLocale.language = language!
+        playerLocale.country = country!
+        messageBuilder.playerLocale = try! playerLocale.build()
         methodList.append(PGoApiMethod(id: .GetPlayer, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetPlayerResponse.parseFromData(data)
         }))
     }
     
-    public func getInventory(lastTimestampMs: Int64? = nil) {
+    public func getInventory(lastTimestampMs: Int64? = nil, itemBeenSeen: Int32? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetInventoryMessage.Builder()
         if lastTimestampMs != nil {
             messageBuilder.lastTimestampMs = lastTimestampMs!
+        }
+        if itemBeenSeen != nil {
+            messageBuilder.itemBeenSeen = itemBeenSeen!
         }
         methodList.append(PGoApiMethod(id: .GetInventory, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetInventoryResponse.parseFromData(data)
@@ -129,7 +264,9 @@ public class PGoApiRequest {
     
     public func downloadSettings() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage.Builder()
-        messageBuilder.hash = PGoSetting.SettingsHash
+        if (Settings.downloadSettingsHash != nil) {
+            messageBuilder.hash = Settings.downloadSettingsHash!
+        }
         methodList.append(PGoApiMethod(id: .DownloadSettings, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadSettingsResponse.parseFromData(data)
         }))
@@ -142,12 +279,18 @@ public class PGoApiRequest {
         }))
     }
     
-    public func downloadRemoteConfigVersion(deviceModel: String, deviceManufacturer: String, locale: String, appVersion: UInt32) {
+    public func downloadRemoteConfigVersion(platform: Pogoprotos.Enums.Platform? = .Android, deviceModel: String? = nil, deviceManufacturer: String? = nil, locale: String? = nil, appVersion: UInt32) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage.Builder()
-        messageBuilder.platform = .Ios
-        messageBuilder.deviceModel = deviceModel
-        messageBuilder.deviceManufacturer = deviceManufacturer
-        messageBuilder.locale = locale
+        messageBuilder.platform = platform!
+        if deviceModel != nil {
+            messageBuilder.deviceModel = deviceModel!
+        }
+        if deviceManufacturer != nil {
+            messageBuilder.deviceManufacturer = deviceManufacturer!
+        }
+        if locale != nil {
+            messageBuilder.locale = locale!
+        }
         messageBuilder.appVersion = appVersion
         methodList.append(PGoApiMethod(id: .DownloadRemoteConfigVersion, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse.parseFromData(data)
@@ -369,13 +512,14 @@ public class PGoApiRequest {
         }))
     }
     
-    public func getGymDetails(gymId: String, gymLatitude: Double, gymLongitude: Double) {
+    public func getGymDetails(gymId: String, gymLatitude: Double, gymLongitude: Double, clientVersion: String? = "0.35.0") {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage.Builder()
         messageBuilder.gymId = gymId
         messageBuilder.playerLatitude = Location.lat
         messageBuilder.playerLongitude = Location.long
         messageBuilder.gymLatitude = gymLatitude
         messageBuilder.gymLongitude = gymLongitude
+        messageBuilder.clientVersion = clientVersion!
         methodList.append(PGoApiMethod(id: .GetGymDetails, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetGymDetailsResponse.parseFromData(data)
         }))
@@ -630,6 +774,48 @@ public class PGoApiRequest {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage.Builder()
         methodList.append(PGoApiMethod(id: .SfidaActionLog, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SfidaActionLogResponse.parseFromData(data)
+        }))
+    }
+    
+    /*
+     
+    Not yet released
+
+     
+    public func getBuddyWalked() {
+        let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage.Builder()
+        methodList.insert(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+            return try! Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.parseFromData(data)
+        }), atIndex: 0)
+
+    }
+ 
+    public func setBuddyPokemon(pokemonId: UInt64) {
+        let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage.Builder()
+        messageBuilder.pokemonId = pokemonId
+        methodList.insert(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+            return try! Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.parseFromData(data)
+        }), atIndex: 0)
+        
+    }
+     
+    */
+    
+    public func checkChallenge(debug: Bool? = nil) {
+        let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage.Builder()
+        if debug != nil {
+            messageBuilder.debugRequest = debug!
+        }
+        methodList.insert(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+            return try! Pogoprotos.Networking.Responses.CheckChallengeResponse.parseFromData(data)
+        }), atIndex: 1)
+    }
+    
+    public func verifyChallenge(token: String) {
+        let messageBuilder = Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage.Builder()
+        messageBuilder.token = token
+        methodList.append(PGoApiMethod(id: .VerifyChallenge, message: try! messageBuilder.build(), parser: { data in
+            return try! Pogoprotos.Networking.Responses.VerifyChallengeResponse.parseFromData(data)
         }))
     }
 }

@@ -12,7 +12,7 @@ import PGoApi
 class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
 
     var auth: PGoAuth!
-    var request = PGoApiRequest()
+    var request: PGoApiRequest? = nil
     var mapCells = Pogoprotos.Networking.Responses.GetMapObjectsResponse()
     
     enum AuthMethod {
@@ -87,13 +87,13 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         
         // Set the latitude/longitude of player. 
         // Altitude should be included, but it is optional and defaults to 6.0
-        request.setLocation(Double(latField.text!)!, longitude: Double(longField.text!)!, altitude: 67.61)
+        request!.setLocation(Double(latField.text!)!, longitude: Double(longField.text!)!, altitude: 67.61)
         
         // Simulate the start, which cues methods: 
         // getPlayer(), getHatchedEggs(), getInventory(), checkAwardedBadges(), downloadSettings()
         // Results can be accessed in subresponse for intent .Login under didReceiveApiResponse()
-        request.simulateAppStart()
-        request.makeRequest(.Login, delegate: self)
+        request!.simulateAppStart()
+        request!.makeRequest(.Login, delegate: self)
     }
     
     func didNotReceiveAuth() {
@@ -109,8 +109,8 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         
         if (intent == .Login) {
             // App simulation complete, now requesting map objects
-            request.getMapObjects()
-            request.makeRequest(.GetMapObjects, delegate: self)
+            request!.getMapObjects()
+            request!.makeRequest(.GetMapObjects, delegate: self)
         } else if (intent == .GetMapObjects) {
             print("Got map objects!")
             
@@ -123,6 +123,10 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     
     func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?) {
         print("API Error: \(statusCode)")
+    }
+    
+    func didReceiveApiException(intent: PGoApiIntent, exception: PGoApiExceptions) {
+        print("API Exception: \(exception)")
     }
 }
 
