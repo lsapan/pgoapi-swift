@@ -288,7 +288,6 @@ class PGoRpcApi {
             print("Auth token is expired.")
             if (self.api.Settings.refreshAuthTokens) {
                 self.api.refreshAuthToken()
-                print("Attempting to refresh auth token..")
             } else {
                 auth.expired = true
                 self.delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)

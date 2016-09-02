@@ -112,6 +112,7 @@ public struct PGoDeviceInfo {
     public var firmwareTags = "release-keys"
     public var firmwareType = "user"
     public var firmwareFingerprint = "samsung/heroltexx/herolte:6.0.1/MMB29K/G930FXXU1APC8:user/release-keys"
+    public init() {}
 }
 
 public enum PGoAuthType: CustomStringConvertible {

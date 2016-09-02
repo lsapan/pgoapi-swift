@@ -88,6 +88,7 @@ public class PGoApiRequest {
     
     public func refreshAuthToken() {
         self.auth!.authToken = nil
+        print("Attempting to refresh auth token..")
     }
     
     public func makeRequest(intent: PGoApiIntent, delegate: PGoApiDelegate?) {
@@ -111,7 +112,6 @@ public class PGoApiRequest {
                     print("Auth token has expired.")
                     if (Settings.refreshAuthTokens) {
                         refreshAuthToken()
-                        print("Attempting to refresh auth token..")
                     } else {
                         delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)
                         return
@@ -159,6 +159,60 @@ public class PGoApiRequest {
     public func setSettings(refreshAuthTokens: Bool, checkChallenge: Bool) {
         Settings.refreshAuthTokens = refreshAuthTokens
         Settings.checkChallenge = checkChallenge
+    }
+    
+    public func setDevice(deviceId: String? = nil, androidBoardName: String? = nil, androidBootloader: String? = nil, deviceModel: String? = nil, deviceBrand: String? = nil, deviceModelIdentifier: String? = nil, deviceModelBoot: String? = nil, hardwareManufacturer: String? = nil, hardwareModel: String? = nil, firmwareBrand: String? = nil, firmwareTags: String? = nil, firmwareType: String? = nil, firmwareFingerprint: String? = nil) {
+        if deviceId != nil {
+            self.device.deviceId = deviceId!
+        }
+        
+        if androidBoardName != nil {
+            self.device.androidBoardName = androidBoardName!
+        }
+        
+        if androidBootloader != nil {
+            self.device.androidBootloader = androidBootloader!
+        }
+        
+        if deviceBrand != nil {
+            self.device.deviceBrand = deviceBrand!
+        }
+        
+        if deviceModel != nil {
+            self.device.deviceModel = deviceModel!
+        }
+        
+        if deviceModelIdentifier != nil {
+            self.device.deviceModelIdentifier = deviceModelIdentifier!
+        }
+        
+        if deviceModelBoot != nil {
+            self.device.deviceModelBoot = deviceModelBoot!
+        }
+        
+        if hardwareManufacturer != nil {
+            self.device.hardwareManufacturer = hardwareManufacturer!
+        }
+        
+        if hardwareModel != nil {
+            self.device.hardwareModel = hardwareModel!
+        }
+        
+        if firmwareBrand != nil {
+            self.device.firmwareBrand = firmwareBrand!
+        }
+        
+        if firmwareTags != nil {
+            self.device.firmwareTags = firmwareTags!
+        }
+        
+        if firmwareType != nil {
+            self.device.firmwareType = firmwareType!
+        }
+        
+        if firmwareFingerprint != nil {
+            self.device.firmwareFingerprint = firmwareFingerprint!
+        }
     }
     
     public func simulateAppStart() {
