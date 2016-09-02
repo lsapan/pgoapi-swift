@@ -224,7 +224,7 @@ class PGoRpcApi {
         signatureBuilder.locationHash1 = hashAuthTicket()
         signatureBuilder.unknown25 = self.api.Settings.versionHash
         signatureBuilder.timestamp = self.api.getTimestamp()
-        signatureBuilder.timestampSinceStart = self.api.getTimestamp() - self.api.Settings.timeSinceStart
+        signatureBuilder.timestampSinceStart = self.api.getTimestampSinceStart() + self.api.Settings.realisticStartTimeAdjustment
         signatureBuilder.requestHash = requestHashes
         
         if self.api.Settings.sessionHash == nil {
