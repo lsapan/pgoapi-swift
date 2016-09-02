@@ -30,7 +30,7 @@ public struct PGoLocation {
     public var horizontalAccuracy: Double = 3.9
     public var speed: Double? = nil
     public var course: Double? = nil
-    public var floor: Double? = nil
+    public var floor: UInt32? = nil
     public init() {}
 }
 
@@ -147,7 +147,7 @@ public class PGoApiRequest {
         methodList.removeAll()
     }
     
-    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = 6.0, horizontalAccuracy: Double? = 3.9, floor: Double? = nil, speed: Double? = nil, course: Double? = nil) {
+    public func setLocation(latitude: Double, longitude: Double, altitude: Double? = 6.0, horizontalAccuracy: Double? = 3.9, floor: UInt32? = nil, speed: Double? = nil, course: Double? = nil) {
         Location.lat = latitude
         Location.long = longitude
         Location.alt = altitude!
@@ -166,54 +166,18 @@ public class PGoApiRequest {
         if deviceId != nil {
             self.device.deviceId = deviceId!
         }
-        
-        if androidBoardName != nil {
-            self.device.androidBoardName = androidBoardName!
-        }
-        
-        if androidBootloader != nil {
-            self.device.androidBootloader = androidBootloader!
-        }
-        
-        if deviceBrand != nil {
-            self.device.deviceBrand = deviceBrand!
-        }
-        
-        if deviceModel != nil {
-            self.device.deviceModel = deviceModel!
-        }
-        
-        if deviceModelIdentifier != nil {
-            self.device.deviceModelIdentifier = deviceModelIdentifier!
-        }
-        
-        if deviceModelBoot != nil {
-            self.device.deviceModelBoot = deviceModelBoot!
-        }
-        
-        if hardwareManufacturer != nil {
-            self.device.hardwareManufacturer = hardwareManufacturer!
-        }
-        
-        if hardwareModel != nil {
-            self.device.hardwareModel = hardwareModel!
-        }
-        
-        if firmwareBrand != nil {
-            self.device.firmwareBrand = firmwareBrand!
-        }
-        
-        if firmwareTags != nil {
-            self.device.firmwareTags = firmwareTags!
-        }
-        
-        if firmwareType != nil {
-            self.device.firmwareType = firmwareType!
-        }
-        
-        if firmwareFingerprint != nil {
-            self.device.firmwareFingerprint = firmwareFingerprint!
-        }
+        self.device.androidBoardName = androidBoardName
+        self.device.androidBootloader = androidBootloader
+        self.device.deviceBrand = deviceBrand
+        self.device.deviceModel = deviceModel
+        self.device.deviceModelIdentifier = deviceModelIdentifier
+        self.device.deviceModelBoot = deviceModelBoot
+        self.device.hardwareManufacturer = hardwareManufacturer
+        self.device.hardwareModel = hardwareModel
+        self.device.firmwareBrand = firmwareBrand
+        self.device.firmwareTags = firmwareTags
+        self.device.firmwareType = firmwareType
+        self.device.firmwareFingerprint = firmwareFingerprint
     }
     
     public func simulateAppStart() {
