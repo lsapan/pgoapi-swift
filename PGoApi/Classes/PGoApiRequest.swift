@@ -765,7 +765,7 @@ public class PGoApiRequest {
      
     */
     
-    public func checkChallenge(debug: Bool? = nil) {
+    private func checkChallenge(debug: Bool? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage.Builder()
         if debug != nil {
             messageBuilder.debugRequest = debug!

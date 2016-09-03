@@ -94,7 +94,7 @@ public enum PGoApiIntent {
     case SfidaCapture
     //case getBuddyWalked
     //case setBuddyPokemon
-    case checkChallenge
+    //case checkChallenge
     case verifyChallenge
 }
 
