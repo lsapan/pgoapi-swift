@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import AddressBookUI
 
 
 public class PGoLocationUtils {
@@ -29,10 +30,29 @@ public class PGoLocationUtils {
         public var displacement: Double?
     }
     
+    public func geocode(latitude: Double, longitude: Double, completionHandler: (location: String?) -> ()) {
+        /*
+         
+         Example func for completionHandler:
+         func receivedGeocode(location: String?)
+         
+         */
+        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+            if placemarks?.count > 0 {
+                let addressDictionary = placemarks![0]
+                let address = ABCreateStringWithAddressDictionary(addressDictionary.addressDictionary!, false)
+                completionHandler(location: address.stringByReplacingOccurrencesOfString("\n", withString: ", "))
+            }
+        })
+    }
+    
     public func reverseGeocode(location: String, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
-         Example func for completionHandler: func receivedGeocode(results:PGoLocationUtils.Coordinates?)
+         Example func for completionHandler:
+         func receivedReverseGeocode(results:PGoLocationUtils.PGoCoordinate?)
          
         */
         
