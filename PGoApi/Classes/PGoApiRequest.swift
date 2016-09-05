@@ -60,9 +60,9 @@ public class PGoApiRequest {
         if Settings != nil {
             self.Settings = Settings!
         } else {
-            self.Settings.requestId = randomUInt64(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
+            self.Settings.requestId = UInt64.random(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
             self.Settings.timeSinceStart = getTimestamp()
-            self.Settings.realisticStartTimeAdjustment = randomUInt64(750, max: 2000)
+            self.Settings.realisticStartTimeAdjustment = UInt64.random(750, max: 2000)
         }
         
         if Location != nil {
@@ -72,11 +72,6 @@ public class PGoApiRequest {
         if device != nil {
             self.device = device!
         }
-    }
-    
-    
-    internal func randomUInt64(min: UInt64, max: UInt64) -> UInt64 {
-        return UInt64(Double(max - min) * drand48() + Double(min))
     }
     
     internal func getTimestamp() -> UInt64 {
@@ -243,7 +238,7 @@ public class PGoApiRequest {
         }))
     }
     
-    public func downloadRemoteConfigVersion(platform: Pogoprotos.Enums.Platform? = .Android, deviceModel: String? = nil, deviceManufacturer: String? = nil, locale: String? = nil, appVersion: UInt32) {
+    public func downloadRemoteConfigVersion(platform: Pogoprotos.Enums.Platform? = .Ios, deviceModel: String? = nil, deviceManufacturer: String? = nil, locale: String? = nil, appVersion: UInt32) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage.Builder()
         messageBuilder.platform = platform!
         if deviceModel != nil {

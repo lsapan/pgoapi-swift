@@ -100,20 +100,21 @@ public enum PGoApiIntent {
 
 public struct PGoDeviceInfo {
     public var deviceId = NSData.randomBytes(8).getHexString
-    public var androidBoardName: String? = "universal8890"
-    public var androidBootloader: String? = "unknown"
-    public var deviceBrand: String? = "samsung"
-    public var deviceModel: String? = "herolte"
-    public var deviceModelIdentifier: String? = "MMB29K.G930FXXU1APC8"
-    public var deviceModelBoot: String? = "unknown"
-    public var hardwareManufacturer: String? = "samsung"
-    public var hardwareModel: String? = "SM-G930F"
-    public var firmwareBrand: String? = "heroltexx"
-    public var firmwareTags: String? = "release-keys"
-    public var firmwareType: String? = "user"
-    public var firmwareFingerprint: String? = "samsung/heroltexx/herolte:6.0.1/MMB29K/G930FXXU1APC8:user/release-keys"
+    public var androidBoardName: String? = nil
+    public var androidBootloader: String? = nil
+    public var deviceBrand: String? = "Apple"
+    public var deviceModel: String? = "iPhone"
+    public var deviceModelIdentifier: String? = nil
+    public var deviceModelBoot: String? = "iPhone8,2"
+    public var hardwareManufacturer: String? = "Apple"
+    public var hardwareModel: String? = "N66mAP"
+    public var firmwareBrand: String? = "iPhone OS"
+    public var firmwareTags: String? = nil
+    public var firmwareType: String? = "9.3.3"
+    public var firmwareFingerprint: String? = nil
     public init() {}
 }
+
 
 public enum PGoAuthType: CustomStringConvertible {
     case Google

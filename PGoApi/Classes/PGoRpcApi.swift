@@ -117,9 +117,9 @@ class PGoRpcApi {
     }
     
     private func generateLocationFixArray() -> UInt64 {
-        let msSinceLastLocationFix = self.api.randomUInt64(200, max: 300)
-        self.api.Settings.LocationFixes = [generateLocationFix(self.api.randomUInt64(500, max: 750)),
-                                           generateLocationFix(self.api.randomUInt64(350, max: 450)),
+        let msSinceLastLocationFix = UInt64.random(200, max: 300)
+        self.api.Settings.LocationFixes = [generateLocationFix(UInt64.random(500, max: 750)),
+                                           generateLocationFix(UInt64.random(350, max: 450)),
                                            generateLocationFix(msSinceLastLocationFix)]
         return msSinceLastLocationFix
     }
@@ -132,7 +132,7 @@ class PGoRpcApi {
             if self.api.Settings.LocationFixes[0].timestampSnapshot + 1000 < self.api.getTimestamp() {
                 self.api.Settings.LocationFixes[1].timestampSnapshot += self.api.getTimestampSinceStart()
                 self.api.Settings.LocationFixes[2].timestampSnapshot += self.api.getTimestampSinceStart()
-                msSinceLastLocationFix = self.api.randomUInt64(200, max: 300)
+                msSinceLastLocationFix = UInt64.random(200, max: 300)
                 self.api.Settings.LocationFixes.removeFirst()
                 self.api.Settings.LocationFixes.append(generateLocationFix(msSinceLastLocationFix))
             } else {
@@ -147,16 +147,20 @@ class PGoRpcApi {
     
     private func generateLocationFix(timeStamp: UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
         let locFix = Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
-        locFix.provider = "gps"
+        locFix.provider = "fused"
         locFix.timestampSnapshot = timeStamp
         locFix.latitude = Float(self.api.Location.lat) + Float.random(min: -0.01, max: 0.01)
         locFix.longitude = Float(self.api.Location.long) + Float.random(min: -0.01, max: 0.01)
         locFix.altitude = Float(self.api.Location.alt) + Float.random(min: -0.01, max: 0.01)
         if self.api.Location.speed != nil {
             locFix.speed = Float(self.api.Location.speed!) + Float.random(min: -0.01, max: 0.01)
+        } else {
+            locFix.speed = Float.random(min: 0.1, max: 3.0)
         }
         if self.api.Location.speed != nil {
             locFix.course = Float(self.api.Location.course!) + Float.random(min: -0.01, max: 0.01)
+        } else {
+            locFix.course = Float.random(min: 0, max: 360)
         }
         if self.api.Location.floor != nil {
             locFix.floor = self.api.Location.floor!
@@ -167,11 +171,32 @@ class PGoRpcApi {
         return locFix
     }
     
+    // Data from https://github.com/PokemonGoF/PokemonGo-Bot/blob/master/pokemongo_bot/api_wrapper.py
+    
+    private func getSensorInfo() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+        let sensorInfoBuilder = Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
+        sensorInfoBuilder.timestampSnapshot = self.api.getTimestampSinceStart() + self.api.Settings.realisticStartTimeAdjustment
+        sensorInfoBuilder.linearAccelerationX = Double(Float.random(min: -0.139084026217, max: 0.138112977147))
+        sensorInfoBuilder.linearAccelerationY = Double(Float.random(min: -0.2, max: 0.19))
+        sensorInfoBuilder.linearAccelerationZ = Double(Float.random(min: -0.2, max: 0.4))
+        sensorInfoBuilder.magneticFieldX = Double(Float.random(min: -47.149471283, max: 61.8397789001))
+        sensorInfoBuilder.magneticFieldY = Double(Float.random(min: -47.149471283, max: 61.8397789001))
+        sensorInfoBuilder.magneticFieldZ = Double(Float.random(min: -47.149471283, max: 5))
+        sensorInfoBuilder.rotationVectorX = Double(Float.random(min: 0.0729667818829, max: 0.0729667818829))
+        sensorInfoBuilder.rotationVectorY = Double(Float.random(min: -2.788630499244109, max:  3.0586791383810468))
+        sensorInfoBuilder.rotationVectorZ = Double(Float.random(min: -0.34825887123552773, max: 0.19347580173737935))
+        sensorInfoBuilder.gyroscopeRawX = Double(Float.random(min: -0.9703824520111084, max: 0.8556089401245117))
+        sensorInfoBuilder.gyroscopeRawY = Double(Float.random(min: -1.7470258474349976, max:  1.4218578338623047))
+        sensorInfoBuilder.gyroscopeRawZ = Double(Float.random(min: -0.9681901931762695, max: 0.8396636843681335))
+        sensorInfoBuilder.gravityX = Double(Float.random(min: -0.31110161542892456, max: 0.1681540310382843))
+        sensorInfoBuilder.gravityY = Double(Float.random(min: -0.6574847102165222, max:  -0.07290205359458923))
+        sensorInfoBuilder.gravityZ = Double(Float.random(min: -0.9943905472755432, max: -0.7463029026985168))
+
+        return try! sensorInfoBuilder.build()
+    }
+    
     private func getActivityStatus() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
         let activityStatusBuilder = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
-        let activityStatusInt = toByteArray(UInt64(1))
-        let activityStatusBytes = NSData(bytes: activityStatusInt, length: activityStatusInt.count)
-        activityStatusBuilder.status = activityStatusBytes
         return try! activityStatusBuilder.build()
     }
     
@@ -238,6 +263,7 @@ class PGoRpcApi {
         
         signatureBuilder.activityStatus = getActivityStatus()
         signatureBuilder.deviceInfo = getDeviceInfo()
+        signatureBuilder.sensorInfo = getSensorInfo()
         
         let signature = try! signatureBuilder.build()
         

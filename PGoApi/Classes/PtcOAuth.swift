@@ -66,12 +66,7 @@ public class PtcOAuth: PGoAuth {
         // Remove "niantic" from the User-Agent
         manager.session.configuration.HTTPAdditionalHeaders = [:]
         
-        // Clean cookies, credit to github.com/aipeople
-        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
-            for cookie in cookies {
-                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
-            }
-        }
+        self.cleanCookies()
         
         manager.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
             .responseString { response in
@@ -99,10 +94,20 @@ public class PtcOAuth: PGoAuth {
         }
     }
     
+    private func cleanCookies() {
+        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
+            for cookie in cookies {
+                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
+            }
+        }
+    }
+    
     public func login(withUsername username:String, withPassword password:String) {
         print("Starting login...")
         self.username = username
         self.password = password
+        
+        self.cleanCookies()
         
         let delegate = manager.delegate
         delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
@@ -122,9 +127,5 @@ public class PtcOAuth: PGoAuth {
                     self.getTicket(lt, execution: execution)
                 }
         }
-    }
-    
-    public func login(withToken token: String) {
-        self.delegate?.didNotReceiveAuth()
     }
 }

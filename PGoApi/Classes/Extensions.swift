@@ -51,3 +51,10 @@ internal extension Float {
         return Float.random * (max - min) + min
     }
 }
+
+
+internal extension UInt64 {
+    internal static func random(min: UInt64, max: UInt64) -> UInt64 {
+        return UInt64(Double(max - min) * drand48() + Double(min))
+    }
+}
