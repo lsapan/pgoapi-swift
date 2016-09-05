@@ -99,7 +99,7 @@ public enum PGoApiIntent {
 }
 
 public struct PGoDeviceInfo {
-    public var deviceId = NSData.randomBytes(8).getHexString
+    public var deviceId = "3d65919ca1c2fc3a8e2bd7cc3f974c34"
     public var androidBoardName: String? = nil
     public var androidBootloader: String? = nil
     public var deviceBrand: String? = "Apple"
@@ -114,7 +114,6 @@ public struct PGoDeviceInfo {
     public var firmwareFingerprint: String? = nil
     public init() {}
 }
-
 
 public enum PGoAuthType: CustomStringConvertible {
     case Google
