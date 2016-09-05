@@ -23,4 +23,5 @@ public protocol PGoAuth {
     var banned: Bool { get set }
     
     func login(withUsername username:String, withPassword password:String)
+    func login(withToken token: String)
 }

@@ -3,13 +3,19 @@
 //  pgoapi
 //
 //  Created by Rowell Heria on 02/08/2016.
-//  Copyright © 2016 Coadstal. All rights reserved.
+//  Created by Brian Barton on 9/4/16.
+//  
 //
 
 import Foundation
 import Alamofire
 
+
 public class GPSOAuth: PGoAuth {
+    static public let LOGIN_URL = "https://accounts.google.com/o/oauth2/auth?client_id=848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=openid%20email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email"
+    private let OAUTH_TOKEN_ENDPOINT = "https://www.googleapis.com/oauth2/v4/token"
+    private let SECRET = "NCjF1TLi2CcY6t5mt0ZveuL7"
+    private let CLIENT_ID = "848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com"
     
     private let baseParams = [
         "accountType": "HOSTED_OR_GOOGLE",
@@ -40,6 +46,7 @@ public class GPSOAuth: PGoAuth {
     public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
     public var manager: Manager
     public var banned: Bool = false
+    private var refreshToken: String?
 
     public init() {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -78,7 +85,7 @@ public class GPSOAuth: PGoAuth {
         }
     }
     
-    public func loginOAuth(token: String) {
+    private func loginOAuth(token: String) {
         var params = baseParams
         params["Email"] = self.email
         params["EncryptedPasswd"] = token
@@ -108,4 +115,67 @@ public class GPSOAuth: PGoAuth {
 
         self.getTicket()
     }
+    
+    private func refreshAccessToken() {
+        manager.request(.POST, OAUTH_TOKEN_ENDPOINT, parameters: [
+            "client_id": CLIENT_ID,
+            "client_secret": SECRET,
+            "grant_type": "refresh_token",
+            "refresh_token": refreshToken!
+            ]).validate().responseJSON { response in
+                switch response.result {
+                case .Success(let data):
+                    if let json = data as? NSDictionary,
+                        let token = json["id_token"] as? String,
+                        let expiresIn = json["expires_in"] as? Int? {
+                        self.authToken = nil
+                        self.accessToken = token
+                        self.expires = expiresIn
+                        self.expired = false
+                        self.delegate?.didReceiveAuth()
+                    } else {
+                        self.delegate?.didNotReceiveAuth()
+                    }
+                case .Failure:
+                    self.delegate?.didNotReceiveAuth()
+                }
+        }
+    }
+    
+    // username is not used and password is oauth code user receives after approving access
+    public func login(withToken token: String) {
+        // refresh the token if it has expired
+        if loggedIn && expired {
+            refreshAccessToken()
+            return
+        }
+        
+        manager.request(.POST, OAUTH_TOKEN_ENDPOINT, parameters: [
+            "code": token,
+            "client_id": CLIENT_ID,
+            "client_secret": SECRET,
+            "grant_type": "authorization_code",
+            "scope": "openid email https://www.googleapis.com/auth/userinfo.email",
+            "redirect_uri": "urn:ietf:wg:oauth:2.0:oob"
+            ]).validate().responseJSON { response in
+                switch response.result {
+                case .Success(let data):
+                    if let json = data as? NSDictionary,
+                        let idToken = json["id_token"] as? String,
+                        let refreshToken = json["refresh_token"] as? String,
+                        let expires = json["expires_in"] as? Int {
+                        self.accessToken = idToken
+                        self.refreshToken = refreshToken
+                        self.loggedIn = true
+                        self.expires = expires
+                        self.delegate?.didReceiveAuth()
+                    } else {
+                        self.delegate?.didNotReceiveAuth()
+                    }
+                case .Failure:
+                    self.delegate?.didNotReceiveAuth()
+                }
+        }
+    }
+
 }

@@ -123,4 +123,8 @@ public class PtcOAuth: PGoAuth {
                 }
         }
     }
+    
+    public func login(withToken token: String) {
+        self.delegate?.didNotReceiveAuth()
+    }
 }
