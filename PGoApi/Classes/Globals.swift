@@ -99,7 +99,7 @@ public enum PGoApiIntent {
 }
 
 public struct PGoDeviceInfo {
-    public var deviceId = "3d65919ca1c2fc3a8e2bd7cc3f974c34"
+    public var deviceId = "5c69d67d886f48eba071794fc48d0ee60c13cf52"
     public var androidBoardName: String? = nil
     public var androidBootloader: String? = nil
     public var deviceBrand: String? = "Apple"
