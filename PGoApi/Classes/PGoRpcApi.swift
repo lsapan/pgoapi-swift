@@ -145,105 +145,105 @@ public class PGoRpcApi {
     private func setResponseObject(intent: Pogoprotos.Networking.Requests.RequestType, parsedData: GeneratedMessage) {
         switch intent {
         case .GetPlayer:
-            responseObject!.GetPlayer = parsedData as! Pogoprotos.Networking.Responses.GetPlayerResponse
+            responseObject!.GetPlayer = parsedData as? Pogoprotos.Networking.Responses.GetPlayerResponse
         case .GetInventory:
-            responseObject!.GetInventory = parsedData as! Pogoprotos.Networking.Responses.GetInventoryResponse
+            responseObject!.GetInventory = parsedData as? Pogoprotos.Networking.Responses.GetInventoryResponse
         case .DownloadSettings:
-            responseObject!.DownloadSettings = parsedData as! Pogoprotos.Networking.Responses.DownloadSettingsResponse
+            responseObject!.DownloadSettings = parsedData as? Pogoprotos.Networking.Responses.DownloadSettingsResponse
         case .DownloadItemTemplates:
-            responseObject!.DownloadItemTemplates = parsedData as! Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse
+            responseObject!.DownloadItemTemplates = parsedData as? Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse
         case .DownloadRemoteConfigVersion:
-            responseObject!.DownloadRemoteConfigVersion = parsedData as! Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse
+            responseObject!.DownloadRemoteConfigVersion = parsedData as? Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse
         case .FortSearch:
-            responseObject!.FortSearch = parsedData as! Pogoprotos.Networking.Responses.FortSearchResponse
+            responseObject!.FortSearch = parsedData as? Pogoprotos.Networking.Responses.FortSearchResponse
         case .Encounter:
-            responseObject!.EncounterPokemon = parsedData as! Pogoprotos.Networking.Responses.EncounterResponse
+            responseObject!.EncounterPokemon = parsedData as? Pogoprotos.Networking.Responses.EncounterResponse
         case .CatchPokemon:
-            responseObject!.CatchPokemon = parsedData as! Pogoprotos.Networking.Responses.CatchPokemonResponse
+            responseObject!.CatchPokemon = parsedData as? Pogoprotos.Networking.Responses.CatchPokemonResponse
         case .FortDetails:
-            responseObject!.FortDetails = parsedData as! Pogoprotos.Networking.Responses.FortDetailsResponse
+            responseObject!.FortDetails = parsedData as? Pogoprotos.Networking.Responses.FortDetailsResponse
         case .GetMapObjects:
-            responseObject!.GetMapObjects = parsedData as! Pogoprotos.Networking.Responses.GetMapObjectsResponse
+            responseObject!.GetMapObjects = parsedData as? Pogoprotos.Networking.Responses.GetMapObjectsResponse
         case .FortDeployPokemon:
-            responseObject!.FortDeployPokemon = parsedData as! Pogoprotos.Networking.Responses.FortDeployPokemonResponse
+            responseObject!.FortDeployPokemon = parsedData as? Pogoprotos.Networking.Responses.FortDeployPokemonResponse
         case .FortRecallPokemon:
-            responseObject!.FortRecallPokemon = parsedData as! Pogoprotos.Networking.Responses.FortRecallPokemonResponse
+            responseObject!.FortRecallPokemon = parsedData as? Pogoprotos.Networking.Responses.FortRecallPokemonResponse
         case .ReleasePokemon:
-            responseObject!.ReleasePokemon = parsedData as! Pogoprotos.Networking.Responses.ReleasePokemonResponse
+            responseObject!.ReleasePokemon = parsedData as? Pogoprotos.Networking.Responses.ReleasePokemonResponse
         case .UseItemPotion:
-            responseObject!.UseItemPotion = parsedData as! Pogoprotos.Networking.Responses.UseItemPotionResponse
+            responseObject!.UseItemPotion = parsedData as? Pogoprotos.Networking.Responses.UseItemPotionResponse
         case .UseItemCapture:
-            responseObject!.UseItemCapture = parsedData as! Pogoprotos.Networking.Responses.UseItemCaptureResponse
+            responseObject!.UseItemCapture = parsedData as? Pogoprotos.Networking.Responses.UseItemCaptureResponse
         case .UseItemRevive:
-            responseObject!.UseItemRevive = parsedData as! Pogoprotos.Networking.Responses.UseItemReviveResponse
+            responseObject!.UseItemRevive = parsedData as? Pogoprotos.Networking.Responses.UseItemReviveResponse
         case .GetPlayerProfile:
-            responseObject!.GetPlayerProfile = parsedData as! Pogoprotos.Networking.Responses.GetPlayerProfileResponse
+            responseObject!.GetPlayerProfile = parsedData as? Pogoprotos.Networking.Responses.GetPlayerProfileResponse
         case .EvolvePokemon:
-            responseObject!.EvolvePokemon = parsedData as! Pogoprotos.Networking.Responses.EvolvePokemonResponse
+            responseObject!.EvolvePokemon = parsedData as? Pogoprotos.Networking.Responses.EvolvePokemonResponse
         case .GetHatchedEggs:
-            responseObject!.GetHatchedEggs = parsedData as! Pogoprotos.Networking.Responses.GetHatchedEggsResponse
+            responseObject!.GetHatchedEggs = parsedData as? Pogoprotos.Networking.Responses.GetHatchedEggsResponse
         case .EncounterTutorialComplete:
-            responseObject!.EncounterTutorialComplete = parsedData as! Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse
+            responseObject!.EncounterTutorialComplete = parsedData as? Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse
         case .LevelUpRewards:
-            responseObject!.LevelUpRewards = parsedData  as! Pogoprotos.Networking.Responses.LevelUpRewardsResponse
+            responseObject!.LevelUpRewards = parsedData as? Pogoprotos.Networking.Responses.LevelUpRewardsResponse
         case .CheckAwardedBadges:
-            responseObject!.CheckAwardedBadges = parsedData  as! Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse
+            responseObject!.CheckAwardedBadges = parsedData as? Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse
         case .UseItemGym:
-            responseObject!.UseItemGym = parsedData as! Pogoprotos.Networking.Responses.UseItemGymResponse
+            responseObject!.UseItemGym = parsedData as? Pogoprotos.Networking.Responses.UseItemGymResponse
         case .GetGymDetails:
-            responseObject!.GetGymDetails = parsedData as! Pogoprotos.Networking.Responses.GetGymDetailsResponse
+            responseObject!.GetGymDetails = parsedData as? Pogoprotos.Networking.Responses.GetGymDetailsResponse
         case .StartGymBattle:
-            responseObject!.StartGymBattle = parsedData as! Pogoprotos.Networking.Responses.StartGymBattleResponse
+            responseObject!.StartGymBattle = parsedData as? Pogoprotos.Networking.Responses.StartGymBattleResponse
         case .AttackGym:
-            responseObject!.AttackGym = parsedData as! Pogoprotos.Networking.Responses.AttackGymResponse
+            responseObject!.AttackGym = parsedData as? Pogoprotos.Networking.Responses.AttackGymResponse
         case .RecycleInventoryItem:
-            responseObject!.RecycleInventoryItem = parsedData as! Pogoprotos.Networking.Responses.RecycleInventoryItemResponse
+            responseObject!.RecycleInventoryItem = parsedData as? Pogoprotos.Networking.Responses.RecycleInventoryItemResponse
         case .CollectDailyBonus:
-            responseObject!.CollectDailyBonus = parsedData as! Pogoprotos.Networking.Responses.CollectDailyBonusResponse
+            responseObject!.CollectDailyBonus = parsedData as? Pogoprotos.Networking.Responses.CollectDailyBonusResponse
         case .UseItemXpBoost:
-            responseObject!.UseItemXpBoost = parsedData as! Pogoprotos.Networking.Responses.UseItemXpBoostResponse
+            responseObject!.UseItemXpBoost = parsedData as? Pogoprotos.Networking.Responses.UseItemXpBoostResponse
         case .UseItemEggIncubator:
-            responseObject!.UseItemEggIncubator = parsedData as! Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse
+            responseObject!.UseItemEggIncubator = parsedData as? Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse
         case .UseIncense:
-            responseObject!.UseIncense = parsedData as! Pogoprotos.Networking.Responses.UseIncenseResponse
+            responseObject!.UseIncense = parsedData as? Pogoprotos.Networking.Responses.UseIncenseResponse
         case .GetIncensePokemon:
-            responseObject!.GetIncensePokemon = parsedData as! Pogoprotos.Networking.Responses.GetIncensePokemonResponse
+            responseObject!.GetIncensePokemon = parsedData as? Pogoprotos.Networking.Responses.GetIncensePokemonResponse
         case .IncenseEncounter:
-            responseObject!.IncenseEncounter = parsedData as! Pogoprotos.Networking.Responses.IncenseEncounterResponse
+            responseObject!.IncenseEncounter = parsedData as? Pogoprotos.Networking.Responses.IncenseEncounterResponse
         case .AddFortModifier:
-            responseObject!.AddFortModifier = parsedData as! Pogoprotos.Networking.Responses.AddFortModifierResponse
+            responseObject!.AddFortModifier = parsedData as? Pogoprotos.Networking.Responses.AddFortModifierResponse
         case .DiskEncounter:
-            responseObject!.DiskEncounter = parsedData as! Pogoprotos.Networking.Responses.DiskEncounterResponse
+            responseObject!.DiskEncounter = parsedData as? Pogoprotos.Networking.Responses.DiskEncounterResponse
         case .CollectDailyDefenderBonus:
-            responseObject!.CollectDailyBonus = parsedData as! Pogoprotos.Networking.Responses.CollectDailyBonusResponse
+            responseObject!.CollectDailyBonus = parsedData as? Pogoprotos.Networking.Responses.CollectDailyBonusResponse
         case .UpgradePokemon:
-            responseObject!.UpgradePokemon = parsedData as! Pogoprotos.Networking.Responses.UpgradePokemonResponse
+            responseObject!.UpgradePokemon = parsedData as? Pogoprotos.Networking.Responses.UpgradePokemonResponse
         case .SetFavoritePokemon:
-            responseObject!.SetFavoritePokemon = parsedData as! Pogoprotos.Networking.Responses.SetFavoritePokemonResponse
+            responseObject!.SetFavoritePokemon = parsedData as? Pogoprotos.Networking.Responses.SetFavoritePokemonResponse
         case .NicknamePokemon:
-            responseObject!.NicknamePokemon = parsedData as! Pogoprotos.Networking.Responses.NicknamePokemonResponse
+            responseObject!.NicknamePokemon = parsedData as? Pogoprotos.Networking.Responses.NicknamePokemonResponse
         case .EquipBadge:
-            responseObject!.EquipBadge = parsedData as! Pogoprotos.Networking.Responses.EquipBadgeResponse
+            responseObject!.EquipBadge = parsedData as? Pogoprotos.Networking.Responses.EquipBadgeResponse
         case .SetContactSettings:
-            responseObject!.SetContactSettings = parsedData as! Pogoprotos.Networking.Responses.SetContactSettingsResponse
+            responseObject!.SetContactSettings = parsedData as? Pogoprotos.Networking.Responses.SetContactSettingsResponse
         case .GetAssetDigest:
-            responseObject!.GetAssetDigest = parsedData as! Pogoprotos.Networking.Responses.GetAssetDigestResponse
+            responseObject!.GetAssetDigest = parsedData as? Pogoprotos.Networking.Responses.GetAssetDigestResponse
         case .GetDownloadUrls:
-            responseObject!.GetDownloadUrls = parsedData as! Pogoprotos.Networking.Responses.GetDownloadUrlsResponse
+            responseObject!.GetDownloadUrls = parsedData as? Pogoprotos.Networking.Responses.GetDownloadUrlsResponse
         case .GetSuggestedCodenames:
-            responseObject!.GetSuggestedCodenames = parsedData as! Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse
+            responseObject!.GetSuggestedCodenames = parsedData as? Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse
         case .CheckCodenameAvailable:
-            responseObject!.CheckCodenameAvailable = parsedData as! Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse
+            responseObject!.CheckCodenameAvailable = parsedData as? Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse
         case .ClaimCodename:
-            responseObject!.ClaimCodename = parsedData as! Pogoprotos.Networking.Responses.ClaimCodenameResponse
+            responseObject!.ClaimCodename = parsedData as? Pogoprotos.Networking.Responses.ClaimCodenameResponse
         case .SetAvatar:
-            responseObject!.SetAvatar = parsedData as! Pogoprotos.Networking.Responses.SetAvatarResponse
+            responseObject!.SetAvatar = parsedData as? Pogoprotos.Networking.Responses.SetAvatarResponse
         case .SetPlayerTeam:
-            responseObject!.SetPlayerTeam = parsedData as! Pogoprotos.Networking.Responses.SetPlayerTeamResponse
+            responseObject!.SetPlayerTeam = parsedData as? Pogoprotos.Networking.Responses.SetPlayerTeamResponse
         case .MarkTutorialComplete:
-            responseObject!.MarkTutorialComplete = parsedData as! Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse
+            responseObject!.MarkTutorialComplete = parsedData as? Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse
         case .Echo:
-            responseObject!.Echo = parsedData as! Pogoprotos.Networking.Responses.EchoResponse
+            responseObject!.Echo = parsedData as? Pogoprotos.Networking.Responses.EchoResponse
         case .SfidaActionLog:
             responseObject!.SfidaActionLog as Pogoprotos.Networking.Responses.SfidaActionLogResponse!
         case .CheckChallenge:
