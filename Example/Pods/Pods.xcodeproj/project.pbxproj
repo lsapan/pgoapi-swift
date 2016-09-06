@@ -103,6 +103,8 @@
 		E4CEB0261D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEB0231D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */; };
 		E4CEB0271D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEB0241D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */; };
 		E4CEB0281D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEB0251D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */; };
+		E4E84FEA1D7F20380021FD07 /* PGoApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84FE91D7F20380021FD07 /* PGoApiResponse.swift */; };
+		E4E84FEC1D7F21A70021FD07 /* Unknown6Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84FEB1D7F21A70021FD07 /* Unknown6Builder.swift */; };
 		E4F736631D5BE08F006532BB /* PGoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736621D5BE08F006532BB /* PGoUtils.swift */; };
 		E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */; };
 		E4F7366D1D5BE0DB006532BB /* xxhash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736691D5BE0DB006532BB /* xxhash.swift */; };
@@ -277,6 +279,8 @@
 		E4CEB0231D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift; sourceTree = "<group>"; };
 		E4CEB0241D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift; sourceTree = "<group>"; };
 		E4CEB0251D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift; sourceTree = "<group>"; };
+		E4E84FE91D7F20380021FD07 /* PGoApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoApiResponse.swift; sourceTree = "<group>"; };
+		E4E84FEB1D7F21A70021FD07 /* Unknown6Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unknown6Builder.swift; sourceTree = "<group>"; };
 		E4F736621D5BE08F006532BB /* PGoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoUtils.swift; sourceTree = "<group>"; };
 		E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoEncrypt.swift; sourceTree = "<group>"; };
 		E4F736691D5BE0DB006532BB /* xxhash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = xxhash.swift; sourceTree = "<group>"; };
@@ -423,8 +427,9 @@
 				F93B100338D177CC8E7089AD47DFE0D8 /* GPSOAuth.swift */,
 				89334F8C4B199395373338C368D3ED5D /* Extensions.swift */,
 				2BF2B15E987AE0B74B2D0AF006589D1A /* Globals.swift */,
-				75A219FCE22860A27B47F365E2364CDE /* PGoApiRequest.swift */,
 				267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */,
+				75A219FCE22860A27B47F365E2364CDE /* PGoApiRequest.swift */,
+				E4E84FE91D7F20380021FD07 /* PGoApiResponse.swift */,
 				297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */,
 				11E506CF98E807B4E6B1D5DAED3838AF /* S2Geometry.swift */,
 				E4F736621D5BE08F006532BB /* PGoUtils.swift */,
@@ -613,7 +618,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E4F736651D5BE0DB006532BB /* Unknown6 */ = {
+		E4E84FED1D7F35F20021FD07 /* Encryption */ = {
 			isa = PBXGroup;
 			children = (
 				E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */,
@@ -631,6 +636,15 @@
 				E42DFE521D5D062600E06B91 /* subFuncL.swift */,
 				E42DFE531D5D062600E06B91 /* subFuncM.swift */,
 				E435DD641D5C268400749515 /* PGoEncryptHelper.swift */,
+			);
+			name = Encryption;
+			sourceTree = "<group>";
+		};
+		E4F736651D5BE0DB006532BB /* Unknown6 */ = {
+			isa = PBXGroup;
+			children = (
+				E4E84FED1D7F35F20021FD07 /* Encryption */,
+				E4E84FEB1D7F21A70021FD07 /* Unknown6Builder.swift */,
 				E4F736691D5BE0DB006532BB /* xxhash.swift */,
 			);
 			path = Unknown6;
@@ -832,7 +846,9 @@
 				E435DD651D5C268400749515 /* PGoEncryptHelper.swift in Sources */,
 				A31E033C1D51314600B69C63 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift in Sources */,
 				A31E03301D51314600B69C63 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */,
+				E4E84FEC1D7F21A70021FD07 /* Unknown6Builder.swift in Sources */,
 				E42DFE581D5D062600E06B91 /* subFuncF.swift in Sources */,
+				E4E84FEA1D7F20380021FD07 /* PGoApiResponse.swift in Sources */,
 				E42DFE471D5D054A00E06B91 /* subFuncA.swift in Sources */,
 				E4CEB0261D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift in Sources */,
 				A31E03361D51314600B69C63 /* Pogoprotos.Map.PogoprotosMap.proto.swift in Sources */,
