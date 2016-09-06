@@ -244,7 +244,7 @@ public class S2CellId {
 }
 
 private class IntConverter {
-    public func toByteArray<T>(value_: T) -> [UInt8] {
+    private func toByteArray<T>(value_: T) -> [UInt8] {
         var value = value_
         return withUnsafePointer(&value) {
             Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: 8))
@@ -253,9 +253,9 @@ private class IntConverter {
 }
 
 private extension UInt64 {
-    public func getInt64() -> Int64{
+    private func getInt64() -> Int64{
         let bytes = IntConverter().toByteArray(self)
-        var value = bytes.withUnsafeBufferPointer({
+        let value = bytes.withUnsafeBufferPointer({
             UnsafePointer<Int64>($0.baseAddress).memory
         })
         return value
@@ -263,9 +263,9 @@ private extension UInt64 {
 }
 
 private extension Int64 {
-    public func getUInt64() -> UInt64{
+    private func getUInt64() -> UInt64{
         let bytes = IntConverter().toByteArray(self)
-        var value = bytes.withUnsafeBufferPointer({
+        let value = bytes.withUnsafeBufferPointer({
             UnsafePointer<UInt64>($0.baseAddress).memory
         })
         return value
