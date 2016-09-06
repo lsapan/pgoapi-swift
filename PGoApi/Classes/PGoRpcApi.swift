@@ -13,16 +13,15 @@ import Alamofire
 import ProtocolBuffers
 
 
-class PGoRpcApi {
+public class PGoRpcApi {
     private let intent: PGoApiIntent
     private var auth: PGoAuth
     private let delegate: PGoApiDelegate?
     private let subrequests: [PGoApiMethod]
     private let api: PGoApiRequest
-    private let encrypt: PGoEncrypt
-    private var locationHex: Array<UInt8>
-    private var manager: Manager? = nil
-    private var authInfo: NSData? = nil
+    private var manager: Manager?
+    private var responseObject: PGoResponseObject?
+    private var unknown6Builder: platformRequest?
     
     internal init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, api: PGoApiRequest, delegate: PGoApiDelegate?) {
         manager = auth.manager
@@ -35,8 +34,10 @@ class PGoRpcApi {
         self.auth = auth
         self.delegate = delegate
         self.api = api
-        self.locationHex = []
-        self.encrypt = PGoEncrypt()
+        self.unknown6Builder = platformRequest(auth: auth, api: api)
+        if self.api.ApiSettings.useResponseObjects {
+            self.responseObject = PGoResponseObject()
+        }
     }
     
     internal func request() {
@@ -60,242 +61,19 @@ class PGoRpcApi {
         }
     }
     
-    private func toByteArray<T>(value_: T) -> [UInt8] {
-        var value = value_
-        return withUnsafePointer(&value) {
-            Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: 8))
-        }
-    }
-    
-    private func locationToHex(lat: Double, long: Double, accuracy: Double) -> Array<UInt8> {
-        var LocationData: Array<UInt8> = []
-        LocationData.appendContentsOf(toByteArray(lat).reverse())
-        LocationData.appendContentsOf(toByteArray(long).reverse())
-        LocationData.appendContentsOf(toByteArray(accuracy).reverse())
-        return LocationData
-    }
-    
-    private func getAuthData() -> Array<UInt8> {
-        var authData: Array<UInt8> = []
-        
-        if auth.authToken != nil {
-            authData = auth.authToken!.data().getUInt8Array()
-        } else {
-            authData = self.authInfo!.getUInt8Array()
-        }
-        
-        return authData
-    }
-    
-    private func generateAuthInfo() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-        let authInfoBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().getAuthInfoBuilder()
-        let authInfoTokenBuilder = authInfoBuilder.getTokenBuilder()
-        authInfoBuilder.provider = auth.authType.description
-        authInfoTokenBuilder.contents = auth.accessToken!
-        authInfoTokenBuilder.unknown2 = 59
-        let authData = try! authInfoBuilder.build()
-        self.authInfo = authData.data()
-        return authData
-    }
-    
-    private func hashAuthTicket() -> UInt32 {
-        let xxh32:xxhash = xxhash()
-        let firstHash = xxh32.xxh32(0x61656632, input: getAuthData())
-        return xxh32.xxh32(firstHash, input: self.locationHex)
-    }
-    
-    private func hashLocation() -> UInt32 {
-        let xxh32:xxhash = xxhash()
-        self.locationHex = locationToHex(self.api.Location.lat, long:self.api.Location.long, accuracy: self.api.Location.horizontalAccuracy)
-        return xxh32.xxh32(0x61656632, input: locationHex)
-    }
-    
-    private func hashRequest(requestData:NSData) -> UInt64 {
-        let xxh64:xxhash = xxhash()
-        let firstHash = xxh64.xxh64(0x61656632, input: getAuthData())
-        return xxh64.xxh64(firstHash, input: requestData.getUInt8Array())
-    }
-    
-    private func generateLocationFixArray() -> UInt64 {
-        let msSinceLastLocationFix = UInt64.random(200, max: 300)
-        self.api.Settings.LocationFixes = [generateLocationFix(UInt64.random(500, max: 750)),
-                                           generateLocationFix(UInt64.random(350, max: 450)),
-                                           generateLocationFix(msSinceLastLocationFix)]
-        return msSinceLastLocationFix
-    }
-    
-    private func generateLocationFixTimeStamp() -> UInt64 {
-        var msSinceLastLocationFix:UInt64 = 0
-        if self.api.Settings.LocationFixes.count == 0 {
-            msSinceLastLocationFix = generateLocationFixArray()
-        } else {
-            if self.api.Settings.LocationFixes[0].timestampSnapshot + 1000 < self.api.getTimestamp() {
-                self.api.Settings.LocationFixes[1].timestampSnapshot += self.api.getTimestampSinceStart()
-                self.api.Settings.LocationFixes[2].timestampSnapshot += self.api.getTimestampSinceStart()
-                msSinceLastLocationFix = UInt64.random(200, max: 300)
-                self.api.Settings.LocationFixes.removeFirst()
-                self.api.Settings.LocationFixes.append(generateLocationFix(msSinceLastLocationFix))
-            } else {
-                self.api.Settings.LocationFixes[0].timestampSnapshot += self.api.getTimestampSinceStart()
-                self.api.Settings.LocationFixes[1].timestampSnapshot += self.api.getTimestampSinceStart()
-                self.api.Settings.LocationFixes[2].timestampSnapshot += self.api.getTimestampSinceStart()
-                msSinceLastLocationFix = self.api.Settings.LocationFixes.last!.timestampSnapshot
-            }
-        }
-        return msSinceLastLocationFix
-    }
-    
-    private func generateLocationFix(timeStamp: UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-        let locFix = Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
-        locFix.provider = "fused"
-        locFix.timestampSnapshot = timeStamp
-        locFix.latitude = Float(self.api.Location.lat) + Float.random(min: -0.01, max: 0.01)
-        locFix.longitude = Float(self.api.Location.long) + Float.random(min: -0.01, max: 0.01)
-        locFix.altitude = Float(self.api.Location.alt) + Float.random(min: -0.01, max: 0.01)
-        if self.api.Location.speed != nil {
-            locFix.speed = Float(self.api.Location.speed!) + Float.random(min: -0.01, max: 0.01)
-        } else {
-            locFix.speed = Float.random(min: 0.1, max: 3.0)
-        }
-        if self.api.Location.speed != nil {
-            locFix.course = Float(self.api.Location.course!) + Float.random(min: -0.01, max: 0.01)
-        } else {
-            locFix.course = Float.random(min: 0, max: 360)
-        }
-        if self.api.Location.floor != nil {
-            locFix.floor = self.api.Location.floor!
-        }
-        locFix.course = Float(self.api.Location.horizontalAccuracy) + Float.random(min: -0.01, max: 0.01)
-        locFix.providerStatus = 3
-        locFix.locationType = 1
-        return locFix
-    }
-    
-    // Data from https://github.com/PokemonGoF/PokemonGo-Bot/blob/master/pokemongo_bot/api_wrapper.py
-    
-    private func getSensorInfo() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-        let sensorInfoBuilder = Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
-        sensorInfoBuilder.timestampSnapshot = self.api.getTimestampSinceStart() + self.api.Settings.realisticStartTimeAdjustment
-        sensorInfoBuilder.linearAccelerationX = Double(Float.random(min: -0.139084026217, max: 0.138112977147))
-        sensorInfoBuilder.linearAccelerationY = Double(Float.random(min: -0.2, max: 0.19))
-        sensorInfoBuilder.linearAccelerationZ = Double(Float.random(min: -0.2, max: 0.4))
-        sensorInfoBuilder.magneticFieldX = Double(Float.random(min: -47.149471283, max: 61.8397789001))
-        sensorInfoBuilder.magneticFieldY = Double(Float.random(min: -47.149471283, max: 61.8397789001))
-        sensorInfoBuilder.magneticFieldZ = Double(Float.random(min: -47.149471283, max: 5))
-        sensorInfoBuilder.rotationVectorX = Double(Float.random(min: 0.0729667818829, max: 0.0729667818829))
-        sensorInfoBuilder.rotationVectorY = Double(Float.random(min: -2.788630499244109, max:  3.0586791383810468))
-        sensorInfoBuilder.rotationVectorZ = Double(Float.random(min: -0.34825887123552773, max: 0.19347580173737935))
-        sensorInfoBuilder.gyroscopeRawX = Double(Float.random(min: -0.9703824520111084, max: 0.8556089401245117))
-        sensorInfoBuilder.gyroscopeRawY = Double(Float.random(min: -1.7470258474349976, max:  1.4218578338623047))
-        sensorInfoBuilder.gyroscopeRawZ = Double(Float.random(min: -0.9681901931762695, max: 0.8396636843681335))
-        sensorInfoBuilder.gravityX = Double(Float.random(min: -0.31110161542892456, max: 0.1681540310382843))
-        sensorInfoBuilder.gravityY = Double(Float.random(min: -0.6574847102165222, max:  -0.07290205359458923))
-        sensorInfoBuilder.gravityZ = Double(Float.random(min: -0.9943905472755432, max: -0.7463029026985168))
-
-        return try! sensorInfoBuilder.build()
-    }
-    
-    private func getActivityStatus() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-        let activityStatusBuilder = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
-        return try! activityStatusBuilder.build()
-    }
-    
-    private func getDeviceInfo() -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-        let deviceInfoBuilder = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
-        deviceInfoBuilder.deviceId = self.api.device.deviceId
-        if self.api.device.androidBoardName != nil {
-            deviceInfoBuilder.androidBoardName = self.api.device.androidBoardName!
-        }
-        if self.api.device.androidBootloader != nil {
-            deviceInfoBuilder.androidBootloader = self.api.device.androidBootloader!
-        }
-        if self.api.device.deviceBrand != nil {
-            deviceInfoBuilder.deviceBrand = self.api.device.deviceBrand!
-        }
-        if self.api.device.deviceModel != nil {
-            deviceInfoBuilder.deviceModel = self.api.device.deviceModel!
-        }
-        if self.api.device.deviceModelIdentifier != nil {
-            deviceInfoBuilder.deviceModelIdentifier = self.api.device.deviceModelIdentifier!
-        }
-        if self.api.device.deviceModelBoot != nil {
-            deviceInfoBuilder.deviceModelBoot = self.api.device.deviceModelBoot!
-        }
-        if self.api.device.hardwareManufacturer != nil {
-            deviceInfoBuilder.hardwareManufacturer = self.api.device.hardwareManufacturer!
-        }
-        if self.api.device.hardwareModel != nil {
-            deviceInfoBuilder.hardwareModel = self.api.device.hardwareModel!
-        }
-        if self.api.device.firmwareBrand != nil {
-            deviceInfoBuilder.firmwareBrand = self.api.device.firmwareBrand!
-        }
-        if self.api.device.firmwareTags != nil {
-            deviceInfoBuilder.firmwareTags = self.api.device.firmwareTags!
-        }
-        if self.api.device.firmwareType != nil {
-            deviceInfoBuilder.firmwareType = self.api.device.firmwareType!
-        }
-        if self.api.device.firmwareFingerprint != nil {
-            deviceInfoBuilder.firmwareFingerprint = self.api.device.firmwareFingerprint!
-        }
-        return try! deviceInfoBuilder.build()
-    }
-    
-    private func buildPlatformRequest(requestHashes: Array<UInt64>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-        let signatureBuilder = Pogoprotos.Networking.Envelopes.Signature.Builder()
-        
-        signatureBuilder.locationHash2 = hashLocation()
-        signatureBuilder.locationHash1 = hashAuthTicket()
-        signatureBuilder.unknown25 = self.api.Settings.versionHash
-        signatureBuilder.timestamp = self.api.getTimestamp()
-        signatureBuilder.timestampSinceStart = self.api.getTimestampSinceStart() + self.api.Settings.realisticStartTimeAdjustment
-        signatureBuilder.requestHash = requestHashes
-        
-        if self.api.Settings.sessionHash == nil {
-            self.api.Settings.sessionHash = NSData.randomBytes(16)
-        }
-        signatureBuilder.sessionHash = self.api.Settings.sessionHash!
-        
-        signatureBuilder.locationFix = [try! self.api.Settings.LocationFixes[0].build(),
-                                        try! self.api.Settings.LocationFixes[1].build(),
-                                        try! self.api.Settings.LocationFixes[2].build()]
-        
-        signatureBuilder.activityStatus = getActivityStatus()
-        signatureBuilder.deviceInfo = getDeviceInfo()
-        signatureBuilder.sensorInfo = getSensorInfo()
-        
-        let signature = try! signatureBuilder.build()
-        
-        let unknown6 = Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder()
-        let unknown2 = Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder()
-        
-        unknown6.types = .SendEncryptedSignature
-        
-        let sigData = self.encrypt.encrypt(signature.data().getUInt8Array())
-        unknown2.encryptedSignature = NSData(bytes: sigData, length: sigData.count)
-        
-        unknown6.requestMessage = try! unknown2.build().data()
-        let unknown6Version35 = try! unknown6.build()
-        
-        return unknown6Version35
-    }
-    
     private func buildMainRequest() -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
         print("Generating main request...")
         
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
         requestBuilder.requestId = self.api.Settings.requestId
-        requestBuilder.msSinceLastLocationfix = Int64(generateLocationFixTimeStamp())
+        requestBuilder.msSinceLastLocationfix = Int64(unknown6Builder!.locationFix.timestamp)
         
         requestBuilder.latitude = self.api.Location.lat
         requestBuilder.longitude = self.api.Location.long
         requestBuilder.accuracy = self.api.Location.horizontalAccuracy
         
         print("Generating subrequests...")
-        var requestHashes:Array<UInt64> = []
-
         for subrequest in subrequests {
             print("Processing \(subrequest)...")
             let subrequestBuilder = Pogoprotos.Networking.Requests.Request.Builder()
@@ -304,18 +82,17 @@ class PGoRpcApi {
             let subData = try! subrequestBuilder.build()
             requestBuilder.requests += [subData]
             if auth.authToken != nil {
-                let h64 = hashRequest(subData.data())
-                requestHashes.append(h64)
+                unknown6Builder!.requestHashes.append(unknown6Builder!.hashRequest(subData.data()))
             }
         }
         
         if auth.authToken == nil {
-            requestBuilder.authInfo = generateAuthInfo()
+            requestBuilder.authInfo = unknown6Builder!.generateAuthInfo()
         } else {
             requestBuilder.authTicket = auth.authToken!
         }
         
-        requestBuilder.platformRequests = [buildPlatformRequest(requestHashes)]
+        requestBuilder.platformRequests = [unknown6Builder!.build()]
         
         self.api.Settings.requestId += 1
         
@@ -337,7 +114,7 @@ class PGoRpcApi {
             print("New endpoint: \(auth.endpoint)")
         } else if response.statusCode == .InvalidAuthToken {
             print("Auth token is expired.")
-            if (self.api.Settings.refreshAuthTokens) {
+            if (self.api.ApiSettings.refreshAuthTokens) {
                 self.api.refreshAuthToken()
             } else {
                 auth.expired = true
@@ -362,7 +139,120 @@ class PGoRpcApi {
         }
         
         let subresponses = parseSubResponses(response)
-        return PGoApiResponse(response: response, subresponses: subresponses)
+        return PGoApiResponse(response: response, subresponses: subresponses, object: responseObject)
+    }
+    
+    private func setResponseObject(intent: Pogoprotos.Networking.Requests.RequestType, parsedData: GeneratedMessage) {
+        switch intent {
+        case .GetPlayer:
+            responseObject!.GetPlayer = parsedData as! Pogoprotos.Networking.Responses.GetPlayerResponse
+        case .GetInventory:
+            responseObject!.GetInventory = parsedData as! Pogoprotos.Networking.Responses.GetInventoryResponse
+        case .DownloadSettings:
+            responseObject!.DownloadSettings = parsedData as! Pogoprotos.Networking.Responses.DownloadSettingsResponse
+        case .DownloadItemTemplates:
+            responseObject!.DownloadItemTemplates = parsedData as! Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse
+        case .DownloadRemoteConfigVersion:
+            responseObject!.DownloadRemoteConfigVersion = parsedData as! Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse
+        case .FortSearch:
+            responseObject!.FortSearch = parsedData as! Pogoprotos.Networking.Responses.FortSearchResponse
+        case .Encounter:
+            responseObject!.EncounterPokemon = parsedData as! Pogoprotos.Networking.Responses.EncounterResponse
+        case .CatchPokemon:
+            responseObject!.CatchPokemon = parsedData as! Pogoprotos.Networking.Responses.CatchPokemonResponse
+        case .FortDetails:
+            responseObject!.FortDetails = parsedData as! Pogoprotos.Networking.Responses.FortDetailsResponse
+        case .GetMapObjects:
+            responseObject!.GetMapObjects = parsedData as! Pogoprotos.Networking.Responses.GetMapObjectsResponse
+        case .FortDeployPokemon:
+            responseObject!.FortDeployPokemon = parsedData as! Pogoprotos.Networking.Responses.FortDeployPokemonResponse
+        case .FortRecallPokemon:
+            responseObject!.FortRecallPokemon = parsedData as! Pogoprotos.Networking.Responses.FortRecallPokemonResponse
+        case .ReleasePokemon:
+            responseObject!.ReleasePokemon = parsedData as! Pogoprotos.Networking.Responses.ReleasePokemonResponse
+        case .UseItemPotion:
+            responseObject!.UseItemPotion = parsedData as! Pogoprotos.Networking.Responses.UseItemPotionResponse
+        case .UseItemCapture:
+            responseObject!.UseItemCapture = parsedData as! Pogoprotos.Networking.Responses.UseItemCaptureResponse
+        case .UseItemRevive:
+            responseObject!.UseItemRevive = parsedData as! Pogoprotos.Networking.Responses.UseItemReviveResponse
+        case .GetPlayerProfile:
+            responseObject!.GetPlayerProfile = parsedData as! Pogoprotos.Networking.Responses.GetPlayerProfileResponse
+        case .EvolvePokemon:
+            responseObject!.EvolvePokemon = parsedData as! Pogoprotos.Networking.Responses.EvolvePokemonResponse
+        case .GetHatchedEggs:
+            responseObject!.GetHatchedEggs = parsedData as! Pogoprotos.Networking.Responses.GetHatchedEggsResponse
+        case .EncounterTutorialComplete:
+            responseObject!.EncounterTutorialComplete = parsedData as! Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse
+        case .LevelUpRewards:
+            responseObject!.LevelUpRewards = parsedData  as! Pogoprotos.Networking.Responses.LevelUpRewardsResponse
+        case .CheckAwardedBadges:
+            responseObject!.CheckAwardedBadges = parsedData  as! Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse
+        case .UseItemGym:
+            responseObject!.UseItemGym = parsedData as! Pogoprotos.Networking.Responses.UseItemGymResponse
+        case .GetGymDetails:
+            responseObject!.GetGymDetails = parsedData as! Pogoprotos.Networking.Responses.GetGymDetailsResponse
+        case .StartGymBattle:
+            responseObject!.StartGymBattle = parsedData as! Pogoprotos.Networking.Responses.StartGymBattleResponse
+        case .AttackGym:
+            responseObject!.AttackGym = parsedData as! Pogoprotos.Networking.Responses.AttackGymResponse
+        case .RecycleInventoryItem:
+            responseObject!.RecycleInventoryItem = parsedData as! Pogoprotos.Networking.Responses.RecycleInventoryItemResponse
+        case .CollectDailyBonus:
+            responseObject!.CollectDailyBonus = parsedData as! Pogoprotos.Networking.Responses.CollectDailyBonusResponse
+        case .UseItemXpBoost:
+            responseObject!.UseItemXpBoost = parsedData as! Pogoprotos.Networking.Responses.UseItemXpBoostResponse
+        case .UseItemEggIncubator:
+            responseObject!.UseItemEggIncubator = parsedData as! Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse
+        case .UseIncense:
+            responseObject!.UseIncense = parsedData as! Pogoprotos.Networking.Responses.UseIncenseResponse
+        case .GetIncensePokemon:
+            responseObject!.GetIncensePokemon = parsedData as! Pogoprotos.Networking.Responses.GetIncensePokemonResponse
+        case .IncenseEncounter:
+            responseObject!.IncenseEncounter = parsedData as! Pogoprotos.Networking.Responses.IncenseEncounterResponse
+        case .AddFortModifier:
+            responseObject!.AddFortModifier = parsedData as! Pogoprotos.Networking.Responses.AddFortModifierResponse
+        case .DiskEncounter:
+            responseObject!.DiskEncounter = parsedData as! Pogoprotos.Networking.Responses.DiskEncounterResponse
+        case .CollectDailyDefenderBonus:
+            responseObject!.CollectDailyBonus = parsedData as! Pogoprotos.Networking.Responses.CollectDailyBonusResponse
+        case .UpgradePokemon:
+            responseObject!.UpgradePokemon = parsedData as! Pogoprotos.Networking.Responses.UpgradePokemonResponse
+        case .SetFavoritePokemon:
+            responseObject!.SetFavoritePokemon = parsedData as! Pogoprotos.Networking.Responses.SetFavoritePokemonResponse
+        case .NicknamePokemon:
+            responseObject!.NicknamePokemon = parsedData as! Pogoprotos.Networking.Responses.NicknamePokemonResponse
+        case .EquipBadge:
+            responseObject!.EquipBadge = parsedData as! Pogoprotos.Networking.Responses.EquipBadgeResponse
+        case .SetContactSettings:
+            responseObject!.SetContactSettings = parsedData as! Pogoprotos.Networking.Responses.SetContactSettingsResponse
+        case .GetAssetDigest:
+            responseObject!.GetAssetDigest = parsedData as! Pogoprotos.Networking.Responses.GetAssetDigestResponse
+        case .GetDownloadUrls:
+            responseObject!.GetDownloadUrls = parsedData as! Pogoprotos.Networking.Responses.GetDownloadUrlsResponse
+        case .GetSuggestedCodenames:
+            responseObject!.GetSuggestedCodenames = parsedData as! Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse
+        case .CheckCodenameAvailable:
+            responseObject!.CheckCodenameAvailable = parsedData as! Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse
+        case .ClaimCodename:
+            responseObject!.ClaimCodename = parsedData as! Pogoprotos.Networking.Responses.ClaimCodenameResponse
+        case .SetAvatar:
+            responseObject!.SetAvatar = parsedData as! Pogoprotos.Networking.Responses.SetAvatarResponse
+        case .SetPlayerTeam:
+            responseObject!.SetPlayerTeam = parsedData as! Pogoprotos.Networking.Responses.SetPlayerTeamResponse
+        case .MarkTutorialComplete:
+            responseObject!.MarkTutorialComplete = parsedData as! Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse
+        case .Echo:
+            responseObject!.Echo = parsedData as! Pogoprotos.Networking.Responses.EchoResponse
+        case .SfidaActionLog:
+            responseObject!.SfidaActionLog as Pogoprotos.Networking.Responses.SfidaActionLogResponse!
+        case .CheckChallenge:
+            responseObject!.CheckChallenge as Pogoprotos.Networking.Responses.CheckChallengeResponse!
+        case .VerifyChallenge:
+            responseObject!.VerifyChallenge as Pogoprotos.Networking.Responses.VerifyChallengeResponse!
+        default:
+            return
+        }
     }
     
     private func parseSubResponses(response: Pogoprotos.Networking.Envelopes.ResponseEnvelope) -> [GeneratedMessage] {
@@ -371,7 +261,14 @@ class PGoRpcApi {
         var subresponses: [GeneratedMessage] = []
         for (idx, subresponseData) in response.returns.enumerate() {
             let subrequest = subrequests[idx]
-            subresponses.append(subrequest.parser(subresponseData))
+            let parsedData = subrequest.parser(subresponseData)
+            subresponses.append(parsedData)
+            if self.api.ApiSettings.useResponseObjects {
+                if responseObject == nil {
+                    responseObject = PGoResponseObject()
+                }
+                setResponseObject(subrequest.id, parsedData: parsedData)
+            }
         }
         return subresponses
     }

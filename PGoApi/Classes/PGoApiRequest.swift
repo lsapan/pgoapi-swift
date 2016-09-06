@@ -18,11 +18,6 @@ public struct PGoApiMethod {
     let parser: NSData -> GeneratedMessage
 }
 
-public struct PGoApiResponse {
-    public let response: GeneratedMessage
-    public let subresponses: [GeneratedMessage]
-}
-
 public struct PGoLocation {
     public var lat:Double = 0
     public var long:Double = 0
@@ -42,8 +37,29 @@ public struct PGoSettings {
     public var sessionHash: NSData? = nil
     public var LocationFixes: Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder> =  []
     public var versionHash: Int64 = 7363665268261373700 //0.35
+}
+
+public struct PGoApiSettings {
     public var refreshAuthTokens: Bool = true
     public var checkChallenge: Bool = false
+    public var useResponseObjects: Bool = false
+    public init() {}
+}
+
+public struct PGoDeviceInfo {
+    public var deviceId = "5c69d67d886f48eba071794fc48d0ee60c13cf52"
+    public var androidBoardName: String? = nil
+    public var androidBootloader: String? = nil
+    public var deviceBrand: String? = "Apple"
+    public var deviceModel: String? = "iPhone"
+    public var deviceModelIdentifier: String? = nil
+    public var deviceModelBoot: String? = "iPhone8,2"
+    public var hardwareManufacturer: String? = "Apple"
+    public var hardwareModel: String? = "N66mAP"
+    public var firmwareBrand: String? = "iPhone OS"
+    public var firmwareTags: String? = nil
+    public var firmwareType: String? = "9.3.3"
+    public var firmwareFingerprint: String? = nil
     public init() {}
 }
 
@@ -51,6 +67,7 @@ public class PGoApiRequest {
     public var Location = PGoLocation()
     public var auth: PGoAuth?
     public var Settings = PGoSettings()
+    public var ApiSettings = PGoApiSettings()
     internal var methodList: [PGoApiMethod] = []
     public var device = PGoDeviceInfo()
     
@@ -60,7 +77,7 @@ public class PGoApiRequest {
         if Settings != nil {
             self.Settings = Settings!
         } else {
-            self.Settings.requestId = UInt64.random(UInt64(pow(Double(2),Double(62))), max: UInt64(pow(Double(2),Double(63))))
+            self.Settings.requestId = UInt64.random(4611686018427388000, max: 9223372036854776000)
             self.Settings.timeSinceStart = getTimestamp()
             self.Settings.realisticStartTimeAdjustment = UInt64.random(750, max: 2000)
         }
@@ -107,7 +124,7 @@ public class PGoApiRequest {
             if self.auth!.authToken != nil {
                 if (self.auth!.authToken?.expireTimestampMs < getTimestamp()) {
                     print("Auth token has expired.")
-                    if (Settings.refreshAuthTokens) {
+                    if (ApiSettings.refreshAuthTokens) {
                         refreshAuthToken()
                     } else {
                         delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)
@@ -120,7 +137,7 @@ public class PGoApiRequest {
                 delegate?.didReceiveApiException(intent, exception: .Banned)
                 return
             } else if self.auth!.expired {
-                if (Settings.refreshAuthTokens) {
+                if (ApiSettings.refreshAuthTokens) {
                     refreshAuthToken()
                 } else {
                     delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)
@@ -134,7 +151,7 @@ public class PGoApiRequest {
             return
         }
         
-        if Settings.checkChallenge {
+        if ApiSettings.checkChallenge {
             checkChallenge()
         }
         
@@ -153,9 +170,10 @@ public class PGoApiRequest {
         Location.floor = floor
     }
     
-    public func setSettings(refreshAuthTokens: Bool, checkChallenge: Bool) {
-        Settings.refreshAuthTokens = refreshAuthTokens
-        Settings.checkChallenge = checkChallenge
+    public func setSettings(refreshAuthTokens: Bool, checkChallenge: Bool, useResponseObjects: Bool) {
+        ApiSettings.refreshAuthTokens = refreshAuthTokens
+        ApiSettings.checkChallenge = checkChallenge
+        ApiSettings.useResponseObjects = useResponseObjects
     }
     
     public func setDevice(deviceId: String? = nil, androidBoardName: String? = nil, androidBootloader: String? = nil, deviceModel: String? = nil, deviceBrand: String? = nil, deviceModelIdentifier: String? = nil, deviceModelBoot: String? = nil, hardwareManufacturer: String? = nil, hardwareModel: String? = nil, firmwareBrand: String? = nil, firmwareTags: String? = nil, firmwareType: String? = nil, firmwareFingerprint: String? = nil) {
@@ -310,7 +328,7 @@ public class PGoApiRequest {
         var cells: [UInt64] = []
         
         var currentCell = cell
-        for _ in 0..<10 {
+        for _ in 0..<13 {
             currentCell = currentCell.prev()
             cells.insert(currentCell.id, atIndex: 0)
         }
@@ -330,26 +348,22 @@ public class PGoApiRequest {
         messageBuilder.latitude = Location.lat
         messageBuilder.longitude = Location.long
         
-        if sinceTimestampMs != nil {
-            messageBuilder.sinceTimestampMs = sinceTimestampMs!
-        } else {
-            var timeStamps: Array<Int64> = []
-            if cellIds != nil {
-                for _ in cellIds! {
-                    timeStamps.append(0)
-                }
-                messageBuilder.sinceTimestampMs = timeStamps
-            } else {
-                messageBuilder.sinceTimestampMs = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-            }
-        }
-        
         if cellIds != nil {
             messageBuilder.cellId = cellIds!
             
         } else {
             let cells = generateS2Cells(Location.lat, long: Location.long)
             messageBuilder.cellId = cells
+        }
+        
+        if sinceTimestampMs != nil {
+            messageBuilder.sinceTimestampMs = sinceTimestampMs!
+        } else {
+            var timeStamps: Array<Int64> = []
+            for _ in messageBuilder.cellId {
+                timeStamps.append(0)
+            }
+            messageBuilder.sinceTimestampMs = timeStamps
         }
         
         methodList.append(PGoApiMethod(id: .GetMapObjects, message: try! messageBuilder.build(), parser: { data in

@@ -98,23 +98,6 @@ public enum PGoApiIntent {
     case verifyChallenge
 }
 
-public struct PGoDeviceInfo {
-    public var deviceId = "5c69d67d886f48eba071794fc48d0ee60c13cf52"
-    public var androidBoardName: String? = nil
-    public var androidBootloader: String? = nil
-    public var deviceBrand: String? = "Apple"
-    public var deviceModel: String? = "iPhone"
-    public var deviceModelIdentifier: String? = nil
-    public var deviceModelBoot: String? = "iPhone8,2"
-    public var hardwareManufacturer: String? = "Apple"
-    public var hardwareModel: String? = "N66mAP"
-    public var firmwareBrand: String? = "iPhone OS"
-    public var firmwareTags: String? = nil
-    public var firmwareType: String? = "9.3.3"
-    public var firmwareFingerprint: String? = nil
-    public init() {}
-}
-
 public enum PGoAuthType: CustomStringConvertible {
     case Google
     case Ptc
