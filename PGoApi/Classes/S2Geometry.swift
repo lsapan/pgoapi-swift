@@ -16,36 +16,36 @@ public enum S2Projection {
 }
 
 public enum S2Constants {
-    static let maxLevel:Int64 = 30
-    static let posBits:Int64 = 2 * S2Constants.maxLevel + 1
-    static let maxSize:Int64 = 1 << S2Constants.maxLevel
-    static let swapMask:Int64 = 0x01
-    static let invertMask:Int64 = 0x02
-    static let lookupBits:Int64 = 4
-    static let posToOrientation = [S2Constants.swapMask, 0, 0, S2Constants.invertMask | S2Constants.swapMask]
-    static let posToIj:Array<Array<Int64>> = [[0, 1, 3, 2],
+    public static let maxLevel:Int64 = 30
+    public static let posBits:Int64 = 2 * S2Constants.maxLevel + 1
+    public static let maxSize:Int64 = 1 << S2Constants.maxLevel
+    public static let swapMask:Int64 = 0x01
+    public static let invertMask:Int64 = 0x02
+    public static let lookupBits:Int64 = 4
+    public static let posToOrientation = [S2Constants.swapMask, 0, 0, S2Constants.invertMask | S2Constants.swapMask]
+    public static let posToIj:Array<Array<Int64>> = [[0, 1, 3, 2],
                                               [0, 2, 3, 1],
                                               [3, 2, 0, 1],
                                               [3, 1, 0, 2]]
 }
 
 public struct S2FaceUv {
-    let face: Int64
-    let u: Double
-    let v: Double
+    public let face: Int64
+    public let u: Double
+    public let v: Double
 }
 
 public struct S2Uv {
-    let u: Double
-    let v: Double
+    public let u: Double
+    public let v: Double
 }
 
 public class S2Helper {
-    static let sharedInstance = S2Helper()
+    public static let sharedInstance = S2Helper()
     
-    var lookupPos: [Int64?] = []
+    public var lookupPos: [Int64?] = []
     
-    init() {
+    public init() {
         for _ in 0..<(1 << (2 * S2Constants.lookupBits + 2)) {
             lookupPos.append(nil)
         }
@@ -55,7 +55,7 @@ public class S2Helper {
         initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.swapMask | S2Constants.invertMask, pos: 0, orientation: S2Constants.swapMask | S2Constants.invertMask)
     }
     
-    func initLookupCell(level: Int64, i: Int64, j: Int64, origOrientation: Int64, pos: Int64, orientation: Int64) {
+    public func initLookupCell(level: Int64, i: Int64, j: Int64, origOrientation: Int64, pos: Int64, orientation: Int64) {
         if level == S2Constants.lookupBits {
             let ij = (i << S2Constants.lookupBits) + j
             lookupPos[Int((ij << 2) + origOrientation)] = (pos << 2) + orientation
@@ -73,21 +73,21 @@ public class S2Helper {
 }
 
 public class S2Point {
-    let x: Double
-    let y: Double
-    let z: Double
+    public let x: Double
+    public let y: Double
+    public let z: Double
     
-    init(x: Double, y: Double, z: Double) {
+    public init(x: Double, y: Double, z: Double) {
         self.x = x
         self.y = y
         self.z = z
     }
     
-    func pointAbs() -> [Double] {
+    public func pointAbs() -> [Double] {
         return [abs(x), abs(y), abs(z)]
     }
     
-    func largestAbsComponent() -> Int64 {
+    public func largestAbsComponent() -> Int64 {
         let temp = pointAbs()
         if temp[0] > temp[1] {
             if temp[0] > temp[2] {
@@ -104,11 +104,11 @@ public class S2Point {
         }
     }
     
-    func dotProd(o: S2Point) -> Double {
+    public func dotProd(o: S2Point) -> Double {
         return x * o.x + y * o.y + z * o.z
     }
     
-    static func faceUvToXyz(face: Int64, u: Double, v: Double) -> S2Point {
+    public static func faceUvToXyz(face: Int64, u: Double, v: Double) -> S2Point {
         let uDouble = Double(u)
         let vDouble = Double(v)
         if face == 0 {
@@ -128,15 +128,15 @@ public class S2Point {
 }
 
 public class S2LatLon {
-    let lat: Double
-    let lon: Double
+    public let lat: Double
+    public let lon: Double
     
-    init(latDegrees: Double, lonDegrees: Double) {
+    public init(latDegrees: Double, lonDegrees: Double) {
         lat = latDegrees * M_PI / 180
         lon = lonDegrees * M_PI / 180
     }
     
-    func toPoint() -> S2Point {
+    public func toPoint() -> S2Point {
         let phi = lat
         let theta = lon
         let cosphi = cos(phi)
@@ -231,10 +231,52 @@ public class S2CellId {
     }
     
     public func prev() -> S2CellId{
-        return S2CellId(id: id - (lsb() << 30))
+        return S2CellId(id: id - (lsb() << 1))
     }
     
     public func next() -> S2CellId {
-        return S2CellId(id: id + (lsb() << 30))
+        return S2CellId(id: id + (lsb() << 1))
+    }
+    
+    public func lsbForLevel(level: UInt64) -> UInt64 {
+        return 1 << (2 * (30 - level))
+    }
+}
+
+private class IntConverter {
+    public func toByteArray<T>(value_: T) -> [UInt8] {
+        var value = value_
+        return withUnsafePointer(&value) {
+            Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: 8))
+        }
+    }
+}
+
+private extension UInt64 {
+    public func getInt64() -> Int64{
+        let bytes = IntConverter().toByteArray(self)
+        var value = bytes.withUnsafeBufferPointer({
+            UnsafePointer<Int64>($0.baseAddress).memory
+        })
+        return value
+    }
+}
+
+private extension Int64 {
+    public func getUInt64() -> UInt64{
+        let bytes = IntConverter().toByteArray(self)
+        var value = bytes.withUnsafeBufferPointer({
+            UnsafePointer<UInt64>($0.baseAddress).memory
+        })
+        return value
+    }
+}
+
+public extension S2CellId {
+    public func parent(level: UInt64) -> S2CellId {
+        let newLsb = self.lsbForLevel(level)
+        let newId = (self.id.getInt64() & -newLsb.getInt64()) | newLsb.getInt64()
+        self.id = newId.getUInt64()
+        return self
     }
 }

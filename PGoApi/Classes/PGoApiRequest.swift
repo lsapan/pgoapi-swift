@@ -306,7 +306,7 @@ public class PGoApiRequest {
     }
     
     public func generateS2Cells(lat: Double, long: Double) -> Array<UInt64> {
-        let cell = S2CellId(p: S2LatLon(latDegrees: lat, lonDegrees: long).toPoint())
+        let cell = S2CellId(p: S2LatLon(latDegrees: lat, lonDegrees: long).toPoint()).parent(15)
         var cells: [UInt64] = []
         
         var currentCell = cell
