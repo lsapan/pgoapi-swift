@@ -66,8 +66,7 @@ public class PGoRpcApi {
         
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
-        requestBuilder.requestId = self.api.Settings.requestId
-        requestBuilder.msSinceLastLocationfix = Int64(unknown6Builder!.locationFix.timestamp)
+        requestBuilder.requestId = self.api.session.requestId
         
         requestBuilder.latitude = self.api.Location.lat
         requestBuilder.longitude = self.api.Location.long
@@ -94,7 +93,13 @@ public class PGoRpcApi {
         
         requestBuilder.platformRequests = [unknown6Builder!.build()]
         
-        self.api.Settings.requestId += 1
+        self.api.session.requestId += 1
+        
+        if self.api.unknown6Settings.useLocationFix {
+            requestBuilder.msSinceLastLocationfix = Int64(self.api.locationFix.timestamp)
+        } else {
+            requestBuilder.msSinceLastLocationfix = Int64(UInt64.random(100, max: 300))
+        }
         
         print("Building request...")
         return try! requestBuilder.build()

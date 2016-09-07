@@ -12,10 +12,10 @@ import Foundation
 import ProtocolBuffers
 
 
-public struct PGoApiMethod {
-    let id: Pogoprotos.Networking.Requests.RequestType
-    let message: GeneratedMessage
-    let parser: NSData -> GeneratedMessage
+internal struct PGoApiMethod {
+    internal let id: Pogoprotos.Networking.Requests.RequestType
+    internal let message: GeneratedMessage
+    internal let parser: NSData -> GeneratedMessage
 }
 
 public struct PGoLocation {
@@ -29,25 +29,38 @@ public struct PGoLocation {
     public init() {}
 }
 
-public struct PGoSettings {
+public struct PGoSession {
     public var requestId: UInt64 = 0
     public var timeSinceStart:UInt64 = 0
     public var realisticStartTimeAdjustment:UInt64 = 0
     public var downloadSettingsHash: String? = nil
     public var sessionHash: NSData? = nil
-    public var LocationFixes: Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder> =  []
-    public var versionHash: Int64 = 7363665268261373700 //0.35
+    public init() {}
 }
 
-public struct PGoApiSettings {
-    public var refreshAuthTokens: Bool = true
-    public var checkChallenge: Bool = false
-    public var useResponseObjects: Bool = false
-    public init() {}
+internal struct PGoVersion {
+    internal static let versionHash: Int64 = 7363665268261373700
+    internal static let versionString: String = "0.35.0"
+    internal static let versionInt: UInt32 = 3500
+}
+
+internal struct PGoApiSettings {
+    internal var refreshAuthTokens: Bool = true
+    internal var checkChallenge: Bool = false
+    internal var useResponseObjects: Bool = false
+}
+
+internal struct platformRequestSettings {
+    internal var useSensorInfo: Bool = true
+    internal var useActivityStatus: Bool = true
+    internal var useDeviceInfo: Bool = true
+    internal var useLocationFix: Bool = true
+    internal var randomizedTimeSnapshot = UInt64.random(100, max: 500)
 }
 
 public struct PGoDeviceInfo {
     public var deviceId = "5c69d67d886f48eba071794fc48d0ee60c13cf52"
+    public var devicePlatform: Pogoprotos.Enums.Platform = .Ios
     public var androidBoardName: String? = nil
     public var androidBootloader: String? = nil
     public var deviceBrand: String? = "Apple"
@@ -66,20 +79,24 @@ public struct PGoDeviceInfo {
 public class PGoApiRequest {
     public var Location = PGoLocation()
     public var auth: PGoAuth?
-    public var Settings = PGoSettings()
-    public var ApiSettings = PGoApiSettings()
-    internal var methodList: [PGoApiMethod] = []
+    public var session = PGoSession()
     public var device = PGoDeviceInfo()
+    internal var locationFix = LocationFixes()
+
+    internal var unknown6Settings = platformRequestSettings()
+    internal var ApiSettings = PGoApiSettings()
     
-    public init(auth: PGoAuth, Settings: PGoSettings? = nil, Location: PGoLocation? = nil, device: PGoDeviceInfo? = nil) {
+    internal var methodList: [PGoApiMethod] = []
+    
+    public init(auth: PGoAuth, session: PGoSession? = nil, Location: PGoLocation? = nil, device: PGoDeviceInfo? = nil) {
         self.auth = auth
         
-        if Settings != nil {
-            self.Settings = Settings!
+        if session != nil {
+            self.session = session!
         } else {
-            self.Settings.requestId = UInt64.random(4611686018427388000, max: 9223372036854776000)
-            self.Settings.timeSinceStart = getTimestamp()
-            self.Settings.realisticStartTimeAdjustment = UInt64.random(750, max: 2000)
+            self.session.requestId = UInt64.random(4611686018427388000, max: 9223372036854776000)
+            self.session.timeSinceStart = getTimestamp()
+            self.session.realisticStartTimeAdjustment = UInt64.random(750, max: 2000)
         }
         
         if Location != nil {
@@ -97,7 +114,7 @@ public class PGoApiRequest {
     }
     
     internal func getTimestampSinceStart() -> UInt64 {
-        return getTimestamp() - Settings.timeSinceStart
+        return getTimestamp() - session.timeSinceStart
     }
     
     public func refreshAuthToken() {
@@ -176,11 +193,20 @@ public class PGoApiRequest {
         ApiSettings.useResponseObjects = useResponseObjects
     }
     
-    public func setDevice(deviceId: String? = nil, androidBoardName: String? = nil, androidBootloader: String? = nil, deviceModel: String? = nil, deviceBrand: String? = nil, deviceModelIdentifier: String? = nil, deviceModelBoot: String? = nil, hardwareManufacturer: String? = nil, hardwareModel: String? = nil, firmwareBrand: String? = nil, firmwareTags: String? = nil, firmwareType: String? = nil, firmwareFingerprint: String? = nil) {
+    public func setPlatformRequestSettings(useActivityStatus useActivityStatus: Bool, useDeviceInfo: Bool, useSensorInfo: Bool, useLocationFix: Bool, locationFixCount: Int? = 3) {
+        unknown6Settings.useActivityStatus = useActivityStatus
+        unknown6Settings.useDeviceInfo = useDeviceInfo
+        unknown6Settings.useSensorInfo = useSensorInfo
+        unknown6Settings.useLocationFix = useLocationFix
+        locationFix.count = locationFixCount!
+    }
+    
+    public func setDevice(deviceId: String? = nil, androidBoardName: String? = nil, androidBootloader: String? = nil, deviceModel: String? = nil, deviceBrand: String? = nil, deviceModelIdentifier: String? = nil, deviceModelBoot: String? = nil, hardwareManufacturer: String? = nil, hardwareModel: String? = nil, firmwareBrand: String? = nil, firmwareTags: String? = nil, firmwareType: String? = nil, firmwareFingerprint: String? = nil, devicePlatform: Pogoprotos.Enums.Platform? = .Ios) {
         if deviceId != nil {
             self.device.deviceId = deviceId!
         }
         self.device.androidBoardName = androidBoardName
+        self.device.devicePlatform = devicePlatform!
         self.device.androidBootloader = androidBootloader
         self.device.deviceBrand = deviceBrand
         self.device.deviceModel = deviceModel
@@ -197,7 +223,7 @@ public class PGoApiRequest {
     public func simulateAppStart() {
         getPlayer()
         heartBeat()
-        downloadRemoteConfigVersion(appVersion: 3500)
+        downloadRemoteConfigVersion()
     }
     
     public func heartBeat() {
@@ -242,8 +268,8 @@ public class PGoApiRequest {
     
     public func downloadSettings() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage.Builder()
-        if (Settings.downloadSettingsHash != nil) {
-            messageBuilder.hash = Settings.downloadSettingsHash!
+        if (session.downloadSettingsHash != nil) {
+            messageBuilder.hash = session.downloadSettingsHash!
         }
         methodList.append(PGoApiMethod(id: .DownloadSettings, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadSettingsResponse.parseFromData(data)
@@ -257,9 +283,9 @@ public class PGoApiRequest {
         }))
     }
     
-    public func downloadRemoteConfigVersion(platform: Pogoprotos.Enums.Platform? = .Ios, deviceModel: String? = nil, deviceManufacturer: String? = nil, locale: String? = nil, appVersion: UInt32) {
+    public func downloadRemoteConfigVersion(deviceModel: String? = nil, deviceManufacturer: String? = nil, locale: String? = nil, appVersion: UInt32? = PGoVersion.versionInt) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage.Builder()
-        messageBuilder.platform = platform!
+        messageBuilder.platform = device.devicePlatform
         if deviceModel != nil {
             messageBuilder.deviceModel = deviceModel!
         }
@@ -269,7 +295,7 @@ public class PGoApiRequest {
         if locale != nil {
             messageBuilder.locale = locale!
         }
-        messageBuilder.appVersion = appVersion
+        messageBuilder.appVersion = appVersion!
         methodList.append(PGoApiMethod(id: .DownloadRemoteConfigVersion, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse.parseFromData(data)
         }))
@@ -298,15 +324,35 @@ public class PGoApiRequest {
         }))
     }
     
-    public func catchPokemon(encounterId: UInt64, spawnPointId: String, pokeball: Pogoprotos.Inventory.Item.ItemId, hitPokemon: Bool, normalizedReticleSize: Double, normalizedHitPosition: Double, spinModifier: Double) {
+    public func catchPokemon(encounterId: UInt64, spawnPointId: String, pokeball: Pogoprotos.Inventory.Item.ItemId, hitPokemon: Bool? = nil, normalizedReticleSize: Double? = nil, normalizedHitPosition: Double? = nil, spinModifier: Double? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage.Builder()
         messageBuilder.encounterId = encounterId
         messageBuilder.spawnPointId = spawnPointId
         messageBuilder.pokeball = pokeball
-        messageBuilder.hitPokemon = hitPokemon
-        messageBuilder.normalizedReticleSize = normalizedReticleSize
-        messageBuilder.normalizedHitPosition = normalizedHitPosition
-        messageBuilder.spinModifier = spinModifier
+        
+        if hitPokemon == nil {
+            messageBuilder.hitPokemon = true
+        } else {
+            messageBuilder.hitPokemon = hitPokemon!
+        }
+        
+        if normalizedReticleSize == nil {
+            messageBuilder.normalizedReticleSize = 1.95 + Double(Float.random(min: 0, max: 0.05))
+        } else {
+            messageBuilder.normalizedReticleSize = normalizedReticleSize!
+        }
+        
+        if normalizedHitPosition == nil {
+            messageBuilder.normalizedHitPosition = 1.0
+        } else {
+            messageBuilder.normalizedHitPosition = normalizedHitPosition!
+        }
+        
+        if spinModifier == nil {
+            messageBuilder.spinModifier = 0.85 + Double(Float.random(min: 0, max: 0.15))
+        } else {
+            messageBuilder.spinModifier = spinModifier!
+        }
         
         methodList.append(PGoApiMethod(id: .CatchPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CatchPokemonResponse.parseFromData(data)
@@ -486,7 +532,7 @@ public class PGoApiRequest {
         }))
     }
     
-    public func getGymDetails(gymId: String, gymLatitude: Double, gymLongitude: Double, clientVersion: String? = "0.35.0") {
+    public func getGymDetails(gymId: String, gymLatitude: Double, gymLongitude: Double, clientVersion: String? = PGoVersion.versionString) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage.Builder()
         messageBuilder.gymId = gymId
         messageBuilder.playerLatitude = Location.lat
@@ -656,13 +702,19 @@ public class PGoApiRequest {
         }))
     }
     
-    public func getAssetDigest(deviceModel: String, deviceManufacturer: String, locale: String, appVersion: UInt32) {
+    public func getAssetDigest(deviceModel: String?, deviceManufacturer: String?, locale: String?, appVersion: UInt32? = PGoVersion.versionInt) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetAssetDigestMessage.Builder()
-        messageBuilder.platform = .Ios
-        messageBuilder.deviceModel = deviceModel
-        messageBuilder.deviceManufacturer = deviceManufacturer
-        messageBuilder.locale = locale
-        messageBuilder.appVersion = appVersion
+        messageBuilder.platform = device.devicePlatform
+        if deviceModel != nil {
+            messageBuilder.deviceModel = deviceModel!
+        }
+        if deviceManufacturer != nil {
+            messageBuilder.deviceManufacturer = deviceManufacturer!
+        }
+        if locale != nil {
+            messageBuilder.locale = locale!
+        }
+        messageBuilder.appVersion = appVersion!
         methodList.append(PGoApiMethod(id: .GetAssetDigest, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetAssetDigestResponse.parseFromData(data)
         }))
@@ -751,29 +803,22 @@ public class PGoApiRequest {
         }))
     }
     
-    /*
-     
-    Not yet released
-
-     
     public func getBuddyWalked() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage.Builder()
-        methodList.insert(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.parseFromData(data)
-        }), atIndex: 0)
+        }))
 
     }
  
     public func setBuddyPokemon(pokemonId: UInt64) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.insert(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.parseFromData(data)
-        }), atIndex: 0)
+        }))
         
     }
-     
-    */
     
     private func checkChallenge(debug: Bool? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage.Builder()

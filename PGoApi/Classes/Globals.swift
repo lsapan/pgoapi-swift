@@ -9,13 +9,13 @@
 import Foundation
 
 
-public struct PGoEndpoint {
-    public static let LoginInfo = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
-    public static let LoginTicket = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
-    public static let LoginOAuth = "https://sso.pokemon.com/sso/oauth2.0/accessToken"
-    public static var LoginProvider:PGoAuthType = .Ptc
-    public static let Rpc = "https://pgorelease.nianticlabs.com/plfe/rpc"
-    public static let GoogleLogin = "https://android.clients.google.com/auth"
+internal struct PGoEndpoint {
+    internal static let LoginInfo = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
+    internal static let LoginTicket = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
+    internal static let LoginOAuth = "https://sso.pokemon.com/sso/oauth2.0/accessToken"
+    internal static var LoginProvider:PGoAuthType = .Ptc
+    internal static let Rpc = "https://pgorelease.nianticlabs.com/plfe/rpc"
+    internal static let GoogleLogin = "https://android.clients.google.com/auth"
 }
 
 public enum PGoApiIntent {
@@ -92,9 +92,8 @@ public enum PGoApiIntent {
     case SfidaAction
     case SfidaDowser
     case SfidaCapture
-    //case getBuddyWalked
-    //case setBuddyPokemon
-    //case checkChallenge
+    case getBuddyWalked
+    case setBuddyPokemon
     case verifyChallenge
 }
 
