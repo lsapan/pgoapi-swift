@@ -46,7 +46,7 @@ internal struct PGoVersion {
 
 internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
-    internal var checkChallenge: Bool = false
+    internal var checkChallenge: Bool = true
     internal var useResponseObjects: Bool = false
 }
 
@@ -820,11 +820,9 @@ public class PGoApiRequest {
         
     }
     
-    private func checkChallenge(debug: Bool? = nil) {
+    private func checkChallenge(debug: Bool? = false) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage.Builder()
-        if debug != nil {
-            messageBuilder.debugRequest = debug!
-        }
+        messageBuilder.debugRequest = debug!
         methodList.insert(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.CheckChallengeResponse.parseFromData(data)
         }), atIndex: 1)

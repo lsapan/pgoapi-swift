@@ -13,7 +13,7 @@ import Alamofire
 import ProtocolBuffers
 
 
-public class PGoRpcApi {
+internal class PGoRpcApi {
     private let intent: PGoApiIntent
     private var auth: PGoAuth
     private let delegate: PGoApiDelegate?
