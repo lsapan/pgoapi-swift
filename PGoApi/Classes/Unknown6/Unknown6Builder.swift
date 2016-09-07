@@ -9,8 +9,14 @@
 import Foundation
 
 
-internal class LocationFix {
+internal class LocationFixes {
+    internal var builders: Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder> =  []
     internal var timestamp:UInt64 = 0
+    internal var lastTimesnap:UInt64 = 0
+    internal var count: Int = 3
+}
+
+internal class LocationFix {
     private let api: PGoApiRequest
     
     internal init(api: PGoApiRequest) {
@@ -18,39 +24,49 @@ internal class LocationFix {
         self.update()
     }
     
-    private func start() -> UInt64 {
-        let msSinceLastLocationFix = UInt64.random(200, max: 300)
-        self.api.Settings.LocationFixes = [generate(UInt64.random(500, max: 750)),
-                                           generate(UInt64.random(350, max: 450)),
-                                           generate(msSinceLastLocationFix)]
-        return msSinceLastLocationFix
+    private func generateByCount(startAt: Int) {
+        let minFloor = floor(500/Double(self.api.locationFix.count))
+        let maxFloor = floor(750/Double(self.api.locationFix.count))
+        
+        for i in startAt..<self.api.locationFix.count {
+            let minValue:UInt64 = 500 - (UInt64(minFloor) * UInt64(i))
+            let maxValue:UInt64 = 750 - (UInt64(maxFloor) * UInt64(i))
+            
+            let newFix = generate(UInt64.random(minValue, max: maxValue))
+            self.api.locationFix.builders.append(newFix)
+        }
+    }
+    
+    private func getTimeSnapshot() -> UInt64 {
+        return self.api.getTimestamp() - self.api.locationFix.lastTimesnap
+    }
+    
+    private func getLastTimeSnapshot() -> UInt64 {
+        return self.api.locationFix.builders.last!.timestampSnapshot
     }
     
     private func update() {
-        var lastLocFix:UInt64 = 0
-        if self.api.Settings.LocationFixes.count == 0 {
-            lastLocFix = start()
+        self.api.locationFix.lastTimesnap = self.api.getTimestamp()
+        if self.api.locationFix.builders.count == 0 {
+            generateByCount(0)
         } else {
-            if self.api.Settings.LocationFixes[0].timestampSnapshot + 1000 < self.api.getTimestamp() {
-                self.api.Settings.LocationFixes[1].timestampSnapshot += self.api.getTimestampSinceStart()
-                self.api.Settings.LocationFixes[2].timestampSnapshot += self.api.getTimestampSinceStart()
-                lastLocFix = UInt64.random(200, max: 300)
-                self.api.Settings.LocationFixes.removeFirst()
-                self.api.Settings.LocationFixes.append(generate(lastLocFix))
-            } else {
-                self.api.Settings.LocationFixes[0].timestampSnapshot += self.api.getTimestampSinceStart()
-                self.api.Settings.LocationFixes[1].timestampSnapshot += self.api.getTimestampSinceStart()
-                self.api.Settings.LocationFixes[2].timestampSnapshot += self.api.getTimestampSinceStart()
-                lastLocFix = self.api.Settings.LocationFixes.last!.timestampSnapshot
+            var countRemoved = 0
+            for i in 0..<self.api.locationFix.count {
+                self.api.locationFix.builders[i].timestampSnapshot += getTimeSnapshot()
+                if self.api.locationFix.builders[i].timestampSnapshot < 1500 {
+                    countRemoved += 1
+                }
             }
+            self.api.locationFix.builders.removeRange(Range(start: 0, end: countRemoved))
+            generateByCount(self.api.locationFix.count - countRemoved)
         }
-        self.timestamp = lastLocFix
+        self.api.locationFix.timestamp = getLastTimeSnapshot()
     }
     
     private func generate(timeStamp: UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
         let locFix = Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
         locFix.provider = "fused"
-        locFix.timestampSnapshot = timeStamp
+        locFix.timestampSnapshot = self.api.getTimestampSinceStart() + timeStamp
         locFix.latitude = Float(self.api.Location.lat) + Float.random(min: -0.01, max: 0.01)
         locFix.longitude = Float(self.api.Location.long) + Float.random(min: -0.01, max: 0.01)
         locFix.altitude = Float(self.api.Location.alt) + Float.random(min: -0.01, max: 0.01)
@@ -147,27 +163,25 @@ internal class platformRequest {
         return xxh64.xxh64(firstHash, input: requestData.getUInt8Array())
     }
     
-    // Data from https://github.com/PokemonGoF/PokemonGo-Bot/blob/master/pokemongo_bot/api_wrapper.py
-    
     private func getSensorInfo() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
         let sensorInfoBuilder = Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
-        sensorInfoBuilder.timestampSnapshot = self.api.getTimestampSinceStart() + self.api.Settings.realisticStartTimeAdjustment
-        sensorInfoBuilder.linearAccelerationX = Double(Float.random(min: -0.139084026217, max: 0.138112977147))
-        sensorInfoBuilder.linearAccelerationY = Double(Float.random(min: -0.2, max: 0.19))
+        sensorInfoBuilder.timestampSnapshot = self.api.getTimestampSinceStart() + self.api.unknown6Settings.randomizedTimeSnapshot
+        sensorInfoBuilder.linearAccelerationX = Double(Float.random(min: -0.2, max: 0.14))
+        sensorInfoBuilder.linearAccelerationY = Double(Float.random(min: -0.2, max: 0.2))
         sensorInfoBuilder.linearAccelerationZ = Double(Float.random(min: -0.2, max: 0.4))
-        sensorInfoBuilder.magneticFieldX = Double(Float.random(min: -47.149471283, max: 61.8397789001))
-        sensorInfoBuilder.magneticFieldY = Double(Float.random(min: -47.149471283, max: 61.8397789001))
-        sensorInfoBuilder.magneticFieldZ = Double(Float.random(min: -47.149471283, max: 5))
-        sensorInfoBuilder.rotationVectorX = Double(Float.random(min: 0.0729667818829, max: 0.0729667818829))
-        sensorInfoBuilder.rotationVectorY = Double(Float.random(min: -2.788630499244109, max:  3.0586791383810468))
-        sensorInfoBuilder.rotationVectorZ = Double(Float.random(min: -0.34825887123552773, max: 0.19347580173737935))
-        sensorInfoBuilder.gyroscopeRawX = Double(Float.random(min: -0.9703824520111084, max: 0.8556089401245117))
-        sensorInfoBuilder.gyroscopeRawY = Double(Float.random(min: -1.7470258474349976, max:  1.4218578338623047))
-        sensorInfoBuilder.gyroscopeRawZ = Double(Float.random(min: -0.9681901931762695, max: 0.8396636843681335))
-        sensorInfoBuilder.gravityX = Double(Float.random(min: -0.31110161542892456, max: 0.1681540310382843))
-        sensorInfoBuilder.gravityY = Double(Float.random(min: -0.6574847102165222, max:  -0.07290205359458923))
-        sensorInfoBuilder.gravityZ = Double(Float.random(min: -0.9943905472755432, max: -0.7463029026985168))
-        
+        sensorInfoBuilder.magneticFieldX = Double(Float.random(min: -55, max: 62))
+        sensorInfoBuilder.magneticFieldY = Double(Float.random(min: -55, max: 62))
+        sensorInfoBuilder.magneticFieldZ = Double(Float.random(min: -55, max: 5))
+        sensorInfoBuilder.rotationVectorX = Double(Float.random(min: 0, max: 0.07))
+        sensorInfoBuilder.rotationVectorY = Double(Float.random(min: -2, max:  3))
+        sensorInfoBuilder.rotationVectorZ = Double(Float.random(min: -0.1, max: 0.2))
+        sensorInfoBuilder.gyroscopeRawX = Double(Float.random(min: -1, max: 1))
+        sensorInfoBuilder.gyroscopeRawY = Double(Float.random(min: -1, max:  1.4))
+        sensorInfoBuilder.gyroscopeRawZ = Double(Float.random(min: -1, max: 1))
+        sensorInfoBuilder.gravityX = Double(Float.random(min: -0.5, max: 0.15))
+        sensorInfoBuilder.gravityY = Double(Float.random(min: -0.6, max:  -0.07))
+        sensorInfoBuilder.gravityZ = Double(Float.random(min: -1, max: -0.75))
+        sensorInfoBuilder.accelerometerAxes = 3
         return try! sensorInfoBuilder.build()
     }
     
@@ -219,9 +233,11 @@ internal class platformRequest {
     }
     
     private func getLocationFixes() -> [Pogoprotos.Networking.Envelopes.Signature.LocationFix] {
-        return [try! self.api.Settings.LocationFixes[0].build(),
-                try! self.api.Settings.LocationFixes[1].build(),
-                try! self.api.Settings.LocationFixes[2].build()]
+        var fixes: [Pogoprotos.Networking.Envelopes.Signature.LocationFix] = []
+        for i in 0..<self.api.locationFix.count {
+            fixes.append(try! self.api.locationFix.builders[i].build())
+        }
+        return fixes
     }
     
     internal func build() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
@@ -229,20 +245,32 @@ internal class platformRequest {
         
         signatureBuilder.locationHash2 = hashLocation()
         signatureBuilder.locationHash1 = hashAuthTicket()
-        signatureBuilder.unknown25 = self.api.Settings.versionHash
+        signatureBuilder.unknown25 = PGoVersion.versionHash
         signatureBuilder.timestamp = self.api.getTimestamp()
-        signatureBuilder.timestampSinceStart = self.api.getTimestampSinceStart() + self.api.Settings.realisticStartTimeAdjustment
+        signatureBuilder.timestampSinceStart = self.api.getTimestampSinceStart() + self.api.session.realisticStartTimeAdjustment
         signatureBuilder.requestHash = self.requestHashes
         
-        if self.api.Settings.sessionHash == nil {
-            self.api.Settings.sessionHash = NSData.randomBytes(16)
+        if self.api.session.sessionHash == nil {
+            self.api.session.sessionHash = NSData.randomBytes(16)
         }
-        signatureBuilder.sessionHash = self.api.Settings.sessionHash!
+        signatureBuilder.sessionHash = self.api.session.sessionHash!
         
-        signatureBuilder.locationFix = getLocationFixes()
-        signatureBuilder.activityStatus = getActivityStatus()
-        signatureBuilder.deviceInfo = getDeviceInfo()
-        signatureBuilder.sensorInfo = getSensorInfo()
+        if self.api.unknown6Settings.useLocationFix {
+            signatureBuilder.locationFix = getLocationFixes()
+        }
+        
+        if self.api.unknown6Settings.useActivityStatus {
+            signatureBuilder.activityStatus = getActivityStatus()
+        }
+        
+        if self.api.unknown6Settings.useDeviceInfo {
+            signatureBuilder.deviceInfo = getDeviceInfo()
+        }
+        
+        
+        if self.api.unknown6Settings.useSensorInfo {
+            signatureBuilder.sensorInfo = getSensorInfo()
+        }
         
         let signature = try! signatureBuilder.build()
         
