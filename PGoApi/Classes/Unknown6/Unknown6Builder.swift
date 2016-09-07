@@ -57,7 +57,8 @@ internal class LocationFix {
                     countRemoved += 1
                 }
             }
-            self.api.locationFix.builders.removeRange(Range(start: 0, end: countRemoved))
+            let removeRange = 0..<countRemoved
+            self.api.locationFix.builders.removeRange(removeRange)
             generateByCount(self.api.locationFix.count - countRemoved)
         }
         self.api.locationFix.timestamp = getLastTimeSnapshot()
