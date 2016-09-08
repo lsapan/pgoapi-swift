@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import MapKit
+import Alamofire
 
 
 public class PGoLocationUtils {
@@ -35,6 +36,37 @@ public class PGoLocationUtils {
     public struct PGoDirections {
         public var coordinates: Array<PGoLocationUtils.PGoCoordinate>
         public var duration: Double
+    }
+    
+    public func getAltitudeAndHorizontalAccuracy(latitude latitude: Double, longitude: Double, completionHandler: (altitude: Double?, horizontalAccuracy: Double?) -> ()) {
+        /*
+         
+         Example func for completionHandler:
+         func receiveAltitudeAndHorizontalAccuracy(altitude: Double?, horizontalAccuracy: Double?)
+         
+         */
+        Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/elevation/json?locations=\(latitude),\(longitude)&sensor=false", parameters: nil)
+            .responseJSON { response in
+                var altitude:Double? = nil
+                var horizontalAccuracy:Double? = nil
+
+                if let JSON = response.result.value {
+                    let dict = JSON as! [String:AnyObject]
+                    if let result = dict["results"] as? [[String:AnyObject]] {
+                        if result.count > 0 {
+                            if let alt = result[0]["elevation"] as? Double {
+                                altitude = alt
+                            }
+                            if let horAcc = result[0]["resolution"] as? Double {
+                                horizontalAccuracy = horAcc
+                            }
+                        }
+                    }
+                    completionHandler(altitude: altitude, horizontalAccuracy: horizontalAccuracy)
+                } else {
+                    completionHandler(altitude: nil, horizontalAccuracy: nil)
+                }
+        }
     }
     
     public func geocode(latitude: Double, longitude: Double, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
