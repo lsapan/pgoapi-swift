@@ -24,17 +24,17 @@ public class xxhash {
     private let PRIME64_5: UInt64 = 2870177450012600261
     
     private func buildUInt32(bytes: Array<UInt8>) -> UInt32 {
-        let data = NSData(bytes: bytes, length: 4)
-        var result: UInt32 = 0
-        data.getBytes(&result, length: 32)
-        return result
+        let value = bytes.withUnsafeBufferPointer({
+            UnsafePointer<UInt32>($0.baseAddress).memory
+        })
+        return value
     }
     
     private func buildUInt64(bytes: Array<UInt8>) -> UInt64 {
-        let data = NSData(bytes: bytes, length: 8)
-        var result: UInt64 = 0
-        data.getBytes(&result, length: 64)
-        return result
+        let value = bytes.withUnsafeBufferPointer({
+            UnsafePointer<UInt64>($0.baseAddress).memory
+        })
+        return value
     }
     
     public init(seed: UInt32? = 0) {

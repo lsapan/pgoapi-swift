@@ -108,18 +108,11 @@ internal class platformRequest {
         self.locationFix = LocationFix(api: api)
     }
     
-    private func toByteArray<T>(value_: T) -> [UInt8] {
-        var value = value_
-        return withUnsafePointer(&value) {
-            Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: 8))
-        }
-    }
-    
     private func locationToHex(lat: Double, long: Double, accuracy: Double) -> Array<UInt8> {
         var LocationData: Array<UInt8> = []
-        LocationData.appendContentsOf(toByteArray(lat).reverse())
-        LocationData.appendContentsOf(toByteArray(long).reverse())
-        LocationData.appendContentsOf(toByteArray(accuracy).reverse())
+        LocationData.appendContentsOf(UnsafeConverter.bytes(lat).reverse())
+        LocationData.appendContentsOf(UnsafeConverter.bytes(long).reverse())
+        LocationData.appendContentsOf(UnsafeConverter.bytes(accuracy).reverse())
         return LocationData
     }
     
