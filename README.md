@@ -50,6 +50,8 @@ The API makes use of delegates, and a practical working example is in `Example/P
 
 To summarize, create an instance of `PGoApiRequest` and call whichever RPC commands you'd like to run (optionally with parameters). Once you've queued up the commands you'd like, call `makeRequest` to fire off the request and subrequests. Your delegate should implement `didReceiveApiResponse`, `didReceiveApiException` and `didReceiveApiError` to handle the response (or lack thereof).
 
+For more details, [see the documentation](https://github.com/lsapan/pgoapi-swift/wiki/Documentation).
+
 ## Protos
 I'll add documentation on how to update the protos here later. That said, I update them very regularly so you shouldn't need to worry about it.
 
