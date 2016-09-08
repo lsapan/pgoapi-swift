@@ -48,7 +48,7 @@ internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
     internal var checkChallenge: Bool = true
     internal var useResponseObjects: Bool = false
-    internal var showRequests: Bool = false
+    internal var showRequests: Bool = true
 }
 
 internal struct platformRequestSettings {
