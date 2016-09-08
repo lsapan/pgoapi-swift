@@ -57,4 +57,30 @@ internal extension UInt64 {
     internal static func random(min: UInt64, max: UInt64) -> UInt64 {
         return UInt64(Double(max - min) * drand48() + Double(min))
     }
+    internal func getInt64() -> Int64{
+        let bytes = UnsafeConverter.bytes(self)
+        let value = bytes.withUnsafeBufferPointer({
+            UnsafePointer<Int64>($0.baseAddress).memory
+        })
+        return value
+    }
+}
+
+internal extension Int64 {
+    internal func getUInt64() -> UInt64{
+        let bytes = UnsafeConverter.bytes(self)
+        let value = bytes.withUnsafeBufferPointer({
+            UnsafePointer<UInt64>($0.baseAddress).memory
+        })
+        return value
+    }
+}
+
+internal class UnsafeConverter {
+    internal static func bytes<T>(value_: T) -> [UInt8] {
+        var value = value_
+        return withUnsafePointer(&value) {
+            Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: 8))
+        }
+    }
 }

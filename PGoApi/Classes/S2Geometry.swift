@@ -243,35 +243,6 @@ public class S2CellId {
     }
 }
 
-private class IntConverter {
-    private func toByteArray<T>(value_: T) -> [UInt8] {
-        var value = value_
-        return withUnsafePointer(&value) {
-            Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: 8))
-        }
-    }
-}
-
-private extension UInt64 {
-    private func getInt64() -> Int64{
-        let bytes = IntConverter().toByteArray(self)
-        let value = bytes.withUnsafeBufferPointer({
-            UnsafePointer<Int64>($0.baseAddress).memory
-        })
-        return value
-    }
-}
-
-private extension Int64 {
-    private func getUInt64() -> UInt64{
-        let bytes = IntConverter().toByteArray(self)
-        let value = bytes.withUnsafeBufferPointer({
-            UnsafePointer<UInt64>($0.baseAddress).memory
-        })
-        return value
-    }
-}
-
 public extension S2CellId {
     public func parent(level: UInt64) -> S2CellId {
         let newLsb = self.lsbForLevel(level)
