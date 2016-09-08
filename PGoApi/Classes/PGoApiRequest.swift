@@ -105,6 +105,7 @@ public class PGoApiRequest {
         
         if device != nil {
             self.device = device!
+        } else {
             self.device.deviceId = NSData.randomBytes(20).getHexString
         }
     }
