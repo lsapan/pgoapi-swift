@@ -48,6 +48,7 @@ internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
     internal var checkChallenge: Bool = true
     internal var useResponseObjects: Bool = false
+    internal var showRequests: Bool = false
 }
 
 internal struct platformRequestSettings {
@@ -116,6 +117,12 @@ public class PGoApiRequest {
     
     internal func getTimestampSinceStart() -> UInt64 {
         return getTimestamp() - session.timeSinceStart
+    }
+    
+    public func debugMessage(message:String) {
+        if ApiSettings.showRequests {
+            print(message)
+        }
     }
     
     public func refreshAuthToken() {
@@ -188,10 +195,11 @@ public class PGoApiRequest {
         Location.floor = floor
     }
     
-    public func setSettings(refreshAuthTokens: Bool, checkChallenge: Bool, useResponseObjects: Bool) {
+    public func setSettings(refreshAuthTokens: Bool, checkChallenge: Bool, useResponseObjects: Bool, showRequests: Bool) {
         ApiSettings.refreshAuthTokens = refreshAuthTokens
         ApiSettings.checkChallenge = checkChallenge
         ApiSettings.useResponseObjects = useResponseObjects
+        ApiSettings.showRequests = showRequests
     }
     
     public func setPlatformRequestSettings(useActivityStatus useActivityStatus: Bool, useDeviceInfo: Bool, useSensorInfo: Bool, useLocationFix: Bool, locationFixCount: Int? = 3) {

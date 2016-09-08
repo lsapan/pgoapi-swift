@@ -56,13 +56,13 @@ internal class PGoRpcApi {
                 return
             }
             
-            print("Got a response!")
+            self.api.debugMessage("Got a response!")
             self.delegate?.didReceiveApiResponse(self.intent, response: self.parseMainResponse(response.result.value!))
         }
     }
     
     private func buildMainRequest() -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-        print("Generating main request...")
+        self.api.debugMessage("Generating main request...")
         
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         requestBuilder.statusCode = 2
@@ -72,9 +72,9 @@ internal class PGoRpcApi {
         requestBuilder.longitude = self.api.Location.long
         requestBuilder.accuracy = self.api.Location.horizontalAccuracy
         
-        print("Generating subrequests...")
+        self.api.debugMessage("Generating subrequests...")
         for subrequest in subrequests {
-            print("Processing \(subrequest)...")
+            self.api.debugMessage("Processing \(subrequest)...")
             let subrequestBuilder = Pogoprotos.Networking.Requests.Request.Builder()
             subrequestBuilder.requestType = subrequest.id
             subrequestBuilder.requestMessage = subrequest.message.data()
@@ -101,12 +101,12 @@ internal class PGoRpcApi {
             requestBuilder.msSinceLastLocationfix = Int64(UInt64.random(100, max: 300))
         }
         
-        print("Building request...")
+        self.api.debugMessage("Building request...")
         return try! requestBuilder.build()
     }
     
     private func parseMainResponse(data: NSData) -> PGoApiResponse {
-        print("Parsing main response...")
+        self.api.debugMessage("Parsing main response...")
         
         let response = try! Pogoprotos.Networking.Envelopes.ResponseEnvelope.parseFromData(data)
         
@@ -261,7 +261,7 @@ internal class PGoRpcApi {
     }
     
     private func parseSubResponses(response: Pogoprotos.Networking.Envelopes.ResponseEnvelope) -> [GeneratedMessage] {
-        print("Parsing subresponses...")
+        self.api.debugMessage("Parsing subresponses...")
         
         var subresponses: [GeneratedMessage] = []
         for (idx, subresponseData) in response.returns.enumerate() {
