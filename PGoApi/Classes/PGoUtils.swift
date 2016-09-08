@@ -69,11 +69,11 @@ public class PGoLocationUtils {
         }
     }
     
-    public func geocode(latitude: Double, longitude: Double, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
+    public func reverseGeocode(latitude: Double, longitude: Double, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
          Example func for completionHandler:
-         func receivedGeocode(results:PGoLocationUtils.PGoCoordinate?)
+         func receivedReverseGeocode(results:PGoLocationUtils.PGoCoordinate?)
          
          */
         
@@ -103,11 +103,11 @@ public class PGoLocationUtils {
         })
     }
     
-    public func reverseGeocode(location: String, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
+    public func geocode(location: String, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
          Example func for completionHandler:
-         func receivedReverseGeocode(results:PGoLocationUtils.PGoCoordinate?)
+         func receivedGeocode(results:PGoLocationUtils.PGoCoordinate?)
          
         */
         
