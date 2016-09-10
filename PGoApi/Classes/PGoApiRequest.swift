@@ -380,22 +380,19 @@ public class PGoApiRequest {
     
     public func generateS2Cells(lat: Double, long: Double) -> Array<UInt64> {
         let cell = S2CellId(p: S2LatLon(latDegrees: lat, lonDegrees: long).toPoint()).parent(15)
-        var cells: [UInt64] = []
-        
-        var currentCell = cell
-        for _ in 0..<13 {
-            currentCell = currentCell.prev()
-            cells.insert(currentCell.id, atIndex: 0)
+        let cells = cell.getEdgeNeighbors()
+        var unfiltered: [S2CellId] = []
+        var filtered: [UInt64] = []
+        unfiltered.appendContentsOf(cells)
+        for ce in cells {
+            unfiltered.appendContentsOf(ce.getAllNeighbors(15))
         }
-        
-        cells.append(cell.id)
-        
-        currentCell = cell
-        for _ in 0..<10 {
-            currentCell = currentCell.next()
-            cells.append(currentCell.id)
+        for item in unfiltered {
+            if !filtered.contains(item.id) {
+                filtered += [item.id]
+            }
         }
-        return cells
+        return filtered
     }
     
     public func getMapObjects(cellIds: Array<UInt64>? = nil, sinceTimestampMs: Array<Int64>? = nil) {

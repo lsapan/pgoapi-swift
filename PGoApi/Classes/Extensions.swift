@@ -66,6 +66,14 @@ internal extension UInt64 {
     }
 }
 
+internal extension Int {
+    internal func strideByInt(to upper: Int, by step: Int = 1, @noescape closure: (k: Int64) -> Void) {
+        for k in self.stride(through: upper, by: step) {
+            closure(k: Int64(k))
+        }
+    }
+}
+
 internal extension Int64 {
     internal func getUInt64() -> UInt64{
         let bytes = UnsafeConverter.bytes(self)
