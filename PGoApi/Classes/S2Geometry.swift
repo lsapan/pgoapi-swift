@@ -322,13 +322,13 @@ public class S2CellId: Equatable {
         return S2CellId(id: id + (lsb() << 1))
     }
     
-    public func lsbForLevel(level: UInt64) -> UInt64 {
+    public func lsbForLevel(level: Int64) -> Int64 {
         return 1 << (2 * (30 - level))
     }
 
-    public func parent(level: UInt64) -> S2CellId {
+    public func parent(level: Int64) -> S2CellId {
         let newLsb = self.lsbForLevel(level)
-        let newId = (self.id.getInt64() & -newLsb.getInt64()) | newLsb.getInt64()
+        let newId = (self.id.getInt64() & -newLsb) | newLsb
         self.id = newId.getUInt64()
         return self
     }
@@ -385,11 +385,11 @@ public class S2CellId: Equatable {
                 sameFace = (j + k < S2Constants.maxSize)
             } else {
                 sameFace = true
-                output.append(S2CellId.fromFaceIJSame(face, i: i + k, j: j - nbrSize, sameFace: j - size >= 0).parent(UInt64(level)))
-                output.append(S2CellId.fromFaceIJSame(face, i: i + k, j: j + size, sameFace: j + size < S2Constants.maxSize).parent(UInt64(level)))
+                output.append(S2CellId.fromFaceIJSame(face, i: i + k, j: j - nbrSize, sameFace: j - size >= 0).parent(level))
+                output.append(S2CellId.fromFaceIJSame(face, i: i + k, j: j + size, sameFace: j + size < S2Constants.maxSize).parent(level))
             }
-            output.append(S2CellId.fromFaceIJSame(face, i: i - nbrSize, j: j + k, sameFace: sameFace && i - size >= 0).parent(UInt64(level)))
-            output.append(S2CellId.fromFaceIJSame(face, i: i + size, j: j + k, sameFace: sameFace && i + size < S2Constants.maxSize).parent(UInt64(level)))
+            output.append(S2CellId.fromFaceIJSame(face, i: i - nbrSize, j: j + k, sameFace: sameFace && i - size >= 0).parent(level))
+            output.append(S2CellId.fromFaceIJSame(face, i: i + size, j: j + k, sameFace: sameFace && i + size < S2Constants.maxSize).parent(level))
         }
         return output
     }
@@ -405,10 +405,49 @@ public class S2CellId: Equatable {
         let size = 1 << (S2Constants.maxLevel - level)
         let face = toFaceIJOrientation(&i, pj: &j, orientation: &orientation)
         
-        neighbors.append(S2CellId.fromFaceIJSame(face, i: i, j: j - size, sameFace: j - size >= 0).parent(UInt64(level)))
-        neighbors.append(S2CellId.fromFaceIJSame(face, i: i + size, j: j, sameFace: i + size < S2Constants.maxSize).parent(UInt64(level)))
-        neighbors.append(S2CellId.fromFaceIJSame(face, i: i, j: j + size, sameFace: j + size < S2Constants.maxSize).parent(UInt64(level)))
-        neighbors.append(S2CellId.fromFaceIJSame(face, i: i - size, j: j, sameFace: i - size >= 0).parent(UInt64(level)))
+        neighbors.append(S2CellId.fromFaceIJSame(face, i: i, j: j - size, sameFace: j - size >= 0).parent(level))
+        neighbors.append(S2CellId.fromFaceIJSame(face, i: i + size, j: j, sameFace: i + size < S2Constants.maxSize).parent(level))
+        neighbors.append(S2CellId.fromFaceIJSame(face, i: i, j: j + size, sameFace: j + size < S2Constants.maxSize).parent(level))
+        neighbors.append(S2CellId.fromFaceIJSame(face, i: i - size, j: j, sameFace: i - size >= 0).parent(level))
+        
+        return neighbors
+    }
+    public func getVertexNeighbors(level: Int64) -> [S2CellId] {
+        var neighbors: [S2CellId] = []
+        var i: Int64 = 0
+        var j: Int64 = 0
+        var orientation: Int64? = nil
+        let face = toFaceIJOrientation(&i, pj: &j, orientation: &orientation)
+        
+        let halfSize = 1 << (S2Constants.maxLevel - (level + 1))
+        let size = halfSize << 1
+        
+        var iSame:Bool, jSame: Bool, iOffset: Int64, jOffset: Int64
+        
+        if ((i & halfSize) != 0) {
+            iOffset = size
+            iSame = (i + size) < S2Constants.maxSize
+        } else {
+            iOffset = -size
+            iSame = (i - size) >= 0
+        }
+        
+        if (j & halfSize) != 0 {
+            jOffset = size
+            jSame = (j + size) < S2Constants.maxSize
+        } else {
+            jOffset = -size
+            jSame = (j - size) >= 0
+        }
+        
+        let level_ = level
+        neighbors.append(parent(level))
+        neighbors.append(S2CellId.fromFaceIJSame(face, i: i + iOffset, j: j, sameFace: iSame).parent(level))
+        neighbors.append(S2CellId.fromFaceIJSame(face, i: i, j: j + jOffset, sameFace: jSame).parent(level))
+
+        if iSame || jSame {
+            neighbors.append(S2CellId.fromFaceIJSame(face, i: i + iOffset, j: j + jOffset, sameFace: iSame && jSame).parent(level))
+        }
         
         return neighbors
     }
