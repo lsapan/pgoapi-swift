@@ -180,8 +180,9 @@ internal class platformRequest {
     }
     
     private func getActivityStatus() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-        let activityStatusBuilder = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
-        return try! activityStatusBuilder.build()
+        let activityDataBytes:[UInt8] = [72,1]
+        let activityStatus = try! Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.parseFromData(NSData(bytes: activityDataBytes, length: activityDataBytes.count))
+        return activityStatus
     }
     
     private func getDeviceInfo() -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
