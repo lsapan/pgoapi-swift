@@ -440,7 +440,6 @@ public class S2CellId: Equatable {
             jSame = (j - size) >= 0
         }
         
-        let level_ = level
         neighbors.append(parent(level))
         neighbors.append(S2CellId.fromFaceIJSame(face, i: i + iOffset, j: j, sameFace: iSame).parent(level))
         neighbors.append(S2CellId.fromFaceIJSame(face, i: i, j: j + jOffset, sameFace: jSame).parent(level))
