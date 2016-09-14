@@ -43,9 +43,14 @@ public class PtcOAuth: PGoAuth {
             .responseData { response in
                 if let location = response.response!.allHeaderFields["Location"] as? String {
                     let ticketRange = location.rangeOfString("?ticket=")
-                    let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
                     
-                    self.loginOAuth(ticket)
+                    // response will occasionally come back with no ticket arg
+                    if ticketRange == nil {
+                        self.delegate?.didNotReceiveAuth()
+                    } else {
+                        let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
+                        self.loginOAuth(ticket)
+                    }
                 } else {
                     self.delegate?.didNotReceiveAuth()
                 }
