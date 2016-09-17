@@ -76,7 +76,7 @@ internal class LocationFix {
         } else {
             locFix.speed = Float.random(min: 0.1, max: 3.0)
         }
-        if self.api.Location.speed != nil {
+        if self.api.Location.course != nil {
             locFix.course = Float(self.api.Location.course!) + Float.random(min: -0.01, max: 0.01)
         } else {
             locFix.course = Float.random(min: 0, max: 360)
@@ -84,7 +84,7 @@ internal class LocationFix {
         if self.api.Location.floor != nil {
             locFix.floor = self.api.Location.floor!
         }
-        locFix.course = Float(self.api.Location.horizontalAccuracy) + Float.random(min: -0.01, max: 0.01)
+        locFix.horizontalAccuracy = Float(self.api.Location.horizontalAccuracy) + Float.random(min: -0.01, max: 0.01)
         locFix.providerStatus = 3
         locFix.locationType = 1
         return locFix
