@@ -10,24 +10,24 @@ import Foundation
 
 
 internal class PGoEncryptHelper {
-    internal func encryptUInt32(input_: Array<UInt32>) -> Array<UInt32> {
-        var output = Array<UInt32>(count: 64, repeatedValue: 0)
-        var input = Array<UInt32>(count: 203, repeatedValue: 0)
+    internal static func encryptUInt32(_ data: Array<UInt32>) -> Array<UInt32> {
+        var output = Array<UInt32>(repeating: 0, count: 64)
+        var input = Array<UInt32>(repeating: 0, count: 203)
         
-        input = subFuncA().subFuncA(input, data_: input_)
-        input = subFuncB().subFuncB(input)
-        input = subFuncC().subFuncC(input)        
-        input = subFuncD().subFuncD(input)
-        input = subFuncE().subFuncE(input)
-        input = subFuncF().subFuncF(input)
-        input = subFuncG().subFuncG(input)
-        input = subFuncH().subFuncH(input)
-        input = subFuncI().subFuncI(input)
-        input = subFuncJ().subFuncJ(input)
-        input = subFuncK().subFuncK(input)
-        input = subFuncL().subFuncL(input)
-        output = subFuncM().subFuncM(input, output_: output)
-
+        subFuncA().subFuncA(&input, input: data)
+        subFuncB().subFuncB(&input)
+        subFuncC().subFuncC(&input)
+        subFuncD().subFuncD(&input)
+        subFuncE().subFuncE(&input)
+        subFuncF().subFuncF(&input)
+        subFuncG().subFuncG(&input)
+        subFuncH().subFuncH(&input)
+        subFuncI().subFuncI(&input)
+        subFuncJ().subFuncJ(&input)
+        subFuncK().subFuncK(&input)
+        subFuncL().subFuncL(&input)
+        subFuncM().subFuncM(&input, output: &output)
+        
         return output
     }
 }

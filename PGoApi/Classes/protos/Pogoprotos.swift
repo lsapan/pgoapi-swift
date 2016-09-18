@@ -55,5 +55,5 @@ public struct Pogoprotos {
 }
 
 protocol ResponseParser {
-    static func parseFromData(data:NSData) throws -> GeneratedMessage
+    static func parseFromData(_ data:Data) throws -> GeneratedMessage
 }

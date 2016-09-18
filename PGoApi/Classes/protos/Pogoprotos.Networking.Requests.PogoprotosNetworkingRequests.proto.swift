@@ -29,9 +29,9 @@ public extension Pogoprotos.Networking.Requests {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
@@ -41,466 +41,466 @@ public extension Pogoprotos.Networking.Requests {
 
   public enum RequestType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
     // No implementation required
-    case MethodUnset = 0
+    case methodUnset = 0
 
     // Implemented [R & M]
-    case PlayerUpdate = 1
+    case playerUpdate = 1
 
     // Implemented [R & M]
-    case GetPlayer = 2
+    case getPlayer = 2
 
     // Implemented [R & M]
-    case GetInventory = 4
+    case getInventory = 4
 
     // Implemented [R & M]
-    case DownloadSettings = 5
+    case downloadSettings = 5
 
     // Implemented [R & M]
-    case DownloadItemTemplates = 6
+    case downloadItemTemplates = 6
 
     // Implemented [R & M]
-    case DownloadRemoteConfigVersion = 7
+    case downloadRemoteConfigVersion = 7
 
     // Implemented [R & M]
-    case FortSearch = 101
+    case fortSearch = 101
 
     // Implemented [R & M]
-    case Encounter = 102
+    case encounter = 102
 
     // Implemented [R & M]
-    case CatchPokemon = 103
+    case catchPokemon = 103
 
     // Implemented [R & M]
-    case FortDetails = 104
+    case fortDetails = 104
 
     // Can't find this one
-    case ItemUse = 105
+    case itemUse = 105
 
     // Implemented [R & M]
-    case GetMapObjects = 106
+    case getMapObjects = 106
 
     // Implemented [R & M]
-    case FortDeployPokemon = 110
+    case fortDeployPokemon = 110
 
     // Implemented [R & M]
-    case FortRecallPokemon = 111
+    case fortRecallPokemon = 111
 
     // Implemented [R & M]
-    case ReleasePokemon = 112
+    case releasePokemon = 112
 
     // Implemented [R & M]
-    case UseItemPotion = 113
+    case useItemPotion = 113
 
     // Implemented [R & M]
-    case UseItemCapture = 114
+    case useItemCapture = 114
 
     // Can't find this one
-    case UseItemFlee = 115
+    case useItemFlee = 115
 
     // Implemented [R & M]
-    case UseItemRevive = 116
+    case useItemRevive = 116
 
     // Not yet implemented in the game
-    case TradeSearch = 117
+    case tradeSearch = 117
 
     // Not yet implemented in the game
-    case TradeOffer = 118
+    case tradeOffer = 118
 
     // Not yet implemented in the game
-    case TradeResponse = 119
+    case tradeResponse = 119
 
     // Not yet implemented in the game
-    case TradeResult = 120
+    case tradeResult = 120
 
     // Implemented [R & M]
-    case GetPlayerProfile = 121
+    case getPlayerProfile = 121
 
     // Can't find this one
-    case GetItemPack = 122
+    case getItemPack = 122
 
     // Can't find this one
-    case BuyItemPack = 123
+    case buyItemPack = 123
 
     // Can't find this one
-    case BuyGemPack = 124
+    case buyGemPack = 124
 
     // Implemented [R & M]
-    case EvolvePokemon = 125
+    case evolvePokemon = 125
 
     // Implemented [R & M]
-    case GetHatchedEggs = 126
+    case getHatchedEggs = 126
 
     // Implemented [R & M]
-    case EncounterTutorialComplete = 127
+    case encounterTutorialComplete = 127
 
     // Implemented [R & M]
-    case LevelUpRewards = 128
+    case levelUpRewards = 128
 
     // Implemented [R & M]
-    case CheckAwardedBadges = 129
+    case checkAwardedBadges = 129
 
     // Implemented [R & M]
-    case UseItemGym = 133
+    case useItemGym = 133
 
     // Implemented [R & M]
-    case GetGymDetails = 134
+    case getGymDetails = 134
 
     // Implemented [R & M]
-    case StartGymBattle = 135
+    case startGymBattle = 135
 
     // Implemented [R & M]
-    case AttackGym = 136
+    case attackGym = 136
 
     // Implemented [R & M]
-    case RecycleInventoryItem = 137
+    case recycleInventoryItem = 137
 
     // Implemented [R & M]
-    case CollectDailyBonus = 138
+    case collectDailyBonus = 138
 
     // Implemented [R & M]
-    case UseItemXpBoost = 139
+    case useItemXpBoost = 139
 
     // Implemented [R & M]
-    case UseItemEggIncubator = 140
+    case useItemEggIncubator = 140
 
     // Implemented [R & M]
-    case UseIncense = 141
+    case useIncense = 141
 
     // Implemented [R & M]
-    case GetIncensePokemon = 142
+    case getIncensePokemon = 142
 
     // Implemented [R & M]
-    case IncenseEncounter = 143
+    case incenseEncounter = 143
 
     // Implemented [R & M]
-    case AddFortModifier = 144
+    case addFortModifier = 144
 
     // Implemented [R & M]
-    case DiskEncounter = 145
+    case diskEncounter = 145
 
     // Implemented [R & M]
-    case CollectDailyDefenderBonus = 146
+    case collectDailyDefenderBonus = 146
 
     // Implemented [R & M]
-    case UpgradePokemon = 147
+    case upgradePokemon = 147
 
     // Implemented [R & M]
-    case SetFavoritePokemon = 148
+    case setFavoritePokemon = 148
 
     // Implemented [R & M]
-    case NicknamePokemon = 149
+    case nicknamePokemon = 149
 
     // Implemented [R & M]
-    case EquipBadge = 150
+    case equipBadge = 150
 
     // Implemented [R & M]
-    case SetContactSettings = 151
-    case SetBuddyPokemon = 152
-    case GetBuddyWalked = 153
+    case setContactSettings = 151
+    case setBuddyPokemon = 152
+    case getBuddyWalked = 153
 
     // Implemented [R & M]
-    case GetAssetDigest = 300
+    case getAssetDigest = 300
 
     // Implemented [R & M]
-    case GetDownloadUrls = 301
+    case getDownloadUrls = 301
 
     // Implemented [R & M]
-    case GetSuggestedCodenames = 401
+    case getSuggestedCodenames = 401
 
     // Implemented [R & M] TEST RESPONSE
-    case CheckCodenameAvailable = 402
+    case checkCodenameAvailable = 402
 
     // Implemented [R & M] TEST RESPONSE
-    case ClaimCodename = 403
+    case claimCodename = 403
 
     // Implemented [R & M]
-    case SetAvatar = 404
+    case setAvatar = 404
 
     // Implemented [R & M]
-    case SetPlayerTeam = 405
+    case setPlayerTeam = 405
 
     // Implemented [R & M]
-    case MarkTutorialComplete = 406
+    case markTutorialComplete = 406
 
     // Can't find this one
-    case LoadSpawnPoints = 500
-    case CheckChallenge = 600
-    case VerifyChallenge = 601
+    case loadSpawnPoints = 500
+    case checkChallenge = 600
+    case verifyChallenge = 601
 
     // Implemented [R & M]
-    case Echo = 666
-    case DebugUpdateInventory = 700
-    case DebugDeletePlayer = 701
+    case echo = 666
+    case debugUpdateInventory = 700
+    case debugDeletePlayer = 701
 
     // Not yet released.
-    case SfidaRegistration = 800
+    case sfidaRegistration = 800
 
     // Implemented [R & M]
-    case SfidaActionLog = 801
+    case sfidaActionLog = 801
 
     // Not yet released.
-    case SfidaCertification = 802
+    case sfidaCertification = 802
 
     // Not yet released.
-    case SfidaUpdate = 803
+    case sfidaUpdate = 803
 
     // Not yet released.
-    case SfidaAction = 804
+    case sfidaAction = 804
 
     // Not yet released.
-    case SfidaDowser = 805
+    case sfidaDowser = 805
 
     // Not yet released.
-    case SfidaCapture = 806
+    case sfidaCapture = 806
     public func toString() -> String {
       switch self {
-      case .MethodUnset: return "METHOD_UNSET"
-      case .PlayerUpdate: return "PLAYER_UPDATE"
-      case .GetPlayer: return "GET_PLAYER"
-      case .GetInventory: return "GET_INVENTORY"
-      case .DownloadSettings: return "DOWNLOAD_SETTINGS"
-      case .DownloadItemTemplates: return "DOWNLOAD_ITEM_TEMPLATES"
-      case .DownloadRemoteConfigVersion: return "DOWNLOAD_REMOTE_CONFIG_VERSION"
-      case .FortSearch: return "FORT_SEARCH"
-      case .Encounter: return "ENCOUNTER"
-      case .CatchPokemon: return "CATCH_POKEMON"
-      case .FortDetails: return "FORT_DETAILS"
-      case .ItemUse: return "ITEM_USE"
-      case .GetMapObjects: return "GET_MAP_OBJECTS"
-      case .FortDeployPokemon: return "FORT_DEPLOY_POKEMON"
-      case .FortRecallPokemon: return "FORT_RECALL_POKEMON"
-      case .ReleasePokemon: return "RELEASE_POKEMON"
-      case .UseItemPotion: return "USE_ITEM_POTION"
-      case .UseItemCapture: return "USE_ITEM_CAPTURE"
-      case .UseItemFlee: return "USE_ITEM_FLEE"
-      case .UseItemRevive: return "USE_ITEM_REVIVE"
-      case .TradeSearch: return "TRADE_SEARCH"
-      case .TradeOffer: return "TRADE_OFFER"
-      case .TradeResponse: return "TRADE_RESPONSE"
-      case .TradeResult: return "TRADE_RESULT"
-      case .GetPlayerProfile: return "GET_PLAYER_PROFILE"
-      case .GetItemPack: return "GET_ITEM_PACK"
-      case .BuyItemPack: return "BUY_ITEM_PACK"
-      case .BuyGemPack: return "BUY_GEM_PACK"
-      case .EvolvePokemon: return "EVOLVE_POKEMON"
-      case .GetHatchedEggs: return "GET_HATCHED_EGGS"
-      case .EncounterTutorialComplete: return "ENCOUNTER_TUTORIAL_COMPLETE"
-      case .LevelUpRewards: return "LEVEL_UP_REWARDS"
-      case .CheckAwardedBadges: return "CHECK_AWARDED_BADGES"
-      case .UseItemGym: return "USE_ITEM_GYM"
-      case .GetGymDetails: return "GET_GYM_DETAILS"
-      case .StartGymBattle: return "START_GYM_BATTLE"
-      case .AttackGym: return "ATTACK_GYM"
-      case .RecycleInventoryItem: return "RECYCLE_INVENTORY_ITEM"
-      case .CollectDailyBonus: return "COLLECT_DAILY_BONUS"
-      case .UseItemXpBoost: return "USE_ITEM_XP_BOOST"
-      case .UseItemEggIncubator: return "USE_ITEM_EGG_INCUBATOR"
-      case .UseIncense: return "USE_INCENSE"
-      case .GetIncensePokemon: return "GET_INCENSE_POKEMON"
-      case .IncenseEncounter: return "INCENSE_ENCOUNTER"
-      case .AddFortModifier: return "ADD_FORT_MODIFIER"
-      case .DiskEncounter: return "DISK_ENCOUNTER"
-      case .CollectDailyDefenderBonus: return "COLLECT_DAILY_DEFENDER_BONUS"
-      case .UpgradePokemon: return "UPGRADE_POKEMON"
-      case .SetFavoritePokemon: return "SET_FAVORITE_POKEMON"
-      case .NicknamePokemon: return "NICKNAME_POKEMON"
-      case .EquipBadge: return "EQUIP_BADGE"
-      case .SetContactSettings: return "SET_CONTACT_SETTINGS"
-      case .SetBuddyPokemon: return "SET_BUDDY_POKEMON"
-      case .GetBuddyWalked: return "GET_BUDDY_WALKED"
-      case .GetAssetDigest: return "GET_ASSET_DIGEST"
-      case .GetDownloadUrls: return "GET_DOWNLOAD_URLS"
-      case .GetSuggestedCodenames: return "GET_SUGGESTED_CODENAMES"
-      case .CheckCodenameAvailable: return "CHECK_CODENAME_AVAILABLE"
-      case .ClaimCodename: return "CLAIM_CODENAME"
-      case .SetAvatar: return "SET_AVATAR"
-      case .SetPlayerTeam: return "SET_PLAYER_TEAM"
-      case .MarkTutorialComplete: return "MARK_TUTORIAL_COMPLETE"
-      case .LoadSpawnPoints: return "LOAD_SPAWN_POINTS"
-      case .CheckChallenge: return "CHECK_CHALLENGE"
-      case .VerifyChallenge: return "VERIFY_CHALLENGE"
-      case .Echo: return "ECHO"
-      case .DebugUpdateInventory: return "DEBUG_UPDATE_INVENTORY"
-      case .DebugDeletePlayer: return "DEBUG_DELETE_PLAYER"
-      case .SfidaRegistration: return "SFIDA_REGISTRATION"
-      case .SfidaActionLog: return "SFIDA_ACTION_LOG"
-      case .SfidaCertification: return "SFIDA_CERTIFICATION"
-      case .SfidaUpdate: return "SFIDA_UPDATE"
-      case .SfidaAction: return "SFIDA_ACTION"
-      case .SfidaDowser: return "SFIDA_DOWSER"
-      case .SfidaCapture: return "SFIDA_CAPTURE"
+      case .methodUnset: return "METHOD_UNSET"
+      case .playerUpdate: return "PLAYER_UPDATE"
+      case .getPlayer: return "GET_PLAYER"
+      case .getInventory: return "GET_INVENTORY"
+      case .downloadSettings: return "DOWNLOAD_SETTINGS"
+      case .downloadItemTemplates: return "DOWNLOAD_ITEM_TEMPLATES"
+      case .downloadRemoteConfigVersion: return "DOWNLOAD_REMOTE_CONFIG_VERSION"
+      case .fortSearch: return "FORT_SEARCH"
+      case .encounter: return "ENCOUNTER"
+      case .catchPokemon: return "CATCH_POKEMON"
+      case .fortDetails: return "FORT_DETAILS"
+      case .itemUse: return "ITEM_USE"
+      case .getMapObjects: return "GET_MAP_OBJECTS"
+      case .fortDeployPokemon: return "FORT_DEPLOY_POKEMON"
+      case .fortRecallPokemon: return "FORT_RECALL_POKEMON"
+      case .releasePokemon: return "RELEASE_POKEMON"
+      case .useItemPotion: return "USE_ITEM_POTION"
+      case .useItemCapture: return "USE_ITEM_CAPTURE"
+      case .useItemFlee: return "USE_ITEM_FLEE"
+      case .useItemRevive: return "USE_ITEM_REVIVE"
+      case .tradeSearch: return "TRADE_SEARCH"
+      case .tradeOffer: return "TRADE_OFFER"
+      case .tradeResponse: return "TRADE_RESPONSE"
+      case .tradeResult: return "TRADE_RESULT"
+      case .getPlayerProfile: return "GET_PLAYER_PROFILE"
+      case .getItemPack: return "GET_ITEM_PACK"
+      case .buyItemPack: return "BUY_ITEM_PACK"
+      case .buyGemPack: return "BUY_GEM_PACK"
+      case .evolvePokemon: return "EVOLVE_POKEMON"
+      case .getHatchedEggs: return "GET_HATCHED_EGGS"
+      case .encounterTutorialComplete: return "ENCOUNTER_TUTORIAL_COMPLETE"
+      case .levelUpRewards: return "LEVEL_UP_REWARDS"
+      case .checkAwardedBadges: return "CHECK_AWARDED_BADGES"
+      case .useItemGym: return "USE_ITEM_GYM"
+      case .getGymDetails: return "GET_GYM_DETAILS"
+      case .startGymBattle: return "START_GYM_BATTLE"
+      case .attackGym: return "ATTACK_GYM"
+      case .recycleInventoryItem: return "RECYCLE_INVENTORY_ITEM"
+      case .collectDailyBonus: return "COLLECT_DAILY_BONUS"
+      case .useItemXpBoost: return "USE_ITEM_XP_BOOST"
+      case .useItemEggIncubator: return "USE_ITEM_EGG_INCUBATOR"
+      case .useIncense: return "USE_INCENSE"
+      case .getIncensePokemon: return "GET_INCENSE_POKEMON"
+      case .incenseEncounter: return "INCENSE_ENCOUNTER"
+      case .addFortModifier: return "ADD_FORT_MODIFIER"
+      case .diskEncounter: return "DISK_ENCOUNTER"
+      case .collectDailyDefenderBonus: return "COLLECT_DAILY_DEFENDER_BONUS"
+      case .upgradePokemon: return "UPGRADE_POKEMON"
+      case .setFavoritePokemon: return "SET_FAVORITE_POKEMON"
+      case .nicknamePokemon: return "NICKNAME_POKEMON"
+      case .equipBadge: return "EQUIP_BADGE"
+      case .setContactSettings: return "SET_CONTACT_SETTINGS"
+      case .setBuddyPokemon: return "SET_BUDDY_POKEMON"
+      case .getBuddyWalked: return "GET_BUDDY_WALKED"
+      case .getAssetDigest: return "GET_ASSET_DIGEST"
+      case .getDownloadUrls: return "GET_DOWNLOAD_URLS"
+      case .getSuggestedCodenames: return "GET_SUGGESTED_CODENAMES"
+      case .checkCodenameAvailable: return "CHECK_CODENAME_AVAILABLE"
+      case .claimCodename: return "CLAIM_CODENAME"
+      case .setAvatar: return "SET_AVATAR"
+      case .setPlayerTeam: return "SET_PLAYER_TEAM"
+      case .markTutorialComplete: return "MARK_TUTORIAL_COMPLETE"
+      case .loadSpawnPoints: return "LOAD_SPAWN_POINTS"
+      case .checkChallenge: return "CHECK_CHALLENGE"
+      case .verifyChallenge: return "VERIFY_CHALLENGE"
+      case .echo: return "ECHO"
+      case .debugUpdateInventory: return "DEBUG_UPDATE_INVENTORY"
+      case .debugDeletePlayer: return "DEBUG_DELETE_PLAYER"
+      case .sfidaRegistration: return "SFIDA_REGISTRATION"
+      case .sfidaActionLog: return "SFIDA_ACTION_LOG"
+      case .sfidaCertification: return "SFIDA_CERTIFICATION"
+      case .sfidaUpdate: return "SFIDA_UPDATE"
+      case .sfidaAction: return "SFIDA_ACTION"
+      case .sfidaDowser: return "SFIDA_DOWSER"
+      case .sfidaCapture: return "SFIDA_CAPTURE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Networking.Requests.RequestType {
       switch str {
-      case "METHOD_UNSET":  return .MethodUnset
-      case "PLAYER_UPDATE":  return .PlayerUpdate
-      case "GET_PLAYER":  return .GetPlayer
-      case "GET_INVENTORY":  return .GetInventory
-      case "DOWNLOAD_SETTINGS":  return .DownloadSettings
-      case "DOWNLOAD_ITEM_TEMPLATES":  return .DownloadItemTemplates
-      case "DOWNLOAD_REMOTE_CONFIG_VERSION":  return .DownloadRemoteConfigVersion
-      case "FORT_SEARCH":  return .FortSearch
-      case "ENCOUNTER":  return .Encounter
-      case "CATCH_POKEMON":  return .CatchPokemon
-      case "FORT_DETAILS":  return .FortDetails
-      case "ITEM_USE":  return .ItemUse
-      case "GET_MAP_OBJECTS":  return .GetMapObjects
-      case "FORT_DEPLOY_POKEMON":  return .FortDeployPokemon
-      case "FORT_RECALL_POKEMON":  return .FortRecallPokemon
-      case "RELEASE_POKEMON":  return .ReleasePokemon
-      case "USE_ITEM_POTION":  return .UseItemPotion
-      case "USE_ITEM_CAPTURE":  return .UseItemCapture
-      case "USE_ITEM_FLEE":  return .UseItemFlee
-      case "USE_ITEM_REVIVE":  return .UseItemRevive
-      case "TRADE_SEARCH":  return .TradeSearch
-      case "TRADE_OFFER":  return .TradeOffer
-      case "TRADE_RESPONSE":  return .TradeResponse
-      case "TRADE_RESULT":  return .TradeResult
-      case "GET_PLAYER_PROFILE":  return .GetPlayerProfile
-      case "GET_ITEM_PACK":  return .GetItemPack
-      case "BUY_ITEM_PACK":  return .BuyItemPack
-      case "BUY_GEM_PACK":  return .BuyGemPack
-      case "EVOLVE_POKEMON":  return .EvolvePokemon
-      case "GET_HATCHED_EGGS":  return .GetHatchedEggs
-      case "ENCOUNTER_TUTORIAL_COMPLETE":  return .EncounterTutorialComplete
-      case "LEVEL_UP_REWARDS":  return .LevelUpRewards
-      case "CHECK_AWARDED_BADGES":  return .CheckAwardedBadges
-      case "USE_ITEM_GYM":  return .UseItemGym
-      case "GET_GYM_DETAILS":  return .GetGymDetails
-      case "START_GYM_BATTLE":  return .StartGymBattle
-      case "ATTACK_GYM":  return .AttackGym
-      case "RECYCLE_INVENTORY_ITEM":  return .RecycleInventoryItem
-      case "COLLECT_DAILY_BONUS":  return .CollectDailyBonus
-      case "USE_ITEM_XP_BOOST":  return .UseItemXpBoost
-      case "USE_ITEM_EGG_INCUBATOR":  return .UseItemEggIncubator
-      case "USE_INCENSE":  return .UseIncense
-      case "GET_INCENSE_POKEMON":  return .GetIncensePokemon
-      case "INCENSE_ENCOUNTER":  return .IncenseEncounter
-      case "ADD_FORT_MODIFIER":  return .AddFortModifier
-      case "DISK_ENCOUNTER":  return .DiskEncounter
-      case "COLLECT_DAILY_DEFENDER_BONUS":  return .CollectDailyDefenderBonus
-      case "UPGRADE_POKEMON":  return .UpgradePokemon
-      case "SET_FAVORITE_POKEMON":  return .SetFavoritePokemon
-      case "NICKNAME_POKEMON":  return .NicknamePokemon
-      case "EQUIP_BADGE":  return .EquipBadge
-      case "SET_CONTACT_SETTINGS":  return .SetContactSettings
-      case "SET_BUDDY_POKEMON":  return .SetBuddyPokemon
-      case "GET_BUDDY_WALKED":  return .GetBuddyWalked
-      case "GET_ASSET_DIGEST":  return .GetAssetDigest
-      case "GET_DOWNLOAD_URLS":  return .GetDownloadUrls
-      case "GET_SUGGESTED_CODENAMES":  return .GetSuggestedCodenames
-      case "CHECK_CODENAME_AVAILABLE":  return .CheckCodenameAvailable
-      case "CLAIM_CODENAME":  return .ClaimCodename
-      case "SET_AVATAR":  return .SetAvatar
-      case "SET_PLAYER_TEAM":  return .SetPlayerTeam
-      case "MARK_TUTORIAL_COMPLETE":  return .MarkTutorialComplete
-      case "LOAD_SPAWN_POINTS":  return .LoadSpawnPoints
-      case "CHECK_CHALLENGE":  return .CheckChallenge
-      case "VERIFY_CHALLENGE":  return .VerifyChallenge
-      case "ECHO":  return .Echo
-      case "DEBUG_UPDATE_INVENTORY":  return .DebugUpdateInventory
-      case "DEBUG_DELETE_PLAYER":  return .DebugDeletePlayer
-      case "SFIDA_REGISTRATION":  return .SfidaRegistration
-      case "SFIDA_ACTION_LOG":  return .SfidaActionLog
-      case "SFIDA_CERTIFICATION":  return .SfidaCertification
-      case "SFIDA_UPDATE":  return .SfidaUpdate
-      case "SFIDA_ACTION":  return .SfidaAction
-      case "SFIDA_DOWSER":  return .SfidaDowser
-      case "SFIDA_CAPTURE":  return .SfidaCapture
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "METHOD_UNSET":  return .methodUnset
+      case "PLAYER_UPDATE":  return .playerUpdate
+      case "GET_PLAYER":  return .getPlayer
+      case "GET_INVENTORY":  return .getInventory
+      case "DOWNLOAD_SETTINGS":  return .downloadSettings
+      case "DOWNLOAD_ITEM_TEMPLATES":  return .downloadItemTemplates
+      case "DOWNLOAD_REMOTE_CONFIG_VERSION":  return .downloadRemoteConfigVersion
+      case "FORT_SEARCH":  return .fortSearch
+      case "ENCOUNTER":  return .encounter
+      case "CATCH_POKEMON":  return .catchPokemon
+      case "FORT_DETAILS":  return .fortDetails
+      case "ITEM_USE":  return .itemUse
+      case "GET_MAP_OBJECTS":  return .getMapObjects
+      case "FORT_DEPLOY_POKEMON":  return .fortDeployPokemon
+      case "FORT_RECALL_POKEMON":  return .fortRecallPokemon
+      case "RELEASE_POKEMON":  return .releasePokemon
+      case "USE_ITEM_POTION":  return .useItemPotion
+      case "USE_ITEM_CAPTURE":  return .useItemCapture
+      case "USE_ITEM_FLEE":  return .useItemFlee
+      case "USE_ITEM_REVIVE":  return .useItemRevive
+      case "TRADE_SEARCH":  return .tradeSearch
+      case "TRADE_OFFER":  return .tradeOffer
+      case "TRADE_RESPONSE":  return .tradeResponse
+      case "TRADE_RESULT":  return .tradeResult
+      case "GET_PLAYER_PROFILE":  return .getPlayerProfile
+      case "GET_ITEM_PACK":  return .getItemPack
+      case "BUY_ITEM_PACK":  return .buyItemPack
+      case "BUY_GEM_PACK":  return .buyGemPack
+      case "EVOLVE_POKEMON":  return .evolvePokemon
+      case "GET_HATCHED_EGGS":  return .getHatchedEggs
+      case "ENCOUNTER_TUTORIAL_COMPLETE":  return .encounterTutorialComplete
+      case "LEVEL_UP_REWARDS":  return .levelUpRewards
+      case "CHECK_AWARDED_BADGES":  return .checkAwardedBadges
+      case "USE_ITEM_GYM":  return .useItemGym
+      case "GET_GYM_DETAILS":  return .getGymDetails
+      case "START_GYM_BATTLE":  return .startGymBattle
+      case "ATTACK_GYM":  return .attackGym
+      case "RECYCLE_INVENTORY_ITEM":  return .recycleInventoryItem
+      case "COLLECT_DAILY_BONUS":  return .collectDailyBonus
+      case "USE_ITEM_XP_BOOST":  return .useItemXpBoost
+      case "USE_ITEM_EGG_INCUBATOR":  return .useItemEggIncubator
+      case "USE_INCENSE":  return .useIncense
+      case "GET_INCENSE_POKEMON":  return .getIncensePokemon
+      case "INCENSE_ENCOUNTER":  return .incenseEncounter
+      case "ADD_FORT_MODIFIER":  return .addFortModifier
+      case "DISK_ENCOUNTER":  return .diskEncounter
+      case "COLLECT_DAILY_DEFENDER_BONUS":  return .collectDailyDefenderBonus
+      case "UPGRADE_POKEMON":  return .upgradePokemon
+      case "SET_FAVORITE_POKEMON":  return .setFavoritePokemon
+      case "NICKNAME_POKEMON":  return .nicknamePokemon
+      case "EQUIP_BADGE":  return .equipBadge
+      case "SET_CONTACT_SETTINGS":  return .setContactSettings
+      case "SET_BUDDY_POKEMON":  return .setBuddyPokemon
+      case "GET_BUDDY_WALKED":  return .getBuddyWalked
+      case "GET_ASSET_DIGEST":  return .getAssetDigest
+      case "GET_DOWNLOAD_URLS":  return .getDownloadUrls
+      case "GET_SUGGESTED_CODENAMES":  return .getSuggestedCodenames
+      case "CHECK_CODENAME_AVAILABLE":  return .checkCodenameAvailable
+      case "CLAIM_CODENAME":  return .claimCodename
+      case "SET_AVATAR":  return .setAvatar
+      case "SET_PLAYER_TEAM":  return .setPlayerTeam
+      case "MARK_TUTORIAL_COMPLETE":  return .markTutorialComplete
+      case "LOAD_SPAWN_POINTS":  return .loadSpawnPoints
+      case "CHECK_CHALLENGE":  return .checkChallenge
+      case "VERIFY_CHALLENGE":  return .verifyChallenge
+      case "ECHO":  return .echo
+      case "DEBUG_UPDATE_INVENTORY":  return .debugUpdateInventory
+      case "DEBUG_DELETE_PLAYER":  return .debugDeletePlayer
+      case "SFIDA_REGISTRATION":  return .sfidaRegistration
+      case "SFIDA_ACTION_LOG":  return .sfidaActionLog
+      case "SFIDA_CERTIFICATION":  return .sfidaCertification
+      case "SFIDA_UPDATE":  return .sfidaUpdate
+      case "SFIDA_ACTION":  return .sfidaAction
+      case "SFIDA_DOWSER":  return .sfidaDowser
+      case "SFIDA_CAPTURE":  return .sfidaCapture
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .MethodUnset: return ".MethodUnset"
-            case .PlayerUpdate: return ".PlayerUpdate"
-            case .GetPlayer: return ".GetPlayer"
-            case .GetInventory: return ".GetInventory"
-            case .DownloadSettings: return ".DownloadSettings"
-            case .DownloadItemTemplates: return ".DownloadItemTemplates"
-            case .DownloadRemoteConfigVersion: return ".DownloadRemoteConfigVersion"
-            case .FortSearch: return ".FortSearch"
-            case .Encounter: return ".Encounter"
-            case .CatchPokemon: return ".CatchPokemon"
-            case .FortDetails: return ".FortDetails"
-            case .ItemUse: return ".ItemUse"
-            case .GetMapObjects: return ".GetMapObjects"
-            case .FortDeployPokemon: return ".FortDeployPokemon"
-            case .FortRecallPokemon: return ".FortRecallPokemon"
-            case .ReleasePokemon: return ".ReleasePokemon"
-            case .UseItemPotion: return ".UseItemPotion"
-            case .UseItemCapture: return ".UseItemCapture"
-            case .UseItemFlee: return ".UseItemFlee"
-            case .UseItemRevive: return ".UseItemRevive"
-            case .TradeSearch: return ".TradeSearch"
-            case .TradeOffer: return ".TradeOffer"
-            case .TradeResponse: return ".TradeResponse"
-            case .TradeResult: return ".TradeResult"
-            case .GetPlayerProfile: return ".GetPlayerProfile"
-            case .GetItemPack: return ".GetItemPack"
-            case .BuyItemPack: return ".BuyItemPack"
-            case .BuyGemPack: return ".BuyGemPack"
-            case .EvolvePokemon: return ".EvolvePokemon"
-            case .GetHatchedEggs: return ".GetHatchedEggs"
-            case .EncounterTutorialComplete: return ".EncounterTutorialComplete"
-            case .LevelUpRewards: return ".LevelUpRewards"
-            case .CheckAwardedBadges: return ".CheckAwardedBadges"
-            case .UseItemGym: return ".UseItemGym"
-            case .GetGymDetails: return ".GetGymDetails"
-            case .StartGymBattle: return ".StartGymBattle"
-            case .AttackGym: return ".AttackGym"
-            case .RecycleInventoryItem: return ".RecycleInventoryItem"
-            case .CollectDailyBonus: return ".CollectDailyBonus"
-            case .UseItemXpBoost: return ".UseItemXpBoost"
-            case .UseItemEggIncubator: return ".UseItemEggIncubator"
-            case .UseIncense: return ".UseIncense"
-            case .GetIncensePokemon: return ".GetIncensePokemon"
-            case .IncenseEncounter: return ".IncenseEncounter"
-            case .AddFortModifier: return ".AddFortModifier"
-            case .DiskEncounter: return ".DiskEncounter"
-            case .CollectDailyDefenderBonus: return ".CollectDailyDefenderBonus"
-            case .UpgradePokemon: return ".UpgradePokemon"
-            case .SetFavoritePokemon: return ".SetFavoritePokemon"
-            case .NicknamePokemon: return ".NicknamePokemon"
-            case .EquipBadge: return ".EquipBadge"
-            case .SetContactSettings: return ".SetContactSettings"
-            case .SetBuddyPokemon: return ".SetBuddyPokemon"
-            case .GetBuddyWalked: return ".GetBuddyWalked"
-            case .GetAssetDigest: return ".GetAssetDigest"
-            case .GetDownloadUrls: return ".GetDownloadUrls"
-            case .GetSuggestedCodenames: return ".GetSuggestedCodenames"
-            case .CheckCodenameAvailable: return ".CheckCodenameAvailable"
-            case .ClaimCodename: return ".ClaimCodename"
-            case .SetAvatar: return ".SetAvatar"
-            case .SetPlayerTeam: return ".SetPlayerTeam"
-            case .MarkTutorialComplete: return ".MarkTutorialComplete"
-            case .LoadSpawnPoints: return ".LoadSpawnPoints"
-            case .CheckChallenge: return ".CheckChallenge"
-            case .VerifyChallenge: return ".VerifyChallenge"
-            case .Echo: return ".Echo"
-            case .DebugUpdateInventory: return ".DebugUpdateInventory"
-            case .DebugDeletePlayer: return ".DebugDeletePlayer"
-            case .SfidaRegistration: return ".SfidaRegistration"
-            case .SfidaActionLog: return ".SfidaActionLog"
-            case .SfidaCertification: return ".SfidaCertification"
-            case .SfidaUpdate: return ".SfidaUpdate"
-            case .SfidaAction: return ".SfidaAction"
-            case .SfidaDowser: return ".SfidaDowser"
-            case .SfidaCapture: return ".SfidaCapture"
-        }
+      switch self {
+      case .methodUnset: return ".methodUnset"
+      case .playerUpdate: return ".playerUpdate"
+      case .getPlayer: return ".getPlayer"
+      case .getInventory: return ".getInventory"
+      case .downloadSettings: return ".downloadSettings"
+      case .downloadItemTemplates: return ".downloadItemTemplates"
+      case .downloadRemoteConfigVersion: return ".downloadRemoteConfigVersion"
+      case .fortSearch: return ".fortSearch"
+      case .encounter: return ".encounter"
+      case .catchPokemon: return ".catchPokemon"
+      case .fortDetails: return ".fortDetails"
+      case .itemUse: return ".itemUse"
+      case .getMapObjects: return ".getMapObjects"
+      case .fortDeployPokemon: return ".fortDeployPokemon"
+      case .fortRecallPokemon: return ".fortRecallPokemon"
+      case .releasePokemon: return ".releasePokemon"
+      case .useItemPotion: return ".useItemPotion"
+      case .useItemCapture: return ".useItemCapture"
+      case .useItemFlee: return ".useItemFlee"
+      case .useItemRevive: return ".useItemRevive"
+      case .tradeSearch: return ".tradeSearch"
+      case .tradeOffer: return ".tradeOffer"
+      case .tradeResponse: return ".tradeResponse"
+      case .tradeResult: return ".tradeResult"
+      case .getPlayerProfile: return ".getPlayerProfile"
+      case .getItemPack: return ".getItemPack"
+      case .buyItemPack: return ".buyItemPack"
+      case .buyGemPack: return ".buyGemPack"
+      case .evolvePokemon: return ".evolvePokemon"
+      case .getHatchedEggs: return ".getHatchedEggs"
+      case .encounterTutorialComplete: return ".encounterTutorialComplete"
+      case .levelUpRewards: return ".levelUpRewards"
+      case .checkAwardedBadges: return ".checkAwardedBadges"
+      case .useItemGym: return ".useItemGym"
+      case .getGymDetails: return ".getGymDetails"
+      case .startGymBattle: return ".startGymBattle"
+      case .attackGym: return ".attackGym"
+      case .recycleInventoryItem: return ".recycleInventoryItem"
+      case .collectDailyBonus: return ".collectDailyBonus"
+      case .useItemXpBoost: return ".useItemXpBoost"
+      case .useItemEggIncubator: return ".useItemEggIncubator"
+      case .useIncense: return ".useIncense"
+      case .getIncensePokemon: return ".getIncensePokemon"
+      case .incenseEncounter: return ".incenseEncounter"
+      case .addFortModifier: return ".addFortModifier"
+      case .diskEncounter: return ".diskEncounter"
+      case .collectDailyDefenderBonus: return ".collectDailyDefenderBonus"
+      case .upgradePokemon: return ".upgradePokemon"
+      case .setFavoritePokemon: return ".setFavoritePokemon"
+      case .nicknamePokemon: return ".nicknamePokemon"
+      case .equipBadge: return ".equipBadge"
+      case .setContactSettings: return ".setContactSettings"
+      case .setBuddyPokemon: return ".setBuddyPokemon"
+      case .getBuddyWalked: return ".getBuddyWalked"
+      case .getAssetDigest: return ".getAssetDigest"
+      case .getDownloadUrls: return ".getDownloadUrls"
+      case .getSuggestedCodenames: return ".getSuggestedCodenames"
+      case .checkCodenameAvailable: return ".checkCodenameAvailable"
+      case .claimCodename: return ".claimCodename"
+      case .setAvatar: return ".setAvatar"
+      case .setPlayerTeam: return ".setPlayerTeam"
+      case .markTutorialComplete: return ".markTutorialComplete"
+      case .loadSpawnPoints: return ".loadSpawnPoints"
+      case .checkChallenge: return ".checkChallenge"
+      case .verifyChallenge: return ".verifyChallenge"
+      case .echo: return ".echo"
+      case .debugUpdateInventory: return ".debugUpdateInventory"
+      case .debugDeletePlayer: return ".debugDeletePlayer"
+      case .sfidaRegistration: return ".sfidaRegistration"
+      case .sfidaActionLog: return ".sfidaActionLog"
+      case .sfidaCertification: return ".sfidaCertification"
+      case .sfidaUpdate: return ".sfidaUpdate"
+      case .sfidaAction: return ".sfidaAction"
+      case .sfidaDowser: return ".sfidaDowser"
+      case .sfidaCapture: return ".sfidaCapture"
+      }
     }
   }
 
   //Enum type declaration end 
 
-  final public class Request : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var requestType:Pogoprotos.Networking.Requests.RequestType = Pogoprotos.Networking.Requests.RequestType.MethodUnset
-    public private(set) var hasRequestType:Bool = false
-    public private(set) var hasRequestMessage:Bool = false
-    public private(set) var requestMessage:NSData = NSData()
+  final public class Request : GeneratedMessage {
+    public fileprivate(set) var requestType:Pogoprotos.Networking.Requests.RequestType = Pogoprotos.Networking.Requests.RequestType.methodUnset
+    public fileprivate(set) var hasRequestType:Bool = false
+    public fileprivate(set) var requestMessage:Data = Data()
+    public fileprivate(set) var hasRequestMessage:Bool = false
 
     required public init() {
          super.init()
@@ -508,14 +508,14 @@ public extension Pogoprotos.Networking.Requests {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasRequestType {
-        try output.writeEnum(1, value:requestType.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:requestType.rawValue)
       }
       if hasRequestMessage {
-        try output.writeData(2, value:requestMessage)
+        try codedOutputStream.writeData(fieldNumber: 2, value:requestMessage)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -525,42 +525,14 @@ public extension Pogoprotos.Networking.Requests {
 
       serialize_size = 0
       if (hasRequestType) {
-        serialize_size += requestType.rawValue.computeEnumSize(1)
+        serialize_size += requestType.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasRequestMessage {
-        serialize_size += requestMessage.computeDataSize(2)
+        serialize_size += requestMessage.computeDataSize(fieldNumber: 2)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Requests.Request> {
-      var mergedArray = Array<Pogoprotos.Networking.Requests.Request>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Requests.Request? {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Requests.PogoprotosNetworkingRequestsRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Requests.Request.Builder {
       return Pogoprotos.Networking.Requests.Request.classBuilder() as! Pogoprotos.Networking.Requests.Request.Builder
@@ -568,37 +540,37 @@ public extension Pogoprotos.Networking.Requests {
     public func getBuilder() -> Pogoprotos.Networking.Requests.Request.Builder {
       return classBuilder() as! Pogoprotos.Networking.Requests.Request.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Requests.Request.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Requests.Request.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Requests.Request.Builder {
-      return try Pogoprotos.Networking.Requests.Request.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Requests.Request.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Requests.Request) throws -> Pogoprotos.Networking.Requests.Request.Builder {
-      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasRequestType {
         jsonMap["requestType"] = requestType.toString()
       }
       if hasRequestMessage {
-        jsonMap["requestMessage"] = requestMessage.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        jsonMap["requestMessage"] = requestMessage.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Requests.Request {
+      return try Pogoprotos.Networking.Requests.Request.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Requests.Request {
-      return try Pogoprotos.Networking.Requests.Request.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Requests.Request {
+      return try Pogoprotos.Networking.Requests.Request.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -608,7 +580,7 @@ public extension Pogoprotos.Networking.Requests {
       if hasRequestMessage {
         output += "\(indent) requestMessage: \(requestMessage) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -634,13 +606,10 @@ public extension Pogoprotos.Networking.Requests {
     override public func className() -> String {
         return "Pogoprotos.Networking.Requests.Request"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Requests.Request.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Requests.Request = Pogoprotos.Networking.Requests.Request()
+      fileprivate var builderResult:Pogoprotos.Networking.Requests.Request = Pogoprotos.Networking.Requests.Request()
       public func getMessage() -> Pogoprotos.Networking.Requests.Request {
           return builderResult
       }
@@ -662,13 +631,13 @@ public extension Pogoprotos.Networking.Requests {
                 builderResult.requestType = value
             }
         }
-        public func setRequestType(value:Pogoprotos.Networking.Requests.RequestType) -> Pogoprotos.Networking.Requests.Request.Builder {
+        public func setRequestType(_ value:Pogoprotos.Networking.Requests.RequestType) -> Pogoprotos.Networking.Requests.Request.Builder {
           self.requestType = value
           return self
         }
         public func clearRequestType() -> Pogoprotos.Networking.Requests.Request.Builder {
            builderResult.hasRequestType = false
-           builderResult.requestType = .MethodUnset
+           builderResult.requestType = .methodUnset
            return self
         }
       public var hasRequestMessage:Bool {
@@ -676,7 +645,7 @@ public extension Pogoprotos.Networking.Requests {
                 return builderResult.hasRequestMessage
            }
       }
-      public var requestMessage:NSData {
+      public var requestMessage:Data {
            get {
                 return builderResult.requestMessage
            }
@@ -685,13 +654,13 @@ public extension Pogoprotos.Networking.Requests {
                builderResult.requestMessage = value
            }
       }
-      public func setRequestMessage(value:NSData) -> Pogoprotos.Networking.Requests.Request.Builder {
+      public func setRequestMessage(_ value:Data) -> Pogoprotos.Networking.Requests.Request.Builder {
         self.requestMessage = value
         return self
       }
       public func clearRequestMessage() -> Pogoprotos.Networking.Requests.Request.Builder{
            builderResult.hasRequestMessage = false
-           builderResult.requestMessage = NSData()
+           builderResult.requestMessage = Data()
            return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -704,7 +673,7 @@ public extension Pogoprotos.Networking.Requests {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Requests.Request.Builder {
-        return try Pogoprotos.Networking.Requests.Request.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Requests.Request.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Requests.Request {
            try checkInitialized()
@@ -724,61 +693,91 @@ public extension Pogoprotos.Networking.Requests {
         if other.hasRequestMessage {
              requestMessage = other.requestMessage
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Requests.Request.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Requests.Request.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntrequestType = try input.readEnum()
+            let valueIntrequestType = try codedInputStream.readEnum()
             if let enumsrequestType = Pogoprotos.Networking.Requests.RequestType(rawValue:valueIntrequestType){
                  requestType = enumsrequestType
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntrequestType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntrequestType))
             }
 
           case 18:
-            requestMessage = try input.readData()
+            requestMessage = try codedInputStream.readData()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Requests.Request.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Requests.Request.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Requests.Request.Builder()
         if let jsonValueRequestType = jsonMap["requestType"] as? String {
-          resultDecodedBuilder.requestType = try Pogoprotos.Networking.Requests.RequestType.fromString(jsonValueRequestType)
+          resultDecodedBuilder.requestType = try Pogoprotos.Networking.Requests.RequestType.fromString(str: jsonValueRequestType)
         }
         if let jsonValueRequestMessage = jsonMap["requestMessage"] as? String {
-          resultDecodedBuilder.requestMessage = NSData(base64EncodedString:jsonValueRequestMessage, options: NSDataBase64DecodingOptions(rawValue:0))!
+          resultDecodedBuilder.requestMessage = Data(base64Encoded:jsonValueRequestMessage, options: Data.Base64DecodingOptions(rawValue:0))!
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Requests.Request.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Requests.Request.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Requests.Request.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Requests.Request.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Networking.Requests.Request: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Requests.Request> {
+    var mergedArray = Array<Pogoprotos.Networking.Requests.Request>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Requests.Request? {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Requests.Request {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Requests.PogoprotosNetworkingRequestsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Requests.Request {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Requests.Request {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Request {
+    return try Pogoprotos.Networking.Requests.Request.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

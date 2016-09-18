@@ -153,13 +153,13 @@ public extension Pogoprotos.Inventory {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
@@ -168,28 +168,28 @@ public extension Pogoprotos.Inventory {
   //Enum type declaration start 
 
   public enum EggIncubatorType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case IncubatorUnset = 0
-    case IncubatorDistance = 1
+    case incubatorUnset = 0
+    case incubatorDistance = 1
     public func toString() -> String {
       switch self {
-      case .IncubatorUnset: return "INCUBATOR_UNSET"
-      case .IncubatorDistance: return "INCUBATOR_DISTANCE"
+      case .incubatorUnset: return "INCUBATOR_UNSET"
+      case .incubatorDistance: return "INCUBATOR_DISTANCE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Inventory.EggIncubatorType {
       switch str {
-      case "INCUBATOR_UNSET":  return .IncubatorUnset
-      case "INCUBATOR_DISTANCE":  return .IncubatorDistance
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "INCUBATOR_UNSET":  return .incubatorUnset
+      case "INCUBATOR_DISTANCE":  return .incubatorDistance
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .IncubatorUnset: return ".IncubatorUnset"
-            case .IncubatorDistance: return ".IncubatorDistance"
-        }
+      switch self {
+      case .incubatorUnset: return ".incubatorUnset"
+      case .incubatorDistance: return ".incubatorDistance"
+      }
     }
   }
 
@@ -200,47 +200,47 @@ public extension Pogoprotos.Inventory {
   //Enum type declaration start 
 
   public enum InventoryUpgradeType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case UpgradeUnset = 0
-    case IncreaseItemStorage = 1
-    case IncreasePokemonStorage = 2
+    case upgradeUnset = 0
+    case increaseItemStorage = 1
+    case increasePokemonStorage = 2
     public func toString() -> String {
       switch self {
-      case .UpgradeUnset: return "UPGRADE_UNSET"
-      case .IncreaseItemStorage: return "INCREASE_ITEM_STORAGE"
-      case .IncreasePokemonStorage: return "INCREASE_POKEMON_STORAGE"
+      case .upgradeUnset: return "UPGRADE_UNSET"
+      case .increaseItemStorage: return "INCREASE_ITEM_STORAGE"
+      case .increasePokemonStorage: return "INCREASE_POKEMON_STORAGE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Inventory.InventoryUpgradeType {
       switch str {
-      case "UPGRADE_UNSET":  return .UpgradeUnset
-      case "INCREASE_ITEM_STORAGE":  return .IncreaseItemStorage
-      case "INCREASE_POKEMON_STORAGE":  return .IncreasePokemonStorage
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "UPGRADE_UNSET":  return .upgradeUnset
+      case "INCREASE_ITEM_STORAGE":  return .increaseItemStorage
+      case "INCREASE_POKEMON_STORAGE":  return .increasePokemonStorage
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .UpgradeUnset: return ".UpgradeUnset"
-            case .IncreaseItemStorage: return ".IncreaseItemStorage"
-            case .IncreasePokemonStorage: return ".IncreasePokemonStorage"
-        }
+      switch self {
+      case .upgradeUnset: return ".upgradeUnset"
+      case .increaseItemStorage: return ".increaseItemStorage"
+      case .increasePokemonStorage: return ".increasePokemonStorage"
+      }
     }
   }
 
   //Enum type declaration end 
 
-  final public class AppliedItem : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
-    public private(set) var hasItemId:Bool = false
-    public private(set) var itemType:Pogoprotos.Inventory.Item.ItemType = Pogoprotos.Inventory.Item.ItemType.ItemTypeNone
-    public private(set) var hasItemType:Bool = false
-    public private(set) var hasExpireMs:Bool = false
-    public private(set) var expireMs:Int64 = Int64(0)
+  final public class AppliedItem : GeneratedMessage {
+    public fileprivate(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItemId:Bool = false
+    public fileprivate(set) var itemType:Pogoprotos.Inventory.Item.ItemType = Pogoprotos.Inventory.Item.ItemType.itemTypeNone
+    public fileprivate(set) var hasItemType:Bool = false
+    public fileprivate(set) var expireMs:Int64 = Int64(0)
+    public fileprivate(set) var hasExpireMs:Bool = false
 
-    public private(set) var hasAppliedMs:Bool = false
-    public private(set) var appliedMs:Int64 = Int64(0)
+    public fileprivate(set) var appliedMs:Int64 = Int64(0)
+    public fileprivate(set) var hasAppliedMs:Bool = false
 
     required public init() {
          super.init()
@@ -248,20 +248,20 @@ public extension Pogoprotos.Inventory {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasItemId {
-        try output.writeEnum(1, value:itemId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:itemId.rawValue)
       }
       if hasItemType {
-        try output.writeEnum(2, value:itemType.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 2, value:itemType.rawValue)
       }
       if hasExpireMs {
-        try output.writeInt64(3, value:expireMs)
+        try codedOutputStream.writeInt64(fieldNumber: 3, value:expireMs)
       }
       if hasAppliedMs {
-        try output.writeInt64(4, value:appliedMs)
+        try codedOutputStream.writeInt64(fieldNumber: 4, value:appliedMs)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -271,48 +271,20 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if (hasItemId) {
-        serialize_size += itemId.rawValue.computeEnumSize(1)
+        serialize_size += itemId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if (hasItemType) {
-        serialize_size += itemType.rawValue.computeEnumSize(2)
+        serialize_size += itemType.rawValue.computeEnumSize(fieldNumber: 2)
       }
       if hasExpireMs {
-        serialize_size += expireMs.computeInt64Size(3)
+        serialize_size += expireMs.computeInt64Size(fieldNumber: 3)
       }
       if hasAppliedMs {
-        serialize_size += appliedMs.computeInt64Size(4)
+        serialize_size += appliedMs.computeInt64Size(fieldNumber: 4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.AppliedItem> {
-      var mergedArray = Array<Pogoprotos.Inventory.AppliedItem>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.AppliedItem? {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.AppliedItem.Builder {
       return Pogoprotos.Inventory.AppliedItem.classBuilder() as! Pogoprotos.Inventory.AppliedItem.Builder
@@ -320,24 +292,24 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.AppliedItem.Builder {
       return classBuilder() as! Pogoprotos.Inventory.AppliedItem.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.AppliedItem.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.AppliedItem.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.AppliedItem.Builder {
-      return try Pogoprotos.Inventory.AppliedItem.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.AppliedItem.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.AppliedItem) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
-      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasItemId {
         jsonMap["itemId"] = itemId.toString()
       }
@@ -352,11 +324,11 @@ public extension Pogoprotos.Inventory {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.AppliedItem {
+      return try Pogoprotos.Inventory.AppliedItem.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.AppliedItem {
-      return try Pogoprotos.Inventory.AppliedItem.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.AppliedItem {
+      return try Pogoprotos.Inventory.AppliedItem.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -372,7 +344,7 @@ public extension Pogoprotos.Inventory {
       if hasAppliedMs {
         output += "\(indent) appliedMs: \(appliedMs) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -404,13 +376,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.AppliedItem"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.AppliedItem.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.AppliedItem = Pogoprotos.Inventory.AppliedItem()
+      fileprivate var builderResult:Pogoprotos.Inventory.AppliedItem = Pogoprotos.Inventory.AppliedItem()
       public func getMessage() -> Pogoprotos.Inventory.AppliedItem {
           return builderResult
       }
@@ -432,13 +401,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.AppliedItem.Builder {
+        public func setItemId(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.AppliedItem.Builder {
           self.itemId = value
           return self
         }
         public func clearItemId() -> Pogoprotos.Inventory.AppliedItem.Builder {
            builderResult.hasItemId = false
-           builderResult.itemId = .ItemUnknown
+           builderResult.itemId = .itemUnknown
            return self
         }
         public var hasItemType:Bool{
@@ -455,13 +424,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.itemType = value
             }
         }
-        public func setItemType(value:Pogoprotos.Inventory.Item.ItemType) -> Pogoprotos.Inventory.AppliedItem.Builder {
+        public func setItemType(_ value:Pogoprotos.Inventory.Item.ItemType) -> Pogoprotos.Inventory.AppliedItem.Builder {
           self.itemType = value
           return self
         }
         public func clearItemType() -> Pogoprotos.Inventory.AppliedItem.Builder {
            builderResult.hasItemType = false
-           builderResult.itemType = .ItemTypeNone
+           builderResult.itemType = .itemTypeNone
            return self
         }
       public var hasExpireMs:Bool {
@@ -478,7 +447,7 @@ public extension Pogoprotos.Inventory {
                builderResult.expireMs = value
            }
       }
-      public func setExpireMs(value:Int64) -> Pogoprotos.Inventory.AppliedItem.Builder {
+      public func setExpireMs(_ value:Int64) -> Pogoprotos.Inventory.AppliedItem.Builder {
         self.expireMs = value
         return self
       }
@@ -501,7 +470,7 @@ public extension Pogoprotos.Inventory {
                builderResult.appliedMs = value
            }
       }
-      public func setAppliedMs(value:Int64) -> Pogoprotos.Inventory.AppliedItem.Builder {
+      public func setAppliedMs(_ value:Int64) -> Pogoprotos.Inventory.AppliedItem.Builder {
         self.appliedMs = value
         return self
       }
@@ -520,7 +489,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.AppliedItem.Builder {
-        return try Pogoprotos.Inventory.AppliedItem.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.AppliedItem.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.AppliedItem {
            try checkInitialized()
@@ -546,58 +515,58 @@ public extension Pogoprotos.Inventory {
         if other.hasAppliedMs {
              appliedMs = other.appliedMs
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntitemId = try input.readEnum()
+            let valueIntitemId = try codedInputStream.readEnum()
             if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntitemId))
             }
 
           case 16:
-            let valueIntitemType = try input.readEnum()
+            let valueIntitemType = try codedInputStream.readEnum()
             if let enumsitemType = Pogoprotos.Inventory.Item.ItemType(rawValue:valueIntitemType){
                  itemType = enumsitemType
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(2, value:Int64(valueIntitemType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntitemType))
             }
 
           case 24:
-            expireMs = try input.readInt64()
+            expireMs = try codedInputStream.readInt64()
 
           case 32:
-            appliedMs = try input.readInt64()
+            appliedMs = try codedInputStream.readInt64()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.AppliedItem.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItemId)
         }
         if let jsonValueItemType = jsonMap["itemType"] as? String {
-          resultDecodedBuilder.itemType = try Pogoprotos.Inventory.Item.ItemType.fromString(jsonValueItemType)
+          resultDecodedBuilder.itemType = try Pogoprotos.Inventory.Item.ItemType.fromString(str: jsonValueItemType)
         }
         if let jsonValueExpireMs = jsonMap["expireMs"] as? String {
           resultDecodedBuilder.expireMs = Int64(jsonValueExpireMs)!
@@ -607,30 +576,30 @@ public extension Pogoprotos.Inventory {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.AppliedItem.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.AppliedItem.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.AppliedItem.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class AppliedItems : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var item:Array<Pogoprotos.Inventory.AppliedItem>  = Array<Pogoprotos.Inventory.AppliedItem>()
+  final public class AppliedItems : GeneratedMessage {
+    public fileprivate(set) var item:Array<Pogoprotos.Inventory.AppliedItem>  = Array<Pogoprotos.Inventory.AppliedItem>()
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       for oneElementItem in item {
-          try output.writeMessage(4, value:oneElementItem)
+          try codedOutputStream.writeMessage(fieldNumber: 4, value:oneElementItem)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -640,39 +609,11 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       for oneElementItem in item {
-          serialize_size += oneElementItem.computeMessageSize(4)
+          serialize_size += oneElementItem.computeMessageSize(fieldNumber: 4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.AppliedItems> {
-      var mergedArray = Array<Pogoprotos.Inventory.AppliedItems>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.AppliedItems? {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.AppliedItems.Builder {
       return Pogoprotos.Inventory.AppliedItems.classBuilder() as! Pogoprotos.Inventory.AppliedItems.Builder
@@ -680,50 +621,50 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.AppliedItems.Builder {
       return classBuilder() as! Pogoprotos.Inventory.AppliedItems.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.AppliedItems.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.AppliedItems.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.AppliedItems.Builder {
-      return try Pogoprotos.Inventory.AppliedItems.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.AppliedItems.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.AppliedItems) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
-      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if !item.isEmpty {
-        var jsonArrayItem:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayItem:Array<Dictionary<String,Any>> = []
           for oneValueItem in item {
             let ecodedMessageItem = try oneValueItem.encode()
-            jsonArrayItem += [ecodedMessageItem]
+            jsonArrayItem.append(ecodedMessageItem)
           }
         jsonMap["item"] = jsonArrayItem
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.AppliedItems {
+      return try Pogoprotos.Inventory.AppliedItems.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.AppliedItems {
-      return try Pogoprotos.Inventory.AppliedItems.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.AppliedItems {
+      return try Pogoprotos.Inventory.AppliedItems.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       var itemElementIndex:Int = 0
       for oneElementItem in item {
           output += "\(indent) item[\(itemElementIndex)] {\n"
-          output += try oneElementItem.getDescription("\(indent)  ")
+          output += try oneElementItem.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           itemElementIndex += 1
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -746,13 +687,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.AppliedItems"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.AppliedItems.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.AppliedItems = Pogoprotos.Inventory.AppliedItems()
+      fileprivate var builderResult:Pogoprotos.Inventory.AppliedItems = Pogoprotos.Inventory.AppliedItems()
       public func getMessage() -> Pogoprotos.Inventory.AppliedItems {
           return builderResult
       }
@@ -768,12 +706,12 @@ public extension Pogoprotos.Inventory {
                builderResult.item = value
            }
       }
-      public func setItem(value:Array<Pogoprotos.Inventory.AppliedItem>) -> Pogoprotos.Inventory.AppliedItems.Builder {
+      public func setItem(_ value:Array<Pogoprotos.Inventory.AppliedItem>) -> Pogoprotos.Inventory.AppliedItems.Builder {
         self.item = value
         return self
       }
       public func clearItem() -> Pogoprotos.Inventory.AppliedItems.Builder {
-        builderResult.item.removeAll(keepCapacity: false)
+        builderResult.item.removeAll(keepingCapacity: false)
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -786,7 +724,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.AppliedItems.Builder {
-        return try Pogoprotos.Inventory.AppliedItems.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.AppliedItems.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.AppliedItems {
            try checkInitialized()
@@ -803,16 +741,16 @@ public extension Pogoprotos.Inventory {
         if !other.item.isEmpty  {
            builderResult.item += other.item
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
@@ -820,46 +758,46 @@ public extension Pogoprotos.Inventory {
 
           case 34:
             let subBuilder = Pogoprotos.Inventory.AppliedItem.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            item += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            item.append(subBuilder.buildPartial())
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.AppliedItems.Builder()
-        if let jsonValueItem = jsonMap["item"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueItem = jsonMap["item"] as? Array<Dictionary<String,Any>> {
           var jsonArrayItem:Array<Pogoprotos.Inventory.AppliedItem> = []
           for oneValueItem in jsonValueItem {
-            let messageFromStringItem = try Pogoprotos.Inventory.AppliedItem.Builder.decodeToBuilder(oneValueItem).build()
+            let messageFromStringItem = try Pogoprotos.Inventory.AppliedItem.Builder.decodeToBuilder(jsonMap:oneValueItem).build()
 
-            jsonArrayItem += [messageFromStringItem]
+            jsonArrayItem.append(messageFromStringItem)
           }
           resultDecodedBuilder.item = jsonArrayItem
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.AppliedItems.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.AppliedItems.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.AppliedItems.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class Candy : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var familyId:Pogoprotos.Enums.PokemonFamilyId = Pogoprotos.Enums.PokemonFamilyId.FamilyUnset
-    public private(set) var hasFamilyId:Bool = false
-    public private(set) var hasCandy:Bool = false
-    public private(set) var candy:Int32 = Int32(0)
+  final public class Candy : GeneratedMessage {
+    public fileprivate(set) var familyId:Pogoprotos.Enums.PokemonFamilyId = Pogoprotos.Enums.PokemonFamilyId.familyUnset
+    public fileprivate(set) var hasFamilyId:Bool = false
+    public fileprivate(set) var candy:Int32 = Int32(0)
+    public fileprivate(set) var hasCandy:Bool = false
 
     required public init() {
          super.init()
@@ -867,14 +805,14 @@ public extension Pogoprotos.Inventory {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasFamilyId {
-        try output.writeEnum(1, value:familyId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:familyId.rawValue)
       }
       if hasCandy {
-        try output.writeInt32(2, value:candy)
+        try codedOutputStream.writeInt32(fieldNumber: 2, value:candy)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -884,42 +822,14 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if (hasFamilyId) {
-        serialize_size += familyId.rawValue.computeEnumSize(1)
+        serialize_size += familyId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasCandy {
-        serialize_size += candy.computeInt32Size(2)
+        serialize_size += candy.computeInt32Size(fieldNumber: 2)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.Candy> {
-      var mergedArray = Array<Pogoprotos.Inventory.Candy>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.Candy? {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.Candy.Builder {
       return Pogoprotos.Inventory.Candy.classBuilder() as! Pogoprotos.Inventory.Candy.Builder
@@ -927,37 +837,37 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.Candy.Builder {
       return classBuilder() as! Pogoprotos.Inventory.Candy.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.Candy.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.Candy.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.Candy.Builder {
-      return try Pogoprotos.Inventory.Candy.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.Candy.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.Candy) throws -> Pogoprotos.Inventory.Candy.Builder {
-      return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasFamilyId {
         jsonMap["familyId"] = familyId.toString()
       }
       if hasCandy {
-        jsonMap["candy"] = NSNumber(int:candy)
+        jsonMap["candy"] = NSNumber(value:candy)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.Candy {
+      return try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.Candy {
-      return try Pogoprotos.Inventory.Candy.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.Candy {
+      return try Pogoprotos.Inventory.Candy.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -967,7 +877,7 @@ public extension Pogoprotos.Inventory {
       if hasCandy {
         output += "\(indent) candy: \(candy) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -993,13 +903,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.Candy"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.Candy.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.Candy = Pogoprotos.Inventory.Candy()
+      fileprivate var builderResult:Pogoprotos.Inventory.Candy = Pogoprotos.Inventory.Candy()
       public func getMessage() -> Pogoprotos.Inventory.Candy {
           return builderResult
       }
@@ -1021,13 +928,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.familyId = value
             }
         }
-        public func setFamilyId(value:Pogoprotos.Enums.PokemonFamilyId) -> Pogoprotos.Inventory.Candy.Builder {
+        public func setFamilyId(_ value:Pogoprotos.Enums.PokemonFamilyId) -> Pogoprotos.Inventory.Candy.Builder {
           self.familyId = value
           return self
         }
         public func clearFamilyId() -> Pogoprotos.Inventory.Candy.Builder {
            builderResult.hasFamilyId = false
-           builderResult.familyId = .FamilyUnset
+           builderResult.familyId = .familyUnset
            return self
         }
       public var hasCandy:Bool {
@@ -1044,7 +951,7 @@ public extension Pogoprotos.Inventory {
                builderResult.candy = value
            }
       }
-      public func setCandy(value:Int32) -> Pogoprotos.Inventory.Candy.Builder {
+      public func setCandy(_ value:Int32) -> Pogoprotos.Inventory.Candy.Builder {
         self.candy = value
         return self
       }
@@ -1063,7 +970,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.Candy.Builder {
-        return try Pogoprotos.Inventory.Candy.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.Candy.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.Candy {
            try checkInitialized()
@@ -1083,81 +990,81 @@ public extension Pogoprotos.Inventory {
         if other.hasCandy {
              candy = other.candy
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.Candy.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.Candy.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntfamilyId = try input.readEnum()
+            let valueIntfamilyId = try codedInputStream.readEnum()
             if let enumsfamilyId = Pogoprotos.Enums.PokemonFamilyId(rawValue:valueIntfamilyId){
                  familyId = enumsfamilyId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntfamilyId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntfamilyId))
             }
 
           case 16:
-            candy = try input.readInt32()
+            candy = try codedInputStream.readInt32()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.Candy.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.Candy.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.Candy.Builder()
         if let jsonValueFamilyId = jsonMap["familyId"] as? String {
-          resultDecodedBuilder.familyId = try Pogoprotos.Enums.PokemonFamilyId.fromString(jsonValueFamilyId)
+          resultDecodedBuilder.familyId = try Pogoprotos.Enums.PokemonFamilyId.fromString(str: jsonValueFamilyId)
         }
         if let jsonValueCandy = jsonMap["candy"] as? NSNumber {
-          resultDecodedBuilder.candy = jsonValueCandy.intValue
+          resultDecodedBuilder.candy = jsonValueCandy.int32Value
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.Candy.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.Candy.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class EggIncubator : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasId:Bool = false
-    public private(set) var id:String = ""
+  final public class EggIncubator : GeneratedMessage {
+    public fileprivate(set) var id:String = ""
+    public fileprivate(set) var hasId:Bool = false
 
-    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
-    public private(set) var hasItemId:Bool = false
-    public private(set) var incubatorType:Pogoprotos.Inventory.EggIncubatorType = Pogoprotos.Inventory.EggIncubatorType.IncubatorUnset
-    public private(set) var hasIncubatorType:Bool = false
-    public private(set) var hasUsesRemaining:Bool = false
-    public private(set) var usesRemaining:Int32 = Int32(0)
+    public fileprivate(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItemId:Bool = false
+    public fileprivate(set) var incubatorType:Pogoprotos.Inventory.EggIncubatorType = Pogoprotos.Inventory.EggIncubatorType.incubatorUnset
+    public fileprivate(set) var hasIncubatorType:Bool = false
+    public fileprivate(set) var usesRemaining:Int32 = Int32(0)
+    public fileprivate(set) var hasUsesRemaining:Bool = false
 
     // TODO: Check if is PokemonType
-    public private(set) var hasPokemonId:Bool = false
-    public private(set) var pokemonId:UInt64 = UInt64(0)
+    public fileprivate(set) var pokemonId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasPokemonId:Bool = false
 
-    public private(set) var hasStartKmWalked:Bool = false
-    public private(set) var startKmWalked:Double = Double(0)
+    public fileprivate(set) var startKmWalked:Double = Double(0)
+    public fileprivate(set) var hasStartKmWalked:Bool = false
 
-    public private(set) var hasTargetKmWalked:Bool = false
-    public private(set) var targetKmWalked:Double = Double(0)
+    public fileprivate(set) var targetKmWalked:Double = Double(0)
+    public fileprivate(set) var hasTargetKmWalked:Bool = false
 
     required public init() {
          super.init()
@@ -1165,29 +1072,29 @@ public extension Pogoprotos.Inventory {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasId {
-        try output.writeString(1, value:id)
+        try codedOutputStream.writeString(fieldNumber: 1, value:id)
       }
       if hasItemId {
-        try output.writeEnum(2, value:itemId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 2, value:itemId.rawValue)
       }
       if hasIncubatorType {
-        try output.writeEnum(3, value:incubatorType.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 3, value:incubatorType.rawValue)
       }
       if hasUsesRemaining {
-        try output.writeInt32(4, value:usesRemaining)
+        try codedOutputStream.writeInt32(fieldNumber: 4, value:usesRemaining)
       }
       if hasPokemonId {
-        try output.writeUInt64(5, value:pokemonId)
+        try codedOutputStream.writeUInt64(fieldNumber: 5, value:pokemonId)
       }
       if hasStartKmWalked {
-        try output.writeDouble(6, value:startKmWalked)
+        try codedOutputStream.writeDouble(fieldNumber: 6, value:startKmWalked)
       }
       if hasTargetKmWalked {
-        try output.writeDouble(7, value:targetKmWalked)
+        try codedOutputStream.writeDouble(fieldNumber: 7, value:targetKmWalked)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1197,57 +1104,29 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if hasId {
-        serialize_size += id.computeStringSize(1)
+        serialize_size += id.computeStringSize(fieldNumber: 1)
       }
       if (hasItemId) {
-        serialize_size += itemId.rawValue.computeEnumSize(2)
+        serialize_size += itemId.rawValue.computeEnumSize(fieldNumber: 2)
       }
       if (hasIncubatorType) {
-        serialize_size += incubatorType.rawValue.computeEnumSize(3)
+        serialize_size += incubatorType.rawValue.computeEnumSize(fieldNumber: 3)
       }
       if hasUsesRemaining {
-        serialize_size += usesRemaining.computeInt32Size(4)
+        serialize_size += usesRemaining.computeInt32Size(fieldNumber: 4)
       }
       if hasPokemonId {
-        serialize_size += pokemonId.computeUInt64Size(5)
+        serialize_size += pokemonId.computeUInt64Size(fieldNumber: 5)
       }
       if hasStartKmWalked {
-        serialize_size += startKmWalked.computeDoubleSize(6)
+        serialize_size += startKmWalked.computeDoubleSize(fieldNumber: 6)
       }
       if hasTargetKmWalked {
-        serialize_size += targetKmWalked.computeDoubleSize(7)
+        serialize_size += targetKmWalked.computeDoubleSize(fieldNumber: 7)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.EggIncubator> {
-      var mergedArray = Array<Pogoprotos.Inventory.EggIncubator>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.EggIncubator? {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.EggIncubator.Builder {
       return Pogoprotos.Inventory.EggIncubator.classBuilder() as! Pogoprotos.Inventory.EggIncubator.Builder
@@ -1255,24 +1134,24 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.EggIncubator.Builder {
       return classBuilder() as! Pogoprotos.Inventory.EggIncubator.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.EggIncubator.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.EggIncubator.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.EggIncubator.Builder {
-      return try Pogoprotos.Inventory.EggIncubator.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.EggIncubator.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.EggIncubator) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
-      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasId {
         jsonMap["id"] = id
       }
@@ -1283,24 +1162,24 @@ public extension Pogoprotos.Inventory {
         jsonMap["incubatorType"] = incubatorType.toString()
       }
       if hasUsesRemaining {
-        jsonMap["usesRemaining"] = NSNumber(int:usesRemaining)
+        jsonMap["usesRemaining"] = NSNumber(value:usesRemaining)
       }
       if hasPokemonId {
         jsonMap["pokemonId"] = "\(pokemonId)"
       }
       if hasStartKmWalked {
-        jsonMap["startKmWalked"] = NSNumber(double:startKmWalked)
+        jsonMap["startKmWalked"] = NSNumber(value:startKmWalked)
       }
       if hasTargetKmWalked {
-        jsonMap["targetKmWalked"] = NSNumber(double:targetKmWalked)
+        jsonMap["targetKmWalked"] = NSNumber(value:targetKmWalked)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.EggIncubator {
+      return try Pogoprotos.Inventory.EggIncubator.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.EggIncubator {
-      return try Pogoprotos.Inventory.EggIncubator.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.EggIncubator {
+      return try Pogoprotos.Inventory.EggIncubator.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -1325,7 +1204,7 @@ public extension Pogoprotos.Inventory {
       if hasTargetKmWalked {
         output += "\(indent) targetKmWalked: \(targetKmWalked) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1366,13 +1245,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.EggIncubator"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.EggIncubator.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.EggIncubator = Pogoprotos.Inventory.EggIncubator()
+      fileprivate var builderResult:Pogoprotos.Inventory.EggIncubator = Pogoprotos.Inventory.EggIncubator()
       public func getMessage() -> Pogoprotos.Inventory.EggIncubator {
           return builderResult
       }
@@ -1394,7 +1270,7 @@ public extension Pogoprotos.Inventory {
                builderResult.id = value
            }
       }
-      public func setId(value:String) -> Pogoprotos.Inventory.EggIncubator.Builder {
+      public func setId(_ value:String) -> Pogoprotos.Inventory.EggIncubator.Builder {
         self.id = value
         return self
       }
@@ -1417,13 +1293,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.EggIncubator.Builder {
+        public func setItemId(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.EggIncubator.Builder {
           self.itemId = value
           return self
         }
         public func clearItemId() -> Pogoprotos.Inventory.EggIncubator.Builder {
            builderResult.hasItemId = false
-           builderResult.itemId = .ItemUnknown
+           builderResult.itemId = .itemUnknown
            return self
         }
         public var hasIncubatorType:Bool{
@@ -1440,13 +1316,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.incubatorType = value
             }
         }
-        public func setIncubatorType(value:Pogoprotos.Inventory.EggIncubatorType) -> Pogoprotos.Inventory.EggIncubator.Builder {
+        public func setIncubatorType(_ value:Pogoprotos.Inventory.EggIncubatorType) -> Pogoprotos.Inventory.EggIncubator.Builder {
           self.incubatorType = value
           return self
         }
         public func clearIncubatorType() -> Pogoprotos.Inventory.EggIncubator.Builder {
            builderResult.hasIncubatorType = false
-           builderResult.incubatorType = .IncubatorUnset
+           builderResult.incubatorType = .incubatorUnset
            return self
         }
       public var hasUsesRemaining:Bool {
@@ -1463,7 +1339,7 @@ public extension Pogoprotos.Inventory {
                builderResult.usesRemaining = value
            }
       }
-      public func setUsesRemaining(value:Int32) -> Pogoprotos.Inventory.EggIncubator.Builder {
+      public func setUsesRemaining(_ value:Int32) -> Pogoprotos.Inventory.EggIncubator.Builder {
         self.usesRemaining = value
         return self
       }
@@ -1486,7 +1362,7 @@ public extension Pogoprotos.Inventory {
                builderResult.pokemonId = value
            }
       }
-      public func setPokemonId(value:UInt64) -> Pogoprotos.Inventory.EggIncubator.Builder {
+      public func setPokemonId(_ value:UInt64) -> Pogoprotos.Inventory.EggIncubator.Builder {
         self.pokemonId = value
         return self
       }
@@ -1509,7 +1385,7 @@ public extension Pogoprotos.Inventory {
                builderResult.startKmWalked = value
            }
       }
-      public func setStartKmWalked(value:Double) -> Pogoprotos.Inventory.EggIncubator.Builder {
+      public func setStartKmWalked(_ value:Double) -> Pogoprotos.Inventory.EggIncubator.Builder {
         self.startKmWalked = value
         return self
       }
@@ -1532,7 +1408,7 @@ public extension Pogoprotos.Inventory {
                builderResult.targetKmWalked = value
            }
       }
-      public func setTargetKmWalked(value:Double) -> Pogoprotos.Inventory.EggIncubator.Builder {
+      public func setTargetKmWalked(_ value:Double) -> Pogoprotos.Inventory.EggIncubator.Builder {
         self.targetKmWalked = value
         return self
       }
@@ -1551,7 +1427,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.EggIncubator.Builder {
-        return try Pogoprotos.Inventory.EggIncubator.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.EggIncubator.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.EggIncubator {
            try checkInitialized()
@@ -1586,73 +1462,73 @@ public extension Pogoprotos.Inventory {
         if other.hasTargetKmWalked {
              targetKmWalked = other.targetKmWalked
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            id = try input.readString()
+            id = try codedInputStream.readString()
 
           case 16:
-            let valueIntitemId = try input.readEnum()
+            let valueIntitemId = try codedInputStream.readEnum()
             if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(2, value:Int64(valueIntitemId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntitemId))
             }
 
           case 24:
-            let valueIntincubatorType = try input.readEnum()
+            let valueIntincubatorType = try codedInputStream.readEnum()
             if let enumsincubatorType = Pogoprotos.Inventory.EggIncubatorType(rawValue:valueIntincubatorType){
                  incubatorType = enumsincubatorType
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(3, value:Int64(valueIntincubatorType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 3, value:Int64(valueIntincubatorType))
             }
 
           case 32:
-            usesRemaining = try input.readInt32()
+            usesRemaining = try codedInputStream.readInt32()
 
           case 40:
-            pokemonId = try input.readUInt64()
+            pokemonId = try codedInputStream.readUInt64()
 
           case 49:
-            startKmWalked = try input.readDouble()
+            startKmWalked = try codedInputStream.readDouble()
 
           case 57:
-            targetKmWalked = try input.readDouble()
+            targetKmWalked = try codedInputStream.readDouble()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.EggIncubator.Builder()
         if let jsonValueId = jsonMap["id"] as? String {
           resultDecodedBuilder.id = jsonValueId
         }
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItemId)
         }
         if let jsonValueIncubatorType = jsonMap["incubatorType"] as? String {
-          resultDecodedBuilder.incubatorType = try Pogoprotos.Inventory.EggIncubatorType.fromString(jsonValueIncubatorType)
+          resultDecodedBuilder.incubatorType = try Pogoprotos.Inventory.EggIncubatorType.fromString(str: jsonValueIncubatorType)
         }
         if let jsonValueUsesRemaining = jsonMap["usesRemaining"] as? NSNumber {
-          resultDecodedBuilder.usesRemaining = jsonValueUsesRemaining.intValue
+          resultDecodedBuilder.usesRemaining = jsonValueUsesRemaining.int32Value
         }
         if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
           resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
@@ -1665,30 +1541,30 @@ public extension Pogoprotos.Inventory {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.EggIncubator.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.EggIncubator.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.EggIncubator.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class EggIncubators : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var eggIncubator:Array<Pogoprotos.Inventory.EggIncubator>  = Array<Pogoprotos.Inventory.EggIncubator>()
+  final public class EggIncubators : GeneratedMessage {
+    public fileprivate(set) var eggIncubator:Array<Pogoprotos.Inventory.EggIncubator>  = Array<Pogoprotos.Inventory.EggIncubator>()
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       for oneElementEggIncubator in eggIncubator {
-          try output.writeMessage(1, value:oneElementEggIncubator)
+          try codedOutputStream.writeMessage(fieldNumber: 1, value:oneElementEggIncubator)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1698,39 +1574,11 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       for oneElementEggIncubator in eggIncubator {
-          serialize_size += oneElementEggIncubator.computeMessageSize(1)
+          serialize_size += oneElementEggIncubator.computeMessageSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.EggIncubators> {
-      var mergedArray = Array<Pogoprotos.Inventory.EggIncubators>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.EggIncubators? {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.EggIncubators.Builder {
       return Pogoprotos.Inventory.EggIncubators.classBuilder() as! Pogoprotos.Inventory.EggIncubators.Builder
@@ -1738,50 +1586,50 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.EggIncubators.Builder {
       return classBuilder() as! Pogoprotos.Inventory.EggIncubators.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.EggIncubators.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.EggIncubators.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.EggIncubators.Builder {
-      return try Pogoprotos.Inventory.EggIncubators.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.EggIncubators.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.EggIncubators) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
-      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if !eggIncubator.isEmpty {
-        var jsonArrayEggIncubator:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayEggIncubator:Array<Dictionary<String,Any>> = []
           for oneValueEggIncubator in eggIncubator {
             let ecodedMessageEggIncubator = try oneValueEggIncubator.encode()
-            jsonArrayEggIncubator += [ecodedMessageEggIncubator]
+            jsonArrayEggIncubator.append(ecodedMessageEggIncubator)
           }
         jsonMap["eggIncubator"] = jsonArrayEggIncubator
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.EggIncubators {
+      return try Pogoprotos.Inventory.EggIncubators.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.EggIncubators {
-      return try Pogoprotos.Inventory.EggIncubators.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.EggIncubators {
+      return try Pogoprotos.Inventory.EggIncubators.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       var eggIncubatorElementIndex:Int = 0
       for oneElementEggIncubator in eggIncubator {
           output += "\(indent) eggIncubator[\(eggIncubatorElementIndex)] {\n"
-          output += try oneElementEggIncubator.getDescription("\(indent)  ")
+          output += try oneElementEggIncubator.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           eggIncubatorElementIndex += 1
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1804,13 +1652,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.EggIncubators"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.EggIncubators.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.EggIncubators = Pogoprotos.Inventory.EggIncubators()
+      fileprivate var builderResult:Pogoprotos.Inventory.EggIncubators = Pogoprotos.Inventory.EggIncubators()
       public func getMessage() -> Pogoprotos.Inventory.EggIncubators {
           return builderResult
       }
@@ -1826,12 +1671,12 @@ public extension Pogoprotos.Inventory {
                builderResult.eggIncubator = value
            }
       }
-      public func setEggIncubator(value:Array<Pogoprotos.Inventory.EggIncubator>) -> Pogoprotos.Inventory.EggIncubators.Builder {
+      public func setEggIncubator(_ value:Array<Pogoprotos.Inventory.EggIncubator>) -> Pogoprotos.Inventory.EggIncubators.Builder {
         self.eggIncubator = value
         return self
       }
       public func clearEggIncubator() -> Pogoprotos.Inventory.EggIncubators.Builder {
-        builderResult.eggIncubator.removeAll(keepCapacity: false)
+        builderResult.eggIncubator.removeAll(keepingCapacity: false)
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -1844,7 +1689,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.EggIncubators.Builder {
-        return try Pogoprotos.Inventory.EggIncubators.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.EggIncubators.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.EggIncubators {
            try checkInitialized()
@@ -1861,16 +1706,16 @@ public extension Pogoprotos.Inventory {
         if !other.eggIncubator.isEmpty  {
            builderResult.eggIncubator += other.eggIncubator
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
@@ -1878,66 +1723,66 @@ public extension Pogoprotos.Inventory {
 
           case 10:
             let subBuilder = Pogoprotos.Inventory.EggIncubator.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            eggIncubator += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            eggIncubator.append(subBuilder.buildPartial())
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.EggIncubators.Builder()
-        if let jsonValueEggIncubator = jsonMap["eggIncubator"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueEggIncubator = jsonMap["eggIncubator"] as? Array<Dictionary<String,Any>> {
           var jsonArrayEggIncubator:Array<Pogoprotos.Inventory.EggIncubator> = []
           for oneValueEggIncubator in jsonValueEggIncubator {
-            let messageFromStringEggIncubator = try Pogoprotos.Inventory.EggIncubator.Builder.decodeToBuilder(oneValueEggIncubator).build()
+            let messageFromStringEggIncubator = try Pogoprotos.Inventory.EggIncubator.Builder.decodeToBuilder(jsonMap:oneValueEggIncubator).build()
 
-            jsonArrayEggIncubator += [messageFromStringEggIncubator]
+            jsonArrayEggIncubator.append(messageFromStringEggIncubator)
           }
           resultDecodedBuilder.eggIncubator = jsonArrayEggIncubator
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.EggIncubators.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.EggIncubators.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.EggIncubators.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class InventoryDelta : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasOriginalTimestampMs:Bool = false
-    public private(set) var originalTimestampMs:Int64 = Int64(0)
+  final public class InventoryDelta : GeneratedMessage {
+    public fileprivate(set) var originalTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasOriginalTimestampMs:Bool = false
 
-    public private(set) var hasNewTimestampMs:Bool = false
-    public private(set) var newTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var newTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasNewTimestampMs:Bool = false
 
-    public private(set) var inventoryItems:Array<Pogoprotos.Inventory.InventoryItem>  = Array<Pogoprotos.Inventory.InventoryItem>()
+    public fileprivate(set) var inventoryItems:Array<Pogoprotos.Inventory.InventoryItem>  = Array<Pogoprotos.Inventory.InventoryItem>()
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasOriginalTimestampMs {
-        try output.writeInt64(1, value:originalTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 1, value:originalTimestampMs)
       }
       if hasNewTimestampMs {
-        try output.writeInt64(2, value:newTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 2, value:newTimestampMs)
       }
       for oneElementInventoryItems in inventoryItems {
-          try output.writeMessage(3, value:oneElementInventoryItems)
+          try codedOutputStream.writeMessage(fieldNumber: 3, value:oneElementInventoryItems)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1947,45 +1792,17 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if hasOriginalTimestampMs {
-        serialize_size += originalTimestampMs.computeInt64Size(1)
+        serialize_size += originalTimestampMs.computeInt64Size(fieldNumber: 1)
       }
       if hasNewTimestampMs {
-        serialize_size += newTimestampMs.computeInt64Size(2)
+        serialize_size += newTimestampMs.computeInt64Size(fieldNumber: 2)
       }
       for oneElementInventoryItems in inventoryItems {
-          serialize_size += oneElementInventoryItems.computeMessageSize(3)
+          serialize_size += oneElementInventoryItems.computeMessageSize(fieldNumber: 3)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryDelta> {
-      var mergedArray = Array<Pogoprotos.Inventory.InventoryDelta>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryDelta? {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.InventoryDelta.Builder {
       return Pogoprotos.Inventory.InventoryDelta.classBuilder() as! Pogoprotos.Inventory.InventoryDelta.Builder
@@ -1993,24 +1810,24 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.InventoryDelta.Builder {
       return classBuilder() as! Pogoprotos.Inventory.InventoryDelta.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryDelta.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryDelta.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
-      return try Pogoprotos.Inventory.InventoryDelta.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.InventoryDelta.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryDelta) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasOriginalTimestampMs {
         jsonMap["originalTimestampMs"] = "\(originalTimestampMs)"
       }
@@ -2018,20 +1835,20 @@ public extension Pogoprotos.Inventory {
         jsonMap["newTimestampMs"] = "\(newTimestampMs)"
       }
       if !inventoryItems.isEmpty {
-        var jsonArrayInventoryItems:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayInventoryItems:Array<Dictionary<String,Any>> = []
           for oneValueInventoryItems in inventoryItems {
             let ecodedMessageInventoryItems = try oneValueInventoryItems.encode()
-            jsonArrayInventoryItems += [ecodedMessageInventoryItems]
+            jsonArrayInventoryItems.append(ecodedMessageInventoryItems)
           }
         jsonMap["inventoryItems"] = jsonArrayInventoryItems
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryDelta {
+      return try Pogoprotos.Inventory.InventoryDelta.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryDelta {
-      return try Pogoprotos.Inventory.InventoryDelta.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryDelta {
+      return try Pogoprotos.Inventory.InventoryDelta.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -2044,11 +1861,11 @@ public extension Pogoprotos.Inventory {
       var inventoryItemsElementIndex:Int = 0
       for oneElementInventoryItems in inventoryItems {
           output += "\(indent) inventoryItems[\(inventoryItemsElementIndex)] {\n"
-          output += try oneElementInventoryItems.getDescription("\(indent)  ")
+          output += try oneElementInventoryItems.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           inventoryItemsElementIndex += 1
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -2077,13 +1894,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.InventoryDelta"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.InventoryDelta.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.InventoryDelta = Pogoprotos.Inventory.InventoryDelta()
+      fileprivate var builderResult:Pogoprotos.Inventory.InventoryDelta = Pogoprotos.Inventory.InventoryDelta()
       public func getMessage() -> Pogoprotos.Inventory.InventoryDelta {
           return builderResult
       }
@@ -2105,7 +1919,7 @@ public extension Pogoprotos.Inventory {
                builderResult.originalTimestampMs = value
            }
       }
-      public func setOriginalTimestampMs(value:Int64) -> Pogoprotos.Inventory.InventoryDelta.Builder {
+      public func setOriginalTimestampMs(_ value:Int64) -> Pogoprotos.Inventory.InventoryDelta.Builder {
         self.originalTimestampMs = value
         return self
       }
@@ -2128,7 +1942,7 @@ public extension Pogoprotos.Inventory {
                builderResult.newTimestampMs = value
            }
       }
-      public func setNewTimestampMs(value:Int64) -> Pogoprotos.Inventory.InventoryDelta.Builder {
+      public func setNewTimestampMs(_ value:Int64) -> Pogoprotos.Inventory.InventoryDelta.Builder {
         self.newTimestampMs = value
         return self
       }
@@ -2145,12 +1959,12 @@ public extension Pogoprotos.Inventory {
                builderResult.inventoryItems = value
            }
       }
-      public func setInventoryItems(value:Array<Pogoprotos.Inventory.InventoryItem>) -> Pogoprotos.Inventory.InventoryDelta.Builder {
+      public func setInventoryItems(_ value:Array<Pogoprotos.Inventory.InventoryItem>) -> Pogoprotos.Inventory.InventoryDelta.Builder {
         self.inventoryItems = value
         return self
       }
       public func clearInventoryItems() -> Pogoprotos.Inventory.InventoryDelta.Builder {
-        builderResult.inventoryItems.removeAll(keepCapacity: false)
+        builderResult.inventoryItems.removeAll(keepingCapacity: false)
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -2163,7 +1977,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
-        return try Pogoprotos.Inventory.InventoryDelta.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.InventoryDelta.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.InventoryDelta {
            try checkInitialized()
@@ -2186,41 +2000,41 @@ public extension Pogoprotos.Inventory {
         if !other.inventoryItems.isEmpty  {
            builderResult.inventoryItems += other.inventoryItems
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            originalTimestampMs = try input.readInt64()
+            originalTimestampMs = try codedInputStream.readInt64()
 
           case 16:
-            newTimestampMs = try input.readInt64()
+            newTimestampMs = try codedInputStream.readInt64()
 
           case 26:
             let subBuilder = Pogoprotos.Inventory.InventoryItem.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            inventoryItems += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            inventoryItems.append(subBuilder.buildPartial())
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.InventoryDelta.Builder()
         if let jsonValueOriginalTimestampMs = jsonMap["originalTimestampMs"] as? String {
           resultDecodedBuilder.originalTimestampMs = Int64(jsonValueOriginalTimestampMs)!
@@ -2228,36 +2042,36 @@ public extension Pogoprotos.Inventory {
         if let jsonValueNewTimestampMs = jsonMap["newTimestampMs"] as? String {
           resultDecodedBuilder.newTimestampMs = Int64(jsonValueNewTimestampMs)!
         }
-        if let jsonValueInventoryItems = jsonMap["inventoryItems"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueInventoryItems = jsonMap["inventoryItems"] as? Array<Dictionary<String,Any>> {
           var jsonArrayInventoryItems:Array<Pogoprotos.Inventory.InventoryItem> = []
           for oneValueInventoryItems in jsonValueInventoryItems {
-            let messageFromStringInventoryItems = try Pogoprotos.Inventory.InventoryItem.Builder.decodeToBuilder(oneValueInventoryItems).build()
+            let messageFromStringInventoryItems = try Pogoprotos.Inventory.InventoryItem.Builder.decodeToBuilder(jsonMap:oneValueInventoryItems).build()
 
-            jsonArrayInventoryItems += [messageFromStringInventoryItems]
+            jsonArrayInventoryItems.append(messageFromStringInventoryItems)
           }
           resultDecodedBuilder.inventoryItems = jsonArrayInventoryItems
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryDelta.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.InventoryDelta.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.InventoryDelta.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class InventoryItem : GeneratedMessage, GeneratedMessageProtocol {
+  final public class InventoryItem : GeneratedMessage {
 
 
     //Nested type declaration start
 
-      final public class DeletedItem : GeneratedMessage, GeneratedMessageProtocol {
-        public private(set) var hasPokemonId:Bool = false
-        public private(set) var pokemonId:UInt64 = UInt64(0)
+      final public class DeletedItem : GeneratedMessage {
+        public fileprivate(set) var pokemonId:UInt64 = UInt64(0)
+        public fileprivate(set) var hasPokemonId:Bool = false
 
         required public init() {
              super.init()
@@ -2265,11 +2079,11 @@ public extension Pogoprotos.Inventory {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasPokemonId {
-            try output.writeFixed64(1, value:pokemonId)
+            try codedOutputStream.writeFixed64(fieldNumber: 1, value:pokemonId)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -2279,39 +2093,11 @@ public extension Pogoprotos.Inventory {
 
           serialize_size = 0
           if hasPokemonId {
-            serialize_size += pokemonId.computeFixed64Size(1)
+            serialize_size += pokemonId.computeFixed64Size(fieldNumber: 1)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryItem.DeletedItem> {
-          var mergedArray = Array<Pogoprotos.Inventory.InventoryItem.DeletedItem>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem? {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
           return Pogoprotos.Inventory.InventoryItem.DeletedItem.classBuilder() as! Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder
@@ -2319,41 +2105,41 @@ public extension Pogoprotos.Inventory {
         public func getBuilder() -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
           return classBuilder() as! Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(self)
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryItem.DeletedItem) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasPokemonId {
             jsonMap["pokemonId"] = "\(pokemonId)"
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
-          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+          return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
           if hasPokemonId {
             output += "\(indent) pokemonId: \(pokemonId) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -2376,13 +2162,10 @@ public extension Pogoprotos.Inventory {
         override public func className() -> String {
             return "Pogoprotos.Inventory.InventoryItem.DeletedItem"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Inventory.InventoryItem.DeletedItem.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Inventory.InventoryItem.DeletedItem = Pogoprotos.Inventory.InventoryItem.DeletedItem()
+          fileprivate var builderResult:Pogoprotos.Inventory.InventoryItem.DeletedItem = Pogoprotos.Inventory.InventoryItem.DeletedItem()
           public func getMessage() -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
               return builderResult
           }
@@ -2404,7 +2187,7 @@ public extension Pogoprotos.Inventory {
                    builderResult.pokemonId = value
                }
           }
-          public func setPokemonId(value:UInt64) -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+          public func setPokemonId(_ value:UInt64) -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
             self.pokemonId = value
             return self
           }
@@ -2423,7 +2206,7 @@ public extension Pogoprotos.Inventory {
             return self
           }
           override public func clone() throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
-            return try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(builderResult)
+            return try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
                try checkInitialized()
@@ -2440,45 +2223,45 @@ public extension Pogoprotos.Inventory {
             if other.hasPokemonId {
                  pokemonId = other.pokemonId
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 9:
-                pokemonId = try input.readFixed64()
+                pokemonId = try codedInputStream.readFixed64()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
             let resultDecodedBuilder = Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
             if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
               resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -2486,30 +2269,30 @@ public extension Pogoprotos.Inventory {
 
     //Nested type declaration end
 
-    public private(set) var hasModifiedTimestampMs:Bool = false
-    public private(set) var modifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var modifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasModifiedTimestampMs:Bool = false
 
-    public private(set) var hasDeletedItem:Bool = false
-    public private(set) var deletedItem:Pogoprotos.Inventory.InventoryItem.DeletedItem!
-    public private(set) var hasInventoryItemData:Bool = false
-    public private(set) var inventoryItemData:Pogoprotos.Inventory.InventoryItemData!
+    public fileprivate(set) var deletedItem:Pogoprotos.Inventory.InventoryItem.DeletedItem!
+    public fileprivate(set) var hasDeletedItem:Bool = false
+    public fileprivate(set) var inventoryItemData:Pogoprotos.Inventory.InventoryItemData!
+    public fileprivate(set) var hasInventoryItemData:Bool = false
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasModifiedTimestampMs {
-        try output.writeInt64(1, value:modifiedTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 1, value:modifiedTimestampMs)
       }
       if hasDeletedItem {
-        try output.writeMessage(2, value:deletedItem)
+        try codedOutputStream.writeMessage(fieldNumber: 2, value:deletedItem)
       }
       if hasInventoryItemData {
-        try output.writeMessage(3, value:inventoryItemData)
+        try codedOutputStream.writeMessage(fieldNumber: 3, value:inventoryItemData)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -2519,15 +2302,15 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if hasModifiedTimestampMs {
-        serialize_size += modifiedTimestampMs.computeInt64Size(1)
+        serialize_size += modifiedTimestampMs.computeInt64Size(fieldNumber: 1)
       }
       if hasDeletedItem {
-          if let varSizedeletedItem = deletedItem?.computeMessageSize(2) {
+          if let varSizedeletedItem = deletedItem?.computeMessageSize(fieldNumber: 2) {
               serialize_size += varSizedeletedItem
           }
       }
       if hasInventoryItemData {
-          if let varSizeinventoryItemData = inventoryItemData?.computeMessageSize(3) {
+          if let varSizeinventoryItemData = inventoryItemData?.computeMessageSize(fieldNumber: 3) {
               serialize_size += varSizeinventoryItemData
           }
       }
@@ -2535,58 +2318,30 @@ public extension Pogoprotos.Inventory {
       memoizedSerializedSize = serialize_size
       return serialize_size
     }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryItem> {
-      var mergedArray = Array<Pogoprotos.Inventory.InventoryItem>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItem? {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
     public class func getBuilder() -> Pogoprotos.Inventory.InventoryItem.Builder {
       return Pogoprotos.Inventory.InventoryItem.classBuilder() as! Pogoprotos.Inventory.InventoryItem.Builder
     }
     public func getBuilder() -> Pogoprotos.Inventory.InventoryItem.Builder {
       return classBuilder() as! Pogoprotos.Inventory.InventoryItem.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryItem.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryItem.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.InventoryItem.Builder {
-      return try Pogoprotos.Inventory.InventoryItem.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.InventoryItem.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryItem) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
-      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasModifiedTimestampMs {
         jsonMap["modifiedTimestampMs"] = "\(modifiedTimestampMs)"
       }
@@ -2598,11 +2353,11 @@ public extension Pogoprotos.Inventory {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryItem {
+      return try Pogoprotos.Inventory.InventoryItem.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem {
-      return try Pogoprotos.Inventory.InventoryItem.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryItem {
+      return try Pogoprotos.Inventory.InventoryItem.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -2612,18 +2367,18 @@ public extension Pogoprotos.Inventory {
       if hasDeletedItem {
         output += "\(indent) deletedItem {\n"
         if let outDescDeletedItem = deletedItem {
-          output += try outDescDeletedItem.getDescription("\(indent)  ")
+          output += try outDescDeletedItem.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasInventoryItemData {
         output += "\(indent) inventoryItemData {\n"
         if let outDescInventoryItemData = inventoryItemData {
-          output += try outDescInventoryItemData.getDescription("\(indent)  ")
+          output += try outDescInventoryItemData.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -2656,13 +2411,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.InventoryItem"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.InventoryItem.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.InventoryItem = Pogoprotos.Inventory.InventoryItem()
+      fileprivate var builderResult:Pogoprotos.Inventory.InventoryItem = Pogoprotos.Inventory.InventoryItem()
       public func getMessage() -> Pogoprotos.Inventory.InventoryItem {
           return builderResult
       }
@@ -2684,7 +2436,7 @@ public extension Pogoprotos.Inventory {
                builderResult.modifiedTimestampMs = value
            }
       }
-      public func setModifiedTimestampMs(value:Int64) -> Pogoprotos.Inventory.InventoryItem.Builder {
+      public func setModifiedTimestampMs(_ value:Int64) -> Pogoprotos.Inventory.InventoryItem.Builder {
         self.modifiedTimestampMs = value
         return self
       }
@@ -2710,7 +2462,7 @@ public extension Pogoprotos.Inventory {
                builderResult.deletedItem = value
            }
       }
-      private var deletedItemBuilder_:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder! {
+      fileprivate var deletedItemBuilder_:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder! {
            didSet {
               builderResult.hasDeletedItem = true
            }
@@ -2720,18 +2472,18 @@ public extension Pogoprotos.Inventory {
            deletedItemBuilder_ = Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
            builderResult.deletedItem = deletedItemBuilder_.getMessage()
            if deletedItem != nil {
-              try! deletedItemBuilder_.mergeFrom(deletedItem)
+              _ = try! deletedItemBuilder_.mergeFrom(other: deletedItem)
            }
         }
         return deletedItemBuilder_
       }
-      public func setDeletedItem(value:Pogoprotos.Inventory.InventoryItem.DeletedItem!) -> Pogoprotos.Inventory.InventoryItem.Builder {
+      public func setDeletedItem(_ value:Pogoprotos.Inventory.InventoryItem.DeletedItem!) -> Pogoprotos.Inventory.InventoryItem.Builder {
         self.deletedItem = value
         return self
       }
       public func mergeDeletedItem(value:Pogoprotos.Inventory.InventoryItem.DeletedItem) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
         if builderResult.hasDeletedItem {
-          builderResult.deletedItem = try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(builderResult.deletedItem).mergeFrom(value).buildPartial()
+          builderResult.deletedItem = try Pogoprotos.Inventory.InventoryItem.DeletedItem.builderWithPrototype(prototype:builderResult.deletedItem).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.deletedItem = value
         }
@@ -2761,7 +2513,7 @@ public extension Pogoprotos.Inventory {
                builderResult.inventoryItemData = value
            }
       }
-      private var inventoryItemDataBuilder_:Pogoprotos.Inventory.InventoryItemData.Builder! {
+      fileprivate var inventoryItemDataBuilder_:Pogoprotos.Inventory.InventoryItemData.Builder! {
            didSet {
               builderResult.hasInventoryItemData = true
            }
@@ -2771,18 +2523,18 @@ public extension Pogoprotos.Inventory {
            inventoryItemDataBuilder_ = Pogoprotos.Inventory.InventoryItemData.Builder()
            builderResult.inventoryItemData = inventoryItemDataBuilder_.getMessage()
            if inventoryItemData != nil {
-              try! inventoryItemDataBuilder_.mergeFrom(inventoryItemData)
+              _ = try! inventoryItemDataBuilder_.mergeFrom(other: inventoryItemData)
            }
         }
         return inventoryItemDataBuilder_
       }
-      public func setInventoryItemData(value:Pogoprotos.Inventory.InventoryItemData!) -> Pogoprotos.Inventory.InventoryItem.Builder {
+      public func setInventoryItemData(_ value:Pogoprotos.Inventory.InventoryItemData!) -> Pogoprotos.Inventory.InventoryItem.Builder {
         self.inventoryItemData = value
         return self
       }
       public func mergeInventoryItemData(value:Pogoprotos.Inventory.InventoryItemData) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
         if builderResult.hasInventoryItemData {
-          builderResult.inventoryItemData = try Pogoprotos.Inventory.InventoryItemData.builderWithPrototype(builderResult.inventoryItemData).mergeFrom(value).buildPartial()
+          builderResult.inventoryItemData = try Pogoprotos.Inventory.InventoryItemData.builderWithPrototype(prototype:builderResult.inventoryItemData).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.inventoryItemData = value
         }
@@ -2805,7 +2557,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.InventoryItem.Builder {
-        return try Pogoprotos.Inventory.InventoryItem.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.InventoryItem.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.InventoryItem {
            try checkInitialized()
@@ -2823,138 +2575,138 @@ public extension Pogoprotos.Inventory {
              modifiedTimestampMs = other.modifiedTimestampMs
         }
         if (other.hasDeletedItem) {
-            try mergeDeletedItem(other.deletedItem)
+            _ = try mergeDeletedItem(value: other.deletedItem)
         }
         if (other.hasInventoryItemData) {
-            try mergeInventoryItemData(other.inventoryItemData)
+            _ = try mergeInventoryItemData(value: other.inventoryItemData)
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            modifiedTimestampMs = try input.readInt64()
+            modifiedTimestampMs = try codedInputStream.readInt64()
 
           case 18:
             let subBuilder:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder = Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder()
             if hasDeletedItem {
-              try subBuilder.mergeFrom(deletedItem)
+              _ = try subBuilder.mergeFrom(other: deletedItem)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             deletedItem = subBuilder.buildPartial()
 
           case 26:
             let subBuilder:Pogoprotos.Inventory.InventoryItemData.Builder = Pogoprotos.Inventory.InventoryItemData.Builder()
             if hasInventoryItemData {
-              try subBuilder.mergeFrom(inventoryItemData)
+              _ = try subBuilder.mergeFrom(other: inventoryItemData)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             inventoryItemData = subBuilder.buildPartial()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.InventoryItem.Builder()
         if let jsonValueModifiedTimestampMs = jsonMap["modifiedTimestampMs"] as? String {
           resultDecodedBuilder.modifiedTimestampMs = Int64(jsonValueModifiedTimestampMs)!
         }
-        if let jsonValueDeletedItem = jsonMap["deletedItem"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.deletedItem = try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonValueDeletedItem).build()
+        if let jsonValueDeletedItem = jsonMap["deletedItem"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.deletedItem = try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder.decodeToBuilder(jsonMap:jsonValueDeletedItem).build()
 
         }
-        if let jsonValueInventoryItemData = jsonMap["inventoryItemData"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.inventoryItemData = try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonValueInventoryItemData).build()
+        if let jsonValueInventoryItemData = jsonMap["inventoryItemData"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.inventoryItemData = try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonMap:jsonValueInventoryItemData).build()
 
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryItem.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.InventoryItem.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.InventoryItem.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class InventoryItemData : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasPokemonData:Bool = false
-    public private(set) var pokemonData:Pogoprotos.Data.PokemonData!
-    public private(set) var hasItem:Bool = false
-    public private(set) var item:Pogoprotos.Inventory.Item.ItemData!
-    public private(set) var hasPokedexEntry:Bool = false
-    public private(set) var pokedexEntry:Pogoprotos.Data.PokedexEntry!
-    public private(set) var hasPlayerStats:Bool = false
-    public private(set) var playerStats:Pogoprotos.Data.Player.PlayerStats!
-    public private(set) var hasPlayerCurrency:Bool = false
-    public private(set) var playerCurrency:Pogoprotos.Data.Player.PlayerCurrency!
-    public private(set) var hasPlayerCamera:Bool = false
-    public private(set) var playerCamera:Pogoprotos.Data.Player.PlayerCamera!
-    public private(set) var hasInventoryUpgrades:Bool = false
-    public private(set) var inventoryUpgrades:Pogoprotos.Inventory.InventoryUpgrades!
-    public private(set) var hasAppliedItems:Bool = false
-    public private(set) var appliedItems:Pogoprotos.Inventory.AppliedItems!
-    public private(set) var hasEggIncubators:Bool = false
-    public private(set) var eggIncubators:Pogoprotos.Inventory.EggIncubators!
-    public private(set) var hasCandy:Bool = false
-    public private(set) var candy:Pogoprotos.Inventory.Candy!
+  final public class InventoryItemData : GeneratedMessage {
+    public fileprivate(set) var pokemonData:Pogoprotos.Data.PokemonData!
+    public fileprivate(set) var hasPokemonData:Bool = false
+    public fileprivate(set) var item:Pogoprotos.Inventory.Item.ItemData!
+    public fileprivate(set) var hasItem:Bool = false
+    public fileprivate(set) var pokedexEntry:Pogoprotos.Data.PokedexEntry!
+    public fileprivate(set) var hasPokedexEntry:Bool = false
+    public fileprivate(set) var playerStats:Pogoprotos.Data.Player.PlayerStats!
+    public fileprivate(set) var hasPlayerStats:Bool = false
+    public fileprivate(set) var playerCurrency:Pogoprotos.Data.Player.PlayerCurrency!
+    public fileprivate(set) var hasPlayerCurrency:Bool = false
+    public fileprivate(set) var playerCamera:Pogoprotos.Data.Player.PlayerCamera!
+    public fileprivate(set) var hasPlayerCamera:Bool = false
+    public fileprivate(set) var inventoryUpgrades:Pogoprotos.Inventory.InventoryUpgrades!
+    public fileprivate(set) var hasInventoryUpgrades:Bool = false
+    public fileprivate(set) var appliedItems:Pogoprotos.Inventory.AppliedItems!
+    public fileprivate(set) var hasAppliedItems:Bool = false
+    public fileprivate(set) var eggIncubators:Pogoprotos.Inventory.EggIncubators!
+    public fileprivate(set) var hasEggIncubators:Bool = false
+    public fileprivate(set) var candy:Pogoprotos.Inventory.Candy!
+    public fileprivate(set) var hasCandy:Bool = false
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasPokemonData {
-        try output.writeMessage(1, value:pokemonData)
+        try codedOutputStream.writeMessage(fieldNumber: 1, value:pokemonData)
       }
       if hasItem {
-        try output.writeMessage(2, value:item)
+        try codedOutputStream.writeMessage(fieldNumber: 2, value:item)
       }
       if hasPokedexEntry {
-        try output.writeMessage(3, value:pokedexEntry)
+        try codedOutputStream.writeMessage(fieldNumber: 3, value:pokedexEntry)
       }
       if hasPlayerStats {
-        try output.writeMessage(4, value:playerStats)
+        try codedOutputStream.writeMessage(fieldNumber: 4, value:playerStats)
       }
       if hasPlayerCurrency {
-        try output.writeMessage(5, value:playerCurrency)
+        try codedOutputStream.writeMessage(fieldNumber: 5, value:playerCurrency)
       }
       if hasPlayerCamera {
-        try output.writeMessage(6, value:playerCamera)
+        try codedOutputStream.writeMessage(fieldNumber: 6, value:playerCamera)
       }
       if hasInventoryUpgrades {
-        try output.writeMessage(7, value:inventoryUpgrades)
+        try codedOutputStream.writeMessage(fieldNumber: 7, value:inventoryUpgrades)
       }
       if hasAppliedItems {
-        try output.writeMessage(8, value:appliedItems)
+        try codedOutputStream.writeMessage(fieldNumber: 8, value:appliedItems)
       }
       if hasEggIncubators {
-        try output.writeMessage(9, value:eggIncubators)
+        try codedOutputStream.writeMessage(fieldNumber: 9, value:eggIncubators)
       }
       if hasCandy {
-        try output.writeMessage(10, value:candy)
+        try codedOutputStream.writeMessage(fieldNumber: 10, value:candy)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -2964,52 +2716,52 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if hasPokemonData {
-          if let varSizepokemonData = pokemonData?.computeMessageSize(1) {
+          if let varSizepokemonData = pokemonData?.computeMessageSize(fieldNumber: 1) {
               serialize_size += varSizepokemonData
           }
       }
       if hasItem {
-          if let varSizeitem = item?.computeMessageSize(2) {
+          if let varSizeitem = item?.computeMessageSize(fieldNumber: 2) {
               serialize_size += varSizeitem
           }
       }
       if hasPokedexEntry {
-          if let varSizepokedexEntry = pokedexEntry?.computeMessageSize(3) {
+          if let varSizepokedexEntry = pokedexEntry?.computeMessageSize(fieldNumber: 3) {
               serialize_size += varSizepokedexEntry
           }
       }
       if hasPlayerStats {
-          if let varSizeplayerStats = playerStats?.computeMessageSize(4) {
+          if let varSizeplayerStats = playerStats?.computeMessageSize(fieldNumber: 4) {
               serialize_size += varSizeplayerStats
           }
       }
       if hasPlayerCurrency {
-          if let varSizeplayerCurrency = playerCurrency?.computeMessageSize(5) {
+          if let varSizeplayerCurrency = playerCurrency?.computeMessageSize(fieldNumber: 5) {
               serialize_size += varSizeplayerCurrency
           }
       }
       if hasPlayerCamera {
-          if let varSizeplayerCamera = playerCamera?.computeMessageSize(6) {
+          if let varSizeplayerCamera = playerCamera?.computeMessageSize(fieldNumber: 6) {
               serialize_size += varSizeplayerCamera
           }
       }
       if hasInventoryUpgrades {
-          if let varSizeinventoryUpgrades = inventoryUpgrades?.computeMessageSize(7) {
+          if let varSizeinventoryUpgrades = inventoryUpgrades?.computeMessageSize(fieldNumber: 7) {
               serialize_size += varSizeinventoryUpgrades
           }
       }
       if hasAppliedItems {
-          if let varSizeappliedItems = appliedItems?.computeMessageSize(8) {
+          if let varSizeappliedItems = appliedItems?.computeMessageSize(fieldNumber: 8) {
               serialize_size += varSizeappliedItems
           }
       }
       if hasEggIncubators {
-          if let varSizeeggIncubators = eggIncubators?.computeMessageSize(9) {
+          if let varSizeeggIncubators = eggIncubators?.computeMessageSize(fieldNumber: 9) {
               serialize_size += varSizeeggIncubators
           }
       }
       if hasCandy {
-          if let varSizecandy = candy?.computeMessageSize(10) {
+          if let varSizecandy = candy?.computeMessageSize(fieldNumber: 10) {
               serialize_size += varSizecandy
           }
       }
@@ -3017,58 +2769,30 @@ public extension Pogoprotos.Inventory {
       memoizedSerializedSize = serialize_size
       return serialize_size
     }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryItemData> {
-      var mergedArray = Array<Pogoprotos.Inventory.InventoryItemData>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItemData? {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
     public class func getBuilder() -> Pogoprotos.Inventory.InventoryItemData.Builder {
       return Pogoprotos.Inventory.InventoryItemData.classBuilder() as! Pogoprotos.Inventory.InventoryItemData.Builder
     }
     public func getBuilder() -> Pogoprotos.Inventory.InventoryItemData.Builder {
       return classBuilder() as! Pogoprotos.Inventory.InventoryItemData.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryItemData.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryItemData.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
-      return try Pogoprotos.Inventory.InventoryItemData.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.InventoryItemData.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryItemData) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasPokemonData {
         jsonMap["pokemonData"] = try pokemonData.encode()
       }
@@ -3101,85 +2825,85 @@ public extension Pogoprotos.Inventory {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryItemData {
+      return try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryItemData {
-      return try Pogoprotos.Inventory.InventoryItemData.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryItemData {
+      return try Pogoprotos.Inventory.InventoryItemData.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasPokemonData {
         output += "\(indent) pokemonData {\n"
         if let outDescPokemonData = pokemonData {
-          output += try outDescPokemonData.getDescription("\(indent)  ")
+          output += try outDescPokemonData.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasItem {
         output += "\(indent) item {\n"
         if let outDescItem = item {
-          output += try outDescItem.getDescription("\(indent)  ")
+          output += try outDescItem.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasPokedexEntry {
         output += "\(indent) pokedexEntry {\n"
         if let outDescPokedexEntry = pokedexEntry {
-          output += try outDescPokedexEntry.getDescription("\(indent)  ")
+          output += try outDescPokedexEntry.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasPlayerStats {
         output += "\(indent) playerStats {\n"
         if let outDescPlayerStats = playerStats {
-          output += try outDescPlayerStats.getDescription("\(indent)  ")
+          output += try outDescPlayerStats.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasPlayerCurrency {
         output += "\(indent) playerCurrency {\n"
         if let outDescPlayerCurrency = playerCurrency {
-          output += try outDescPlayerCurrency.getDescription("\(indent)  ")
+          output += try outDescPlayerCurrency.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasPlayerCamera {
         output += "\(indent) playerCamera {\n"
         if let outDescPlayerCamera = playerCamera {
-          output += try outDescPlayerCamera.getDescription("\(indent)  ")
+          output += try outDescPlayerCamera.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasInventoryUpgrades {
         output += "\(indent) inventoryUpgrades {\n"
         if let outDescInventoryUpgrades = inventoryUpgrades {
-          output += try outDescInventoryUpgrades.getDescription("\(indent)  ")
+          output += try outDescInventoryUpgrades.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasAppliedItems {
         output += "\(indent) appliedItems {\n"
         if let outDescAppliedItems = appliedItems {
-          output += try outDescAppliedItems.getDescription("\(indent)  ")
+          output += try outDescAppliedItems.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasEggIncubators {
         output += "\(indent) eggIncubators {\n"
         if let outDescEggIncubators = eggIncubators {
-          output += try outDescEggIncubators.getDescription("\(indent)  ")
+          output += try outDescEggIncubators.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasCandy {
         output += "\(indent) candy {\n"
         if let outDescCandy = candy {
-          output += try outDescCandy.getDescription("\(indent)  ")
+          output += try outDescCandy.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -3249,13 +2973,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.InventoryItemData"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.InventoryItemData.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.InventoryItemData = Pogoprotos.Inventory.InventoryItemData()
+      fileprivate var builderResult:Pogoprotos.Inventory.InventoryItemData = Pogoprotos.Inventory.InventoryItemData()
       public func getMessage() -> Pogoprotos.Inventory.InventoryItemData {
           return builderResult
       }
@@ -3280,7 +3001,7 @@ public extension Pogoprotos.Inventory {
                builderResult.pokemonData = value
            }
       }
-      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -3290,18 +3011,18 @@ public extension Pogoprotos.Inventory {
            pokemonDataBuilder_ = Pogoprotos.Data.PokemonData.Builder()
            builderResult.pokemonData = pokemonDataBuilder_.getMessage()
            if pokemonData != nil {
-              try! pokemonDataBuilder_.mergeFrom(pokemonData)
+              _ = try! pokemonDataBuilder_.mergeFrom(other: pokemonData)
            }
         }
         return pokemonDataBuilder_
       }
-      public func setPokemonData(value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setPokemonData(_ value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.pokemonData = value
         return self
       }
       public func mergePokemonData(value:Pogoprotos.Data.PokemonData) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasPokemonData {
-          builderResult.pokemonData = try Pogoprotos.Data.PokemonData.builderWithPrototype(builderResult.pokemonData).mergeFrom(value).buildPartial()
+          builderResult.pokemonData = try Pogoprotos.Data.PokemonData.builderWithPrototype(prototype:builderResult.pokemonData).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.pokemonData = value
         }
@@ -3331,7 +3052,7 @@ public extension Pogoprotos.Inventory {
                builderResult.item = value
            }
       }
-      private var itemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
+      fileprivate var itemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
            didSet {
               builderResult.hasItem = true
            }
@@ -3341,18 +3062,18 @@ public extension Pogoprotos.Inventory {
            itemBuilder_ = Pogoprotos.Inventory.Item.ItemData.Builder()
            builderResult.item = itemBuilder_.getMessage()
            if item != nil {
-              try! itemBuilder_.mergeFrom(item)
+              _ = try! itemBuilder_.mergeFrom(other: item)
            }
         }
         return itemBuilder_
       }
-      public func setItem(value:Pogoprotos.Inventory.Item.ItemData!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setItem(_ value:Pogoprotos.Inventory.Item.ItemData!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.item = value
         return self
       }
       public func mergeItem(value:Pogoprotos.Inventory.Item.ItemData) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasItem {
-          builderResult.item = try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(builderResult.item).mergeFrom(value).buildPartial()
+          builderResult.item = try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(prototype:builderResult.item).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.item = value
         }
@@ -3382,7 +3103,7 @@ public extension Pogoprotos.Inventory {
                builderResult.pokedexEntry = value
            }
       }
-      private var pokedexEntryBuilder_:Pogoprotos.Data.PokedexEntry.Builder! {
+      fileprivate var pokedexEntryBuilder_:Pogoprotos.Data.PokedexEntry.Builder! {
            didSet {
               builderResult.hasPokedexEntry = true
            }
@@ -3392,18 +3113,18 @@ public extension Pogoprotos.Inventory {
            pokedexEntryBuilder_ = Pogoprotos.Data.PokedexEntry.Builder()
            builderResult.pokedexEntry = pokedexEntryBuilder_.getMessage()
            if pokedexEntry != nil {
-              try! pokedexEntryBuilder_.mergeFrom(pokedexEntry)
+              _ = try! pokedexEntryBuilder_.mergeFrom(other: pokedexEntry)
            }
         }
         return pokedexEntryBuilder_
       }
-      public func setPokedexEntry(value:Pogoprotos.Data.PokedexEntry!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setPokedexEntry(_ value:Pogoprotos.Data.PokedexEntry!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.pokedexEntry = value
         return self
       }
       public func mergePokedexEntry(value:Pogoprotos.Data.PokedexEntry) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasPokedexEntry {
-          builderResult.pokedexEntry = try Pogoprotos.Data.PokedexEntry.builderWithPrototype(builderResult.pokedexEntry).mergeFrom(value).buildPartial()
+          builderResult.pokedexEntry = try Pogoprotos.Data.PokedexEntry.builderWithPrototype(prototype:builderResult.pokedexEntry).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.pokedexEntry = value
         }
@@ -3433,7 +3154,7 @@ public extension Pogoprotos.Inventory {
                builderResult.playerStats = value
            }
       }
-      private var playerStatsBuilder_:Pogoprotos.Data.Player.PlayerStats.Builder! {
+      fileprivate var playerStatsBuilder_:Pogoprotos.Data.Player.PlayerStats.Builder! {
            didSet {
               builderResult.hasPlayerStats = true
            }
@@ -3443,18 +3164,18 @@ public extension Pogoprotos.Inventory {
            playerStatsBuilder_ = Pogoprotos.Data.Player.PlayerStats.Builder()
            builderResult.playerStats = playerStatsBuilder_.getMessage()
            if playerStats != nil {
-              try! playerStatsBuilder_.mergeFrom(playerStats)
+              _ = try! playerStatsBuilder_.mergeFrom(other: playerStats)
            }
         }
         return playerStatsBuilder_
       }
-      public func setPlayerStats(value:Pogoprotos.Data.Player.PlayerStats!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setPlayerStats(_ value:Pogoprotos.Data.Player.PlayerStats!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.playerStats = value
         return self
       }
       public func mergePlayerStats(value:Pogoprotos.Data.Player.PlayerStats) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasPlayerStats {
-          builderResult.playerStats = try Pogoprotos.Data.Player.PlayerStats.builderWithPrototype(builderResult.playerStats).mergeFrom(value).buildPartial()
+          builderResult.playerStats = try Pogoprotos.Data.Player.PlayerStats.builderWithPrototype(prototype:builderResult.playerStats).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.playerStats = value
         }
@@ -3484,7 +3205,7 @@ public extension Pogoprotos.Inventory {
                builderResult.playerCurrency = value
            }
       }
-      private var playerCurrencyBuilder_:Pogoprotos.Data.Player.PlayerCurrency.Builder! {
+      fileprivate var playerCurrencyBuilder_:Pogoprotos.Data.Player.PlayerCurrency.Builder! {
            didSet {
               builderResult.hasPlayerCurrency = true
            }
@@ -3494,18 +3215,18 @@ public extension Pogoprotos.Inventory {
            playerCurrencyBuilder_ = Pogoprotos.Data.Player.PlayerCurrency.Builder()
            builderResult.playerCurrency = playerCurrencyBuilder_.getMessage()
            if playerCurrency != nil {
-              try! playerCurrencyBuilder_.mergeFrom(playerCurrency)
+              _ = try! playerCurrencyBuilder_.mergeFrom(other: playerCurrency)
            }
         }
         return playerCurrencyBuilder_
       }
-      public func setPlayerCurrency(value:Pogoprotos.Data.Player.PlayerCurrency!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setPlayerCurrency(_ value:Pogoprotos.Data.Player.PlayerCurrency!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.playerCurrency = value
         return self
       }
       public func mergePlayerCurrency(value:Pogoprotos.Data.Player.PlayerCurrency) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasPlayerCurrency {
-          builderResult.playerCurrency = try Pogoprotos.Data.Player.PlayerCurrency.builderWithPrototype(builderResult.playerCurrency).mergeFrom(value).buildPartial()
+          builderResult.playerCurrency = try Pogoprotos.Data.Player.PlayerCurrency.builderWithPrototype(prototype:builderResult.playerCurrency).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.playerCurrency = value
         }
@@ -3535,7 +3256,7 @@ public extension Pogoprotos.Inventory {
                builderResult.playerCamera = value
            }
       }
-      private var playerCameraBuilder_:Pogoprotos.Data.Player.PlayerCamera.Builder! {
+      fileprivate var playerCameraBuilder_:Pogoprotos.Data.Player.PlayerCamera.Builder! {
            didSet {
               builderResult.hasPlayerCamera = true
            }
@@ -3545,18 +3266,18 @@ public extension Pogoprotos.Inventory {
            playerCameraBuilder_ = Pogoprotos.Data.Player.PlayerCamera.Builder()
            builderResult.playerCamera = playerCameraBuilder_.getMessage()
            if playerCamera != nil {
-              try! playerCameraBuilder_.mergeFrom(playerCamera)
+              _ = try! playerCameraBuilder_.mergeFrom(other: playerCamera)
            }
         }
         return playerCameraBuilder_
       }
-      public func setPlayerCamera(value:Pogoprotos.Data.Player.PlayerCamera!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setPlayerCamera(_ value:Pogoprotos.Data.Player.PlayerCamera!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.playerCamera = value
         return self
       }
       public func mergePlayerCamera(value:Pogoprotos.Data.Player.PlayerCamera) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasPlayerCamera {
-          builderResult.playerCamera = try Pogoprotos.Data.Player.PlayerCamera.builderWithPrototype(builderResult.playerCamera).mergeFrom(value).buildPartial()
+          builderResult.playerCamera = try Pogoprotos.Data.Player.PlayerCamera.builderWithPrototype(prototype:builderResult.playerCamera).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.playerCamera = value
         }
@@ -3586,7 +3307,7 @@ public extension Pogoprotos.Inventory {
                builderResult.inventoryUpgrades = value
            }
       }
-      private var inventoryUpgradesBuilder_:Pogoprotos.Inventory.InventoryUpgrades.Builder! {
+      fileprivate var inventoryUpgradesBuilder_:Pogoprotos.Inventory.InventoryUpgrades.Builder! {
            didSet {
               builderResult.hasInventoryUpgrades = true
            }
@@ -3596,18 +3317,18 @@ public extension Pogoprotos.Inventory {
            inventoryUpgradesBuilder_ = Pogoprotos.Inventory.InventoryUpgrades.Builder()
            builderResult.inventoryUpgrades = inventoryUpgradesBuilder_.getMessage()
            if inventoryUpgrades != nil {
-              try! inventoryUpgradesBuilder_.mergeFrom(inventoryUpgrades)
+              _ = try! inventoryUpgradesBuilder_.mergeFrom(other: inventoryUpgrades)
            }
         }
         return inventoryUpgradesBuilder_
       }
-      public func setInventoryUpgrades(value:Pogoprotos.Inventory.InventoryUpgrades!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setInventoryUpgrades(_ value:Pogoprotos.Inventory.InventoryUpgrades!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.inventoryUpgrades = value
         return self
       }
       public func mergeInventoryUpgrades(value:Pogoprotos.Inventory.InventoryUpgrades) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasInventoryUpgrades {
-          builderResult.inventoryUpgrades = try Pogoprotos.Inventory.InventoryUpgrades.builderWithPrototype(builderResult.inventoryUpgrades).mergeFrom(value).buildPartial()
+          builderResult.inventoryUpgrades = try Pogoprotos.Inventory.InventoryUpgrades.builderWithPrototype(prototype:builderResult.inventoryUpgrades).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.inventoryUpgrades = value
         }
@@ -3637,7 +3358,7 @@ public extension Pogoprotos.Inventory {
                builderResult.appliedItems = value
            }
       }
-      private var appliedItemsBuilder_:Pogoprotos.Inventory.AppliedItems.Builder! {
+      fileprivate var appliedItemsBuilder_:Pogoprotos.Inventory.AppliedItems.Builder! {
            didSet {
               builderResult.hasAppliedItems = true
            }
@@ -3647,18 +3368,18 @@ public extension Pogoprotos.Inventory {
            appliedItemsBuilder_ = Pogoprotos.Inventory.AppliedItems.Builder()
            builderResult.appliedItems = appliedItemsBuilder_.getMessage()
            if appliedItems != nil {
-              try! appliedItemsBuilder_.mergeFrom(appliedItems)
+              _ = try! appliedItemsBuilder_.mergeFrom(other: appliedItems)
            }
         }
         return appliedItemsBuilder_
       }
-      public func setAppliedItems(value:Pogoprotos.Inventory.AppliedItems!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setAppliedItems(_ value:Pogoprotos.Inventory.AppliedItems!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.appliedItems = value
         return self
       }
       public func mergeAppliedItems(value:Pogoprotos.Inventory.AppliedItems) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasAppliedItems {
-          builderResult.appliedItems = try Pogoprotos.Inventory.AppliedItems.builderWithPrototype(builderResult.appliedItems).mergeFrom(value).buildPartial()
+          builderResult.appliedItems = try Pogoprotos.Inventory.AppliedItems.builderWithPrototype(prototype:builderResult.appliedItems).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.appliedItems = value
         }
@@ -3688,7 +3409,7 @@ public extension Pogoprotos.Inventory {
                builderResult.eggIncubators = value
            }
       }
-      private var eggIncubatorsBuilder_:Pogoprotos.Inventory.EggIncubators.Builder! {
+      fileprivate var eggIncubatorsBuilder_:Pogoprotos.Inventory.EggIncubators.Builder! {
            didSet {
               builderResult.hasEggIncubators = true
            }
@@ -3698,18 +3419,18 @@ public extension Pogoprotos.Inventory {
            eggIncubatorsBuilder_ = Pogoprotos.Inventory.EggIncubators.Builder()
            builderResult.eggIncubators = eggIncubatorsBuilder_.getMessage()
            if eggIncubators != nil {
-              try! eggIncubatorsBuilder_.mergeFrom(eggIncubators)
+              _ = try! eggIncubatorsBuilder_.mergeFrom(other: eggIncubators)
            }
         }
         return eggIncubatorsBuilder_
       }
-      public func setEggIncubators(value:Pogoprotos.Inventory.EggIncubators!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setEggIncubators(_ value:Pogoprotos.Inventory.EggIncubators!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.eggIncubators = value
         return self
       }
       public func mergeEggIncubators(value:Pogoprotos.Inventory.EggIncubators) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasEggIncubators {
-          builderResult.eggIncubators = try Pogoprotos.Inventory.EggIncubators.builderWithPrototype(builderResult.eggIncubators).mergeFrom(value).buildPartial()
+          builderResult.eggIncubators = try Pogoprotos.Inventory.EggIncubators.builderWithPrototype(prototype:builderResult.eggIncubators).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.eggIncubators = value
         }
@@ -3739,7 +3460,7 @@ public extension Pogoprotos.Inventory {
                builderResult.candy = value
            }
       }
-      private var candyBuilder_:Pogoprotos.Inventory.Candy.Builder! {
+      fileprivate var candyBuilder_:Pogoprotos.Inventory.Candy.Builder! {
            didSet {
               builderResult.hasCandy = true
            }
@@ -3749,18 +3470,18 @@ public extension Pogoprotos.Inventory {
            candyBuilder_ = Pogoprotos.Inventory.Candy.Builder()
            builderResult.candy = candyBuilder_.getMessage()
            if candy != nil {
-              try! candyBuilder_.mergeFrom(candy)
+              _ = try! candyBuilder_.mergeFrom(other: candy)
            }
         }
         return candyBuilder_
       }
-      public func setCandy(value:Pogoprotos.Inventory.Candy!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      public func setCandy(_ value:Pogoprotos.Inventory.Candy!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
         self.candy = value
         return self
       }
       public func mergeCandy(value:Pogoprotos.Inventory.Candy) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         if builderResult.hasCandy {
-          builderResult.candy = try Pogoprotos.Inventory.Candy.builderWithPrototype(builderResult.candy).mergeFrom(value).buildPartial()
+          builderResult.candy = try Pogoprotos.Inventory.Candy.builderWithPrototype(prototype:builderResult.candy).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.candy = value
         }
@@ -3783,7 +3504,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
-        return try Pogoprotos.Inventory.InventoryItemData.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.InventoryItemData.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.InventoryItemData {
            try checkInitialized()
@@ -3798,45 +3519,45 @@ public extension Pogoprotos.Inventory {
          return self
         }
         if (other.hasPokemonData) {
-            try mergePokemonData(other.pokemonData)
+            _ = try mergePokemonData(value: other.pokemonData)
         }
         if (other.hasItem) {
-            try mergeItem(other.item)
+            _ = try mergeItem(value: other.item)
         }
         if (other.hasPokedexEntry) {
-            try mergePokedexEntry(other.pokedexEntry)
+            _ = try mergePokedexEntry(value: other.pokedexEntry)
         }
         if (other.hasPlayerStats) {
-            try mergePlayerStats(other.playerStats)
+            _ = try mergePlayerStats(value: other.playerStats)
         }
         if (other.hasPlayerCurrency) {
-            try mergePlayerCurrency(other.playerCurrency)
+            _ = try mergePlayerCurrency(value: other.playerCurrency)
         }
         if (other.hasPlayerCamera) {
-            try mergePlayerCamera(other.playerCamera)
+            _ = try mergePlayerCamera(value: other.playerCamera)
         }
         if (other.hasInventoryUpgrades) {
-            try mergeInventoryUpgrades(other.inventoryUpgrades)
+            _ = try mergeInventoryUpgrades(value: other.inventoryUpgrades)
         }
         if (other.hasAppliedItems) {
-            try mergeAppliedItems(other.appliedItems)
+            _ = try mergeAppliedItems(value: other.appliedItems)
         }
         if (other.hasEggIncubators) {
-            try mergeEggIncubators(other.eggIncubators)
+            _ = try mergeEggIncubators(value: other.eggIncubators)
         }
         if (other.hasCandy) {
-            try mergeCandy(other.candy)
+            _ = try mergeCandy(value: other.candy)
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
@@ -3845,153 +3566,153 @@ public extension Pogoprotos.Inventory {
           case 10:
             let subBuilder:Pogoprotos.Data.PokemonData.Builder = Pogoprotos.Data.PokemonData.Builder()
             if hasPokemonData {
-              try subBuilder.mergeFrom(pokemonData)
+              _ = try subBuilder.mergeFrom(other: pokemonData)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             pokemonData = subBuilder.buildPartial()
 
           case 18:
             let subBuilder:Pogoprotos.Inventory.Item.ItemData.Builder = Pogoprotos.Inventory.Item.ItemData.Builder()
             if hasItem {
-              try subBuilder.mergeFrom(item)
+              _ = try subBuilder.mergeFrom(other: item)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             item = subBuilder.buildPartial()
 
           case 26:
             let subBuilder:Pogoprotos.Data.PokedexEntry.Builder = Pogoprotos.Data.PokedexEntry.Builder()
             if hasPokedexEntry {
-              try subBuilder.mergeFrom(pokedexEntry)
+              _ = try subBuilder.mergeFrom(other: pokedexEntry)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             pokedexEntry = subBuilder.buildPartial()
 
           case 34:
             let subBuilder:Pogoprotos.Data.Player.PlayerStats.Builder = Pogoprotos.Data.Player.PlayerStats.Builder()
             if hasPlayerStats {
-              try subBuilder.mergeFrom(playerStats)
+              _ = try subBuilder.mergeFrom(other: playerStats)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             playerStats = subBuilder.buildPartial()
 
           case 42:
             let subBuilder:Pogoprotos.Data.Player.PlayerCurrency.Builder = Pogoprotos.Data.Player.PlayerCurrency.Builder()
             if hasPlayerCurrency {
-              try subBuilder.mergeFrom(playerCurrency)
+              _ = try subBuilder.mergeFrom(other: playerCurrency)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             playerCurrency = subBuilder.buildPartial()
 
           case 50:
             let subBuilder:Pogoprotos.Data.Player.PlayerCamera.Builder = Pogoprotos.Data.Player.PlayerCamera.Builder()
             if hasPlayerCamera {
-              try subBuilder.mergeFrom(playerCamera)
+              _ = try subBuilder.mergeFrom(other: playerCamera)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             playerCamera = subBuilder.buildPartial()
 
           case 58:
             let subBuilder:Pogoprotos.Inventory.InventoryUpgrades.Builder = Pogoprotos.Inventory.InventoryUpgrades.Builder()
             if hasInventoryUpgrades {
-              try subBuilder.mergeFrom(inventoryUpgrades)
+              _ = try subBuilder.mergeFrom(other: inventoryUpgrades)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             inventoryUpgrades = subBuilder.buildPartial()
 
           case 66:
             let subBuilder:Pogoprotos.Inventory.AppliedItems.Builder = Pogoprotos.Inventory.AppliedItems.Builder()
             if hasAppliedItems {
-              try subBuilder.mergeFrom(appliedItems)
+              _ = try subBuilder.mergeFrom(other: appliedItems)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             appliedItems = subBuilder.buildPartial()
 
           case 74:
             let subBuilder:Pogoprotos.Inventory.EggIncubators.Builder = Pogoprotos.Inventory.EggIncubators.Builder()
             if hasEggIncubators {
-              try subBuilder.mergeFrom(eggIncubators)
+              _ = try subBuilder.mergeFrom(other: eggIncubators)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             eggIncubators = subBuilder.buildPartial()
 
           case 82:
             let subBuilder:Pogoprotos.Inventory.Candy.Builder = Pogoprotos.Inventory.Candy.Builder()
             if hasCandy {
-              try subBuilder.mergeFrom(candy)
+              _ = try subBuilder.mergeFrom(other: candy)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             candy = subBuilder.buildPartial()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.InventoryItemData.Builder()
-        if let jsonValuePokemonData = jsonMap["pokemonData"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.pokemonData = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonValuePokemonData).build()
+        if let jsonValuePokemonData = jsonMap["pokemonData"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.pokemonData = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonMap:jsonValuePokemonData).build()
 
         }
-        if let jsonValueItem = jsonMap["item"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.item = try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonValueItem).build()
+        if let jsonValueItem = jsonMap["item"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.item = try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonMap:jsonValueItem).build()
 
         }
-        if let jsonValuePokedexEntry = jsonMap["pokedexEntry"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.pokedexEntry = try Pogoprotos.Data.PokedexEntry.Builder.decodeToBuilder(jsonValuePokedexEntry).build()
+        if let jsonValuePokedexEntry = jsonMap["pokedexEntry"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.pokedexEntry = try Pogoprotos.Data.PokedexEntry.Builder.decodeToBuilder(jsonMap:jsonValuePokedexEntry).build()
 
         }
-        if let jsonValuePlayerStats = jsonMap["playerStats"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.playerStats = try Pogoprotos.Data.Player.PlayerStats.Builder.decodeToBuilder(jsonValuePlayerStats).build()
+        if let jsonValuePlayerStats = jsonMap["playerStats"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.playerStats = try Pogoprotos.Data.Player.PlayerStats.Builder.decodeToBuilder(jsonMap:jsonValuePlayerStats).build()
 
         }
-        if let jsonValuePlayerCurrency = jsonMap["playerCurrency"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.playerCurrency = try Pogoprotos.Data.Player.PlayerCurrency.Builder.decodeToBuilder(jsonValuePlayerCurrency).build()
+        if let jsonValuePlayerCurrency = jsonMap["playerCurrency"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.playerCurrency = try Pogoprotos.Data.Player.PlayerCurrency.Builder.decodeToBuilder(jsonMap:jsonValuePlayerCurrency).build()
 
         }
-        if let jsonValuePlayerCamera = jsonMap["playerCamera"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.playerCamera = try Pogoprotos.Data.Player.PlayerCamera.Builder.decodeToBuilder(jsonValuePlayerCamera).build()
+        if let jsonValuePlayerCamera = jsonMap["playerCamera"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.playerCamera = try Pogoprotos.Data.Player.PlayerCamera.Builder.decodeToBuilder(jsonMap:jsonValuePlayerCamera).build()
 
         }
-        if let jsonValueInventoryUpgrades = jsonMap["inventoryUpgrades"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.inventoryUpgrades = try Pogoprotos.Inventory.InventoryUpgrades.Builder.decodeToBuilder(jsonValueInventoryUpgrades).build()
+        if let jsonValueInventoryUpgrades = jsonMap["inventoryUpgrades"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.inventoryUpgrades = try Pogoprotos.Inventory.InventoryUpgrades.Builder.decodeToBuilder(jsonMap:jsonValueInventoryUpgrades).build()
 
         }
-        if let jsonValueAppliedItems = jsonMap["appliedItems"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.appliedItems = try Pogoprotos.Inventory.AppliedItems.Builder.decodeToBuilder(jsonValueAppliedItems).build()
+        if let jsonValueAppliedItems = jsonMap["appliedItems"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.appliedItems = try Pogoprotos.Inventory.AppliedItems.Builder.decodeToBuilder(jsonMap:jsonValueAppliedItems).build()
 
         }
-        if let jsonValueEggIncubators = jsonMap["eggIncubators"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.eggIncubators = try Pogoprotos.Inventory.EggIncubators.Builder.decodeToBuilder(jsonValueEggIncubators).build()
+        if let jsonValueEggIncubators = jsonMap["eggIncubators"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.eggIncubators = try Pogoprotos.Inventory.EggIncubators.Builder.decodeToBuilder(jsonMap:jsonValueEggIncubators).build()
 
         }
-        if let jsonValueCandy = jsonMap["candy"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.candy = try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsonValueCandy).build()
+        if let jsonValueCandy = jsonMap["candy"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.candy = try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsonMap:jsonValueCandy).build()
 
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class InventoryUpgrade : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
-    public private(set) var hasItemId:Bool = false
-    public private(set) var upgradeType:Pogoprotos.Inventory.InventoryUpgradeType = Pogoprotos.Inventory.InventoryUpgradeType.UpgradeUnset
-    public private(set) var hasUpgradeType:Bool = false
-    public private(set) var hasAdditionalStorage:Bool = false
-    public private(set) var additionalStorage:Int32 = Int32(0)
+  final public class InventoryUpgrade : GeneratedMessage {
+    public fileprivate(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItemId:Bool = false
+    public fileprivate(set) var upgradeType:Pogoprotos.Inventory.InventoryUpgradeType = Pogoprotos.Inventory.InventoryUpgradeType.upgradeUnset
+    public fileprivate(set) var hasUpgradeType:Bool = false
+    public fileprivate(set) var additionalStorage:Int32 = Int32(0)
+    public fileprivate(set) var hasAdditionalStorage:Bool = false
 
     required public init() {
          super.init()
@@ -3999,17 +3720,17 @@ public extension Pogoprotos.Inventory {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasItemId {
-        try output.writeEnum(1, value:itemId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:itemId.rawValue)
       }
       if hasUpgradeType {
-        try output.writeEnum(2, value:upgradeType.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 2, value:upgradeType.rawValue)
       }
       if hasAdditionalStorage {
-        try output.writeInt32(3, value:additionalStorage)
+        try codedOutputStream.writeInt32(fieldNumber: 3, value:additionalStorage)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -4019,45 +3740,17 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       if (hasItemId) {
-        serialize_size += itemId.rawValue.computeEnumSize(1)
+        serialize_size += itemId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if (hasUpgradeType) {
-        serialize_size += upgradeType.rawValue.computeEnumSize(2)
+        serialize_size += upgradeType.rawValue.computeEnumSize(fieldNumber: 2)
       }
       if hasAdditionalStorage {
-        serialize_size += additionalStorage.computeInt32Size(3)
+        serialize_size += additionalStorage.computeInt32Size(fieldNumber: 3)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryUpgrade> {
-      var mergedArray = Array<Pogoprotos.Inventory.InventoryUpgrade>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade? {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
       return Pogoprotos.Inventory.InventoryUpgrade.classBuilder() as! Pogoprotos.Inventory.InventoryUpgrade.Builder
@@ -4065,24 +3758,24 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
       return classBuilder() as! Pogoprotos.Inventory.InventoryUpgrade.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryUpgrade.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryUpgrade.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
-      return try Pogoprotos.Inventory.InventoryUpgrade.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.InventoryUpgrade.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryUpgrade) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasItemId {
         jsonMap["itemId"] = itemId.toString()
       }
@@ -4090,15 +3783,15 @@ public extension Pogoprotos.Inventory {
         jsonMap["upgradeType"] = upgradeType.toString()
       }
       if hasAdditionalStorage {
-        jsonMap["additionalStorage"] = NSNumber(int:additionalStorage)
+        jsonMap["additionalStorage"] = NSNumber(value:additionalStorage)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+      return try Pogoprotos.Inventory.InventoryUpgrade.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryUpgrade {
-      return try Pogoprotos.Inventory.InventoryUpgrade.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+      return try Pogoprotos.Inventory.InventoryUpgrade.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -4111,7 +3804,7 @@ public extension Pogoprotos.Inventory {
       if hasAdditionalStorage {
         output += "\(indent) additionalStorage: \(additionalStorage) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -4140,13 +3833,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.InventoryUpgrade"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.InventoryUpgrade.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.InventoryUpgrade = Pogoprotos.Inventory.InventoryUpgrade()
+      fileprivate var builderResult:Pogoprotos.Inventory.InventoryUpgrade = Pogoprotos.Inventory.InventoryUpgrade()
       public func getMessage() -> Pogoprotos.Inventory.InventoryUpgrade {
           return builderResult
       }
@@ -4168,13 +3858,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+        public func setItemId(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
           self.itemId = value
           return self
         }
         public func clearItemId() -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
            builderResult.hasItemId = false
-           builderResult.itemId = .ItemUnknown
+           builderResult.itemId = .itemUnknown
            return self
         }
         public var hasUpgradeType:Bool{
@@ -4191,13 +3881,13 @@ public extension Pogoprotos.Inventory {
                 builderResult.upgradeType = value
             }
         }
-        public func setUpgradeType(value:Pogoprotos.Inventory.InventoryUpgradeType) -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+        public func setUpgradeType(_ value:Pogoprotos.Inventory.InventoryUpgradeType) -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
           self.upgradeType = value
           return self
         }
         public func clearUpgradeType() -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
            builderResult.hasUpgradeType = false
-           builderResult.upgradeType = .UpgradeUnset
+           builderResult.upgradeType = .upgradeUnset
            return self
         }
       public var hasAdditionalStorage:Bool {
@@ -4214,7 +3904,7 @@ public extension Pogoprotos.Inventory {
                builderResult.additionalStorage = value
            }
       }
-      public func setAdditionalStorage(value:Int32) -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+      public func setAdditionalStorage(_ value:Int32) -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
         self.additionalStorage = value
         return self
       }
@@ -4233,7 +3923,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
-        return try Pogoprotos.Inventory.InventoryUpgrade.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.InventoryUpgrade.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.InventoryUpgrade {
            try checkInitialized()
@@ -4256,85 +3946,85 @@ public extension Pogoprotos.Inventory {
         if other.hasAdditionalStorage {
              additionalStorage = other.additionalStorage
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntitemId = try input.readEnum()
+            let valueIntitemId = try codedInputStream.readEnum()
             if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntitemId))
             }
 
           case 16:
-            let valueIntupgradeType = try input.readEnum()
+            let valueIntupgradeType = try codedInputStream.readEnum()
             if let enumsupgradeType = Pogoprotos.Inventory.InventoryUpgradeType(rawValue:valueIntupgradeType){
                  upgradeType = enumsupgradeType
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(2, value:Int64(valueIntupgradeType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntupgradeType))
             }
 
           case 24:
-            additionalStorage = try input.readInt32()
+            additionalStorage = try codedInputStream.readInt32()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.InventoryUpgrade.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItemId)
         }
         if let jsonValueUpgradeType = jsonMap["upgradeType"] as? String {
-          resultDecodedBuilder.upgradeType = try Pogoprotos.Inventory.InventoryUpgradeType.fromString(jsonValueUpgradeType)
+          resultDecodedBuilder.upgradeType = try Pogoprotos.Inventory.InventoryUpgradeType.fromString(str: jsonValueUpgradeType)
         }
         if let jsonValueAdditionalStorage = jsonMap["additionalStorage"] as? NSNumber {
-          resultDecodedBuilder.additionalStorage = jsonValueAdditionalStorage.intValue
+          resultDecodedBuilder.additionalStorage = jsonValueAdditionalStorage.int32Value
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryUpgrade.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.InventoryUpgrade.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.InventoryUpgrade.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class InventoryUpgrades : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var inventoryUpgrades:Array<Pogoprotos.Inventory.InventoryUpgrade>  = Array<Pogoprotos.Inventory.InventoryUpgrade>()
+  final public class InventoryUpgrades : GeneratedMessage {
+    public fileprivate(set) var inventoryUpgrades:Array<Pogoprotos.Inventory.InventoryUpgrade>  = Array<Pogoprotos.Inventory.InventoryUpgrade>()
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       for oneElementInventoryUpgrades in inventoryUpgrades {
-          try output.writeMessage(1, value:oneElementInventoryUpgrades)
+          try codedOutputStream.writeMessage(fieldNumber: 1, value:oneElementInventoryUpgrades)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -4344,39 +4034,11 @@ public extension Pogoprotos.Inventory {
 
       serialize_size = 0
       for oneElementInventoryUpgrades in inventoryUpgrades {
-          serialize_size += oneElementInventoryUpgrades.computeMessageSize(1)
+          serialize_size += oneElementInventoryUpgrades.computeMessageSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.InventoryUpgrades> {
-      var mergedArray = Array<Pogoprotos.Inventory.InventoryUpgrades>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades? {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
       return Pogoprotos.Inventory.InventoryUpgrades.classBuilder() as! Pogoprotos.Inventory.InventoryUpgrades.Builder
@@ -4384,50 +4046,50 @@ public extension Pogoprotos.Inventory {
     public func getBuilder() -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
       return classBuilder() as! Pogoprotos.Inventory.InventoryUpgrades.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryUpgrades.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.InventoryUpgrades.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-      return try Pogoprotos.Inventory.InventoryUpgrades.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.InventoryUpgrades.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryUpgrades) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if !inventoryUpgrades.isEmpty {
-        var jsonArrayInventoryUpgrades:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayInventoryUpgrades:Array<Dictionary<String,Any>> = []
           for oneValueInventoryUpgrades in inventoryUpgrades {
             let ecodedMessageInventoryUpgrades = try oneValueInventoryUpgrades.encode()
-            jsonArrayInventoryUpgrades += [ecodedMessageInventoryUpgrades]
+            jsonArrayInventoryUpgrades.append(ecodedMessageInventoryUpgrades)
           }
         jsonMap["inventoryUpgrades"] = jsonArrayInventoryUpgrades
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+      return try Pogoprotos.Inventory.InventoryUpgrades.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.InventoryUpgrades {
-      return try Pogoprotos.Inventory.InventoryUpgrades.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+      return try Pogoprotos.Inventory.InventoryUpgrades.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       var inventoryUpgradesElementIndex:Int = 0
       for oneElementInventoryUpgrades in inventoryUpgrades {
           output += "\(indent) inventoryUpgrades[\(inventoryUpgradesElementIndex)] {\n"
-          output += try oneElementInventoryUpgrades.getDescription("\(indent)  ")
+          output += try oneElementInventoryUpgrades.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           inventoryUpgradesElementIndex += 1
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -4450,13 +4112,10 @@ public extension Pogoprotos.Inventory {
     override public func className() -> String {
         return "Pogoprotos.Inventory.InventoryUpgrades"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.InventoryUpgrades.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.InventoryUpgrades = Pogoprotos.Inventory.InventoryUpgrades()
+      fileprivate var builderResult:Pogoprotos.Inventory.InventoryUpgrades = Pogoprotos.Inventory.InventoryUpgrades()
       public func getMessage() -> Pogoprotos.Inventory.InventoryUpgrades {
           return builderResult
       }
@@ -4472,12 +4131,12 @@ public extension Pogoprotos.Inventory {
                builderResult.inventoryUpgrades = value
            }
       }
-      public func setInventoryUpgrades(value:Array<Pogoprotos.Inventory.InventoryUpgrade>) -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
+      public func setInventoryUpgrades(_ value:Array<Pogoprotos.Inventory.InventoryUpgrade>) -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
         self.inventoryUpgrades = value
         return self
       }
       public func clearInventoryUpgrades() -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-        builderResult.inventoryUpgrades.removeAll(keepCapacity: false)
+        builderResult.inventoryUpgrades.removeAll(keepingCapacity: false)
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -4490,7 +4149,7 @@ public extension Pogoprotos.Inventory {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-        return try Pogoprotos.Inventory.InventoryUpgrades.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.InventoryUpgrades.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.InventoryUpgrades {
            try checkInitialized()
@@ -4507,16 +4166,16 @@ public extension Pogoprotos.Inventory {
         if !other.inventoryUpgrades.isEmpty  {
            builderResult.inventoryUpgrades += other.inventoryUpgrades
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
@@ -4524,41 +4183,371 @@ public extension Pogoprotos.Inventory {
 
           case 10:
             let subBuilder = Pogoprotos.Inventory.InventoryUpgrade.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            inventoryUpgrades += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            inventoryUpgrades.append(subBuilder.buildPartial())
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.InventoryUpgrades.Builder()
-        if let jsonValueInventoryUpgrades = jsonMap["inventoryUpgrades"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueInventoryUpgrades = jsonMap["inventoryUpgrades"] as? Array<Dictionary<String,Any>> {
           var jsonArrayInventoryUpgrades:Array<Pogoprotos.Inventory.InventoryUpgrade> = []
           for oneValueInventoryUpgrades in jsonValueInventoryUpgrades {
-            let messageFromStringInventoryUpgrades = try Pogoprotos.Inventory.InventoryUpgrade.Builder.decodeToBuilder(oneValueInventoryUpgrades).build()
+            let messageFromStringInventoryUpgrades = try Pogoprotos.Inventory.InventoryUpgrade.Builder.decodeToBuilder(jsonMap:oneValueInventoryUpgrades).build()
 
-            jsonArrayInventoryUpgrades += [messageFromStringInventoryUpgrades]
+            jsonArrayInventoryUpgrades.append(messageFromStringInventoryUpgrades)
           }
           resultDecodedBuilder.inventoryUpgrades = jsonArrayInventoryUpgrades
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryUpgrades.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.InventoryUpgrades.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.InventoryUpgrades.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Inventory.AppliedItem: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.AppliedItem> {
+    var mergedArray = Array<Pogoprotos.Inventory.AppliedItem>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.AppliedItem? {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.AppliedItem {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.AppliedItem {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItem {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItem {
+    return try Pogoprotos.Inventory.AppliedItem.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.AppliedItems: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.AppliedItems> {
+    var mergedArray = Array<Pogoprotos.Inventory.AppliedItems>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.AppliedItems? {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.AppliedItems {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.AppliedItems {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.AppliedItems {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.AppliedItems {
+    return try Pogoprotos.Inventory.AppliedItems.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.Candy: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.Candy> {
+    var mergedArray = Array<Pogoprotos.Inventory.Candy>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.Candy? {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.Candy {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.Candy {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.Candy {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Candy {
+    return try Pogoprotos.Inventory.Candy.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.EggIncubator: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.EggIncubator> {
+    var mergedArray = Array<Pogoprotos.Inventory.EggIncubator>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.EggIncubator? {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.EggIncubator {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.EggIncubator {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubator {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubator {
+    return try Pogoprotos.Inventory.EggIncubator.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.EggIncubators: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.EggIncubators> {
+    var mergedArray = Array<Pogoprotos.Inventory.EggIncubators>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.EggIncubators? {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.EggIncubators {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.EggIncubators {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.EggIncubators {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.EggIncubators {
+    return try Pogoprotos.Inventory.EggIncubators.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryDelta: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryDelta> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryDelta>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryDelta? {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryDelta {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryDelta {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryDelta {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryDelta {
+    return try Pogoprotos.Inventory.InventoryDelta.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryItem: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryItem> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryItem>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryItem? {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryItem {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryItem {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem {
+    return try Pogoprotos.Inventory.InventoryItem.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryItem.DeletedItem: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryItem.DeletedItem> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryItem.DeletedItem>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem? {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
+    return try Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryItemData: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryItemData> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryItemData>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryItemData? {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryItemData {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryItemData {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryItemData {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
+    return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryUpgrade: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryUpgrade> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryUpgrade>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade? {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrade {
+    return try Pogoprotos.Inventory.InventoryUpgrade.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryUpgrades: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryUpgrades> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryUpgrades>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades? {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryUpgrades {
+    return try Pogoprotos.Inventory.InventoryUpgrades.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

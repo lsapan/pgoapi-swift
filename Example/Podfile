@@ -2,7 +2,7 @@ use_frameworks!
 
 target 'PGoApi_Example' do
   pod 'PGoApi', :path => '../'
-  pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift', :branch => 'ProtoBuf3.0-Swift2.0'
+  pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift', :branch => 'ProtoBuf3.0-Swift3.0'
 
   target 'PGoApi_Tests' do
     inherit! :search_paths
@@ -10,3 +10,11 @@ target 'PGoApi_Example' do
     
   end
 end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
+    end
+  end

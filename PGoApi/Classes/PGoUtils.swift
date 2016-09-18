@@ -12,13 +12,33 @@ import MapKit
 import Alamofire
 
 
-public class PGoLocationUtils {
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+open class PGoLocationUtils {
     public enum unit {
-        case Kilometers, Miles, Meters, Feet
+        case kilometers, miles, meters, feet
     }
     
     public enum bearingUnits {
-        case Degree, Radian
+        case degree, radian
     }
     
     public init () {}
@@ -29,7 +49,7 @@ public class PGoLocationUtils {
         public var altitude: Double?
         public var distance: Double?
         public var displacement: Double?
-        public var address: [NSObject: AnyObject]?
+        public var address: [AnyHashable: Any]?
         public var mapItem: MKMapItem?
     }
     
@@ -38,17 +58,16 @@ public class PGoLocationUtils {
         public var duration: Double
     }
     
-    public func getAltitudeAndHorizontalAccuracy(latitude latitude: Double, longitude: Double, completionHandler: (altitude: Double?, horizontalAccuracy: Double?) -> ()) {
+    open func getAltitudeAndVerticalAccuracy(latitude: Double, longitude: Double, completionHandler: @escaping (_ altitude: Double?, _ horizontalAccuracy: Double?) -> ()) {
         /*
          
          Example func for completionHandler:
-         func receiveAltitudeAndHorizontalAccuracy(altitude: Double?, horizontalAccuracy: Double?)
+         func receiveAltitudeAndHorizontalAccuracy(altitude: Double?, verticalAccuracy: Double?)
          
          */
-        Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/elevation/json?locations=\(latitude),\(longitude)&sensor=false", parameters: nil)
-            .responseJSON { response in
+        Alamofire.request("https://maps.googleapis.com/maps/api/elevation/json?locations=\(latitude),\(longitude)&sensor=false").responseJSON { response in
                 var altitude:Double? = nil
-                var horizontalAccuracy:Double? = nil
+                var verticalAccuracy:Double? = nil
 
                 if let JSON = response.result.value {
                     let dict = JSON as! [String:AnyObject]
@@ -58,18 +77,18 @@ public class PGoLocationUtils {
                                 altitude = alt
                             }
                             if let horAcc = result[0]["resolution"] as? Double {
-                                horizontalAccuracy = horAcc
+                                verticalAccuracy = horAcc
                             }
                         }
                     }
-                    completionHandler(altitude: altitude, horizontalAccuracy: horizontalAccuracy)
+                    completionHandler(altitude, verticalAccuracy)
                 } else {
-                    completionHandler(altitude: nil, horizontalAccuracy: nil)
+                    completionHandler(nil, nil)
                 }
         }
     }
     
-    public func reverseGeocode(latitude: Double, longitude: Double, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
+    open func reverseGeocode(latitude: Double, longitude: Double, completionHandler: @escaping (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
          Example func for completionHandler:
@@ -103,7 +122,7 @@ public class PGoLocationUtils {
         })
     }
     
-    public func geocode(location: String, completionHandler: (PGoLocationUtils.PGoCoordinate?) -> ()) {
+    open func geocode(location: String, completionHandler: @escaping (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
          Example func for completionHandler:
@@ -134,34 +153,34 @@ public class PGoLocationUtils {
             } else {
                 completionHandler(nil)
             }
-        })
+        } as! CLGeocodeCompletionHandler)
     }
     
-    public func getDistanceBetweenPoints(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, unit: PGoLocationUtils.unit? = .Meters) -> Double {
+    open func getDistanceBetweenPoints(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, unit: PGoLocationUtils.unit? = .meters) -> Double {
         
         let start = CLLocation.init(latitude: startLatitude, longitude: startLongitude)
         let end = CLLocation.init(latitude: endLatitude, longitude: endLongitude)
-        var distance = start.distanceFromLocation(end)
+        var distance = start.distance(from: end)
         
-        if unit == .Miles {
+        if unit == .miles {
             distance = distance/1609.344
-        } else if unit == .Kilometers {
+        } else if unit == .kilometers {
             distance = distance/1000
-        } else if unit == .Feet {
+        } else if unit == .feet {
             distance = distance * 3.28084
         }
         return distance
     }
     
-    public func moveDistanceToPoint(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, distance: Double, unitOfDistance: PGoLocationUtils.unit? = .Meters) -> PGoLocationUtils.PGoCoordinate {
-        let maxDistance = getDistanceBetweenPoints(startLatitude, startLongitude: startLongitude, endLatitude: endLatitude, endLongitude: endLongitude)
+    open func moveDistanceToPoint(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, distance: Double, unitOfDistance: PGoLocationUtils.unit? = .meters) -> PGoLocationUtils.PGoCoordinate {
+        let maxDistance = getDistanceBetweenPoints(startLatitude: startLatitude, startLongitude: startLongitude, endLatitude: endLatitude, endLongitude: endLongitude)
         
         var distanceConverted = distance
-        if unitOfDistance == .Miles {
+        if unitOfDistance == .miles {
             distanceConverted = distance * 1609.344
-        } else if unitOfDistance == .Kilometers {
+        } else if unitOfDistance == .kilometers {
             distanceConverted = distance * 1000
-        } else if unitOfDistance == .Feet {
+        } else if unitOfDistance == .feet {
             distanceConverted = distance / 3.28084
         }
         
@@ -182,19 +201,19 @@ public class PGoLocationUtils {
         )
     }
     
-    public func moveDistanceWithBearing(startLatitude:Double, startLongitude:Double, bearing: Double, distance: Double, bearingUnits: PGoLocationUtils.bearingUnits? = .Radian, unitOfDistance: PGoLocationUtils.unit? = .Meters) -> PGoLocationUtils.PGoCoordinate {
+    open func moveDistanceWithBearing(startLatitude:Double, startLongitude:Double, bearing: Double, distance: Double, bearingUnits: PGoLocationUtils.bearingUnits? = .radian, unitOfDistance: PGoLocationUtils.unit? = .meters) -> PGoLocationUtils.PGoCoordinate {
         
         var distanceConverted = distance
-        if unitOfDistance == .Miles {
+        if unitOfDistance == .miles {
             distanceConverted = distance * 1609.344
-        } else if unitOfDistance == .Kilometers {
+        } else if unitOfDistance == .kilometers {
             distanceConverted = distance * 1000
-        } else if unitOfDistance == .Feet {
+        } else if unitOfDistance == .feet {
             distanceConverted = distance / 3.28084
         }
         
         var bearingConverted = bearing
-        if bearingUnits == .Degree {
+        if bearingUnits == .degree {
             bearingConverted = bearing * M_PI / 180.0
         }
         
@@ -217,14 +236,14 @@ public class PGoLocationUtils {
         )
     }
     
-    private func getMKMapItem(lat: Double, long: Double) -> MKMapItem {
+    fileprivate func getMKMapItem(lat: Double, long: Double) -> MKMapItem {
         let sourceLoc2D = CLLocationCoordinate2DMake(lat, long)
         let sourcePlacemark = MKPlacemark(coordinate: sourceLoc2D, addressDictionary: nil)
         let source = MKMapItem(placemark: sourcePlacemark)
         return source
     }
     
-    public func getDirectionsFromToLocations(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, transportType: MKDirectionsTransportType? = .Walking, completionHandler: (PGoLocationUtils.PGoDirections?) -> ()) {
+    open func getDirectionsFromToLocations(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, transportType: MKDirectionsTransportType? = .walking, completionHandler: @escaping (PGoLocationUtils.PGoDirections?) -> ()) {
         
         /*
          
@@ -236,8 +255,8 @@ public class PGoLocationUtils {
         var result:Array<PGoCoordinate> = []
         
         let request: MKDirectionsRequest = MKDirectionsRequest()
-        let start = getMKMapItem(startLatitude, long: startLongitude)
-        let end = getMKMapItem(endLatitude, long: endLongitude)
+        let start = getMKMapItem(lat: startLatitude, long: startLongitude)
+        let end = getMKMapItem(lat: endLatitude, long: endLongitude)
         
         request.source = start
         request.destination = end
@@ -245,11 +264,11 @@ public class PGoLocationUtils {
         request.transportType = transportType!
         
         let directions = MKDirections(request: request)
-        directions.calculateDirectionsWithCompletionHandler ({
+        directions.calculate (completionHandler: {
             (response: MKDirectionsResponse?, error: NSError?) in
             if let routeResponse = response?.routes {
                 let fastestRoute: MKRoute =
-                    routeResponse.sort({$0.expectedTravelTime <
+                    routeResponse.sorted(by: {$0.expectedTravelTime <
                         $1.expectedTravelTime})[0]
                 
                 for step in fastestRoute.steps {
@@ -274,6 +293,6 @@ public class PGoLocationUtils {
             } else {
                 completionHandler(nil)
             }
-        })
+        } as! MKDirectionsHandler)
     }
 }

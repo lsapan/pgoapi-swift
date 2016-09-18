@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+
 public protocol PGoAuth {
     var password: String! { get set }
     var accessToken: String? { get set }
@@ -19,7 +20,7 @@ public protocol PGoAuth {
     var authType: PGoAuthType { get }
     var endpoint: String { get set }
     var authToken: Pogoprotos.Networking.Envelopes.AuthTicket? { get set }
-    var manager: Manager { get set }
+    var manager: SessionManager { get set }
     var banned: Bool { get set }
     
     func login(withUsername username:String, withPassword password:String)

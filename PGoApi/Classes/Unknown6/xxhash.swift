@@ -9,251 +9,178 @@
 import Foundation
 
 
-public class xxhash {
-    private var _state: xxh32_state
-    private let PRIME32_1: UInt32 = 2654435761
-    private let PRIME32_2: UInt32 = 2246822519
-    private let PRIME32_3: UInt32 = 3266489917
-    private let PRIME32_4: UInt32 = 668265263
-    private let PRIME32_5: UInt32 = 374761393
+open class xxhash {
+    fileprivate static let PRIME32_1: UInt32 = 2654435761
+    fileprivate static let PRIME32_2: UInt32 = 2246822519
+    fileprivate static let PRIME32_3: UInt32 = 3266489917
+    fileprivate static let PRIME32_4: UInt32 = 668265263
+    fileprivate static let PRIME32_5: UInt32 = 374761393
     
-    private let PRIME64_1: UInt64 = 11400714785074694791
-    private let PRIME64_2: UInt64 = 14029467366897019727
-    private let PRIME64_3: UInt64 = 1609587929392839161
-    private let PRIME64_4: UInt64 = 9650029242287828579
-    private let PRIME64_5: UInt64 = 2870177450012600261
+    fileprivate static let PRIME64_1: UInt64 = 11400714785074694791
+    fileprivate static let PRIME64_2: UInt64 = 14029467366897019727
+    fileprivate static let PRIME64_3: UInt64 = 1609587929392839161
+    fileprivate static let PRIME64_4: UInt64 = 9650029242287828579
+    fileprivate static let PRIME64_5: UInt64 = 2870177450012600261
     
-    private func buildUInt32(bytes: Array<UInt8>) -> UInt32 {
-        let value = bytes.withUnsafeBufferPointer({
-            UnsafePointer<UInt32>($0.baseAddress).memory
-        })
-        return value
+    open static func xxh32(_ seed: UInt32, input: Array<UInt8>) -> UInt32 {
+        var h32: UInt32
+        var index: Int32 = 0
+        let len: Int32 = Int32(input.count)
+        
+        if len >= 16 {
+            let limit = len - 16
+            var v1: UInt32 = seed &+ xxhash.PRIME32_1 &+ xxhash.PRIME32_2
+            var v2: UInt32 = seed &+ xxhash.PRIME32_2
+            var v3: UInt32 = seed &+ 0
+            var v4: UInt32 = seed &- xxhash.PRIME32_1
+            
+            while index <= limit {
+                v1 = h32sub(v1, buf: input, index: index)
+                index += 4
+                v2 = h32sub(v2, buf: input, index: index)
+                index += 4
+                v3 = h32sub(v3, buf: input, index: index)
+                index += 4
+                v4 = h32sub(v4, buf: input, index: index)
+                index += 4
+            }
+
+            h32 = xxhash.rotl32(v1, count: 1) &+ xxhash.rotl32(v2, count: 7) &+ xxhash.rotl32(v3, count: 12) &+ xxhash.rotl32(v4, count: 18)
+        } else {
+            h32 = seed &+ xxhash.PRIME32_5
+        }
+
+        h32 = h32 &+ UInt32(len)
+
+        while index <= (len - 4) {
+            h32 = h32 &+ UnsafeConverter.bytesAsUInt32(Array(input[Int(index)..<input.count])) &* xxhash.PRIME32_3
+            h32 = xxhash.rotl32(h32, count: 17) &* xxhash.PRIME32_4
+            index += 4
+        }
+        
+        while index<len {
+            h32 = h32 &+ UInt32(input[Int(index)]) &* xxhash.PRIME32_5
+            h32 = xxhash.rotl32(h32, count: 11) &* xxhash.PRIME32_1
+            index += 1
+        }
+        
+        h32 ^= h32 >> 15
+        h32 = h32 &* xxhash.PRIME32_2
+        h32 ^= h32 >> 13
+        h32 = h32 &* xxhash.PRIME32_3
+        h32 ^= h32 >> 16
+        
+        return h32
     }
     
-    private func buildUInt64(bytes: Array<UInt8>) -> UInt64 {
-        let value = bytes.withUnsafeBufferPointer({
-            UnsafePointer<UInt64>($0.baseAddress).memory
-        })
-        return value
-    }
-    
-    public init(seed: UInt32? = 0) {
-        _state = xxh32_state(total_len: 0, seed: seed!, v1: seed! &+ PRIME32_1 &+ PRIME32_2, v2: seed! &+ PRIME32_2, v3: seed! &+ 0, v4: seed! &- PRIME32_1, memsize: 0, memory: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-    }
-    
-    public func xxh32(seed: UInt32, input: Array<UInt8>) -> UInt32 {
-        let xxh = xxhash(seed: seed)
-        xxh.update(input)
-        return xxh.digest()
-    }
-    
-    public func xxh64(seed: UInt64, input: Array<UInt8>) -> UInt64 {
+    open static func xxh64(_ seed: UInt64, input: Array<UInt8>) -> UInt64 {
         var h64: UInt64 = 0
         let len = input.count
         var p: Int64 = 0
         let bEnd = Int64(len)
         
         if len >= 32 {
-            var v1 = seed &+ PRIME64_1 &+ PRIME64_2
-            var v2 = seed &+ PRIME64_2
+            var v1 = seed &+ xxhash.PRIME64_1 &+ xxhash.PRIME64_2
+            var v2 = seed &+ xxhash.PRIME64_2
             var v3 = seed &+ 0
-            var v4 = seed &- PRIME64_1
+            var v4 = seed &- xxhash.PRIME64_1
             
             while p <= bEnd - 32 {
-                v1 = v1 &+ buildUInt64(Array(input[Int(p)..<input.count])) &* PRIME64_2
-                v1 = rotl64(v1, count: 31) &* PRIME64_1
+                v1 = v1 &+ UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<input.count])) &* xxhash.PRIME64_2
+                v1 = xxhash.rotl64(v1, count: 31) &* xxhash.PRIME64_1
                 p += 8
                 
-                v2 = v2 &+ buildUInt64(Array(input[Int(p)..<input.count])) &* PRIME64_2
-                v2 = rotl64(v2, count: 31) &* PRIME64_1
-                p += 8
-                
-                
-                v3 = v3 &+ buildUInt64(Array(input[Int(p)..<input.count])) &* PRIME64_2
-                v3 = rotl64(v3, count: 31) &* PRIME64_1
+                v2 = v2 &+ UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<input.count])) &* xxhash.PRIME64_2
+                v2 = xxhash.rotl64(v2, count: 31) &* xxhash.PRIME64_1
                 p += 8
                 
                 
-                v4 = v4 &+ buildUInt64(Array(input[Int(p)..<input.count])) &* PRIME64_2
-                v4 = rotl64(v4, count: 31) &* PRIME64_1
+                v3 = v3 &+ UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<input.count])) &* xxhash.PRIME64_2
+                v3 = xxhash.rotl64(v3, count: 31) &* xxhash.PRIME64_1
+                p += 8
+                
+                
+                v4 = v4 &+ UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<input.count])) &* xxhash.PRIME64_2
+                v4 = xxhash.rotl64(v4, count: 31) &* xxhash.PRIME64_1
                 p += 8
             }
             
-            h64 = rotl64(v1, count: 1) &+ rotl64(v2, count: 7) &+ rotl64(v3, count: 12) &+ rotl64(v4, count: 18)
+            h64 = xxhash.rotl64(v1, count: 1) &+ xxhash.rotl64(v2, count: 7) &+ xxhash.rotl64(v3, count: 12) &+ xxhash.rotl64(v4, count: 18)
             
-            let round1 = rotl64(v1 &* PRIME64_2, count: 31) &* PRIME64_1
+            let round1 = xxhash.rotl64(v1 &* xxhash.PRIME64_2, count: 31) &* xxhash.PRIME64_1
             h64 ^= round1
-            h64 = h64 &* PRIME64_1 &+ PRIME64_4
+            h64 = h64 &* xxhash.PRIME64_1 &+ xxhash.PRIME64_4
             
-            let round2 = rotl64(v2 &* PRIME64_2, count: 31) &* PRIME64_1
+            let round2 = xxhash.rotl64(v2 &* xxhash.PRIME64_2, count: 31) &* xxhash.PRIME64_1
             h64 ^= round2
-            h64 = h64 &* PRIME64_1 &+ PRIME64_4
+            h64 = h64 &* xxhash.PRIME64_1 &+ xxhash.PRIME64_4
             
-            let round3 = rotl64(v3 &* PRIME64_2, count: 31) &* PRIME64_1
+            let round3 = xxhash.rotl64(v3 &* xxhash.PRIME64_2, count: 31) &* xxhash.PRIME64_1
             h64 ^= round3
-            h64 = h64 &* PRIME64_1 &+ PRIME64_4
+            h64 = h64 &* xxhash.PRIME64_1 &+ xxhash.PRIME64_4
             
-            let round4 = rotl64(v4 &* PRIME64_2, count: 31) &* PRIME64_1
+            let round4 = xxhash.rotl64(v4 &* xxhash.PRIME64_2, count: 31) &* xxhash.PRIME64_1
             h64 ^= round4
-            h64 = h64 &* PRIME64_1 &+ PRIME64_4
+            h64 = h64 &* xxhash.PRIME64_1 &+ xxhash.PRIME64_4
         } else {
-            h64 = seed &+ PRIME64_5
+            h64 = seed &+ xxhash.PRIME64_5
         }
         
         h64 = h64 &+ UInt64(len)
         
         while p <= (bEnd - 8) {
-            let round1 = rotl64(buildUInt64(Array(input[Int(p)..<input.count])) &* PRIME64_2, count: 31) &* PRIME64_1
+            let round1 = xxhash.rotl64(UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<input.count])) &* xxhash.PRIME64_2, count: 31) &* xxhash.PRIME64_1
             h64 ^= round1
-            h64 = rotl64(h64, count: 27) &* PRIME64_1 &+ PRIME64_4
+            h64 = xxhash.rotl64(h64, count: 27) &* xxhash.PRIME64_1 &+ xxhash.PRIME64_4
             p += 8
         }
         
         while p <= (bEnd - 4) {
-            
-            h64 ^= UInt64(buildUInt32(Array(input[Int(p)..<Int(len)]))) &* PRIME64_1
-            h64 = rotl64(h64, count: 23) &* PRIME64_2 &+ PRIME64_3
+            h64 ^= UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<Int(len)])) &* xxhash.PRIME64_1
+            h64 = xxhash.rotl64(h64, count: 23) &* xxhash.PRIME64_2 &+ xxhash.PRIME64_3
             p += 4
         }
         
         while p < bEnd {
-            h64 ^= UInt64(input[Int(p)]) &* PRIME64_5
-            h64 = rotl64(h64, count: 11) &* PRIME64_1
+            h64 ^= UInt64(input[Int(p)]) &* xxhash.PRIME64_5
+            h64 = xxhash.rotl64(h64, count: 11) &* xxhash.PRIME64_1
             p += 1
         }
         
         h64 ^= h64 >> 33
-        h64 = h64 &* PRIME64_2
+        h64 = h64 &* xxhash.PRIME64_2
         h64 ^= h64 >> 29
-        h64 = h64 &* PRIME64_3
+        h64 = h64 &* xxhash.PRIME64_3
         h64 ^= h64 >> 32
         
         return h64
     }
     
-    public func update(input: [UInt8]) -> Bool {
-        let len = Int32(input.count)
-        var index: Int32 = 0
-        _state.total_len = _state.total_len &+ UInt16(len)
-        
-        if (_state.memsize &+ len) < 16 {
-            _state.memory = Array(input[0..<Int(len)])
-            _state.memsize = _state.memsize &+ len
-            return true
-        }
-        
-        if _state.memsize > 0 {
-            _state.memory = Array(input[Int(_state.memsize)..<Int(16 - _state.memsize)])
-            _state.v1 = h32sub(_state.v1, buf: _state.memory, index: index)
-            index = index + 4
-            _state.v2 = h32sub(_state.v2, buf: _state.memory, index: index)
-            index = index + 4
-            _state.v3 = h32sub(_state.v3, buf: _state.memory, index: index)
-            index = index + 4
-            _state.v4 = h32sub(_state.v4, buf: _state.memory, index: index)
-            index = index + 4
-            index = 0
-            _state.memsize = 0
-        }
-        
-        if index <= (len - 16) {
-            let limit: Int32 = len - 16
-            var v1: UInt32 = _state.v1
-            var v2: UInt32 = _state.v2
-            var v3: UInt32 = _state.v3
-            var v4: UInt32 = _state.v4
-            
-            while index <= limit {
-                v1 = h32sub(v1, buf: input, index: index)
-                index = index + 4
-                v2 = h32sub(v2, buf: input, index: index)
-                index = index + 4
-                v3 = h32sub(v3, buf: input, index: index)
-                index = index + 4
-                v4 = h32sub(v4, buf: input, index: index)
-                index = index + 4
-            }
-            
-            _state.v1 = v1
-            _state.v2 = v2
-            _state.v3 = v3
-            _state.v4 = v4
-        }
-        
-        if index < len {
-            _state.memory = Array(input[Int(index)..<Int(len)])
-            _state.memsize = len - index
-        }
-        return true
-    }
-    
-    public func digest() -> UInt32 {
-        var h32: UInt32
-        var index: Int32 = 0
-        
-        if _state.total_len >= 16 {
-            h32 = rotl32(_state.v1, count: 1) &+ rotl32(_state.v2, count: 7) &+ rotl32(_state.v3, count: 12) &+ rotl32(_state.v4, count: 18)
-        } else {
-            h32 = _state.seed &+ PRIME32_5
-        }
-        
-        h32 = h32 &+ UInt32(_state.total_len)
-        
-        while index <= (_state.memsize - 4) {
-            h32 = h32 &+ buildUInt32(Array(_state.memory[Int(index)..<_state.memory.count])) &* PRIME32_3
-            h32 = rotl32(h32, count: 17) &* PRIME32_4
-            index += 4
-        }
-        
-        while index < _state.memsize {
-            h32 = h32 &+ UInt32(_state.memory[Int(index)]) &* PRIME32_5
-            h32 = rotl32(h32, count: 11) &* PRIME32_1
-            index += 1
-        }
-        
-        h32 ^= h32 >> 15
-        h32 = h32 &* PRIME32_2
-        h32 ^= h32 >> 13
-        h32 = h32 &* PRIME32_3
-        h32 ^= h32 >> 16
-        
-        return h32
-    }
-    
-    private func h32sub(value_: UInt32, buf: [UInt8], index: Int32) -> UInt32 {
+    fileprivate static func h32sub(_ value_: UInt32, buf: [UInt8], index: Int32) -> UInt32 {
         var value = value_
-        let read_value: UInt32 = buildUInt32(Array(buf[Int(index)..<buf.count]))
-        value = value &+ read_value &* PRIME32_2
-        value = rotl32(value, count: 13)
-        value = value &* PRIME32_1
+        let buffer = Array(buf[Int(index)..<buf.count])
+        let read_value: UInt32 = UnsafeConverter.bytesAsUInt32(buffer)
+        value = value &+ read_value &* xxhash.PRIME32_2
+        value = xxhash.rotl32(value, count: 13)
+        value = value &* xxhash.PRIME32_1
         return value
     }
     
-    private func rotl32(x: UInt32, count: UInt32) -> UInt32 {
+    fileprivate static func rotl32(_ x: UInt32, count: UInt32) -> UInt32 {
         return x << count | x >> (32 - count)
     }
     
-    private func h64sub(value_: UInt64, buf: [UInt8], index: Int64) -> UInt64 {
+    fileprivate static func h64sub(_ value_: UInt64, buf: [UInt8], index: Int64) -> UInt64 {
         var value = value_
-        let read_value: UInt64 = buildUInt64(Array(buf[Int(index)..<buf.count]))
-        value = value &+ read_value &* PRIME64_2
-        value = rotl64(value, count: 13)
-        value = value &* PRIME64_1
+        let buffer = Array(buf[Int(index)..<buf.count])
+        let read_value: UInt64 = UnsafeConverter.bytesAsUInt64(buffer)
+        value = value &+ read_value &* xxhash.PRIME64_2
+        value = xxhash.rotl64(value, count: 13)
+        value = value &* xxhash.PRIME64_1
         return value
     }
     
-    private func rotl64(x: UInt64, count: UInt64) -> UInt64 {
+    fileprivate static func rotl64(_ x: UInt64, count: UInt64) -> UInt64 {
         return x << count | x >> (64 - count)
-    }
-    
-    private struct xxh32_state {
-        var total_len: UInt16 = 0
-        var seed: UInt32 = 0
-        var v1: UInt32 = 0
-        var v2: UInt32 = 0
-        var v3: UInt32 = 0
-        var v4: UInt32 = 0
-        var memsize: Int32 = 0
-        var memory: [UInt8]
     }
 }

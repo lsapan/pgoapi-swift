@@ -48,16 +48,16 @@ public extension Pogoprotos.Networking.Platform.Requests {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
-  final public class BuyItemAndroidRequest : GeneratedMessage, GeneratedMessageProtocol {
+  final public class BuyItemAndroidRequest : GeneratedMessage {
     // see https://developer.android.com/google/play/billing/billing_reference.html table 4
-    public private(set) var hasBuyItemIntent:Bool = false
-    public private(set) var buyItemIntent:String = ""
+    public fileprivate(set) var buyItemIntent:String = ""
+    public fileprivate(set) var hasBuyItemIntent:Bool = false
 
     required public init() {
          super.init()
@@ -65,11 +65,11 @@ public extension Pogoprotos.Networking.Platform.Requests {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasBuyItemIntent {
-        try output.writeString(1, value:buyItemIntent)
+        try codedOutputStream.writeString(fieldNumber: 1, value:buyItemIntent)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -79,39 +79,11 @@ public extension Pogoprotos.Networking.Platform.Requests {
 
       serialize_size = 0
       if hasBuyItemIntent {
-        serialize_size += buyItemIntent.computeStringSize(1)
+        serialize_size += buyItemIntent.computeStringSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest? {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequestsRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
       return Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.classBuilder() as! Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder
@@ -119,41 +91,41 @@ public extension Pogoprotos.Networking.Platform.Requests {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasBuyItemIntent {
         jsonMap["buyItemIntent"] = buyItemIntent
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasBuyItemIntent {
         output += "\(indent) buyItemIntent: \(buyItemIntent) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -176,13 +148,10 @@ public extension Pogoprotos.Networking.Platform.Requests {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest = Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest = Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest()
       public func getMessage() -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
           return builderResult
       }
@@ -204,7 +173,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
                builderResult.buyItemIntent = value
            }
       }
-      public func setBuyItemIntent(value:String) -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
+      public func setBuyItemIntent(_ value:String) -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
         self.buyItemIntent = value
         return self
       }
@@ -223,7 +192,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
-        return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
            try checkInitialized()
@@ -240,53 +209,53 @@ public extension Pogoprotos.Networking.Platform.Requests {
         if other.hasBuyItemIntent {
              buyItemIntent = other.buyItemIntent
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            buyItemIntent = try input.readString()
+            buyItemIntent = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder()
         if let jsonValueBuyItemIntent = jsonMap["buyItemIntent"] as? String {
           resultDecodedBuilder.buyItemIntent = jsonValueBuyItemIntent
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class BuyItemPokeCoinsRequest : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasItemId:Bool = false
-    public private(set) var itemId:String = ""
+  final public class BuyItemPokeCoinsRequest : GeneratedMessage {
+    public fileprivate(set) var itemId:String = ""
+    public fileprivate(set) var hasItemId:Bool = false
 
     required public init() {
          super.init()
@@ -294,11 +263,11 @@ public extension Pogoprotos.Networking.Platform.Requests {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasItemId {
-        try output.writeString(1, value:itemId)
+        try codedOutputStream.writeString(fieldNumber: 1, value:itemId)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -308,39 +277,11 @@ public extension Pogoprotos.Networking.Platform.Requests {
 
       serialize_size = 0
       if hasItemId {
-        serialize_size += itemId.computeStringSize(1)
+        serialize_size += itemId.computeStringSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest? {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequestsRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
       return Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.classBuilder() as! Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder
@@ -348,41 +289,41 @@ public extension Pogoprotos.Networking.Platform.Requests {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasItemId {
         jsonMap["itemId"] = itemId
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
-      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+      return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasItemId {
         output += "\(indent) itemId: \(itemId) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -405,13 +346,10 @@ public extension Pogoprotos.Networking.Platform.Requests {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest = Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest = Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest()
       public func getMessage() -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
           return builderResult
       }
@@ -433,7 +371,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
                builderResult.itemId = value
            }
       }
-      public func setItemId(value:String) -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
+      public func setItemId(_ value:String) -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
         self.itemId = value
         return self
       }
@@ -452,7 +390,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
-        return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
            try checkInitialized()
@@ -469,53 +407,53 @@ public extension Pogoprotos.Networking.Platform.Requests {
         if other.hasItemId {
              itemId = other.itemId
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            itemId = try input.readString()
+            itemId = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
           resultDecodedBuilder.itemId = jsonValueItemId
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class SendEncryptedSignatureRequest : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasEncryptedSignature:Bool = false
-    public private(set) var encryptedSignature:NSData = NSData()
+  final public class SendEncryptedSignatureRequest : GeneratedMessage {
+    public fileprivate(set) var encryptedSignature:Data = Data()
+    public fileprivate(set) var hasEncryptedSignature:Bool = false
 
     required public init() {
          super.init()
@@ -523,11 +461,11 @@ public extension Pogoprotos.Networking.Platform.Requests {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasEncryptedSignature {
-        try output.writeData(1, value:encryptedSignature)
+        try codedOutputStream.writeData(fieldNumber: 1, value:encryptedSignature)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -537,39 +475,11 @@ public extension Pogoprotos.Networking.Platform.Requests {
 
       serialize_size = 0
       if hasEncryptedSignature {
-        serialize_size += encryptedSignature.computeDataSize(1)
+        serialize_size += encryptedSignature.computeDataSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest? {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequestsRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
       return Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.classBuilder() as! Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder
@@ -577,41 +487,41 @@ public extension Pogoprotos.Networking.Platform.Requests {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasEncryptedSignature {
-        jsonMap["encryptedSignature"] = encryptedSignature.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        jsonMap["encryptedSignature"] = encryptedSignature.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
-      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+      return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasEncryptedSignature {
         output += "\(indent) encryptedSignature: \(encryptedSignature) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -634,13 +544,10 @@ public extension Pogoprotos.Networking.Platform.Requests {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest = Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest = Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest()
       public func getMessage() -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
           return builderResult
       }
@@ -653,7 +560,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
                 return builderResult.hasEncryptedSignature
            }
       }
-      public var encryptedSignature:NSData {
+      public var encryptedSignature:Data {
            get {
                 return builderResult.encryptedSignature
            }
@@ -662,13 +569,13 @@ public extension Pogoprotos.Networking.Platform.Requests {
                builderResult.encryptedSignature = value
            }
       }
-      public func setEncryptedSignature(value:NSData) -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
+      public func setEncryptedSignature(_ value:Data) -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
         self.encryptedSignature = value
         return self
       }
       public func clearEncryptedSignature() -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder{
            builderResult.hasEncryptedSignature = false
-           builderResult.encryptedSignature = NSData()
+           builderResult.encryptedSignature = Data()
            return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -681,7 +588,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
-        return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
            try checkInitialized()
@@ -698,50 +605,140 @@ public extension Pogoprotos.Networking.Platform.Requests {
         if other.hasEncryptedSignature {
              encryptedSignature = other.encryptedSignature
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            encryptedSignature = try input.readData()
+            encryptedSignature = try codedInputStream.readData()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder()
         if let jsonValueEncryptedSignature = jsonMap["encryptedSignature"] as? String {
-          resultDecodedBuilder.encryptedSignature = NSData(base64EncodedString:jsonValueEncryptedSignature, options: NSDataBase64DecodingOptions(rawValue:0))!
+          resultDecodedBuilder.encryptedSignature = Data(base64Encoded:jsonValueEncryptedSignature, options: Data.Base64DecodingOptions(rawValue:0))!
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest? {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequestsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest? {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequestsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
+    return try Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest? {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequestsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
+    return try Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

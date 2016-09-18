@@ -63,32 +63,32 @@ public extension Pogoprotos.Map.Pokemon {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
-  final public class MapPokemon : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasSpawnPointId:Bool = false
-    public private(set) var spawnPointId:String = ""
+  final public class MapPokemon : GeneratedMessage {
+    public fileprivate(set) var spawnPointId:String = ""
+    public fileprivate(set) var hasSpawnPointId:Bool = false
 
-    public private(set) var hasEncounterId:Bool = false
-    public private(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasEncounterId:Bool = false
 
-    public private(set) var pokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
-    public private(set) var hasPokemonId:Bool = false
+    public fileprivate(set) var pokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.missingno
+    public fileprivate(set) var hasPokemonId:Bool = false
     // After this timestamp, the pokemon will be gone.
-    public private(set) var hasExpirationTimestampMs:Bool = false
-    public private(set) var expirationTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var expirationTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasExpirationTimestampMs:Bool = false
 
-    public private(set) var hasLatitude:Bool = false
-    public private(set) var latitude:Double = Double(0)
+    public fileprivate(set) var latitude:Double = Double(0)
+    public fileprivate(set) var hasLatitude:Bool = false
 
-    public private(set) var hasLongitude:Bool = false
-    public private(set) var longitude:Double = Double(0)
+    public fileprivate(set) var longitude:Double = Double(0)
+    public fileprivate(set) var hasLongitude:Bool = false
 
     required public init() {
          super.init()
@@ -96,26 +96,26 @@ public extension Pogoprotos.Map.Pokemon {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasSpawnPointId {
-        try output.writeString(1, value:spawnPointId)
+        try codedOutputStream.writeString(fieldNumber: 1, value:spawnPointId)
       }
       if hasEncounterId {
-        try output.writeFixed64(2, value:encounterId)
+        try codedOutputStream.writeFixed64(fieldNumber: 2, value:encounterId)
       }
       if hasPokemonId {
-        try output.writeEnum(3, value:pokemonId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 3, value:pokemonId.rawValue)
       }
       if hasExpirationTimestampMs {
-        try output.writeInt64(4, value:expirationTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 4, value:expirationTimestampMs)
       }
       if hasLatitude {
-        try output.writeDouble(5, value:latitude)
+        try codedOutputStream.writeDouble(fieldNumber: 5, value:latitude)
       }
       if hasLongitude {
-        try output.writeDouble(6, value:longitude)
+        try codedOutputStream.writeDouble(fieldNumber: 6, value:longitude)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -125,54 +125,26 @@ public extension Pogoprotos.Map.Pokemon {
 
       serialize_size = 0
       if hasSpawnPointId {
-        serialize_size += spawnPointId.computeStringSize(1)
+        serialize_size += spawnPointId.computeStringSize(fieldNumber: 1)
       }
       if hasEncounterId {
-        serialize_size += encounterId.computeFixed64Size(2)
+        serialize_size += encounterId.computeFixed64Size(fieldNumber: 2)
       }
       if (hasPokemonId) {
-        serialize_size += pokemonId.rawValue.computeEnumSize(3)
+        serialize_size += pokemonId.rawValue.computeEnumSize(fieldNumber: 3)
       }
       if hasExpirationTimestampMs {
-        serialize_size += expirationTimestampMs.computeInt64Size(4)
+        serialize_size += expirationTimestampMs.computeInt64Size(fieldNumber: 4)
       }
       if hasLatitude {
-        serialize_size += latitude.computeDoubleSize(5)
+        serialize_size += latitude.computeDoubleSize(fieldNumber: 5)
       }
       if hasLongitude {
-        serialize_size += longitude.computeDoubleSize(6)
+        serialize_size += longitude.computeDoubleSize(fieldNumber: 6)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Pokemon.MapPokemon> {
-      var mergedArray = Array<Pogoprotos.Map.Pokemon.MapPokemon>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon? {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Pokemon.PogoprotosMapPokemonRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
       return Pogoprotos.Map.Pokemon.MapPokemon.classBuilder() as! Pogoprotos.Map.Pokemon.MapPokemon.Builder
@@ -180,24 +152,24 @@ public extension Pogoprotos.Map.Pokemon {
     public func getBuilder() -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
       return classBuilder() as! Pogoprotos.Map.Pokemon.MapPokemon.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Pokemon.MapPokemon.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Pokemon.MapPokemon.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.builderWithPrototype(self)
+      return try Pogoprotos.Map.Pokemon.MapPokemon.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Pokemon.MapPokemon) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasSpawnPointId {
         jsonMap["spawnPointId"] = spawnPointId
       }
@@ -211,18 +183,18 @@ public extension Pogoprotos.Map.Pokemon {
         jsonMap["expirationTimestampMs"] = "\(expirationTimestampMs)"
       }
       if hasLatitude {
-        jsonMap["latitude"] = NSNumber(double:latitude)
+        jsonMap["latitude"] = NSNumber(value:latitude)
       }
       if hasLongitude {
-        jsonMap["longitude"] = NSNumber(double:longitude)
+        jsonMap["longitude"] = NSNumber(value:longitude)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
-      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+      return try Pogoprotos.Map.Pokemon.MapPokemon.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -244,7 +216,7 @@ public extension Pogoprotos.Map.Pokemon {
       if hasLongitude {
         output += "\(indent) longitude: \(longitude) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -282,13 +254,10 @@ public extension Pogoprotos.Map.Pokemon {
     override public func className() -> String {
         return "Pogoprotos.Map.Pokemon.MapPokemon"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Pokemon.MapPokemon.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Pokemon.MapPokemon = Pogoprotos.Map.Pokemon.MapPokemon()
+      fileprivate var builderResult:Pogoprotos.Map.Pokemon.MapPokemon = Pogoprotos.Map.Pokemon.MapPokemon()
       public func getMessage() -> Pogoprotos.Map.Pokemon.MapPokemon {
           return builderResult
       }
@@ -310,7 +279,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.spawnPointId = value
            }
       }
-      public func setSpawnPointId(value:String) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+      public func setSpawnPointId(_ value:String) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
         self.spawnPointId = value
         return self
       }
@@ -333,7 +302,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.encounterId = value
            }
       }
-      public func setEncounterId(value:UInt64) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+      public func setEncounterId(_ value:UInt64) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
         self.encounterId = value
         return self
       }
@@ -356,13 +325,13 @@ public extension Pogoprotos.Map.Pokemon {
                 builderResult.pokemonId = value
             }
         }
-        public func setPokemonId(value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+        public func setPokemonId(_ value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
           self.pokemonId = value
           return self
         }
         public func clearPokemonId() -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
            builderResult.hasPokemonId = false
-           builderResult.pokemonId = .Missingno
+           builderResult.pokemonId = .missingno
            return self
         }
       public var hasExpirationTimestampMs:Bool {
@@ -379,7 +348,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.expirationTimestampMs = value
            }
       }
-      public func setExpirationTimestampMs(value:Int64) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+      public func setExpirationTimestampMs(_ value:Int64) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
         self.expirationTimestampMs = value
         return self
       }
@@ -402,7 +371,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.latitude = value
            }
       }
-      public func setLatitude(value:Double) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+      public func setLatitude(_ value:Double) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
         self.latitude = value
         return self
       }
@@ -425,7 +394,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.longitude = value
            }
       }
-      public func setLongitude(value:Double) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+      public func setLongitude(_ value:Double) -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
         self.longitude = value
         return self
       }
@@ -444,7 +413,7 @@ public extension Pogoprotos.Map.Pokemon {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
-        return try Pogoprotos.Map.Pokemon.MapPokemon.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Pokemon.MapPokemon.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Pokemon.MapPokemon {
            try checkInitialized()
@@ -476,53 +445,53 @@ public extension Pogoprotos.Map.Pokemon {
         if other.hasLongitude {
              longitude = other.longitude
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            spawnPointId = try input.readString()
+            spawnPointId = try codedInputStream.readString()
 
           case 17:
-            encounterId = try input.readFixed64()
+            encounterId = try codedInputStream.readFixed64()
 
           case 24:
-            let valueIntpokemonId = try input.readEnum()
+            let valueIntpokemonId = try codedInputStream.readEnum()
             if let enumspokemonId = Pogoprotos.Enums.PokemonId(rawValue:valueIntpokemonId){
                  pokemonId = enumspokemonId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(3, value:Int64(valueIntpokemonId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 3, value:Int64(valueIntpokemonId))
             }
 
           case 32:
-            expirationTimestampMs = try input.readInt64()
+            expirationTimestampMs = try codedInputStream.readInt64()
 
           case 41:
-            latitude = try input.readDouble()
+            latitude = try codedInputStream.readDouble()
 
           case 49:
-            longitude = try input.readDouble()
+            longitude = try codedInputStream.readDouble()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Pokemon.MapPokemon.Builder()
         if let jsonValueSpawnPointId = jsonMap["spawnPointId"] as? String {
           resultDecodedBuilder.spawnPointId = jsonValueSpawnPointId
@@ -531,7 +500,7 @@ public extension Pogoprotos.Map.Pokemon {
           resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
         }
         if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
-          resultDecodedBuilder.pokemonId = try Pogoprotos.Enums.PokemonId.fromString(jsonValuePokemonId)
+          resultDecodedBuilder.pokemonId = try Pogoprotos.Enums.PokemonId.fromString(str: jsonValuePokemonId)
         }
         if let jsonValueExpirationTimestampMs = jsonMap["expirationTimestampMs"] as? String {
           resultDecodedBuilder.expirationTimestampMs = Int64(jsonValueExpirationTimestampMs)!
@@ -544,31 +513,31 @@ public extension Pogoprotos.Map.Pokemon {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Pokemon.MapPokemon.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Pokemon.MapPokemon.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Pokemon.MapPokemon.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class NearbyPokemon : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var pokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
-    public private(set) var hasPokemonId:Bool = false
-    public private(set) var hasDistanceInMeters:Bool = false
-    public private(set) var distanceInMeters:Float = Float(0)
+  final public class NearbyPokemon : GeneratedMessage {
+    public fileprivate(set) var pokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.missingno
+    public fileprivate(set) var hasPokemonId:Bool = false
+    public fileprivate(set) var distanceInMeters:Float = Float(0)
+    public fileprivate(set) var hasDistanceInMeters:Bool = false
 
-    public private(set) var hasEncounterId:Bool = false
-    public private(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasEncounterId:Bool = false
 
-    public private(set) var hasFortId:Bool = false
-    public private(set) var fortId:String = ""
+    public fileprivate(set) var fortId:String = ""
+    public fileprivate(set) var hasFortId:Bool = false
 
-    public private(set) var hasFortImageUrl:Bool = false
-    public private(set) var fortImageUrl:String = ""
+    public fileprivate(set) var fortImageUrl:String = ""
+    public fileprivate(set) var hasFortImageUrl:Bool = false
 
     required public init() {
          super.init()
@@ -576,23 +545,23 @@ public extension Pogoprotos.Map.Pokemon {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasPokemonId {
-        try output.writeEnum(1, value:pokemonId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:pokemonId.rawValue)
       }
       if hasDistanceInMeters {
-        try output.writeFloat(2, value:distanceInMeters)
+        try codedOutputStream.writeFloat(fieldNumber: 2, value:distanceInMeters)
       }
       if hasEncounterId {
-        try output.writeFixed64(3, value:encounterId)
+        try codedOutputStream.writeFixed64(fieldNumber: 3, value:encounterId)
       }
       if hasFortId {
-        try output.writeString(4, value:fortId)
+        try codedOutputStream.writeString(fieldNumber: 4, value:fortId)
       }
       if hasFortImageUrl {
-        try output.writeString(5, value:fortImageUrl)
+        try codedOutputStream.writeString(fieldNumber: 5, value:fortImageUrl)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -602,51 +571,23 @@ public extension Pogoprotos.Map.Pokemon {
 
       serialize_size = 0
       if (hasPokemonId) {
-        serialize_size += pokemonId.rawValue.computeEnumSize(1)
+        serialize_size += pokemonId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasDistanceInMeters {
-        serialize_size += distanceInMeters.computeFloatSize(2)
+        serialize_size += distanceInMeters.computeFloatSize(fieldNumber: 2)
       }
       if hasEncounterId {
-        serialize_size += encounterId.computeFixed64Size(3)
+        serialize_size += encounterId.computeFixed64Size(fieldNumber: 3)
       }
       if hasFortId {
-        serialize_size += fortId.computeStringSize(4)
+        serialize_size += fortId.computeStringSize(fieldNumber: 4)
       }
       if hasFortImageUrl {
-        serialize_size += fortImageUrl.computeStringSize(5)
+        serialize_size += fortImageUrl.computeStringSize(fieldNumber: 5)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Pokemon.NearbyPokemon> {
-      var mergedArray = Array<Pogoprotos.Map.Pokemon.NearbyPokemon>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon? {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Pokemon.PogoprotosMapPokemonRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
       return Pogoprotos.Map.Pokemon.NearbyPokemon.classBuilder() as! Pogoprotos.Map.Pokemon.NearbyPokemon.Builder
@@ -654,29 +595,29 @@ public extension Pogoprotos.Map.Pokemon {
     public func getBuilder() -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
       return classBuilder() as! Pogoprotos.Map.Pokemon.NearbyPokemon.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Pokemon.NearbyPokemon.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Pokemon.NearbyPokemon.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.builderWithPrototype(self)
+      return try Pogoprotos.Map.Pokemon.NearbyPokemon.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Pokemon.NearbyPokemon) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasPokemonId {
         jsonMap["pokemonId"] = pokemonId.toString()
       }
       if hasDistanceInMeters {
-        jsonMap["distanceInMeters"] = NSNumber(float:distanceInMeters)
+        jsonMap["distanceInMeters"] = NSNumber(value:distanceInMeters)
       }
       if hasEncounterId {
         jsonMap["encounterId"] = "\(encounterId)"
@@ -689,11 +630,11 @@ public extension Pogoprotos.Map.Pokemon {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
-      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+      return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -712,7 +653,7 @@ public extension Pogoprotos.Map.Pokemon {
       if hasFortImageUrl {
         output += "\(indent) fortImageUrl: \(fortImageUrl) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -747,13 +688,10 @@ public extension Pogoprotos.Map.Pokemon {
     override public func className() -> String {
         return "Pogoprotos.Map.Pokemon.NearbyPokemon"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Pokemon.NearbyPokemon.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Pokemon.NearbyPokemon = Pogoprotos.Map.Pokemon.NearbyPokemon()
+      fileprivate var builderResult:Pogoprotos.Map.Pokemon.NearbyPokemon = Pogoprotos.Map.Pokemon.NearbyPokemon()
       public func getMessage() -> Pogoprotos.Map.Pokemon.NearbyPokemon {
           return builderResult
       }
@@ -775,13 +713,13 @@ public extension Pogoprotos.Map.Pokemon {
                 builderResult.pokemonId = value
             }
         }
-        public func setPokemonId(value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+        public func setPokemonId(_ value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
           self.pokemonId = value
           return self
         }
         public func clearPokemonId() -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
            builderResult.hasPokemonId = false
-           builderResult.pokemonId = .Missingno
+           builderResult.pokemonId = .missingno
            return self
         }
       public var hasDistanceInMeters:Bool {
@@ -798,7 +736,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.distanceInMeters = value
            }
       }
-      public func setDistanceInMeters(value:Float) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+      public func setDistanceInMeters(_ value:Float) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
         self.distanceInMeters = value
         return self
       }
@@ -821,7 +759,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.encounterId = value
            }
       }
-      public func setEncounterId(value:UInt64) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+      public func setEncounterId(_ value:UInt64) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
         self.encounterId = value
         return self
       }
@@ -844,7 +782,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.fortId = value
            }
       }
-      public func setFortId(value:String) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+      public func setFortId(_ value:String) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
         self.fortId = value
         return self
       }
@@ -867,7 +805,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.fortImageUrl = value
            }
       }
-      public func setFortImageUrl(value:String) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+      public func setFortImageUrl(_ value:String) -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
         self.fortImageUrl = value
         return self
       }
@@ -886,7 +824,7 @@ public extension Pogoprotos.Map.Pokemon {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
-        return try Pogoprotos.Map.Pokemon.NearbyPokemon.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Pokemon.NearbyPokemon.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
            try checkInitialized()
@@ -915,53 +853,53 @@ public extension Pogoprotos.Map.Pokemon {
         if other.hasFortImageUrl {
              fortImageUrl = other.fortImageUrl
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntpokemonId = try input.readEnum()
+            let valueIntpokemonId = try codedInputStream.readEnum()
             if let enumspokemonId = Pogoprotos.Enums.PokemonId(rawValue:valueIntpokemonId){
                  pokemonId = enumspokemonId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntpokemonId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntpokemonId))
             }
 
           case 21:
-            distanceInMeters = try input.readFloat()
+            distanceInMeters = try codedInputStream.readFloat()
 
           case 25:
-            encounterId = try input.readFixed64()
+            encounterId = try codedInputStream.readFixed64()
 
           case 34:
-            fortId = try input.readString()
+            fortId = try codedInputStream.readString()
 
           case 42:
-            fortImageUrl = try input.readString()
+            fortImageUrl = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Pokemon.NearbyPokemon.Builder()
         if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
-          resultDecodedBuilder.pokemonId = try Pogoprotos.Enums.PokemonId.fromString(jsonValuePokemonId)
+          resultDecodedBuilder.pokemonId = try Pogoprotos.Enums.PokemonId.fromString(str: jsonValuePokemonId)
         }
         if let jsonValueDistanceInMeters = jsonMap["distanceInMeters"] as? NSNumber {
           resultDecodedBuilder.distanceInMeters = jsonValueDistanceInMeters.floatValue
@@ -977,37 +915,37 @@ public extension Pogoprotos.Map.Pokemon {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class WildPokemon : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasEncounterId:Bool = false
-    public private(set) var encounterId:UInt64 = UInt64(0)
+  final public class WildPokemon : GeneratedMessage {
+    public fileprivate(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasEncounterId:Bool = false
 
-    public private(set) var hasLastModifiedTimestampMs:Bool = false
-    public private(set) var lastModifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var lastModifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasLastModifiedTimestampMs:Bool = false
 
-    public private(set) var hasLatitude:Bool = false
-    public private(set) var latitude:Double = Double(0)
+    public fileprivate(set) var latitude:Double = Double(0)
+    public fileprivate(set) var hasLatitude:Bool = false
 
-    public private(set) var hasLongitude:Bool = false
-    public private(set) var longitude:Double = Double(0)
+    public fileprivate(set) var longitude:Double = Double(0)
+    public fileprivate(set) var hasLongitude:Bool = false
 
-    public private(set) var hasSpawnPointId:Bool = false
-    public private(set) var spawnPointId:String = ""
+    public fileprivate(set) var spawnPointId:String = ""
+    public fileprivate(set) var hasSpawnPointId:Bool = false
 
-    public private(set) var hasPokemonData:Bool = false
-    public private(set) var pokemonData:Pogoprotos.Data.PokemonData!
-    public private(set) var hasTimeTillHiddenMs:Bool = false
-    public private(set) var timeTillHiddenMs:Int32 = Int32(0)
+    public fileprivate(set) var pokemonData:Pogoprotos.Data.PokemonData!
+    public fileprivate(set) var hasPokemonData:Bool = false
+    public fileprivate(set) var timeTillHiddenMs:Int32 = Int32(0)
+    public fileprivate(set) var hasTimeTillHiddenMs:Bool = false
 
     required public init() {
          super.init()
@@ -1015,29 +953,29 @@ public extension Pogoprotos.Map.Pokemon {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasEncounterId {
-        try output.writeFixed64(1, value:encounterId)
+        try codedOutputStream.writeFixed64(fieldNumber: 1, value:encounterId)
       }
       if hasLastModifiedTimestampMs {
-        try output.writeInt64(2, value:lastModifiedTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 2, value:lastModifiedTimestampMs)
       }
       if hasLatitude {
-        try output.writeDouble(3, value:latitude)
+        try codedOutputStream.writeDouble(fieldNumber: 3, value:latitude)
       }
       if hasLongitude {
-        try output.writeDouble(4, value:longitude)
+        try codedOutputStream.writeDouble(fieldNumber: 4, value:longitude)
       }
       if hasSpawnPointId {
-        try output.writeString(5, value:spawnPointId)
+        try codedOutputStream.writeString(fieldNumber: 5, value:spawnPointId)
       }
       if hasPokemonData {
-        try output.writeMessage(7, value:pokemonData)
+        try codedOutputStream.writeMessage(fieldNumber: 7, value:pokemonData)
       }
       if hasTimeTillHiddenMs {
-        try output.writeInt32(11, value:timeTillHiddenMs)
+        try codedOutputStream.writeInt32(fieldNumber: 11, value:timeTillHiddenMs)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1047,59 +985,31 @@ public extension Pogoprotos.Map.Pokemon {
 
       serialize_size = 0
       if hasEncounterId {
-        serialize_size += encounterId.computeFixed64Size(1)
+        serialize_size += encounterId.computeFixed64Size(fieldNumber: 1)
       }
       if hasLastModifiedTimestampMs {
-        serialize_size += lastModifiedTimestampMs.computeInt64Size(2)
+        serialize_size += lastModifiedTimestampMs.computeInt64Size(fieldNumber: 2)
       }
       if hasLatitude {
-        serialize_size += latitude.computeDoubleSize(3)
+        serialize_size += latitude.computeDoubleSize(fieldNumber: 3)
       }
       if hasLongitude {
-        serialize_size += longitude.computeDoubleSize(4)
+        serialize_size += longitude.computeDoubleSize(fieldNumber: 4)
       }
       if hasSpawnPointId {
-        serialize_size += spawnPointId.computeStringSize(5)
+        serialize_size += spawnPointId.computeStringSize(fieldNumber: 5)
       }
       if hasPokemonData {
-          if let varSizepokemonData = pokemonData?.computeMessageSize(7) {
+          if let varSizepokemonData = pokemonData?.computeMessageSize(fieldNumber: 7) {
               serialize_size += varSizepokemonData
           }
       }
       if hasTimeTillHiddenMs {
-        serialize_size += timeTillHiddenMs.computeInt32Size(11)
+        serialize_size += timeTillHiddenMs.computeInt32Size(fieldNumber: 11)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Pokemon.WildPokemon> {
-      var mergedArray = Array<Pogoprotos.Map.Pokemon.WildPokemon>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon? {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Pokemon.PogoprotosMapPokemonRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
       return Pogoprotos.Map.Pokemon.WildPokemon.classBuilder() as! Pogoprotos.Map.Pokemon.WildPokemon.Builder
@@ -1107,24 +1017,24 @@ public extension Pogoprotos.Map.Pokemon {
     public func getBuilder() -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
       return classBuilder() as! Pogoprotos.Map.Pokemon.WildPokemon.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Pokemon.WildPokemon.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Pokemon.WildPokemon.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.builderWithPrototype(self)
+      return try Pogoprotos.Map.Pokemon.WildPokemon.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Pokemon.WildPokemon) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasEncounterId {
         jsonMap["encounterId"] = "\(encounterId)"
       }
@@ -1132,10 +1042,10 @@ public extension Pogoprotos.Map.Pokemon {
         jsonMap["lastModifiedTimestampMs"] = "\(lastModifiedTimestampMs)"
       }
       if hasLatitude {
-        jsonMap["latitude"] = NSNumber(double:latitude)
+        jsonMap["latitude"] = NSNumber(value:latitude)
       }
       if hasLongitude {
-        jsonMap["longitude"] = NSNumber(double:longitude)
+        jsonMap["longitude"] = NSNumber(value:longitude)
       }
       if hasSpawnPointId {
         jsonMap["spawnPointId"] = spawnPointId
@@ -1144,15 +1054,15 @@ public extension Pogoprotos.Map.Pokemon {
         jsonMap["pokemonData"] = try pokemonData.encode()
       }
       if hasTimeTillHiddenMs {
-        jsonMap["timeTillHiddenMs"] = NSNumber(int:timeTillHiddenMs)
+        jsonMap["timeTillHiddenMs"] = NSNumber(value:timeTillHiddenMs)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
-      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+      return try Pogoprotos.Map.Pokemon.WildPokemon.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -1174,14 +1084,14 @@ public extension Pogoprotos.Map.Pokemon {
       if hasPokemonData {
         output += "\(indent) pokemonData {\n"
         if let outDescPokemonData = pokemonData {
-          output += try outDescPokemonData.getDescription("\(indent)  ")
+          output += try outDescPokemonData.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasTimeTillHiddenMs {
         output += "\(indent) timeTillHiddenMs: \(timeTillHiddenMs) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1224,13 +1134,10 @@ public extension Pogoprotos.Map.Pokemon {
     override public func className() -> String {
         return "Pogoprotos.Map.Pokemon.WildPokemon"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Pokemon.WildPokemon.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Pokemon.WildPokemon = Pogoprotos.Map.Pokemon.WildPokemon()
+      fileprivate var builderResult:Pogoprotos.Map.Pokemon.WildPokemon = Pogoprotos.Map.Pokemon.WildPokemon()
       public func getMessage() -> Pogoprotos.Map.Pokemon.WildPokemon {
           return builderResult
       }
@@ -1252,7 +1159,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.encounterId = value
            }
       }
-      public func setEncounterId(value:UInt64) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setEncounterId(_ value:UInt64) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.encounterId = value
         return self
       }
@@ -1275,7 +1182,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.lastModifiedTimestampMs = value
            }
       }
-      public func setLastModifiedTimestampMs(value:Int64) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setLastModifiedTimestampMs(_ value:Int64) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.lastModifiedTimestampMs = value
         return self
       }
@@ -1298,7 +1205,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.latitude = value
            }
       }
-      public func setLatitude(value:Double) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setLatitude(_ value:Double) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.latitude = value
         return self
       }
@@ -1321,7 +1228,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.longitude = value
            }
       }
-      public func setLongitude(value:Double) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setLongitude(_ value:Double) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.longitude = value
         return self
       }
@@ -1344,7 +1251,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.spawnPointId = value
            }
       }
-      public func setSpawnPointId(value:String) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setSpawnPointId(_ value:String) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.spawnPointId = value
         return self
       }
@@ -1370,7 +1277,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.pokemonData = value
            }
       }
-      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -1380,18 +1287,18 @@ public extension Pogoprotos.Map.Pokemon {
            pokemonDataBuilder_ = Pogoprotos.Data.PokemonData.Builder()
            builderResult.pokemonData = pokemonDataBuilder_.getMessage()
            if pokemonData != nil {
-              try! pokemonDataBuilder_.mergeFrom(pokemonData)
+              _ = try! pokemonDataBuilder_.mergeFrom(other: pokemonData)
            }
         }
         return pokemonDataBuilder_
       }
-      public func setPokemonData(value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setPokemonData(_ value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.pokemonData = value
         return self
       }
       public func mergePokemonData(value:Pogoprotos.Data.PokemonData) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         if builderResult.hasPokemonData {
-          builderResult.pokemonData = try Pogoprotos.Data.PokemonData.builderWithPrototype(builderResult.pokemonData).mergeFrom(value).buildPartial()
+          builderResult.pokemonData = try Pogoprotos.Data.PokemonData.builderWithPrototype(prototype:builderResult.pokemonData).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.pokemonData = value
         }
@@ -1418,7 +1325,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.timeTillHiddenMs = value
            }
       }
-      public func setTimeTillHiddenMs(value:Int32) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      public func setTimeTillHiddenMs(_ value:Int32) -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         self.timeTillHiddenMs = value
         return self
       }
@@ -1437,7 +1344,7 @@ public extension Pogoprotos.Map.Pokemon {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
-        return try Pogoprotos.Map.Pokemon.WildPokemon.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Pokemon.WildPokemon.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Pokemon.WildPokemon {
            try checkInitialized()
@@ -1467,61 +1374,61 @@ public extension Pogoprotos.Map.Pokemon {
              spawnPointId = other.spawnPointId
         }
         if (other.hasPokemonData) {
-            try mergePokemonData(other.pokemonData)
+            _ = try mergePokemonData(value: other.pokemonData)
         }
         if other.hasTimeTillHiddenMs {
              timeTillHiddenMs = other.timeTillHiddenMs
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 9:
-            encounterId = try input.readFixed64()
+            encounterId = try codedInputStream.readFixed64()
 
           case 16:
-            lastModifiedTimestampMs = try input.readInt64()
+            lastModifiedTimestampMs = try codedInputStream.readInt64()
 
           case 25:
-            latitude = try input.readDouble()
+            latitude = try codedInputStream.readDouble()
 
           case 33:
-            longitude = try input.readDouble()
+            longitude = try codedInputStream.readDouble()
 
           case 42:
-            spawnPointId = try input.readString()
+            spawnPointId = try codedInputStream.readString()
 
           case 58:
             let subBuilder:Pogoprotos.Data.PokemonData.Builder = Pogoprotos.Data.PokemonData.Builder()
             if hasPokemonData {
-              try subBuilder.mergeFrom(pokemonData)
+              _ = try subBuilder.mergeFrom(other: pokemonData)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             pokemonData = subBuilder.buildPartial()
 
           case 88:
-            timeTillHiddenMs = try input.readInt32()
+            timeTillHiddenMs = try codedInputStream.readInt32()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Pokemon.WildPokemon.Builder()
         if let jsonValueEncounterId = jsonMap["encounterId"] as? String {
           resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
@@ -1538,26 +1445,116 @@ public extension Pogoprotos.Map.Pokemon {
         if let jsonValueSpawnPointId = jsonMap["spawnPointId"] as? String {
           resultDecodedBuilder.spawnPointId = jsonValueSpawnPointId
         }
-        if let jsonValuePokemonData = jsonMap["pokemonData"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.pokemonData = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonValuePokemonData).build()
+        if let jsonValuePokemonData = jsonMap["pokemonData"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.pokemonData = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonMap:jsonValuePokemonData).build()
 
         }
         if let jsonValueTimeTillHiddenMs = jsonMap["timeTillHiddenMs"] as? NSNumber {
-          resultDecodedBuilder.timeTillHiddenMs = jsonValueTimeTillHiddenMs.intValue
+          resultDecodedBuilder.timeTillHiddenMs = jsonValueTimeTillHiddenMs.int32Value
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Pokemon.WildPokemon.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Pokemon.WildPokemon.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Pokemon.WildPokemon.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Map.Pokemon.MapPokemon: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Pokemon.MapPokemon> {
+    var mergedArray = Array<Pogoprotos.Map.Pokemon.MapPokemon>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon? {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Pokemon.PogoprotosMapPokemonRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.MapPokemon {
+    return try Pogoprotos.Map.Pokemon.MapPokemon.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Map.Pokemon.NearbyPokemon: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Pokemon.NearbyPokemon> {
+    var mergedArray = Array<Pogoprotos.Map.Pokemon.NearbyPokemon>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon? {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Pokemon.PogoprotosMapPokemonRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.NearbyPokemon {
+    return try Pogoprotos.Map.Pokemon.NearbyPokemon.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Map.Pokemon.WildPokemon: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Pokemon.WildPokemon> {
+    var mergedArray = Array<Pogoprotos.Map.Pokemon.WildPokemon>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon? {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Pokemon.PogoprotosMapPokemonRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Pokemon.WildPokemon {
+    return try Pogoprotos.Map.Pokemon.WildPokemon.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

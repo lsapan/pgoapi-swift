@@ -41,9 +41,9 @@ public extension Pogoprotos.Inventory.Item {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
@@ -52,140 +52,140 @@ public extension Pogoprotos.Inventory.Item {
   //Enum type declaration start 
 
   public enum ItemId:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case ItemUnknown = 0
-    case ItemPokeBall = 1
-    case ItemGreatBall = 2
-    case ItemUltraBall = 3
-    case ItemMasterBall = 4
-    case ItemPotion = 101
-    case ItemSuperPotion = 102
-    case ItemHyperPotion = 103
-    case ItemMaxPotion = 104
-    case ItemRevive = 201
-    case ItemMaxRevive = 202
-    case ItemLuckyEgg = 301
-    case ItemIncenseOrdinary = 401
-    case ItemIncenseSpicy = 402
-    case ItemIncenseCool = 403
-    case ItemIncenseFloral = 404
-    case ItemTroyDisk = 501
-    case ItemXAttack = 602
-    case ItemXDefense = 603
-    case ItemXMiracle = 604
-    case ItemRazzBerry = 701
-    case ItemBlukBerry = 702
-    case ItemNanabBerry = 703
-    case ItemWeparBerry = 704
-    case ItemPinapBerry = 705
-    case ItemSpecialCamera = 801
-    case ItemIncubatorBasicUnlimited = 901
-    case ItemIncubatorBasic = 902
-    case ItemPokemonStorageUpgrade = 1001
-    case ItemItemStorageUpgrade = 1002
+    case itemUnknown = 0
+    case itemPokeBall = 1
+    case itemGreatBall = 2
+    case itemUltraBall = 3
+    case itemMasterBall = 4
+    case itemPotion = 101
+    case itemSuperPotion = 102
+    case itemHyperPotion = 103
+    case itemMaxPotion = 104
+    case itemRevive = 201
+    case itemMaxRevive = 202
+    case itemLuckyEgg = 301
+    case itemIncenseOrdinary = 401
+    case itemIncenseSpicy = 402
+    case itemIncenseCool = 403
+    case itemIncenseFloral = 404
+    case itemTroyDisk = 501
+    case itemXAttack = 602
+    case itemXDefense = 603
+    case itemXMiracle = 604
+    case itemRazzBerry = 701
+    case itemBlukBerry = 702
+    case itemNanabBerry = 703
+    case itemWeparBerry = 704
+    case itemPinapBerry = 705
+    case itemSpecialCamera = 801
+    case itemIncubatorBasicUnlimited = 901
+    case itemIncubatorBasic = 902
+    case itemPokemonStorageUpgrade = 1001
+    case itemItemStorageUpgrade = 1002
     public func toString() -> String {
       switch self {
-      case .ItemUnknown: return "ITEM_UNKNOWN"
-      case .ItemPokeBall: return "ITEM_POKE_BALL"
-      case .ItemGreatBall: return "ITEM_GREAT_BALL"
-      case .ItemUltraBall: return "ITEM_ULTRA_BALL"
-      case .ItemMasterBall: return "ITEM_MASTER_BALL"
-      case .ItemPotion: return "ITEM_POTION"
-      case .ItemSuperPotion: return "ITEM_SUPER_POTION"
-      case .ItemHyperPotion: return "ITEM_HYPER_POTION"
-      case .ItemMaxPotion: return "ITEM_MAX_POTION"
-      case .ItemRevive: return "ITEM_REVIVE"
-      case .ItemMaxRevive: return "ITEM_MAX_REVIVE"
-      case .ItemLuckyEgg: return "ITEM_LUCKY_EGG"
-      case .ItemIncenseOrdinary: return "ITEM_INCENSE_ORDINARY"
-      case .ItemIncenseSpicy: return "ITEM_INCENSE_SPICY"
-      case .ItemIncenseCool: return "ITEM_INCENSE_COOL"
-      case .ItemIncenseFloral: return "ITEM_INCENSE_FLORAL"
-      case .ItemTroyDisk: return "ITEM_TROY_DISK"
-      case .ItemXAttack: return "ITEM_X_ATTACK"
-      case .ItemXDefense: return "ITEM_X_DEFENSE"
-      case .ItemXMiracle: return "ITEM_X_MIRACLE"
-      case .ItemRazzBerry: return "ITEM_RAZZ_BERRY"
-      case .ItemBlukBerry: return "ITEM_BLUK_BERRY"
-      case .ItemNanabBerry: return "ITEM_NANAB_BERRY"
-      case .ItemWeparBerry: return "ITEM_WEPAR_BERRY"
-      case .ItemPinapBerry: return "ITEM_PINAP_BERRY"
-      case .ItemSpecialCamera: return "ITEM_SPECIAL_CAMERA"
-      case .ItemIncubatorBasicUnlimited: return "ITEM_INCUBATOR_BASIC_UNLIMITED"
-      case .ItemIncubatorBasic: return "ITEM_INCUBATOR_BASIC"
-      case .ItemPokemonStorageUpgrade: return "ITEM_POKEMON_STORAGE_UPGRADE"
-      case .ItemItemStorageUpgrade: return "ITEM_ITEM_STORAGE_UPGRADE"
+      case .itemUnknown: return "ITEM_UNKNOWN"
+      case .itemPokeBall: return "ITEM_POKE_BALL"
+      case .itemGreatBall: return "ITEM_GREAT_BALL"
+      case .itemUltraBall: return "ITEM_ULTRA_BALL"
+      case .itemMasterBall: return "ITEM_MASTER_BALL"
+      case .itemPotion: return "ITEM_POTION"
+      case .itemSuperPotion: return "ITEM_SUPER_POTION"
+      case .itemHyperPotion: return "ITEM_HYPER_POTION"
+      case .itemMaxPotion: return "ITEM_MAX_POTION"
+      case .itemRevive: return "ITEM_REVIVE"
+      case .itemMaxRevive: return "ITEM_MAX_REVIVE"
+      case .itemLuckyEgg: return "ITEM_LUCKY_EGG"
+      case .itemIncenseOrdinary: return "ITEM_INCENSE_ORDINARY"
+      case .itemIncenseSpicy: return "ITEM_INCENSE_SPICY"
+      case .itemIncenseCool: return "ITEM_INCENSE_COOL"
+      case .itemIncenseFloral: return "ITEM_INCENSE_FLORAL"
+      case .itemTroyDisk: return "ITEM_TROY_DISK"
+      case .itemXAttack: return "ITEM_X_ATTACK"
+      case .itemXDefense: return "ITEM_X_DEFENSE"
+      case .itemXMiracle: return "ITEM_X_MIRACLE"
+      case .itemRazzBerry: return "ITEM_RAZZ_BERRY"
+      case .itemBlukBerry: return "ITEM_BLUK_BERRY"
+      case .itemNanabBerry: return "ITEM_NANAB_BERRY"
+      case .itemWeparBerry: return "ITEM_WEPAR_BERRY"
+      case .itemPinapBerry: return "ITEM_PINAP_BERRY"
+      case .itemSpecialCamera: return "ITEM_SPECIAL_CAMERA"
+      case .itemIncubatorBasicUnlimited: return "ITEM_INCUBATOR_BASIC_UNLIMITED"
+      case .itemIncubatorBasic: return "ITEM_INCUBATOR_BASIC"
+      case .itemPokemonStorageUpgrade: return "ITEM_POKEMON_STORAGE_UPGRADE"
+      case .itemItemStorageUpgrade: return "ITEM_ITEM_STORAGE_UPGRADE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Inventory.Item.ItemId {
       switch str {
-      case "ITEM_UNKNOWN":  return .ItemUnknown
-      case "ITEM_POKE_BALL":  return .ItemPokeBall
-      case "ITEM_GREAT_BALL":  return .ItemGreatBall
-      case "ITEM_ULTRA_BALL":  return .ItemUltraBall
-      case "ITEM_MASTER_BALL":  return .ItemMasterBall
-      case "ITEM_POTION":  return .ItemPotion
-      case "ITEM_SUPER_POTION":  return .ItemSuperPotion
-      case "ITEM_HYPER_POTION":  return .ItemHyperPotion
-      case "ITEM_MAX_POTION":  return .ItemMaxPotion
-      case "ITEM_REVIVE":  return .ItemRevive
-      case "ITEM_MAX_REVIVE":  return .ItemMaxRevive
-      case "ITEM_LUCKY_EGG":  return .ItemLuckyEgg
-      case "ITEM_INCENSE_ORDINARY":  return .ItemIncenseOrdinary
-      case "ITEM_INCENSE_SPICY":  return .ItemIncenseSpicy
-      case "ITEM_INCENSE_COOL":  return .ItemIncenseCool
-      case "ITEM_INCENSE_FLORAL":  return .ItemIncenseFloral
-      case "ITEM_TROY_DISK":  return .ItemTroyDisk
-      case "ITEM_X_ATTACK":  return .ItemXAttack
-      case "ITEM_X_DEFENSE":  return .ItemXDefense
-      case "ITEM_X_MIRACLE":  return .ItemXMiracle
-      case "ITEM_RAZZ_BERRY":  return .ItemRazzBerry
-      case "ITEM_BLUK_BERRY":  return .ItemBlukBerry
-      case "ITEM_NANAB_BERRY":  return .ItemNanabBerry
-      case "ITEM_WEPAR_BERRY":  return .ItemWeparBerry
-      case "ITEM_PINAP_BERRY":  return .ItemPinapBerry
-      case "ITEM_SPECIAL_CAMERA":  return .ItemSpecialCamera
-      case "ITEM_INCUBATOR_BASIC_UNLIMITED":  return .ItemIncubatorBasicUnlimited
-      case "ITEM_INCUBATOR_BASIC":  return .ItemIncubatorBasic
-      case "ITEM_POKEMON_STORAGE_UPGRADE":  return .ItemPokemonStorageUpgrade
-      case "ITEM_ITEM_STORAGE_UPGRADE":  return .ItemItemStorageUpgrade
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "ITEM_UNKNOWN":  return .itemUnknown
+      case "ITEM_POKE_BALL":  return .itemPokeBall
+      case "ITEM_GREAT_BALL":  return .itemGreatBall
+      case "ITEM_ULTRA_BALL":  return .itemUltraBall
+      case "ITEM_MASTER_BALL":  return .itemMasterBall
+      case "ITEM_POTION":  return .itemPotion
+      case "ITEM_SUPER_POTION":  return .itemSuperPotion
+      case "ITEM_HYPER_POTION":  return .itemHyperPotion
+      case "ITEM_MAX_POTION":  return .itemMaxPotion
+      case "ITEM_REVIVE":  return .itemRevive
+      case "ITEM_MAX_REVIVE":  return .itemMaxRevive
+      case "ITEM_LUCKY_EGG":  return .itemLuckyEgg
+      case "ITEM_INCENSE_ORDINARY":  return .itemIncenseOrdinary
+      case "ITEM_INCENSE_SPICY":  return .itemIncenseSpicy
+      case "ITEM_INCENSE_COOL":  return .itemIncenseCool
+      case "ITEM_INCENSE_FLORAL":  return .itemIncenseFloral
+      case "ITEM_TROY_DISK":  return .itemTroyDisk
+      case "ITEM_X_ATTACK":  return .itemXAttack
+      case "ITEM_X_DEFENSE":  return .itemXDefense
+      case "ITEM_X_MIRACLE":  return .itemXMiracle
+      case "ITEM_RAZZ_BERRY":  return .itemRazzBerry
+      case "ITEM_BLUK_BERRY":  return .itemBlukBerry
+      case "ITEM_NANAB_BERRY":  return .itemNanabBerry
+      case "ITEM_WEPAR_BERRY":  return .itemWeparBerry
+      case "ITEM_PINAP_BERRY":  return .itemPinapBerry
+      case "ITEM_SPECIAL_CAMERA":  return .itemSpecialCamera
+      case "ITEM_INCUBATOR_BASIC_UNLIMITED":  return .itemIncubatorBasicUnlimited
+      case "ITEM_INCUBATOR_BASIC":  return .itemIncubatorBasic
+      case "ITEM_POKEMON_STORAGE_UPGRADE":  return .itemPokemonStorageUpgrade
+      case "ITEM_ITEM_STORAGE_UPGRADE":  return .itemItemStorageUpgrade
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .ItemUnknown: return ".ItemUnknown"
-            case .ItemPokeBall: return ".ItemPokeBall"
-            case .ItemGreatBall: return ".ItemGreatBall"
-            case .ItemUltraBall: return ".ItemUltraBall"
-            case .ItemMasterBall: return ".ItemMasterBall"
-            case .ItemPotion: return ".ItemPotion"
-            case .ItemSuperPotion: return ".ItemSuperPotion"
-            case .ItemHyperPotion: return ".ItemHyperPotion"
-            case .ItemMaxPotion: return ".ItemMaxPotion"
-            case .ItemRevive: return ".ItemRevive"
-            case .ItemMaxRevive: return ".ItemMaxRevive"
-            case .ItemLuckyEgg: return ".ItemLuckyEgg"
-            case .ItemIncenseOrdinary: return ".ItemIncenseOrdinary"
-            case .ItemIncenseSpicy: return ".ItemIncenseSpicy"
-            case .ItemIncenseCool: return ".ItemIncenseCool"
-            case .ItemIncenseFloral: return ".ItemIncenseFloral"
-            case .ItemTroyDisk: return ".ItemTroyDisk"
-            case .ItemXAttack: return ".ItemXAttack"
-            case .ItemXDefense: return ".ItemXDefense"
-            case .ItemXMiracle: return ".ItemXMiracle"
-            case .ItemRazzBerry: return ".ItemRazzBerry"
-            case .ItemBlukBerry: return ".ItemBlukBerry"
-            case .ItemNanabBerry: return ".ItemNanabBerry"
-            case .ItemWeparBerry: return ".ItemWeparBerry"
-            case .ItemPinapBerry: return ".ItemPinapBerry"
-            case .ItemSpecialCamera: return ".ItemSpecialCamera"
-            case .ItemIncubatorBasicUnlimited: return ".ItemIncubatorBasicUnlimited"
-            case .ItemIncubatorBasic: return ".ItemIncubatorBasic"
-            case .ItemPokemonStorageUpgrade: return ".ItemPokemonStorageUpgrade"
-            case .ItemItemStorageUpgrade: return ".ItemItemStorageUpgrade"
-        }
+      switch self {
+      case .itemUnknown: return ".itemUnknown"
+      case .itemPokeBall: return ".itemPokeBall"
+      case .itemGreatBall: return ".itemGreatBall"
+      case .itemUltraBall: return ".itemUltraBall"
+      case .itemMasterBall: return ".itemMasterBall"
+      case .itemPotion: return ".itemPotion"
+      case .itemSuperPotion: return ".itemSuperPotion"
+      case .itemHyperPotion: return ".itemHyperPotion"
+      case .itemMaxPotion: return ".itemMaxPotion"
+      case .itemRevive: return ".itemRevive"
+      case .itemMaxRevive: return ".itemMaxRevive"
+      case .itemLuckyEgg: return ".itemLuckyEgg"
+      case .itemIncenseOrdinary: return ".itemIncenseOrdinary"
+      case .itemIncenseSpicy: return ".itemIncenseSpicy"
+      case .itemIncenseCool: return ".itemIncenseCool"
+      case .itemIncenseFloral: return ".itemIncenseFloral"
+      case .itemTroyDisk: return ".itemTroyDisk"
+      case .itemXAttack: return ".itemXAttack"
+      case .itemXDefense: return ".itemXDefense"
+      case .itemXMiracle: return ".itemXMiracle"
+      case .itemRazzBerry: return ".itemRazzBerry"
+      case .itemBlukBerry: return ".itemBlukBerry"
+      case .itemNanabBerry: return ".itemNanabBerry"
+      case .itemWeparBerry: return ".itemWeparBerry"
+      case .itemPinapBerry: return ".itemPinapBerry"
+      case .itemSpecialCamera: return ".itemSpecialCamera"
+      case .itemIncubatorBasicUnlimited: return ".itemIncubatorBasicUnlimited"
+      case .itemIncubatorBasic: return ".itemIncubatorBasic"
+      case .itemPokemonStorageUpgrade: return ".itemPokemonStorageUpgrade"
+      case .itemItemStorageUpgrade: return ".itemItemStorageUpgrade"
+      }
     }
   }
 
@@ -196,82 +196,82 @@ public extension Pogoprotos.Inventory.Item {
   //Enum type declaration start 
 
   public enum ItemType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case ItemTypeNone = 0
-    case ItemTypePokeball = 1
-    case ItemTypePotion = 2
-    case ItemTypeRevive = 3
-    case ItemTypeMap = 4
-    case ItemTypeBattle = 5
-    case ItemTypeFood = 6
-    case ItemTypeCamera = 7
-    case ItemTypeDisk = 8
-    case ItemTypeIncubator = 9
-    case ItemTypeIncense = 10
-    case ItemTypeXpBoost = 11
-    case ItemTypeInventoryUpgrade = 12
+    case itemTypeNone = 0
+    case itemTypePokeball = 1
+    case itemTypePotion = 2
+    case itemTypeRevive = 3
+    case itemTypeMap = 4
+    case itemTypeBattle = 5
+    case itemTypeFood = 6
+    case itemTypeCamera = 7
+    case itemTypeDisk = 8
+    case itemTypeIncubator = 9
+    case itemTypeIncense = 10
+    case itemTypeXpBoost = 11
+    case itemTypeInventoryUpgrade = 12
     public func toString() -> String {
       switch self {
-      case .ItemTypeNone: return "ITEM_TYPE_NONE"
-      case .ItemTypePokeball: return "ITEM_TYPE_POKEBALL"
-      case .ItemTypePotion: return "ITEM_TYPE_POTION"
-      case .ItemTypeRevive: return "ITEM_TYPE_REVIVE"
-      case .ItemTypeMap: return "ITEM_TYPE_MAP"
-      case .ItemTypeBattle: return "ITEM_TYPE_BATTLE"
-      case .ItemTypeFood: return "ITEM_TYPE_FOOD"
-      case .ItemTypeCamera: return "ITEM_TYPE_CAMERA"
-      case .ItemTypeDisk: return "ITEM_TYPE_DISK"
-      case .ItemTypeIncubator: return "ITEM_TYPE_INCUBATOR"
-      case .ItemTypeIncense: return "ITEM_TYPE_INCENSE"
-      case .ItemTypeXpBoost: return "ITEM_TYPE_XP_BOOST"
-      case .ItemTypeInventoryUpgrade: return "ITEM_TYPE_INVENTORY_UPGRADE"
+      case .itemTypeNone: return "ITEM_TYPE_NONE"
+      case .itemTypePokeball: return "ITEM_TYPE_POKEBALL"
+      case .itemTypePotion: return "ITEM_TYPE_POTION"
+      case .itemTypeRevive: return "ITEM_TYPE_REVIVE"
+      case .itemTypeMap: return "ITEM_TYPE_MAP"
+      case .itemTypeBattle: return "ITEM_TYPE_BATTLE"
+      case .itemTypeFood: return "ITEM_TYPE_FOOD"
+      case .itemTypeCamera: return "ITEM_TYPE_CAMERA"
+      case .itemTypeDisk: return "ITEM_TYPE_DISK"
+      case .itemTypeIncubator: return "ITEM_TYPE_INCUBATOR"
+      case .itemTypeIncense: return "ITEM_TYPE_INCENSE"
+      case .itemTypeXpBoost: return "ITEM_TYPE_XP_BOOST"
+      case .itemTypeInventoryUpgrade: return "ITEM_TYPE_INVENTORY_UPGRADE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Inventory.Item.ItemType {
       switch str {
-      case "ITEM_TYPE_NONE":  return .ItemTypeNone
-      case "ITEM_TYPE_POKEBALL":  return .ItemTypePokeball
-      case "ITEM_TYPE_POTION":  return .ItemTypePotion
-      case "ITEM_TYPE_REVIVE":  return .ItemTypeRevive
-      case "ITEM_TYPE_MAP":  return .ItemTypeMap
-      case "ITEM_TYPE_BATTLE":  return .ItemTypeBattle
-      case "ITEM_TYPE_FOOD":  return .ItemTypeFood
-      case "ITEM_TYPE_CAMERA":  return .ItemTypeCamera
-      case "ITEM_TYPE_DISK":  return .ItemTypeDisk
-      case "ITEM_TYPE_INCUBATOR":  return .ItemTypeIncubator
-      case "ITEM_TYPE_INCENSE":  return .ItemTypeIncense
-      case "ITEM_TYPE_XP_BOOST":  return .ItemTypeXpBoost
-      case "ITEM_TYPE_INVENTORY_UPGRADE":  return .ItemTypeInventoryUpgrade
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "ITEM_TYPE_NONE":  return .itemTypeNone
+      case "ITEM_TYPE_POKEBALL":  return .itemTypePokeball
+      case "ITEM_TYPE_POTION":  return .itemTypePotion
+      case "ITEM_TYPE_REVIVE":  return .itemTypeRevive
+      case "ITEM_TYPE_MAP":  return .itemTypeMap
+      case "ITEM_TYPE_BATTLE":  return .itemTypeBattle
+      case "ITEM_TYPE_FOOD":  return .itemTypeFood
+      case "ITEM_TYPE_CAMERA":  return .itemTypeCamera
+      case "ITEM_TYPE_DISK":  return .itemTypeDisk
+      case "ITEM_TYPE_INCUBATOR":  return .itemTypeIncubator
+      case "ITEM_TYPE_INCENSE":  return .itemTypeIncense
+      case "ITEM_TYPE_XP_BOOST":  return .itemTypeXpBoost
+      case "ITEM_TYPE_INVENTORY_UPGRADE":  return .itemTypeInventoryUpgrade
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .ItemTypeNone: return ".ItemTypeNone"
-            case .ItemTypePokeball: return ".ItemTypePokeball"
-            case .ItemTypePotion: return ".ItemTypePotion"
-            case .ItemTypeRevive: return ".ItemTypeRevive"
-            case .ItemTypeMap: return ".ItemTypeMap"
-            case .ItemTypeBattle: return ".ItemTypeBattle"
-            case .ItemTypeFood: return ".ItemTypeFood"
-            case .ItemTypeCamera: return ".ItemTypeCamera"
-            case .ItemTypeDisk: return ".ItemTypeDisk"
-            case .ItemTypeIncubator: return ".ItemTypeIncubator"
-            case .ItemTypeIncense: return ".ItemTypeIncense"
-            case .ItemTypeXpBoost: return ".ItemTypeXpBoost"
-            case .ItemTypeInventoryUpgrade: return ".ItemTypeInventoryUpgrade"
-        }
+      switch self {
+      case .itemTypeNone: return ".itemTypeNone"
+      case .itemTypePokeball: return ".itemTypePokeball"
+      case .itemTypePotion: return ".itemTypePotion"
+      case .itemTypeRevive: return ".itemTypeRevive"
+      case .itemTypeMap: return ".itemTypeMap"
+      case .itemTypeBattle: return ".itemTypeBattle"
+      case .itemTypeFood: return ".itemTypeFood"
+      case .itemTypeCamera: return ".itemTypeCamera"
+      case .itemTypeDisk: return ".itemTypeDisk"
+      case .itemTypeIncubator: return ".itemTypeIncubator"
+      case .itemTypeIncense: return ".itemTypeIncense"
+      case .itemTypeXpBoost: return ".itemTypeXpBoost"
+      case .itemTypeInventoryUpgrade: return ".itemTypeInventoryUpgrade"
+      }
     }
   }
 
   //Enum type declaration end 
 
-  final public class ItemAward : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
-    public private(set) var hasItemId:Bool = false
-    public private(set) var hasItemCount:Bool = false
-    public private(set) var itemCount:Int32 = Int32(0)
+  final public class ItemAward : GeneratedMessage {
+    public fileprivate(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItemId:Bool = false
+    public fileprivate(set) var itemCount:Int32 = Int32(0)
+    public fileprivate(set) var hasItemCount:Bool = false
 
     required public init() {
          super.init()
@@ -279,14 +279,14 @@ public extension Pogoprotos.Inventory.Item {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasItemId {
-        try output.writeEnum(1, value:itemId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:itemId.rawValue)
       }
       if hasItemCount {
-        try output.writeInt32(2, value:itemCount)
+        try codedOutputStream.writeInt32(fieldNumber: 2, value:itemCount)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -296,42 +296,14 @@ public extension Pogoprotos.Inventory.Item {
 
       serialize_size = 0
       if (hasItemId) {
-        serialize_size += itemId.rawValue.computeEnumSize(1)
+        serialize_size += itemId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasItemCount {
-        serialize_size += itemCount.computeInt32Size(2)
+        serialize_size += itemCount.computeInt32Size(fieldNumber: 2)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.Item.ItemAward> {
-      var mergedArray = Array<Pogoprotos.Inventory.Item.ItemAward>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.Item.ItemAward? {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.Item.ItemAward.Builder {
       return Pogoprotos.Inventory.Item.ItemAward.classBuilder() as! Pogoprotos.Inventory.Item.ItemAward.Builder
@@ -339,37 +311,37 @@ public extension Pogoprotos.Inventory.Item {
     public func getBuilder() -> Pogoprotos.Inventory.Item.ItemAward.Builder {
       return classBuilder() as! Pogoprotos.Inventory.Item.ItemAward.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.Item.ItemAward.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.Item.ItemAward.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
-      return try Pogoprotos.Inventory.Item.ItemAward.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.Item.ItemAward.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.Item.ItemAward) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasItemId {
         jsonMap["itemId"] = itemId.toString()
       }
       if hasItemCount {
-        jsonMap["itemCount"] = NSNumber(int:itemCount)
+        jsonMap["itemCount"] = NSNumber(value:itemCount)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.Item.ItemAward {
+      return try Pogoprotos.Inventory.Item.ItemAward.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.Item.ItemAward {
-      return try Pogoprotos.Inventory.Item.ItemAward.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.Item.ItemAward {
+      return try Pogoprotos.Inventory.Item.ItemAward.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -379,7 +351,7 @@ public extension Pogoprotos.Inventory.Item {
       if hasItemCount {
         output += "\(indent) itemCount: \(itemCount) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -405,13 +377,10 @@ public extension Pogoprotos.Inventory.Item {
     override public func className() -> String {
         return "Pogoprotos.Inventory.Item.ItemAward"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.Item.ItemAward.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.Item.ItemAward = Pogoprotos.Inventory.Item.ItemAward()
+      fileprivate var builderResult:Pogoprotos.Inventory.Item.ItemAward = Pogoprotos.Inventory.Item.ItemAward()
       public func getMessage() -> Pogoprotos.Inventory.Item.ItemAward {
           return builderResult
       }
@@ -433,13 +402,13 @@ public extension Pogoprotos.Inventory.Item {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.Item.ItemAward.Builder {
+        public func setItemId(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.Item.ItemAward.Builder {
           self.itemId = value
           return self
         }
         public func clearItemId() -> Pogoprotos.Inventory.Item.ItemAward.Builder {
            builderResult.hasItemId = false
-           builderResult.itemId = .ItemUnknown
+           builderResult.itemId = .itemUnknown
            return self
         }
       public var hasItemCount:Bool {
@@ -456,7 +425,7 @@ public extension Pogoprotos.Inventory.Item {
                builderResult.itemCount = value
            }
       }
-      public func setItemCount(value:Int32) -> Pogoprotos.Inventory.Item.ItemAward.Builder {
+      public func setItemCount(_ value:Int32) -> Pogoprotos.Inventory.Item.ItemAward.Builder {
         self.itemCount = value
         return self
       }
@@ -475,7 +444,7 @@ public extension Pogoprotos.Inventory.Item {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
-        return try Pogoprotos.Inventory.Item.ItemAward.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.Item.ItemAward.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.Item.ItemAward {
            try checkInitialized()
@@ -495,69 +464,69 @@ public extension Pogoprotos.Inventory.Item {
         if other.hasItemCount {
              itemCount = other.itemCount
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntitemId = try input.readEnum()
+            let valueIntitemId = try codedInputStream.readEnum()
             if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntitemId))
             }
 
           case 16:
-            itemCount = try input.readInt32()
+            itemCount = try codedInputStream.readInt32()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.Item.ItemAward.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItemId)
         }
         if let jsonValueItemCount = jsonMap["itemCount"] as? NSNumber {
-          resultDecodedBuilder.itemCount = jsonValueItemCount.intValue
+          resultDecodedBuilder.itemCount = jsonValueItemCount.int32Value
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.Item.ItemAward.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.Item.ItemAward.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.Item.ItemAward.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class ItemData : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
-    public private(set) var hasItemId:Bool = false
-    public private(set) var hasCount:Bool = false
-    public private(set) var count:Int32 = Int32(0)
+  final public class ItemData : GeneratedMessage {
+    public fileprivate(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItemId:Bool = false
+    public fileprivate(set) var count:Int32 = Int32(0)
+    public fileprivate(set) var hasCount:Bool = false
 
-    public private(set) var hasUnseen:Bool = false
-    public private(set) var unseen:Bool = false
+    public fileprivate(set) var unseen:Bool = false
+    public fileprivate(set) var hasUnseen:Bool = false
 
     required public init() {
          super.init()
@@ -565,17 +534,17 @@ public extension Pogoprotos.Inventory.Item {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasItemId {
-        try output.writeEnum(1, value:itemId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:itemId.rawValue)
       }
       if hasCount {
-        try output.writeInt32(2, value:count)
+        try codedOutputStream.writeInt32(fieldNumber: 2, value:count)
       }
       if hasUnseen {
-        try output.writeBool(3, value:unseen)
+        try codedOutputStream.writeBool(fieldNumber: 3, value:unseen)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -585,45 +554,17 @@ public extension Pogoprotos.Inventory.Item {
 
       serialize_size = 0
       if (hasItemId) {
-        serialize_size += itemId.rawValue.computeEnumSize(1)
+        serialize_size += itemId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasCount {
-        serialize_size += count.computeInt32Size(2)
+        serialize_size += count.computeInt32Size(fieldNumber: 2)
       }
       if hasUnseen {
-        serialize_size += unseen.computeBoolSize(3)
+        serialize_size += unseen.computeBoolSize(fieldNumber: 3)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Inventory.Item.ItemData> {
-      var mergedArray = Array<Pogoprotos.Inventory.Item.ItemData>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.Item.ItemData? {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Inventory.Item.ItemData.Builder {
       return Pogoprotos.Inventory.Item.ItemData.classBuilder() as! Pogoprotos.Inventory.Item.ItemData.Builder
@@ -631,40 +572,40 @@ public extension Pogoprotos.Inventory.Item {
     public func getBuilder() -> Pogoprotos.Inventory.Item.ItemData.Builder {
       return classBuilder() as! Pogoprotos.Inventory.Item.ItemData.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.Item.ItemData.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Inventory.Item.ItemData.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
-      return try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(self)
+      return try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Inventory.Item.ItemData) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasItemId {
         jsonMap["itemId"] = itemId.toString()
       }
       if hasCount {
-        jsonMap["count"] = NSNumber(int:count)
+        jsonMap["count"] = NSNumber(value:count)
       }
       if hasUnseen {
         jsonMap["unseen"] = unseen
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.Item.ItemData {
+      return try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Inventory.Item.ItemData {
-      return try Pogoprotos.Inventory.Item.ItemData.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.Item.ItemData {
+      return try Pogoprotos.Inventory.Item.ItemData.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -677,7 +618,7 @@ public extension Pogoprotos.Inventory.Item {
       if hasUnseen {
         output += "\(indent) unseen: \(unseen) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -706,13 +647,10 @@ public extension Pogoprotos.Inventory.Item {
     override public func className() -> String {
         return "Pogoprotos.Inventory.Item.ItemData"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Inventory.Item.ItemData.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Inventory.Item.ItemData = Pogoprotos.Inventory.Item.ItemData()
+      fileprivate var builderResult:Pogoprotos.Inventory.Item.ItemData = Pogoprotos.Inventory.Item.ItemData()
       public func getMessage() -> Pogoprotos.Inventory.Item.ItemData {
           return builderResult
       }
@@ -734,13 +672,13 @@ public extension Pogoprotos.Inventory.Item {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.Item.ItemData.Builder {
+        public func setItemId(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.Item.ItemData.Builder {
           self.itemId = value
           return self
         }
         public func clearItemId() -> Pogoprotos.Inventory.Item.ItemData.Builder {
            builderResult.hasItemId = false
-           builderResult.itemId = .ItemUnknown
+           builderResult.itemId = .itemUnknown
            return self
         }
       public var hasCount:Bool {
@@ -757,7 +695,7 @@ public extension Pogoprotos.Inventory.Item {
                builderResult.count = value
            }
       }
-      public func setCount(value:Int32) -> Pogoprotos.Inventory.Item.ItemData.Builder {
+      public func setCount(_ value:Int32) -> Pogoprotos.Inventory.Item.ItemData.Builder {
         self.count = value
         return self
       }
@@ -780,7 +718,7 @@ public extension Pogoprotos.Inventory.Item {
                builderResult.unseen = value
            }
       }
-      public func setUnseen(value:Bool) -> Pogoprotos.Inventory.Item.ItemData.Builder {
+      public func setUnseen(_ value:Bool) -> Pogoprotos.Inventory.Item.ItemData.Builder {
         self.unseen = value
         return self
       }
@@ -799,7 +737,7 @@ public extension Pogoprotos.Inventory.Item {
         return self
       }
       override public func clone() throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
-        return try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(builderResult)
+        return try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Inventory.Item.ItemData {
            try checkInitialized()
@@ -822,67 +760,127 @@ public extension Pogoprotos.Inventory.Item {
         if other.hasUnseen {
              unseen = other.unseen
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntitemId = try input.readEnum()
+            let valueIntitemId = try codedInputStream.readEnum()
             if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntitemId))
             }
 
           case 16:
-            count = try input.readInt32()
+            count = try codedInputStream.readInt32()
 
           case 24:
-            unseen = try input.readBool()
+            unseen = try codedInputStream.readBool()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
         let resultDecodedBuilder = Pogoprotos.Inventory.Item.ItemData.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItemId)
         }
         if let jsonValueCount = jsonMap["count"] as? NSNumber {
-          resultDecodedBuilder.count = jsonValueCount.intValue
+          resultDecodedBuilder.count = jsonValueCount.int32Value
         }
         if let jsonValueUnseen = jsonMap["unseen"] as? Bool {
           resultDecodedBuilder.unseen = jsonValueUnseen
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.Item.ItemData.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Inventory.Item.ItemAward: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.Item.ItemAward> {
+    var mergedArray = Array<Pogoprotos.Inventory.Item.ItemAward>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.Item.ItemAward? {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.Item.ItemAward {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.Item.ItemAward {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemAward {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemAward {
+    return try Pogoprotos.Inventory.Item.ItemAward.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.Item.ItemData: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.Item.ItemData> {
+    var mergedArray = Array<Pogoprotos.Inventory.Item.ItemData>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.Item.ItemData? {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.Item.ItemData {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.Item.ItemData {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.Item.ItemData {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.Item.ItemData {
+    return try Pogoprotos.Inventory.Item.ItemData.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

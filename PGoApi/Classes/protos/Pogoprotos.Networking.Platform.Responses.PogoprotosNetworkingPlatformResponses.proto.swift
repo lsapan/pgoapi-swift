@@ -89,52 +89,52 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
-  final public class BuyItemAndroidResponse : GeneratedMessage, GeneratedMessageProtocol {
+  final public class BuyItemAndroidResponse : GeneratedMessage {
 
 
       //Enum type declaration start 
 
       // THESE ARE SOMEWHAT SPECULATED, failed may be 2
       public enum Status:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-        case Unknown = 0
-        case Success = 1
+        case unknown = 0
+        case success = 1
         public func toString() -> String {
           switch self {
-          case .Unknown: return "UNKNOWN"
-          case .Success: return "SUCCESS"
+          case .unknown: return "UNKNOWN"
+          case .success: return "SUCCESS"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status {
           switch str {
-          case "UNKNOWN":  return .Unknown
-          case "SUCCESS":  return .Success
-          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          case "UNKNOWN":  return .unknown
+          case "SUCCESS":  return .success
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
         public var debugDescription:String { return getDescription() }
         public var description:String { return getDescription() }
         private func getDescription() -> String { 
-            switch self {
-                case .Unknown: return ".Unknown"
-                case .Success: return ".Success"
-            }
+          switch self {
+          case .unknown: return ".unknown"
+          case .success: return ".success"
+          }
         }
       }
 
       //Enum type declaration end 
 
-    public private(set) var result:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status.Unknown
-    public private(set) var hasResult:Bool = false
-    public private(set) var hasPurchaseToken:Bool = false
-    public private(set) var purchaseToken:String = ""
+    public fileprivate(set) var result:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status.unknown
+    public fileprivate(set) var hasResult:Bool = false
+    public fileprivate(set) var purchaseToken:String = ""
+    public fileprivate(set) var hasPurchaseToken:Bool = false
 
     required public init() {
          super.init()
@@ -142,14 +142,14 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasResult {
-        try output.writeEnum(1, value:result.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:result.rawValue)
       }
       if hasPurchaseToken {
-        try output.writeString(2, value:purchaseToken)
+        try codedOutputStream.writeString(fieldNumber: 2, value:purchaseToken)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -159,42 +159,14 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
       serialize_size = 0
       if (hasResult) {
-        serialize_size += result.rawValue.computeEnumSize(1)
+        serialize_size += result.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasPurchaseToken {
-        serialize_size += purchaseToken.computeStringSize(2)
+        serialize_size += purchaseToken.computeStringSize(fieldNumber: 2)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse? {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
       return Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.classBuilder() as! Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder
@@ -202,24 +174,24 @@ public extension Pogoprotos.Networking.Platform.Responses {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasResult {
         jsonMap["result"] = result.toString()
       }
@@ -228,11 +200,11 @@ public extension Pogoprotos.Networking.Platform.Responses {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -242,7 +214,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
       if hasPurchaseToken {
         output += "\(indent) purchaseToken: \(purchaseToken) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -268,13 +240,10 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
           return builderResult
       }
@@ -296,13 +265,13 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 builderResult.result = value
             }
         }
-        public func setResult(value:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status) -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
+        public func setResult(_ value:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status) -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
           self.result = value
           return self
         }
         public func clearResult() -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
            builderResult.hasResult = false
-           builderResult.result = .Unknown
+           builderResult.result = .unknown
            return self
         }
       public var hasPurchaseToken:Bool {
@@ -319,7 +288,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                builderResult.purchaseToken = value
            }
       }
-      public func setPurchaseToken(value:String) -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
+      public func setPurchaseToken(_ value:String) -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
         self.purchaseToken = value
         return self
       }
@@ -338,7 +307,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
-        return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
            try checkInitialized()
@@ -358,112 +327,112 @@ public extension Pogoprotos.Networking.Platform.Responses {
         if other.hasPurchaseToken {
              purchaseToken = other.purchaseToken
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntresult = try input.readEnum()
+            let valueIntresult = try codedInputStream.readEnum()
             if let enumsresult = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status(rawValue:valueIntresult){
                  result = enumsresult
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntresult))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntresult))
             }
 
           case 18:
-            purchaseToken = try input.readString()
+            purchaseToken = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder()
         if let jsonValueResult = jsonMap["result"] as? String {
-          resultDecodedBuilder.result = try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status.fromString(jsonValueResult)
+          resultDecodedBuilder.result = try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Status.fromString(str: jsonValueResult)
         }
         if let jsonValuePurchaseToken = jsonMap["purchaseToken"] as? String {
           resultDecodedBuilder.purchaseToken = jsonValuePurchaseToken
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class BuyItemPokeCoinsResponse : GeneratedMessage, GeneratedMessageProtocol {
+  final public class BuyItemPokeCoinsResponse : GeneratedMessage {
 
 
       //Enum type declaration start 
 
       // THESE ARE SOMEWHAT SPECULATED, should be a NOT ENOUGH ROOM status too for bag being full somewhere.
       public enum Status:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-        case Unknown = 0
-        case Success = 1
-        case NotEnoughPokecoins = 3
+        case unknown = 0
+        case success = 1
+        case notEnoughPokecoins = 3
         public func toString() -> String {
           switch self {
-          case .Unknown: return "UNKNOWN"
-          case .Success: return "SUCCESS"
-          case .NotEnoughPokecoins: return "NOT_ENOUGH_POKECOINS"
+          case .unknown: return "UNKNOWN"
+          case .success: return "SUCCESS"
+          case .notEnoughPokecoins: return "NOT_ENOUGH_POKECOINS"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status {
           switch str {
-          case "UNKNOWN":  return .Unknown
-          case "SUCCESS":  return .Success
-          case "NOT_ENOUGH_POKECOINS":  return .NotEnoughPokecoins
-          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          case "UNKNOWN":  return .unknown
+          case "SUCCESS":  return .success
+          case "NOT_ENOUGH_POKECOINS":  return .notEnoughPokecoins
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
         public var debugDescription:String { return getDescription() }
         public var description:String { return getDescription() }
         private func getDescription() -> String { 
-            switch self {
-                case .Unknown: return ".Unknown"
-                case .Success: return ".Success"
-                case .NotEnoughPokecoins: return ".NotEnoughPokecoins"
-            }
+          switch self {
+          case .unknown: return ".unknown"
+          case .success: return ".success"
+          case .notEnoughPokecoins: return ".notEnoughPokecoins"
+          }
         }
       }
 
       //Enum type declaration end 
 
-    public private(set) var result:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status.Unknown
-    public private(set) var hasResult:Bool = false
+    public fileprivate(set) var result:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status.unknown
+    public fileprivate(set) var hasResult:Bool = false
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasResult {
-        try output.writeEnum(1, value:result.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:result.rawValue)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -473,39 +442,11 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
       serialize_size = 0
       if (hasResult) {
-        serialize_size += result.rawValue.computeEnumSize(1)
+        serialize_size += result.rawValue.computeEnumSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse? {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
       return Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.classBuilder() as! Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder
@@ -513,41 +454,41 @@ public extension Pogoprotos.Networking.Platform.Responses {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasResult {
         jsonMap["result"] = result.toString()
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+      return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if (hasResult) {
         output += "\(indent) result: \(result.description)\n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -570,13 +511,10 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
           return builderResult
       }
@@ -598,13 +536,13 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 builderResult.result = value
             }
         }
-        public func setResult(value:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status) -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
+        public func setResult(_ value:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status) -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
           self.result = value
           return self
         }
         public func clearResult() -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
            builderResult.hasResult = false
-           builderResult.result = .Unknown
+           builderResult.result = .unknown
            return self
         }
       override public var internalGetResult:GeneratedMessage {
@@ -617,7 +555,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
-        return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
            try checkInitialized()
@@ -634,71 +572,71 @@ public extension Pogoprotos.Networking.Platform.Responses {
         if other.hasResult {
              result = other.result
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntresult = try input.readEnum()
+            let valueIntresult = try codedInputStream.readEnum()
             if let enumsresult = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status(rawValue:valueIntresult){
                  result = enumsresult
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntresult))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntresult))
             }
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder()
         if let jsonValueResult = jsonMap["result"] as? String {
-          resultDecodedBuilder.result = try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status.fromString(jsonValueResult)
+          resultDecodedBuilder.result = try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Status.fromString(str: jsonValueResult)
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class GetStoreItemsResponse : GeneratedMessage, GeneratedMessageProtocol {
+  final public class GetStoreItemsResponse : GeneratedMessage {
 
 
     //Nested type declaration start
 
-      final public class StoreItem : GeneratedMessage, GeneratedMessageProtocol {
+      final public class StoreItem : GeneratedMessage {
 
 
         //Nested type declaration start
 
-          final public class TagsEntry : GeneratedMessage, GeneratedMessageProtocol {
-            public private(set) var hasKey:Bool = false
-            public private(set) var key:String = ""
+          final public class TagsEntry : GeneratedMessage {
+            public fileprivate(set) var key:String = ""
+            public fileprivate(set) var hasKey:Bool = false
 
-            public private(set) var hasValue:Bool = false
-            public private(set) var value:String = ""
+            public fileprivate(set) var value:String = ""
+            public fileprivate(set) var hasValue:Bool = false
 
             required public init() {
                  super.init()
@@ -706,14 +644,14 @@ public extension Pogoprotos.Networking.Platform.Responses {
             override public func isInitialized() -> Bool {
              return true
             }
-            override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+            override public func writeTo(codedOutputStream: CodedOutputStream) throws {
               if hasKey {
-                try output.writeString(1, value:key)
+                try codedOutputStream.writeString(fieldNumber: 1, value:key)
               }
               if hasValue {
-                try output.writeString(2, value:value)
+                try codedOutputStream.writeString(fieldNumber: 2, value:value)
               }
-              try unknownFields.writeToCodedOutputStream(output)
+              try unknownFields.writeTo(codedOutputStream: codedOutputStream)
             }
             override public func serializedSize() -> Int32 {
               var serialize_size:Int32 = memoizedSerializedSize
@@ -723,42 +661,14 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
               serialize_size = 0
               if hasKey {
-                serialize_size += key.computeStringSize(1)
+                serialize_size += key.computeStringSize(fieldNumber: 1)
               }
               if hasValue {
-                serialize_size += value.computeStringSize(2)
+                serialize_size += value.computeStringSize(fieldNumber: 2)
               }
               serialize_size += unknownFields.serializedSize()
               memoizedSerializedSize = serialize_size
               return serialize_size
-            }
-            public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry> {
-              var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry>()
-              while let value = try parseFromDelimitedFromInputStream(input) {
-                mergedArray += [value]
-              }
-              return mergedArray
-            }
-            public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry? {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeDelimitedFromInputStream(input)?.build()
-            }
-            public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
-            }
-            public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-            }
-            public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFromInputStream(input).build()
-            }
-            public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-            }
-            public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFromCodedInputStream(input).build()
-            }
-            public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
             }
             public class func getBuilder() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
               return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.classBuilder() as! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder
@@ -766,24 +676,24 @@ public extension Pogoprotos.Networking.Platform.Responses {
             public func getBuilder() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
               return classBuilder() as! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder
             }
-            override public class func classBuilder() -> MessageBuilder {
+            override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
               return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder()
             }
-            override public func classBuilder() -> MessageBuilder {
+            override public func classBuilder() -> ProtocolBuffersMessageBuilder {
               return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder()
             }
             public func toBuilder() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.builderWithPrototype(self)
+              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.builderWithPrototype(prototype:self)
             }
             public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(prototype)
+              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(other:prototype)
             }
-            override public func encode() throws -> Dictionary<String,AnyObject> {
+            override public func encode() throws -> Dictionary<String,Any> {
               guard isInitialized() else {
-                throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+                throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
               }
 
-              var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+              var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
               if hasKey {
                 jsonMap["key"] = key
               }
@@ -792,11 +702,11 @@ public extension Pogoprotos.Networking.Platform.Responses {
               }
               return jsonMap
             }
-            override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder.decodeToBuilder(jsonMap).build()
+            override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder.decodeToBuilder(jsonMap:jsonMap).build()
             }
-            override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
-              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder.fromJSONToBuilder(data).build()
+            override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+              return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder.fromJSONToBuilder(data:data).build()
             }
             override public func getDescription(indent:String) throws -> String {
               var output = ""
@@ -806,7 +716,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
               if hasValue {
                 output += "\(indent) value: \(value) \n"
               }
-              output += unknownFields.getDescription(indent)
+              output += unknownFields.getDescription(indent: indent)
               return output
             }
             override public var hashValue:Int {
@@ -832,13 +742,10 @@ public extension Pogoprotos.Networking.Platform.Responses {
             override public func className() -> String {
                 return "Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry"
             }
-            override public func classMetaType() -> GeneratedMessage.Type {
-                return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.self
-            }
             //Meta information declaration end
 
             final public class Builder : GeneratedMessageBuilder {
-              private var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry()
+              fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry()
               public func getMessage() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
                   return builderResult
               }
@@ -860,7 +767,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                        builderResult.key = value
                    }
               }
-              public func setKey(value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
+              public func setKey(_ value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
                 self.key = value
                 return self
               }
@@ -883,7 +790,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                        builderResult.value = value
                    }
               }
-              public func setValue(value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
+              public func setValue(_ value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
                 self.value = value
                 return self
               }
@@ -902,7 +809,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 return self
               }
               override public func clone() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
-                return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.builderWithPrototype(builderResult)
+                return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.builderWithPrototype(prototype:builderResult)
               }
               override public func build() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
                    try checkInitialized()
@@ -922,36 +829,36 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 if other.hasValue {
                      value = other.value
                 }
-                try mergeUnknownFields(other.unknownFields)
+                _ = try merge(unknownField: other.unknownFields)
                 return self
               }
-              override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
-                   return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+              override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
+                   return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
               }
-              override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
-                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+              override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
                 while (true) {
-                  let protobufTag = try input.readTag()
+                  let protobufTag = try codedInputStream.readTag()
                   switch protobufTag {
                   case 0: 
                     self.unknownFields = try unknownFieldsBuilder.build()
                     return self
 
                   case 10:
-                    key = try input.readString()
+                    key = try codedInputStream.readString()
 
                   case 18:
-                    value = try input.readString()
+                    value = try codedInputStream.readString()
 
                   default:
-                    if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                        unknownFields = try unknownFieldsBuilder.build()
                        return self
                     }
                   }
                 }
               }
-              override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
+              class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
                 let resultDecodedBuilder = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder()
                 if let jsonValueKey = jsonMap["key"] as? String {
                   resultDecodedBuilder.key = jsonValueKey
@@ -961,12 +868,12 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 }
                 return resultDecodedBuilder
               }
-              override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
-                let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-                guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-                  throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+              override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
-                return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder.decodeToBuilder(jsDataCast)
+                return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder.decodeToBuilder(jsonMap:jsDataCast)
               }
             }
 
@@ -975,25 +882,25 @@ public extension Pogoprotos.Networking.Platform.Responses {
         //Nested type declaration end
 
         // Internal ID (probably for Google Play/App Store) example: "pgorelease.incenseordinary.1"
-        public private(set) var hasItemId:Bool = false
-        public private(set) var itemId:String = ""
+        public fileprivate(set) var itemId:String = ""
+        public fileprivate(set) var hasItemId:Bool = false
 
         // If true, this item is bought with real currency (USD, etc.) through the Play/App Store instead of Pokecoins
-        public private(set) var hasIsIap:Bool = false
-        public private(set) var isIap:Bool = false
+        public fileprivate(set) var isIap:Bool = false
+        public fileprivate(set) var hasIsIap:Bool = false
 
-        public private(set) var hasCurrencyToBuy:Bool = false
-        public private(set) var currencyToBuy:Pogoprotos.Data.Player.Currency!
-        public private(set) var hasYieldsCurrency:Bool = false
-        public private(set) var yieldsCurrency:Pogoprotos.Data.Player.Currency!
-        public private(set) var hasYieldsItem:Bool = false
-        public private(set) var yieldsItem:Pogoprotos.Inventory.Item.ItemData!
-        public private(set) var hasTags:Bool = false
-        public private(set) var tags:Dictionary<String,String> = Dictionary<String,String>()
+        public fileprivate(set) var currencyToBuy:Pogoprotos.Data.Player.Currency!
+        public fileprivate(set) var hasCurrencyToBuy:Bool = false
+        public fileprivate(set) var yieldsCurrency:Pogoprotos.Data.Player.Currency!
+        public fileprivate(set) var hasYieldsCurrency:Bool = false
+        public fileprivate(set) var yieldsItem:Pogoprotos.Inventory.Item.ItemData!
+        public fileprivate(set) var hasYieldsItem:Bool = false
+        public fileprivate(set) var hasTags:Bool = false
+        public fileprivate(set) var tags:Dictionary<String,String> = Dictionary<String,String>()
 
         // Possibly something to toggle visibility in the store/purchasibility?
-        public private(set) var hasUnknown7:Bool = false
-        public private(set) var unknown7:Int32 = Int32(0)
+        public fileprivate(set) var unknown7:Int32 = Int32(0)
+        public fileprivate(set) var hasUnknown7:Bool = false
 
         required public init() {
              super.init()
@@ -1001,32 +908,32 @@ public extension Pogoprotos.Networking.Platform.Responses {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasItemId {
-            try output.writeString(1, value:itemId)
+            try codedOutputStream.writeString(fieldNumber: 1, value:itemId)
           }
           if hasIsIap {
-            try output.writeBool(2, value:isIap)
+            try codedOutputStream.writeBool(fieldNumber: 2, value:isIap)
           }
           if hasCurrencyToBuy {
-            try output.writeMessage(3, value:currencyToBuy)
+            try codedOutputStream.writeMessage(fieldNumber: 3, value:currencyToBuy)
           }
           if hasYieldsCurrency {
-            try output.writeMessage(4, value:yieldsCurrency)
+            try codedOutputStream.writeMessage(fieldNumber: 4, value:yieldsCurrency)
           }
           if hasYieldsItem {
-            try output.writeMessage(5, value:yieldsItem)
+            try codedOutputStream.writeMessage(fieldNumber: 5, value:yieldsItem)
           }
           if hasTags {
               for (keyTags, valueTags) in tags {
                   let valueOfTags = try! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().setKey(keyTags).setValue(valueTags).build()
-                  try output.writeMessage(6, value:valueOfTags)
+                  try codedOutputStream.writeMessage(fieldNumber: 6, value:valueOfTags)
               }
           }
           if hasUnknown7 {
-            try output.writeInt32(7, value:unknown7)
+            try codedOutputStream.writeInt32(fieldNumber: 7, value:unknown7)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -1036,66 +943,38 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
           serialize_size = 0
           if hasItemId {
-            serialize_size += itemId.computeStringSize(1)
+            serialize_size += itemId.computeStringSize(fieldNumber: 1)
           }
           if hasIsIap {
-            serialize_size += isIap.computeBoolSize(2)
+            serialize_size += isIap.computeBoolSize(fieldNumber: 2)
           }
           if hasCurrencyToBuy {
-              if let varSizecurrencyToBuy = currencyToBuy?.computeMessageSize(3) {
+              if let varSizecurrencyToBuy = currencyToBuy?.computeMessageSize(fieldNumber: 3) {
                   serialize_size += varSizecurrencyToBuy
               }
           }
           if hasYieldsCurrency {
-              if let varSizeyieldsCurrency = yieldsCurrency?.computeMessageSize(4) {
+              if let varSizeyieldsCurrency = yieldsCurrency?.computeMessageSize(fieldNumber: 4) {
                   serialize_size += varSizeyieldsCurrency
               }
           }
           if hasYieldsItem {
-              if let varSizeyieldsItem = yieldsItem?.computeMessageSize(5) {
+              if let varSizeyieldsItem = yieldsItem?.computeMessageSize(fieldNumber: 5) {
                   serialize_size += varSizeyieldsItem
               }
           }
           if hasTags {
               for (keyTags, valueTags) in tags {
                   let valueOfTags = try! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().setKey(keyTags).setValue(valueTags).build()
-                  serialize_size += valueOfTags.computeMessageSize(6)
+                  serialize_size += valueOfTags.computeMessageSize(fieldNumber: 6)
               }
           }
           if hasUnknown7 {
-            serialize_size += unknown7.computeInt32Size(7)
+            serialize_size += unknown7.computeInt32Size(fieldNumber: 7)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem> {
-          var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem? {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
           return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.classBuilder() as! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder
@@ -1103,24 +982,24 @@ public extension Pogoprotos.Networking.Platform.Responses {
         public func getBuilder() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
           return classBuilder() as! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasItemId {
             jsonMap["itemId"] = itemId
           }
@@ -1144,15 +1023,15 @@ public extension Pogoprotos.Networking.Platform.Responses {
               jsonMap["tags"] = mapTags
           }
           if hasUnknown7 {
-            jsonMap["unknown7"] = NSNumber(int:unknown7)
+            jsonMap["unknown7"] = NSNumber(value:unknown7)
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
-          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+          return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -1165,21 +1044,21 @@ public extension Pogoprotos.Networking.Platform.Responses {
           if hasCurrencyToBuy {
             output += "\(indent) currencyToBuy {\n"
             if let outDescCurrencyToBuy = currencyToBuy {
-              output += try outDescCurrencyToBuy.getDescription("\(indent)  ")
+              output += try outDescCurrencyToBuy.getDescription(indent: "\(indent)  ")
             }
             output += "\(indent) }\n"
           }
           if hasYieldsCurrency {
             output += "\(indent) yieldsCurrency {\n"
             if let outDescYieldsCurrency = yieldsCurrency {
-              output += try outDescYieldsCurrency.getDescription("\(indent)  ")
+              output += try outDescYieldsCurrency.getDescription(indent: "\(indent)  ")
             }
             output += "\(indent) }\n"
           }
           if hasYieldsItem {
             output += "\(indent) yieldsItem {\n"
             if let outDescYieldsItem = yieldsItem {
-              output += try outDescYieldsItem.getDescription("\(indent)  ")
+              output += try outDescYieldsItem.getDescription(indent: "\(indent)  ")
             }
             output += "\(indent) }\n"
           }
@@ -1189,7 +1068,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
           if hasUnknown7 {
             output += "\(indent) unknown7: \(unknown7) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -1239,13 +1118,10 @@ public extension Pogoprotos.Networking.Platform.Responses {
         override public func className() -> String {
             return "Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem()
+          fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem()
           public func getMessage() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
               return builderResult
           }
@@ -1267,7 +1143,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.itemId = value
                }
           }
-          public func setItemId(value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setItemId(_ value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.itemId = value
             return self
           }
@@ -1290,7 +1166,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.isIap = value
                }
           }
-          public func setIsIap(value:Bool) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setIsIap(_ value:Bool) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.isIap = value
             return self
           }
@@ -1316,7 +1192,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.currencyToBuy = value
                }
           }
-          private var currencyToBuyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
+          fileprivate var currencyToBuyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
                didSet {
                   builderResult.hasCurrencyToBuy = true
                }
@@ -1326,18 +1202,18 @@ public extension Pogoprotos.Networking.Platform.Responses {
                currencyToBuyBuilder_ = Pogoprotos.Data.Player.Currency.Builder()
                builderResult.currencyToBuy = currencyToBuyBuilder_.getMessage()
                if currencyToBuy != nil {
-                  try! currencyToBuyBuilder_.mergeFrom(currencyToBuy)
+                  _ = try! currencyToBuyBuilder_.mergeFrom(other: currencyToBuy)
                }
             }
             return currencyToBuyBuilder_
           }
-          public func setCurrencyToBuy(value:Pogoprotos.Data.Player.Currency!) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setCurrencyToBuy(_ value:Pogoprotos.Data.Player.Currency!) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.currencyToBuy = value
             return self
           }
           public func mergeCurrencyToBuy(value:Pogoprotos.Data.Player.Currency) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             if builderResult.hasCurrencyToBuy {
-              builderResult.currencyToBuy = try Pogoprotos.Data.Player.Currency.builderWithPrototype(builderResult.currencyToBuy).mergeFrom(value).buildPartial()
+              builderResult.currencyToBuy = try Pogoprotos.Data.Player.Currency.builderWithPrototype(prototype:builderResult.currencyToBuy).mergeFrom(other: value).buildPartial()
             } else {
               builderResult.currencyToBuy = value
             }
@@ -1367,7 +1243,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.yieldsCurrency = value
                }
           }
-          private var yieldsCurrencyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
+          fileprivate var yieldsCurrencyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
                didSet {
                   builderResult.hasYieldsCurrency = true
                }
@@ -1377,18 +1253,18 @@ public extension Pogoprotos.Networking.Platform.Responses {
                yieldsCurrencyBuilder_ = Pogoprotos.Data.Player.Currency.Builder()
                builderResult.yieldsCurrency = yieldsCurrencyBuilder_.getMessage()
                if yieldsCurrency != nil {
-                  try! yieldsCurrencyBuilder_.mergeFrom(yieldsCurrency)
+                  _ = try! yieldsCurrencyBuilder_.mergeFrom(other: yieldsCurrency)
                }
             }
             return yieldsCurrencyBuilder_
           }
-          public func setYieldsCurrency(value:Pogoprotos.Data.Player.Currency!) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setYieldsCurrency(_ value:Pogoprotos.Data.Player.Currency!) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.yieldsCurrency = value
             return self
           }
           public func mergeYieldsCurrency(value:Pogoprotos.Data.Player.Currency) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             if builderResult.hasYieldsCurrency {
-              builderResult.yieldsCurrency = try Pogoprotos.Data.Player.Currency.builderWithPrototype(builderResult.yieldsCurrency).mergeFrom(value).buildPartial()
+              builderResult.yieldsCurrency = try Pogoprotos.Data.Player.Currency.builderWithPrototype(prototype:builderResult.yieldsCurrency).mergeFrom(other: value).buildPartial()
             } else {
               builderResult.yieldsCurrency = value
             }
@@ -1418,7 +1294,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.yieldsItem = value
                }
           }
-          private var yieldsItemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
+          fileprivate var yieldsItemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
                didSet {
                   builderResult.hasYieldsItem = true
                }
@@ -1428,18 +1304,18 @@ public extension Pogoprotos.Networking.Platform.Responses {
                yieldsItemBuilder_ = Pogoprotos.Inventory.Item.ItemData.Builder()
                builderResult.yieldsItem = yieldsItemBuilder_.getMessage()
                if yieldsItem != nil {
-                  try! yieldsItemBuilder_.mergeFrom(yieldsItem)
+                  _ = try! yieldsItemBuilder_.mergeFrom(other: yieldsItem)
                }
             }
             return yieldsItemBuilder_
           }
-          public func setYieldsItem(value:Pogoprotos.Inventory.Item.ItemData!) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setYieldsItem(_ value:Pogoprotos.Inventory.Item.ItemData!) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.yieldsItem = value
             return self
           }
           public func mergeYieldsItem(value:Pogoprotos.Inventory.Item.ItemData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             if builderResult.hasYieldsItem {
-              builderResult.yieldsItem = try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(builderResult.yieldsItem).mergeFrom(value).buildPartial()
+              builderResult.yieldsItem = try Pogoprotos.Inventory.Item.ItemData.builderWithPrototype(prototype:builderResult.yieldsItem).mergeFrom(other: value).buildPartial()
             } else {
               builderResult.yieldsItem = value
             }
@@ -1466,7 +1342,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.tags = value
                }
           }
-          public func setTags(value:Dictionary<String,String>) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setTags(_ value:Dictionary<String,String>) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.tags = value
             return self
           }
@@ -1489,7 +1365,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.unknown7 = value
                }
           }
-          public func setUnknown7(value:Int32) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          public func setUnknown7(_ value:Int32) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             self.unknown7 = value
             return self
           }
@@ -1508,7 +1384,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
-            return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
                try checkInitialized()
@@ -1529,13 +1405,13 @@ public extension Pogoprotos.Networking.Platform.Responses {
                  isIap = other.isIap
             }
             if (other.hasCurrencyToBuy) {
-                try mergeCurrencyToBuy(other.currencyToBuy)
+                _ = try mergeCurrencyToBuy(value: other.currencyToBuy)
             }
             if (other.hasYieldsCurrency) {
-                try mergeYieldsCurrency(other.yieldsCurrency)
+                _ = try mergeYieldsCurrency(value: other.yieldsCurrency)
             }
             if (other.hasYieldsItem) {
-                try mergeYieldsItem(other.yieldsItem)
+                _ = try mergeYieldsItem(value: other.yieldsItem)
             }
             if other.hasTags {
                  tags = other.tags
@@ -1543,69 +1419,69 @@ public extension Pogoprotos.Networking.Platform.Responses {
             if other.hasUnknown7 {
                  unknown7 = other.unknown7
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 10:
-                itemId = try input.readString()
+                itemId = try codedInputStream.readString()
 
               case 16:
-                isIap = try input.readBool()
+                isIap = try codedInputStream.readBool()
 
               case 26:
                 let subBuilder:Pogoprotos.Data.Player.Currency.Builder = Pogoprotos.Data.Player.Currency.Builder()
                 if hasCurrencyToBuy {
-                  try subBuilder.mergeFrom(currencyToBuy)
+                  _ = try subBuilder.mergeFrom(other: currencyToBuy)
                 }
-                try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
                 currencyToBuy = subBuilder.buildPartial()
 
               case 34:
                 let subBuilder:Pogoprotos.Data.Player.Currency.Builder = Pogoprotos.Data.Player.Currency.Builder()
                 if hasYieldsCurrency {
-                  try subBuilder.mergeFrom(yieldsCurrency)
+                  _ = try subBuilder.mergeFrom(other: yieldsCurrency)
                 }
-                try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
                 yieldsCurrency = subBuilder.buildPartial()
 
               case 42:
                 let subBuilder:Pogoprotos.Inventory.Item.ItemData.Builder = Pogoprotos.Inventory.Item.ItemData.Builder()
                 if hasYieldsItem {
-                  try subBuilder.mergeFrom(yieldsItem)
+                  _ = try subBuilder.mergeFrom(other: yieldsItem)
                 }
-                try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
                 yieldsItem = subBuilder.buildPartial()
 
               case 50:
                 let subBuilder = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder()
-                try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+                try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
                 let buildOfTags = subBuilder.buildPartial()
                 tags[buildOfTags.key] = buildOfTags.value
 
               case 56:
-                unknown7 = try input.readInt32()
+                unknown7 = try codedInputStream.readInt32()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder()
             if let jsonValueItemId = jsonMap["itemId"] as? String {
               resultDecodedBuilder.itemId = jsonValueItemId
@@ -1613,16 +1489,16 @@ public extension Pogoprotos.Networking.Platform.Responses {
             if let jsonValueIsIap = jsonMap["isIap"] as? Bool {
               resultDecodedBuilder.isIap = jsonValueIsIap
             }
-            if let jsonValueCurrencyToBuy = jsonMap["currencyToBuy"] as? Dictionary<String,AnyObject> {
-              resultDecodedBuilder.currencyToBuy = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonValueCurrencyToBuy).build()
+            if let jsonValueCurrencyToBuy = jsonMap["currencyToBuy"] as? Dictionary<String,Any> {
+              resultDecodedBuilder.currencyToBuy = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonMap:jsonValueCurrencyToBuy).build()
 
             }
-            if let jsonValueYieldsCurrency = jsonMap["yieldsCurrency"] as? Dictionary<String,AnyObject> {
-              resultDecodedBuilder.yieldsCurrency = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonValueYieldsCurrency).build()
+            if let jsonValueYieldsCurrency = jsonMap["yieldsCurrency"] as? Dictionary<String,Any> {
+              resultDecodedBuilder.yieldsCurrency = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonMap:jsonValueYieldsCurrency).build()
 
             }
-            if let jsonValueYieldsItem = jsonMap["yieldsItem"] as? Dictionary<String,AnyObject> {
-              resultDecodedBuilder.yieldsItem = try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonValueYieldsItem).build()
+            if let jsonValueYieldsItem = jsonMap["yieldsItem"] as? Dictionary<String,Any> {
+              resultDecodedBuilder.yieldsItem = try Pogoprotos.Inventory.Item.ItemData.Builder.decodeToBuilder(jsonMap:jsonValueYieldsItem).build()
 
             }
             if let jsonValueTags = jsonMap["tags"] as? Dictionary<String, String> {
@@ -1634,16 +1510,16 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 resultDecodedBuilder.tags = mapTags
             }
             if let jsonValueUnknown7 = jsonMap["unknown7"] as? NSNumber {
-              resultDecodedBuilder.unknown7 = jsonValueUnknown7.intValue
+              resultDecodedBuilder.unknown7 = jsonValueUnknown7.int32Value
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -1656,40 +1532,40 @@ public extension Pogoprotos.Networking.Platform.Responses {
       //Enum type declaration start 
 
       public enum Status:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-        case Undefined = 0
-        case Okay = 1
+        case undefined = 0
+        case okay = 1
         public func toString() -> String {
           switch self {
-          case .Undefined: return "UNDEFINED"
-          case .Okay: return "OKAY"
+          case .undefined: return "UNDEFINED"
+          case .okay: return "OKAY"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status {
           switch str {
-          case "UNDEFINED":  return .Undefined
-          case "OKAY":  return .Okay
-          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          case "UNDEFINED":  return .undefined
+          case "OKAY":  return .okay
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
         public var debugDescription:String { return getDescription() }
         public var description:String { return getDescription() }
         private func getDescription() -> String { 
-            switch self {
-                case .Undefined: return ".Undefined"
-                case .Okay: return ".Okay"
-            }
+          switch self {
+          case .undefined: return ".undefined"
+          case .okay: return ".okay"
+          }
         }
       }
 
       //Enum type declaration end 
 
-    public private(set) var status:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status.Undefined
-    public private(set) var hasStatus:Bool = false
-    public private(set) var items:Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>  = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>()
-    public private(set) var playerCurrencies:Array<Pogoprotos.Data.Player.Currency>  = Array<Pogoprotos.Data.Player.Currency>()
+    public fileprivate(set) var status:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status.undefined
+    public fileprivate(set) var hasStatus:Bool = false
+    public fileprivate(set) var items:Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>  = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>()
+    public fileprivate(set) var playerCurrencies:Array<Pogoprotos.Data.Player.Currency>  = Array<Pogoprotos.Data.Player.Currency>()
     // Some base64 encoded stuff... (Developer payload?)
-    public private(set) var hasUnknown4:Bool = false
-    public private(set) var unknown4:String = ""
+    public fileprivate(set) var unknown4:String = ""
+    public fileprivate(set) var hasUnknown4:Bool = false
 
     required public init() {
          super.init()
@@ -1697,20 +1573,20 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasStatus {
-        try output.writeEnum(1, value:status.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:status.rawValue)
       }
       for oneElementItems in items {
-          try output.writeMessage(2, value:oneElementItems)
+          try codedOutputStream.writeMessage(fieldNumber: 2, value:oneElementItems)
       }
       for oneElementPlayerCurrencies in playerCurrencies {
-          try output.writeMessage(3, value:oneElementPlayerCurrencies)
+          try codedOutputStream.writeMessage(fieldNumber: 3, value:oneElementPlayerCurrencies)
       }
       if hasUnknown4 {
-        try output.writeString(4, value:unknown4)
+        try codedOutputStream.writeString(fieldNumber: 4, value:unknown4)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1720,48 +1596,20 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
       serialize_size = 0
       if (hasStatus) {
-        serialize_size += status.rawValue.computeEnumSize(1)
+        serialize_size += status.rawValue.computeEnumSize(fieldNumber: 1)
       }
       for oneElementItems in items {
-          serialize_size += oneElementItems.computeMessageSize(2)
+          serialize_size += oneElementItems.computeMessageSize(fieldNumber: 2)
       }
       for oneElementPlayerCurrencies in playerCurrencies {
-          serialize_size += oneElementPlayerCurrencies.computeMessageSize(3)
+          serialize_size += oneElementPlayerCurrencies.computeMessageSize(fieldNumber: 3)
       }
       if hasUnknown4 {
-        serialize_size += unknown4.computeStringSize(4)
+        serialize_size += unknown4.computeStringSize(fieldNumber: 4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse? {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
       return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.classBuilder() as! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder
@@ -1769,40 +1617,40 @@ public extension Pogoprotos.Networking.Platform.Responses {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasStatus {
         jsonMap["status"] = status.toString()
       }
       if !items.isEmpty {
-        var jsonArrayItems:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayItems:Array<Dictionary<String,Any>> = []
           for oneValueItems in items {
             let ecodedMessageItems = try oneValueItems.encode()
-            jsonArrayItems += [ecodedMessageItems]
+            jsonArrayItems.append(ecodedMessageItems)
           }
         jsonMap["items"] = jsonArrayItems
       }
       if !playerCurrencies.isEmpty {
-        var jsonArrayPlayerCurrencies:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayPlayerCurrencies:Array<Dictionary<String,Any>> = []
           for oneValuePlayerCurrencies in playerCurrencies {
             let ecodedMessagePlayerCurrencies = try oneValuePlayerCurrencies.encode()
-            jsonArrayPlayerCurrencies += [ecodedMessagePlayerCurrencies]
+            jsonArrayPlayerCurrencies.append(ecodedMessagePlayerCurrencies)
           }
         jsonMap["playerCurrencies"] = jsonArrayPlayerCurrencies
       }
@@ -1811,11 +1659,11 @@ public extension Pogoprotos.Networking.Platform.Responses {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
-      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+      return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -1825,21 +1673,21 @@ public extension Pogoprotos.Networking.Platform.Responses {
       var itemsElementIndex:Int = 0
       for oneElementItems in items {
           output += "\(indent) items[\(itemsElementIndex)] {\n"
-          output += try oneElementItems.getDescription("\(indent)  ")
+          output += try oneElementItems.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           itemsElementIndex += 1
       }
       var playerCurrenciesElementIndex:Int = 0
       for oneElementPlayerCurrencies in playerCurrencies {
           output += "\(indent) playerCurrencies[\(playerCurrenciesElementIndex)] {\n"
-          output += try oneElementPlayerCurrencies.getDescription("\(indent)  ")
+          output += try oneElementPlayerCurrencies.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           playerCurrenciesElementIndex += 1
       }
       if hasUnknown4 {
         output += "\(indent) unknown4: \(unknown4) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1871,13 +1719,10 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
           return builderResult
       }
@@ -1899,13 +1744,13 @@ public extension Pogoprotos.Networking.Platform.Responses {
                 builderResult.status = value
             }
         }
-        public func setStatus(value:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+        public func setStatus(_ value:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
           self.status = value
           return self
         }
         public func clearStatus() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
            builderResult.hasStatus = false
-           builderResult.status = .Undefined
+           builderResult.status = .undefined
            return self
         }
       public var items:Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem> {
@@ -1916,12 +1761,12 @@ public extension Pogoprotos.Networking.Platform.Responses {
                builderResult.items = value
            }
       }
-      public func setItems(value:Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+      public func setItems(_ value:Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
         self.items = value
         return self
       }
       public func clearItems() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-        builderResult.items.removeAll(keepCapacity: false)
+        builderResult.items.removeAll(keepingCapacity: false)
         return self
       }
       public var playerCurrencies:Array<Pogoprotos.Data.Player.Currency> {
@@ -1932,12 +1777,12 @@ public extension Pogoprotos.Networking.Platform.Responses {
                builderResult.playerCurrencies = value
            }
       }
-      public func setPlayerCurrencies(value:Array<Pogoprotos.Data.Player.Currency>) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+      public func setPlayerCurrencies(_ value:Array<Pogoprotos.Data.Player.Currency>) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
         self.playerCurrencies = value
         return self
       }
       public func clearPlayerCurrencies() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-        builderResult.playerCurrencies.removeAll(keepCapacity: false)
+        builderResult.playerCurrencies.removeAll(keepingCapacity: false)
         return self
       }
       public var hasUnknown4:Bool {
@@ -1954,7 +1799,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                builderResult.unknown4 = value
            }
       }
-      public func setUnknown4(value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+      public func setUnknown4(_ value:String) -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
         self.unknown4 = value
         return self
       }
@@ -1973,7 +1818,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-        return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
            try checkInitialized()
@@ -1999,70 +1844,70 @@ public extension Pogoprotos.Networking.Platform.Responses {
         if other.hasUnknown4 {
              unknown4 = other.unknown4
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntstatus = try input.readEnum()
+            let valueIntstatus = try codedInputStream.readEnum()
             if let enumsstatus = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status(rawValue:valueIntstatus){
                  status = enumsstatus
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntstatus))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntstatus))
             }
 
           case 18:
             let subBuilder = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            items += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            items.append(subBuilder.buildPartial())
 
           case 26:
             let subBuilder = Pogoprotos.Data.Player.Currency.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            playerCurrencies += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            playerCurrencies.append(subBuilder.buildPartial())
 
           case 34:
-            unknown4 = try input.readString()
+            unknown4 = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder()
         if let jsonValueStatus = jsonMap["status"] as? String {
-          resultDecodedBuilder.status = try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status.fromString(jsonValueStatus)
+          resultDecodedBuilder.status = try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Status.fromString(str: jsonValueStatus)
         }
-        if let jsonValueItems = jsonMap["items"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueItems = jsonMap["items"] as? Array<Dictionary<String,Any>> {
           var jsonArrayItems:Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem> = []
           for oneValueItems in jsonValueItems {
-            let messageFromStringItems = try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.decodeToBuilder(oneValueItems).build()
+            let messageFromStringItems = try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder.decodeToBuilder(jsonMap:oneValueItems).build()
 
-            jsonArrayItems += [messageFromStringItems]
+            jsonArrayItems.append(messageFromStringItems)
           }
           resultDecodedBuilder.items = jsonArrayItems
         }
-        if let jsonValuePlayerCurrencies = jsonMap["playerCurrencies"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValuePlayerCurrencies = jsonMap["playerCurrencies"] as? Array<Dictionary<String,Any>> {
           var jsonArrayPlayerCurrencies:Array<Pogoprotos.Data.Player.Currency> = []
           for oneValuePlayerCurrencies in jsonValuePlayerCurrencies {
-            let messageFromStringPlayerCurrencies = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(oneValuePlayerCurrencies).build()
+            let messageFromStringPlayerCurrencies = try Pogoprotos.Data.Player.Currency.Builder.decodeToBuilder(jsonMap:oneValuePlayerCurrencies).build()
 
-            jsonArrayPlayerCurrencies += [messageFromStringPlayerCurrencies]
+            jsonArrayPlayerCurrencies.append(messageFromStringPlayerCurrencies)
           }
           resultDecodedBuilder.playerCurrencies = jsonArrayPlayerCurrencies
         }
@@ -2071,21 +1916,21 @@ public extension Pogoprotos.Networking.Platform.Responses {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class SendEncryptedSignatureResponse : GeneratedMessage, GeneratedMessageProtocol {
+  final public class SendEncryptedSignatureResponse : GeneratedMessage {
     // speculated, could be an enum
-    public private(set) var hasReceived:Bool = false
-    public private(set) var received:Bool = false
+    public fileprivate(set) var received:Bool = false
+    public fileprivate(set) var hasReceived:Bool = false
 
     required public init() {
          super.init()
@@ -2093,11 +1938,11 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasReceived {
-        try output.writeBool(1, value:received)
+        try codedOutputStream.writeBool(fieldNumber: 1, value:received)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -2107,39 +1952,11 @@ public extension Pogoprotos.Networking.Platform.Responses {
 
       serialize_size = 0
       if hasReceived {
-        serialize_size += received.computeBoolSize(1)
+        serialize_size += received.computeBoolSize(fieldNumber: 1)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse> {
-      var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse? {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
       return Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.classBuilder() as! Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder
@@ -2147,41 +1964,41 @@ public extension Pogoprotos.Networking.Platform.Responses {
     public func getBuilder() -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
       return classBuilder() as! Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasReceived {
         jsonMap["received"] = received
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
-      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+      return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasReceived {
         output += "\(indent) received: \(received) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -2204,13 +2021,10 @@ public extension Pogoprotos.Networking.Platform.Responses {
     override public func className() -> String {
         return "Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse = Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse()
+      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse = Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
           return builderResult
       }
@@ -2232,7 +2046,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                builderResult.received = value
            }
       }
-      public func setReceived(value:Bool) -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
+      public func setReceived(_ value:Bool) -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
         self.received = value
         return self
       }
@@ -2251,7 +2065,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
-        return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
            try checkInitialized()
@@ -2268,50 +2082,230 @@ public extension Pogoprotos.Networking.Platform.Responses {
         if other.hasReceived {
              received = other.received
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            received = try input.readBool()
+            received = try codedInputStream.readBool()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder()
         if let jsonValueReceived = jsonMap["received"] as? Bool {
           resultDecodedBuilder.received = jsonValueReceived
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse? {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse? {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse? {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem? {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry? {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
+    return try Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse> {
+    var mergedArray = Array<Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse? {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
+    return try Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

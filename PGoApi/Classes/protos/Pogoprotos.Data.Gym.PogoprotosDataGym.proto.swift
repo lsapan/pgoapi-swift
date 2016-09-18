@@ -40,34 +40,34 @@ public extension Pogoprotos.Data.Gym {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
-  final public class GymMembership : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasPokemonData:Bool = false
-    public private(set) var pokemonData:Pogoprotos.Data.PokemonData!
-    public private(set) var hasTrainerPublicProfile:Bool = false
-    public private(set) var trainerPublicProfile:Pogoprotos.Data.Player.PlayerPublicProfile!
+  final public class GymMembership : GeneratedMessage {
+    public fileprivate(set) var pokemonData:Pogoprotos.Data.PokemonData!
+    public fileprivate(set) var hasPokemonData:Bool = false
+    public fileprivate(set) var trainerPublicProfile:Pogoprotos.Data.Player.PlayerPublicProfile!
+    public fileprivate(set) var hasTrainerPublicProfile:Bool = false
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasPokemonData {
-        try output.writeMessage(1, value:pokemonData)
+        try codedOutputStream.writeMessage(fieldNumber: 1, value:pokemonData)
       }
       if hasTrainerPublicProfile {
-        try output.writeMessage(2, value:trainerPublicProfile)
+        try codedOutputStream.writeMessage(fieldNumber: 2, value:trainerPublicProfile)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -77,12 +77,12 @@ public extension Pogoprotos.Data.Gym {
 
       serialize_size = 0
       if hasPokemonData {
-          if let varSizepokemonData = pokemonData?.computeMessageSize(1) {
+          if let varSizepokemonData = pokemonData?.computeMessageSize(fieldNumber: 1) {
               serialize_size += varSizepokemonData
           }
       }
       if hasTrainerPublicProfile {
-          if let varSizetrainerPublicProfile = trainerPublicProfile?.computeMessageSize(2) {
+          if let varSizetrainerPublicProfile = trainerPublicProfile?.computeMessageSize(fieldNumber: 2) {
               serialize_size += varSizetrainerPublicProfile
           }
       }
@@ -90,58 +90,30 @@ public extension Pogoprotos.Data.Gym {
       memoizedSerializedSize = serialize_size
       return serialize_size
     }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Data.Gym.GymMembership> {
-      var mergedArray = Array<Pogoprotos.Data.Gym.GymMembership>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Gym.GymMembership? {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Data.Gym.PogoprotosDataGymRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
     public class func getBuilder() -> Pogoprotos.Data.Gym.GymMembership.Builder {
       return Pogoprotos.Data.Gym.GymMembership.classBuilder() as! Pogoprotos.Data.Gym.GymMembership.Builder
     }
     public func getBuilder() -> Pogoprotos.Data.Gym.GymMembership.Builder {
       return classBuilder() as! Pogoprotos.Data.Gym.GymMembership.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Gym.GymMembership.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Gym.GymMembership.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
-      return try Pogoprotos.Data.Gym.GymMembership.builderWithPrototype(self)
+      return try Pogoprotos.Data.Gym.GymMembership.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Data.Gym.GymMembership) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasPokemonData {
         jsonMap["pokemonData"] = try pokemonData.encode()
       }
@@ -150,29 +122,29 @@ public extension Pogoprotos.Data.Gym {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Gym.GymMembership {
+      return try Pogoprotos.Data.Gym.GymMembership.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Data.Gym.GymMembership {
-      return try Pogoprotos.Data.Gym.GymMembership.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Data.Gym.GymMembership {
+      return try Pogoprotos.Data.Gym.GymMembership.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasPokemonData {
         output += "\(indent) pokemonData {\n"
         if let outDescPokemonData = pokemonData {
-          output += try outDescPokemonData.getDescription("\(indent)  ")
+          output += try outDescPokemonData.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasTrainerPublicProfile {
         output += "\(indent) trainerPublicProfile {\n"
         if let outDescTrainerPublicProfile = trainerPublicProfile {
-          output += try outDescTrainerPublicProfile.getDescription("\(indent)  ")
+          output += try outDescTrainerPublicProfile.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -202,13 +174,10 @@ public extension Pogoprotos.Data.Gym {
     override public func className() -> String {
         return "Pogoprotos.Data.Gym.GymMembership"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Data.Gym.GymMembership.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Data.Gym.GymMembership = Pogoprotos.Data.Gym.GymMembership()
+      fileprivate var builderResult:Pogoprotos.Data.Gym.GymMembership = Pogoprotos.Data.Gym.GymMembership()
       public func getMessage() -> Pogoprotos.Data.Gym.GymMembership {
           return builderResult
       }
@@ -233,7 +202,7 @@ public extension Pogoprotos.Data.Gym {
                builderResult.pokemonData = value
            }
       }
-      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -243,18 +212,18 @@ public extension Pogoprotos.Data.Gym {
            pokemonDataBuilder_ = Pogoprotos.Data.PokemonData.Builder()
            builderResult.pokemonData = pokemonDataBuilder_.getMessage()
            if pokemonData != nil {
-              try! pokemonDataBuilder_.mergeFrom(pokemonData)
+              _ = try! pokemonDataBuilder_.mergeFrom(other: pokemonData)
            }
         }
         return pokemonDataBuilder_
       }
-      public func setPokemonData(value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Data.Gym.GymMembership.Builder {
+      public func setPokemonData(_ value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Data.Gym.GymMembership.Builder {
         self.pokemonData = value
         return self
       }
       public func mergePokemonData(value:Pogoprotos.Data.PokemonData) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
         if builderResult.hasPokemonData {
-          builderResult.pokemonData = try Pogoprotos.Data.PokemonData.builderWithPrototype(builderResult.pokemonData).mergeFrom(value).buildPartial()
+          builderResult.pokemonData = try Pogoprotos.Data.PokemonData.builderWithPrototype(prototype:builderResult.pokemonData).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.pokemonData = value
         }
@@ -284,7 +253,7 @@ public extension Pogoprotos.Data.Gym {
                builderResult.trainerPublicProfile = value
            }
       }
-      private var trainerPublicProfileBuilder_:Pogoprotos.Data.Player.PlayerPublicProfile.Builder! {
+      fileprivate var trainerPublicProfileBuilder_:Pogoprotos.Data.Player.PlayerPublicProfile.Builder! {
            didSet {
               builderResult.hasTrainerPublicProfile = true
            }
@@ -294,18 +263,18 @@ public extension Pogoprotos.Data.Gym {
            trainerPublicProfileBuilder_ = Pogoprotos.Data.Player.PlayerPublicProfile.Builder()
            builderResult.trainerPublicProfile = trainerPublicProfileBuilder_.getMessage()
            if trainerPublicProfile != nil {
-              try! trainerPublicProfileBuilder_.mergeFrom(trainerPublicProfile)
+              _ = try! trainerPublicProfileBuilder_.mergeFrom(other: trainerPublicProfile)
            }
         }
         return trainerPublicProfileBuilder_
       }
-      public func setTrainerPublicProfile(value:Pogoprotos.Data.Player.PlayerPublicProfile!) -> Pogoprotos.Data.Gym.GymMembership.Builder {
+      public func setTrainerPublicProfile(_ value:Pogoprotos.Data.Player.PlayerPublicProfile!) -> Pogoprotos.Data.Gym.GymMembership.Builder {
         self.trainerPublicProfile = value
         return self
       }
       public func mergeTrainerPublicProfile(value:Pogoprotos.Data.Player.PlayerPublicProfile) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
         if builderResult.hasTrainerPublicProfile {
-          builderResult.trainerPublicProfile = try Pogoprotos.Data.Player.PlayerPublicProfile.builderWithPrototype(builderResult.trainerPublicProfile).mergeFrom(value).buildPartial()
+          builderResult.trainerPublicProfile = try Pogoprotos.Data.Player.PlayerPublicProfile.builderWithPrototype(prototype:builderResult.trainerPublicProfile).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.trainerPublicProfile = value
         }
@@ -328,7 +297,7 @@ public extension Pogoprotos.Data.Gym {
         return self
       }
       override public func clone() throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
-        return try Pogoprotos.Data.Gym.GymMembership.builderWithPrototype(builderResult)
+        return try Pogoprotos.Data.Gym.GymMembership.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Data.Gym.GymMembership {
            try checkInitialized()
@@ -343,21 +312,21 @@ public extension Pogoprotos.Data.Gym {
          return self
         }
         if (other.hasPokemonData) {
-            try mergePokemonData(other.pokemonData)
+            _ = try mergePokemonData(value: other.pokemonData)
         }
         if (other.hasTrainerPublicProfile) {
-            try mergeTrainerPublicProfile(other.trainerPublicProfile)
+            _ = try mergeTrainerPublicProfile(value: other.trainerPublicProfile)
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
@@ -366,68 +335,68 @@ public extension Pogoprotos.Data.Gym {
           case 10:
             let subBuilder:Pogoprotos.Data.PokemonData.Builder = Pogoprotos.Data.PokemonData.Builder()
             if hasPokemonData {
-              try subBuilder.mergeFrom(pokemonData)
+              _ = try subBuilder.mergeFrom(other: pokemonData)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             pokemonData = subBuilder.buildPartial()
 
           case 18:
             let subBuilder:Pogoprotos.Data.Player.PlayerPublicProfile.Builder = Pogoprotos.Data.Player.PlayerPublicProfile.Builder()
             if hasTrainerPublicProfile {
-              try subBuilder.mergeFrom(trainerPublicProfile)
+              _ = try subBuilder.mergeFrom(other: trainerPublicProfile)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             trainerPublicProfile = subBuilder.buildPartial()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
         let resultDecodedBuilder = Pogoprotos.Data.Gym.GymMembership.Builder()
-        if let jsonValuePokemonData = jsonMap["pokemonData"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.pokemonData = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonValuePokemonData).build()
+        if let jsonValuePokemonData = jsonMap["pokemonData"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.pokemonData = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonMap:jsonValuePokemonData).build()
 
         }
-        if let jsonValueTrainerPublicProfile = jsonMap["trainerPublicProfile"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.trainerPublicProfile = try Pogoprotos.Data.Player.PlayerPublicProfile.Builder.decodeToBuilder(jsonValueTrainerPublicProfile).build()
+        if let jsonValueTrainerPublicProfile = jsonMap["trainerPublicProfile"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.trainerPublicProfile = try Pogoprotos.Data.Player.PlayerPublicProfile.Builder.decodeToBuilder(jsonMap:jsonValueTrainerPublicProfile).build()
 
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Data.Gym.GymMembership.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Data.Gym.GymMembership.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class GymState : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasFortData:Bool = false
-    public private(set) var fortData:Pogoprotos.Map.Fort.FortData!
-    public private(set) var memberships:Array<Pogoprotos.Data.Gym.GymMembership>  = Array<Pogoprotos.Data.Gym.GymMembership>()
+  final public class GymState : GeneratedMessage {
+    public fileprivate(set) var fortData:Pogoprotos.Map.Fort.FortData!
+    public fileprivate(set) var hasFortData:Bool = false
+    public fileprivate(set) var memberships:Array<Pogoprotos.Data.Gym.GymMembership>  = Array<Pogoprotos.Data.Gym.GymMembership>()
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasFortData {
-        try output.writeMessage(1, value:fortData)
+        try codedOutputStream.writeMessage(fieldNumber: 1, value:fortData)
       }
       for oneElementMemberships in memberships {
-          try output.writeMessage(2, value:oneElementMemberships)
+          try codedOutputStream.writeMessage(fieldNumber: 2, value:oneElementMemberships)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -437,44 +406,16 @@ public extension Pogoprotos.Data.Gym {
 
       serialize_size = 0
       if hasFortData {
-          if let varSizefortData = fortData?.computeMessageSize(1) {
+          if let varSizefortData = fortData?.computeMessageSize(fieldNumber: 1) {
               serialize_size += varSizefortData
           }
       }
       for oneElementMemberships in memberships {
-          serialize_size += oneElementMemberships.computeMessageSize(2)
+          serialize_size += oneElementMemberships.computeMessageSize(fieldNumber: 2)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Data.Gym.GymState> {
-      var mergedArray = Array<Pogoprotos.Data.Gym.GymState>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Gym.GymState? {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Data.Gym.PogoprotosDataGymRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Data.Gym.GymState.Builder {
       return Pogoprotos.Data.Gym.GymState.classBuilder() as! Pogoprotos.Data.Gym.GymState.Builder
@@ -482,60 +423,60 @@ public extension Pogoprotos.Data.Gym {
     public func getBuilder() -> Pogoprotos.Data.Gym.GymState.Builder {
       return classBuilder() as! Pogoprotos.Data.Gym.GymState.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Gym.GymState.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Gym.GymState.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Data.Gym.GymState.Builder {
-      return try Pogoprotos.Data.Gym.GymState.builderWithPrototype(self)
+      return try Pogoprotos.Data.Gym.GymState.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Data.Gym.GymState) throws -> Pogoprotos.Data.Gym.GymState.Builder {
-      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasFortData {
         jsonMap["fortData"] = try fortData.encode()
       }
       if !memberships.isEmpty {
-        var jsonArrayMemberships:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayMemberships:Array<Dictionary<String,Any>> = []
           for oneValueMemberships in memberships {
             let ecodedMessageMemberships = try oneValueMemberships.encode()
-            jsonArrayMemberships += [ecodedMessageMemberships]
+            jsonArrayMemberships.append(ecodedMessageMemberships)
           }
         jsonMap["memberships"] = jsonArrayMemberships
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Gym.GymState {
+      return try Pogoprotos.Data.Gym.GymState.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Data.Gym.GymState {
-      return try Pogoprotos.Data.Gym.GymState.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Data.Gym.GymState {
+      return try Pogoprotos.Data.Gym.GymState.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
       if hasFortData {
         output += "\(indent) fortData {\n"
         if let outDescFortData = fortData {
-          output += try outDescFortData.getDescription("\(indent)  ")
+          output += try outDescFortData.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       var membershipsElementIndex:Int = 0
       for oneElementMemberships in memberships {
           output += "\(indent) memberships[\(membershipsElementIndex)] {\n"
-          output += try oneElementMemberships.getDescription("\(indent)  ")
+          output += try oneElementMemberships.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           membershipsElementIndex += 1
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -563,13 +504,10 @@ public extension Pogoprotos.Data.Gym {
     override public func className() -> String {
         return "Pogoprotos.Data.Gym.GymState"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Data.Gym.GymState.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Data.Gym.GymState = Pogoprotos.Data.Gym.GymState()
+      fileprivate var builderResult:Pogoprotos.Data.Gym.GymState = Pogoprotos.Data.Gym.GymState()
       public func getMessage() -> Pogoprotos.Data.Gym.GymState {
           return builderResult
       }
@@ -594,7 +532,7 @@ public extension Pogoprotos.Data.Gym {
                builderResult.fortData = value
            }
       }
-      private var fortDataBuilder_:Pogoprotos.Map.Fort.FortData.Builder! {
+      fileprivate var fortDataBuilder_:Pogoprotos.Map.Fort.FortData.Builder! {
            didSet {
               builderResult.hasFortData = true
            }
@@ -604,18 +542,18 @@ public extension Pogoprotos.Data.Gym {
            fortDataBuilder_ = Pogoprotos.Map.Fort.FortData.Builder()
            builderResult.fortData = fortDataBuilder_.getMessage()
            if fortData != nil {
-              try! fortDataBuilder_.mergeFrom(fortData)
+              _ = try! fortDataBuilder_.mergeFrom(other: fortData)
            }
         }
         return fortDataBuilder_
       }
-      public func setFortData(value:Pogoprotos.Map.Fort.FortData!) -> Pogoprotos.Data.Gym.GymState.Builder {
+      public func setFortData(_ value:Pogoprotos.Map.Fort.FortData!) -> Pogoprotos.Data.Gym.GymState.Builder {
         self.fortData = value
         return self
       }
       public func mergeFortData(value:Pogoprotos.Map.Fort.FortData) throws -> Pogoprotos.Data.Gym.GymState.Builder {
         if builderResult.hasFortData {
-          builderResult.fortData = try Pogoprotos.Map.Fort.FortData.builderWithPrototype(builderResult.fortData).mergeFrom(value).buildPartial()
+          builderResult.fortData = try Pogoprotos.Map.Fort.FortData.builderWithPrototype(prototype:builderResult.fortData).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.fortData = value
         }
@@ -636,12 +574,12 @@ public extension Pogoprotos.Data.Gym {
                builderResult.memberships = value
            }
       }
-      public func setMemberships(value:Array<Pogoprotos.Data.Gym.GymMembership>) -> Pogoprotos.Data.Gym.GymState.Builder {
+      public func setMemberships(_ value:Array<Pogoprotos.Data.Gym.GymMembership>) -> Pogoprotos.Data.Gym.GymState.Builder {
         self.memberships = value
         return self
       }
       public func clearMemberships() -> Pogoprotos.Data.Gym.GymState.Builder {
-        builderResult.memberships.removeAll(keepCapacity: false)
+        builderResult.memberships.removeAll(keepingCapacity: false)
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -654,7 +592,7 @@ public extension Pogoprotos.Data.Gym {
         return self
       }
       override public func clone() throws -> Pogoprotos.Data.Gym.GymState.Builder {
-        return try Pogoprotos.Data.Gym.GymState.builderWithPrototype(builderResult)
+        return try Pogoprotos.Data.Gym.GymState.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Data.Gym.GymState {
            try checkInitialized()
@@ -669,21 +607,21 @@ public extension Pogoprotos.Data.Gym {
          return self
         }
         if (other.hasFortData) {
-            try mergeFortData(other.fortData)
+            _ = try mergeFortData(value: other.fortData)
         }
         if !other.memberships.isEmpty  {
            builderResult.memberships += other.memberships
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Gym.GymState.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Gym.GymState.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
@@ -692,52 +630,112 @@ public extension Pogoprotos.Data.Gym {
           case 10:
             let subBuilder:Pogoprotos.Map.Fort.FortData.Builder = Pogoprotos.Map.Fort.FortData.Builder()
             if hasFortData {
-              try subBuilder.mergeFrom(fortData)
+              _ = try subBuilder.mergeFrom(other: fortData)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             fortData = subBuilder.buildPartial()
 
           case 18:
             let subBuilder = Pogoprotos.Data.Gym.GymMembership.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            memberships += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            memberships.append(subBuilder.buildPartial())
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Gym.GymState.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Gym.GymState.Builder {
         let resultDecodedBuilder = Pogoprotos.Data.Gym.GymState.Builder()
-        if let jsonValueFortData = jsonMap["fortData"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.fortData = try Pogoprotos.Map.Fort.FortData.Builder.decodeToBuilder(jsonValueFortData).build()
+        if let jsonValueFortData = jsonMap["fortData"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.fortData = try Pogoprotos.Map.Fort.FortData.Builder.decodeToBuilder(jsonMap:jsonValueFortData).build()
 
         }
-        if let jsonValueMemberships = jsonMap["memberships"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueMemberships = jsonMap["memberships"] as? Array<Dictionary<String,Any>> {
           var jsonArrayMemberships:Array<Pogoprotos.Data.Gym.GymMembership> = []
           for oneValueMemberships in jsonValueMemberships {
-            let messageFromStringMemberships = try Pogoprotos.Data.Gym.GymMembership.Builder.decodeToBuilder(oneValueMemberships).build()
+            let messageFromStringMemberships = try Pogoprotos.Data.Gym.GymMembership.Builder.decodeToBuilder(jsonMap:oneValueMemberships).build()
 
-            jsonArrayMemberships += [messageFromStringMemberships]
+            jsonArrayMemberships.append(messageFromStringMemberships)
           }
           resultDecodedBuilder.memberships = jsonArrayMemberships
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Data.Gym.GymState.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Data.Gym.GymState.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Data.Gym.GymState.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Data.Gym.GymState.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Data.Gym.GymMembership: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Data.Gym.GymMembership> {
+    var mergedArray = Array<Pogoprotos.Data.Gym.GymMembership>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Gym.GymMembership? {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Data.Gym.GymMembership {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Data.Gym.PogoprotosDataGymRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Gym.GymMembership {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Gym.GymMembership {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymMembership {
+    return try Pogoprotos.Data.Gym.GymMembership.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Data.Gym.GymState: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Data.Gym.GymState> {
+    var mergedArray = Array<Pogoprotos.Data.Gym.GymState>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Gym.GymState? {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Data.Gym.GymState {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Data.Gym.PogoprotosDataGymRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Gym.GymState {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Gym.GymState {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Gym.GymState {
+    return try Pogoprotos.Data.Gym.GymState.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

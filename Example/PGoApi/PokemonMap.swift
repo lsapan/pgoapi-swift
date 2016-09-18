@@ -48,7 +48,7 @@ class PokemonMap: UIViewController, MKMapViewDelegate {
         self.mapView.showAnnotations(self.mapView.annotations, animated: true)
     }
     
-    func annotate(lat: Double, long: Double, name: String) {
+    func annotate(_ lat: Double, long: Double, name: String) {
         let mapObject = CLLocationCoordinate2DMake(lat, long)
         let dropPin = MKPointAnnotation()
         dropPin.coordinate = mapObject

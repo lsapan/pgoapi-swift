@@ -18,9 +18,9 @@ public extension Pogoprotos.Networking.Platform {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
@@ -29,44 +29,44 @@ public extension Pogoprotos.Networking.Platform {
   //Enum type declaration start 
 
   public enum PlatformRequestType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case MethodUnset = 0
-    case BuyItemPokecoins = 2
-    case BuyItemAndroid = 3
-    case BuyItemIos = 4
-    case GetStoreItems = 5
-    case SendEncryptedSignature = 6
+    case methodUnset = 0
+    case buyItemPokecoins = 2
+    case buyItemAndroid = 3
+    case buyItemIos = 4
+    case getStoreItems = 5
+    case sendEncryptedSignature = 6
     public func toString() -> String {
       switch self {
-      case .MethodUnset: return "METHOD_UNSET"
-      case .BuyItemPokecoins: return "BUY_ITEM_POKECOINS"
-      case .BuyItemAndroid: return "BUY_ITEM_ANDROID"
-      case .BuyItemIos: return "BUY_ITEM_IOS"
-      case .GetStoreItems: return "GET_STORE_ITEMS"
-      case .SendEncryptedSignature: return "SEND_ENCRYPTED_SIGNATURE"
+      case .methodUnset: return "METHOD_UNSET"
+      case .buyItemPokecoins: return "BUY_ITEM_POKECOINS"
+      case .buyItemAndroid: return "BUY_ITEM_ANDROID"
+      case .buyItemIos: return "BUY_ITEM_IOS"
+      case .getStoreItems: return "GET_STORE_ITEMS"
+      case .sendEncryptedSignature: return "SEND_ENCRYPTED_SIGNATURE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Networking.Platform.PlatformRequestType {
       switch str {
-      case "METHOD_UNSET":  return .MethodUnset
-      case "BUY_ITEM_POKECOINS":  return .BuyItemPokecoins
-      case "BUY_ITEM_ANDROID":  return .BuyItemAndroid
-      case "BUY_ITEM_IOS":  return .BuyItemIos
-      case "GET_STORE_ITEMS":  return .GetStoreItems
-      case "SEND_ENCRYPTED_SIGNATURE":  return .SendEncryptedSignature
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "METHOD_UNSET":  return .methodUnset
+      case "BUY_ITEM_POKECOINS":  return .buyItemPokecoins
+      case "BUY_ITEM_ANDROID":  return .buyItemAndroid
+      case "BUY_ITEM_IOS":  return .buyItemIos
+      case "GET_STORE_ITEMS":  return .getStoreItems
+      case "SEND_ENCRYPTED_SIGNATURE":  return .sendEncryptedSignature
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .MethodUnset: return ".MethodUnset"
-            case .BuyItemPokecoins: return ".BuyItemPokecoins"
-            case .BuyItemAndroid: return ".BuyItemAndroid"
-            case .BuyItemIos: return ".BuyItemIos"
-            case .GetStoreItems: return ".GetStoreItems"
-            case .SendEncryptedSignature: return ".SendEncryptedSignature"
-        }
+      switch self {
+      case .methodUnset: return ".methodUnset"
+      case .buyItemPokecoins: return ".buyItemPokecoins"
+      case .buyItemAndroid: return ".buyItemAndroid"
+      case .buyItemIos: return ".buyItemIos"
+      case .getStoreItems: return ".getStoreItems"
+      case .sendEncryptedSignature: return ".sendEncryptedSignature"
+      }
     }
   }
 

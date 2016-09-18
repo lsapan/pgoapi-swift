@@ -11,13 +11,13 @@ import Foundation
 import Alamofire
 
 
-public class GPSOAuth: PGoAuth {
-    static public let LOGIN_URL = "https://accounts.google.com/o/oauth2/auth?client_id=848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=openid%20email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email"
-    private let OAUTH_TOKEN_ENDPOINT = "https://www.googleapis.com/oauth2/v4/token"
-    private let SECRET = "NCjF1TLi2CcY6t5mt0ZveuL7"
-    private let CLIENT_ID = "848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com"
+open class GPSOAuth: PGoAuth {
+    static open let LOGIN_URL = "https://accounts.google.com/o/oauth2/auth?client_id=848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=openid%20email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email"
+    fileprivate let OAUTH_TOKEN_ENDPOINT = "https://www.googleapis.com/oauth2/v4/token"
+    fileprivate let SECRET = "NCjF1TLi2CcY6t5mt0ZveuL7"
+    fileprivate let CLIENT_ID = "848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com"
     
-    private let baseParams = [
+    fileprivate let baseParams = [
         "accountType": "HOSTED_OR_GOOGLE",
         "has_permission": "1",
         "add_account": "1",
@@ -29,35 +29,35 @@ public class GPSOAuth: PGoAuth {
         "sdk_version": "17"
     ]
     
-    private let headers = [
+    fileprivate let headers = [
         "Content-Type": "application/x-www-form-urlencoded"
     ]
     
-    public var email: String!
-    public var password: String!
-    public var token: String?
-    public var accessToken: String?
-    public var expires: Int?
-    public var expired: Bool = false
-    public var loggedIn: Bool = false
-    public var delegate: PGoAuthDelegate?
-    public var authType: PGoAuthType = .Google
-    public var endpoint: String = PGoEndpoint.Rpc
-    public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
-    public var manager: Manager
-    public var banned: Bool = false
-    private var refreshToken: String?
+    open var email: String!
+    open var password: String!
+    open var token: String?
+    open var accessToken: String?
+    open var expires: Int?
+    open var expired: Bool = false
+    open var loggedIn: Bool = false
+    open var delegate: PGoAuthDelegate?
+    open var authType: PGoAuthType = .google
+    open var endpoint: String = PGoEndpoint.Rpc
+    open var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
+    open var manager: SessionManager
+    open var banned: Bool = false
+    fileprivate var refreshToken: String?
 
     public init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        manager = Alamofire.Manager(configuration: configuration)
+        let configuration = URLSessionConfiguration.default
+        manager = Alamofire.SessionManager(configuration: configuration)
     }
     
-    private func parseKeyValues(body:String) -> Dictionary<String, String> {
+    fileprivate func parseKeyValues(_ body:String) -> Dictionary<String, String> {
         var obj = [String:String]()
-        let bodySplit = body.componentsSeparatedByString("\n")
+        let bodySplit = body.components(separatedBy: "\n")
         for values in bodySplit {
-            var keysValues = values.componentsSeparatedByString("=")
+            var keysValues = values.components(separatedBy: "=")
             if keysValues.count >= 2 {
                 obj[keysValues[0]] = keysValues[1]
             }
@@ -65,15 +65,15 @@ public class GPSOAuth: PGoAuth {
         return obj;
     }
     
-    private func getTicket() {
-        var params = baseParams
+    fileprivate func getTicket() {
+        var params: [String:String] = baseParams
         params["Email"] = self.email
         params["Passwd"] = self.password
         params["service"] = "ac2dm"
         
-        manager.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
+        manager.request(PGoEndpoint.GoogleLogin, method: .post, parameters: params, encoding: URLEncoding(destination: .httpBody), headers: headers)
             .responseJSON { (response) in
-                let responseString = NSString(data: response.data!, encoding: NSUTF8StringEncoding)
+                let responseString = String(data: response.data!, encoding: String.Encoding.utf8)
                 let googleDict = self.parseKeyValues(responseString! as String)
                 
                 if googleDict["Token"] != nil {
@@ -85,17 +85,16 @@ public class GPSOAuth: PGoAuth {
         }
     }
     
-    private func loginOAuth(token: String) {
-        var params = baseParams
+    fileprivate func loginOAuth(_ token: String) {
+        var params: [String:String]  = baseParams
         params["Email"] = self.email
         params["EncryptedPasswd"] = token
         params["service"] = "audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com"
         params["app"] = "com.nianticlabs.pokemongo"
         params["client_sig"] = "321187995bc7cdc2b5fc91b11a96e2baa8602c62"
         
-        manager.request(.POST, PGoEndpoint.GoogleLogin, parameters: params, headers: headers, encoding: .URLEncodedInURL)
-            .responseJSON { (response) in
-                let responseString = NSString(data: response.data!, encoding: NSUTF8StringEncoding)
+        manager.request(PGoEndpoint.GoogleLogin, method: .post, parameters: params, encoding: URLEncoding(destination: .httpBody), headers: headers).responseJSON { (response) in
+                let responseString = String(data: response.data!, encoding: String.Encoding.utf8)
                 let googleDict = self.parseKeyValues(responseString! as String)
                 
                 if googleDict["Auth"] != nil {
@@ -109,16 +108,16 @@ public class GPSOAuth: PGoAuth {
         }
     }
     
-    private func cleanCookies() {
-        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
+    fileprivate func cleanCookies() {
+        if let cookies = manager.session.configuration.httpCookieStorage?.cookies {
             for cookie in cookies {
-                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
+                manager.session.configuration.httpCookieStorage?.deleteCookie(cookie)
             }
         }
     }
     
-    public func login(withUsername username: String, withPassword password: String) {
-        self.email = username.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    open func login(withUsername username: String, withPassword password: String) {
+        self.email = username.trimmingCharacters(in: CharacterSet.whitespaces)
         self.password = password
         
         self.cleanCookies()
@@ -126,15 +125,15 @@ public class GPSOAuth: PGoAuth {
         self.getTicket()
     }
     
-    private func refreshAccessToken() {
-        manager.request(.POST, OAUTH_TOKEN_ENDPOINT, parameters: [
+    fileprivate func refreshAccessToken() {
+        manager.request(OAUTH_TOKEN_ENDPOINT, method: .post, parameters: [
             "client_id": CLIENT_ID,
             "client_secret": SECRET,
             "grant_type": "refresh_token",
             "refresh_token": refreshToken!
             ]).validate().responseJSON { response in
                 switch response.result {
-                case .Success(let data):
+                case .success(let data):
                     if let json = data as? NSDictionary,
                         let token = json["id_token"] as? String,
                         let expiresIn = json["expires_in"] as? Int? {
@@ -146,21 +145,21 @@ public class GPSOAuth: PGoAuth {
                     } else {
                         self.delegate?.didNotReceiveAuth()
                     }
-                case .Failure:
+                case .failure:
                     self.delegate?.didNotReceiveAuth()
                 }
         }
     }
     
     // username is not used and password is oauth code user receives after approving access
-    public func login(withToken token: String) {
+    open func login(withToken token: String) {
         // refresh the token if it has expired
         if loggedIn && expired {
             refreshAccessToken()
             return
         }
         
-        manager.request(.POST, OAUTH_TOKEN_ENDPOINT, parameters: [
+        manager.request(OAUTH_TOKEN_ENDPOINT, method: .post, parameters: [
             "code": token,
             "client_id": CLIENT_ID,
             "client_secret": SECRET,
@@ -169,7 +168,7 @@ public class GPSOAuth: PGoAuth {
             "redirect_uri": "urn:ietf:wg:oauth:2.0:oob"
             ]).validate().responseJSON { response in
                 switch response.result {
-                case .Success(let data):
+                case .success(let data):
                     if let json = data as? NSDictionary,
                         let idToken = json["id_token"] as? String,
                         let refreshToken = json["refresh_token"] as? String,
@@ -182,7 +181,7 @@ public class GPSOAuth: PGoAuth {
                     } else {
                         self.delegate?.didNotReceiveAuth()
                     }
-                case .Failure:
+                case .failure:
                     self.delegate?.didNotReceiveAuth()
                 }
         }

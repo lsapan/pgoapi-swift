@@ -7,116 +7,116 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01F9FDF97FA41999EDB982D829CCE92E /* Google.Protobuf.Empty.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A407E2A5B4A8A684F5E2970E6B5A54E /* Google.Protobuf.Empty.proto.swift */; };
-		056349749389185EDDDE2B4F136BE047 /* GeneratedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2444B30E73275C117F604222D254B3B1 /* GeneratedMessage.swift */; };
-		095406039B4D371E48D08B38A2975AC8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFFAEB650BCBE5D96213C5C99799A6 /* Error.swift */; };
-		0E859228B362EE3AECE9CD9A5E9B64E3 /* PGoAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD3E1AD6111B387A2127EC65F03B7CB /* PGoAuth.swift */; };
-		16102E4E35FAA0FC4161282FECE56469 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFF968A6CE9CD0AD8EC54FF8FAB43D5 /* Timeline.swift */; };
+		018E44899493913B6960D468DC86A33A /* Google.Protobuf.Any.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF96AAF2EEB762F05D93BC23F104043 /* Google.Protobuf.Any.proto.swift */; };
+		01D7C9B5A183558E92828E5E8CBA90BF /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538B8026DF18C4B69511733F9C6AD8E6 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */; };
+		05099EFED3620363C6BE824762659D9E /* subFuncJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732AA57CCDBF56EDBCE1460E25102623 /* subFuncJ.swift */; };
+		06D2214C4451D86A16481E7301228F2D /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D742CAC47E16098FA559800BD6912B7 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */; };
+		0C1B4E9FFB8B81E8833A3BAD537B1990 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A7F2F51092E462FDEF3631A0197E81 /* Notifications.swift */; };
+		0E30250654A3E0626F22220ABD2E6FA5 /* subFuncD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4574BDA697D0CDC8BC50A28287D7BBB /* subFuncD.swift */; };
+		0F11040971F3BB28255D072388F39DDA /* ExtendableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF08BF6351D38F27B15D37FD3CB14687 /* ExtendableMessage.swift */; };
+		0F14129210CA2C9E28491CB4F202E95C /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFFF033FC9180706FD8902A97604A8E /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */; };
+		12118C354EFA36292F82A8D0CFCE45B2 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42CEF08750844FC462D76918090EE2 /* Request.swift */; };
+		16D54FEEAF59A54D2BED76D486A04807 /* subFuncB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E48B9B1CAF3A73424C6776DACFA4ED /* subFuncB.swift */; };
+		17579C410F4C4E719333BAFA647CDFC4 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AEF3B406CE90A4FA529E4D9671110 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift */; };
 		1979F209FB0CD3861DADB582BE22E5B6 /* Pods-PGoApi_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B8F242BC6D04CACDB0FA0A77E91A67A3 /* Pods-PGoApi_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB3837A7CCF4EB3658A45FF8DF9A30C /* ProtocolBuffers-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2AD8FFB72489FEFFD65B5B526144D9 /* ProtocolBuffers-Swift-dummy.m */; };
+		1FAF49DB9BE07711E6CBB55DFFB24518 /* subFuncA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEA40408A3FAE14B1777CB48074FC04 /* subFuncA.swift */; };
+		2185EF63B6BD0362A4C8A001AA0464DD /* PGoApi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A02D755E167433B11536BBD05ECC4512 /* PGoApi-dummy.m */; };
 		230CF5F5F49A321F4954B8E188EFC197 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
-		284288F67EE0B019F169F3367E358327 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BC5243400021CBCA4CC23346212857 /* WireFormat.swift */; };
-		2A70E2DE25A182E203762BC0C5BD6BB8 /* Google.Protobuf.FieldMask.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1E1389F38634775C5BF02D739F92C /* Google.Protobuf.FieldMask.proto.swift */; };
-		2D3405986FC586FA6C0A5E0B6BA7E64E /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AED42F0774BC2A30144232FBCDA9B9 /* Validation.swift */; };
-		2D3F531250C8E6D98B2C04ECFE4611A7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1141C0FA37850374D73F7248CBBCBF1 /* Alamofire.framework */; };
-		34CCDCA848A701466256BC2927DA8856 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6442E19E93687D7C062F69F42FC1017A /* NetworkReachabilityManager.swift */; };
-		3559F2467213DC4CADDF15B1D669763D /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED8ECEF1361C3A73E571AC85E9C68C /* Field.swift */; };
-		39AB7BAB7E7075F95EE5B85B8F95AE9F /* CodedInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E92E9F80DD66FA25A943E778CAFE25 /* CodedInputStream.swift */; };
-		3C522A12D5E774B126D2BCB8F2164ED3 /* ExtendableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6007401503F392166E48DB66DA465356 /* ExtendableMessage.swift */; };
-		3CA562CFCEA0A8845863E650075AA5F7 /* Google.Protobuf.SourceContext.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200437ADFA613DE56AE9D52B05E7796 /* Google.Protobuf.SourceContext.proto.swift */; };
-		3D5397280D54B105B8BD06B79D2E4524 /* GPSOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93B100338D177CC8E7089AD47DFE0D8 /* GPSOAuth.swift */; };
-		3EA8F215C9C1432D74E5CCA4834AA8C0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F50E1CBE01638AECC68428061DDE47 /* ResponseSerialization.swift */; };
-		40356A56DBD50DBE37E3F386D8690848 /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CD9E767E33BB5DAD142F7B94032E6 /* UnknownFieldSet.swift */; };
-		406000F33055B235F593911E4F3E96F0 /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB85B98DE3C47AD5D8DA2029A08B40C /* Google.Protobuf.Descriptor.proto.swift */; };
-		4081EA628AF0B73AC51FFB9D7AB3B89E /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AFF2EC9A1BF020F609725DFE4622EE /* Manager.swift */; };
+		29520479B18DDEAB13E2B6A358F921A8 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7FCBA147118A906925DB4D7223795 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift */; };
+		2A06ECAF24A620D210B9C7305C28B130 /* ProtocolBuffers-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 085B69D9E3C44BD904004CD0169652E9 /* ProtocolBuffers-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A1C1183954BFCB9C003A9CA9F0B3D58 /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A6C58E47E18EB4A55BA8BB73CA018 /* ExtensionRegistry.swift */; };
+		2A7FAE7CFE89DD22DBBA37DDB8E8AE69 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4BA58E21B9C50652DA7545213D2B5 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */; };
+		2D4FB50AD899444E8A530F0C4439F7B5 /* Google.Protobuf.Empty.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC775E026ED4D6038EB654236399769A /* Google.Protobuf.Empty.proto.swift */; };
+		2E47602CDE45B72A2214BFAF83C8107E /* Google.Protobuf.Struct.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B651EC2CA3ABFB87E69EA4E8382BF72 /* Google.Protobuf.Struct.proto.swift */; };
+		323F1A2666CF5AFC8590C65935FDE708 /* Pogoprotos.Data.PogoprotosData.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C4DCF8E557A4D94253CDD8232E3E12 /* Pogoprotos.Data.PogoprotosData.proto.swift */; };
+		32ADB266D02039B58CBE2E2808B2D074 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADDC51B80441E94976F0156C8E32E /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */; };
+		35398424A303F5553AA4716804B0A7BC /* subFuncF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950D6951A477D0AAB51F99E6271C9F4 /* subFuncF.swift */; };
+		36CD0CAF089D35FA6491E11DAB01D68F /* S2Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFEA0A0CD526573BEA604C7063D430 /* S2Geometry.swift */; };
+		380EA411A3A0A300E49E61396FB0321C /* PGoEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F188510B8688BDB9922CABDC2D776EB0 /* PGoEncrypt.swift */; };
+		3982B850C43B41BA6D25F440F0412E9B /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DB5A7D1B4311B8AAAA1CC4FD4FF5B /* Timeline.swift */; };
+		3C07B35FFABA3C525D145D5FE1604272 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FE1EA276B3CEF150A0E24E0D575467 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift */; };
+		3E3FC40A030E533078511EDCB3BCC6DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
+		487E272D2F5E14E33A5D43916BA4DF9D /* PtcOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A83FE475110D6F8755CC78BCE1EE5 /* PtcOAuth.swift */; };
+		48EC6E9B49E5801EC67721A1DB1005EA /* PGoAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D919F53853AD674387001DD11DD37 /* PGoAuth.swift */; };
 		4B9D4783E98CACF23927E9FC2EEDEA99 /* Pods-PGoApi_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F5034616F46980FA19FC72870A14BF15 /* Pods-PGoApi_Example-dummy.m */; };
-		529F8BA476229B04E588FC851C366733 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
+		4E1155652C06F9E43EDC52B87D67726B /* subFuncE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6611D910057B67F2218560DE7F147B /* subFuncE.swift */; };
 		55FD851BAC803D4F12D2507DB84C5241 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
-		5BC19E6E0F199276003F0AF96838BCE5 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A279993B205079AC6A658937476E11 /* Upload.swift */; };
-		5CB05FBCB32D21E194B5ECF680CB6AE0 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C190FDAC31A01FA6833954FD814CB11 /* Download.swift */; };
-		5E99FE3DB4D593B537EDA89B8DB6E812 /* Google.Protobuf.Struct.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B467B650ACCA82307AB049E1215E2533 /* Google.Protobuf.Struct.proto.swift */; };
-		5FE4F7C2DC8D0086E60B531B6213BB19 /* Google.Protobuf.Types.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3525686EE772F9BC98C357CEA5D86B68 /* Google.Protobuf.Types.proto.swift */; };
-		62E8346F03C03E7F4D631361F325689E /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3A6819E07CB583DEECA694F89976F7 /* Response.swift */; };
-		666D46648504D787769C8989F4E142AE /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9EA98C912F08C28644C7C107B9A438 /* ProtocolBuffers.framework */; };
-		695640D4508DE616F15D0C80FE1E8447 /* Google.Protobuf.Timestamp.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FE8072B2AD3D3C1A3C9AD6C509B92A /* Google.Protobuf.Timestamp.proto.swift */; };
+		567806EF510A8D2B8727214286045A37 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6469B7914BB79A9780BEE463747B7FB0 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */; };
+		594655820D4D66B9E30032E3C9AB2529 /* subFuncH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00B4B11D3C6D28463C0D34573C4694 /* subFuncH.swift */; };
+		62143065F94E53F437DCE5D7A998D66D /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E5F11FD3562352BAADD2FCFF2A21B /* AFError.swift */; };
+		67DFF6D3F2256D76A74129227F93598B /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651240C9A41E76594BABA92AA41F15AC /* Google.Protobuf.Duration.proto.swift */; };
+		6ABD7DA87D2218B432C06593A3929329 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87463D89882293ED11C8E63DA39707DE /* Google.Protobuf.Api.proto.swift */; };
+		6AC6B47921A0801579B15ED57F82A690 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9EA98C912F08C28644C7C107B9A438 /* ProtocolBuffers.framework */; };
 		6B9A54299D94EEF2D415CFBF3BC06C61 /* Pods-PGoApi_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F04BA56EB1D2536C8653DC8304573BA8 /* Pods-PGoApi_Tests-dummy.m */; };
-		7978880777C45217390643A415A45F8C /* PtcOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DEBCF76692370947479E13F13F1975 /* PtcOAuth.swift */; };
-		7B48852C4D848FA2DA416A98F6425869 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8F4EAC0A2AE39BDC77D5B78BBDE22A /* ServerTrustPolicy.swift */; };
-		850BE3A401B3F03D96A94D6302A2349B /* PGoAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816BA448A9C6DBB694F7A5ADD3C8B6D5 /* PGoAuthDelegate.swift */; };
-		8DCCFA895D4BBFC66B33520D18B06788 /* PGoApi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A02D755E167433B11536BBD05ECC4512 /* PGoApi-dummy.m */; };
-		8EB11202167FCDDF1257AAAB1D1FB244 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF31636CEA5DB5B3B8A4F033A0DA002 /* Alamofire.swift */; };
+		6D6D8F7300938615D2330F3372500D09 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB04581052D69FBBFEFC1D6515B27B1 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */; };
+		75E1B1E1BCD4E7F0537039A5415F2A65 /* CodedInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE6928D7EB9A192074C612BCBAD29C6 /* CodedInputStream.swift */; };
+		78244916AEB21A789C9EBA96E16F6144 /* GeneratedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661E168E6F008540E5FC5A5D564106FF /* GeneratedMessage.swift */; };
+		7A42A10E9DCC2FAF8DA86C35DFD510B3 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476024D2DC61ABC6CB9C6AA09A185D3C /* WireFormat.swift */; };
+		7BF6B900703166294F3D0464EB9C97E3 /* AbstractMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C20EC2D1EDB019274411BA50EB1740 /* AbstractMessage.swift */; };
+		7CA5A9BA5246FDA8227233E310029392 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF5B262444D4DB355E4492B582EFB0D /* Alamofire.swift */; };
+		7CDC5AC55123C69526A9454A5B68871F /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A0943622B8654324722D563F24694 /* Field.swift */; };
+		7DC96C00870952FC43D088DDAB0079E0 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD497FB41319455935108D8D25C5EC3F /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */; };
+		80E76EA77ED345980245F626C2C6D782 /* PGoRpcApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3BFCB62F8DC943C1D91AEAB009CA3C /* PGoRpcApi.swift */; };
+		810466E92F2FB738B3ABC2BF108ECA63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C763546ED1F7161191D63A2F3D68BB50 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */; };
+		81E7F412E4610610078F9A08FA4E6BE1 /* PGoEncryptHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B0E84802842380FA48C7151D708254 /* PGoEncryptHelper.swift */; };
+		83BA0483F98454CBA87FBF9BEA7FE962 /* Google.Protobuf.SourceContext.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E98B73AFC023CA8921F73E0321B97 /* Google.Protobuf.SourceContext.proto.swift */; };
+		84047DAC959E412BC4CAC547D5FB9827 /* subFuncM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FB617E1B24B4CC025F9266FE2C81A /* subFuncM.swift */; };
+		842973ABE0D1FD79A35E0819A63C90C3 /* xxhash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5357ABFFE739369AA85F952B262E384C /* xxhash.swift */; };
+		84569294A7561952CA06DCDFB30C4308 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510412BF690108630F6C8BB87073FCD1 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */; };
+		86ED08F33B7D357932A9AB743E9D9EA7 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9476C7892089EFD572CD48E8CEE0E19A /* Response.swift */; };
+		8D463A0A4C65C02FDD5211F0F3C6F8B8 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9415B1BE4A667A8689B7362DC94B6594 /* Alamofire-dummy.m */; };
+		907AB123FBC8BC9340D5B7350CE828DF /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80C565F5AAC712F4D0270832A1E483 /* SessionDelegate.swift */; };
 		91C09AC2A52ED69A27C8D923139A006F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
-		9469DF81ECB494E84675969B5E13374C /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F9AC12A54F68C34047A518836ECFA4F /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93DF090D86FAF9DE621106526F23D4EA /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C841CB53E3568922A5184692C7A03AB /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */; };
+		9469DF81ECB494E84675969B5E13374C /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 722AF76B98EEF7F14778C9F5AE526DD2 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94E8785CC48FF5DCD9408D6D006FAA14 /* Pods-PGoApi_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9010DFE4EEE41ACA66E7A6ACD8734B /* Pods-PGoApi_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A152B9A1BD0ACFB99A84EC368C805F2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
-		A31E032C1D51314600B69C63 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03171D51312F00B69C63 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */; };
-		A31E032D1D51314600B69C63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03181D51312F00B69C63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */; };
-		A31E032E1D51314600B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03191D51312F00B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */; };
-		A31E032F1D51314600B69C63 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E031A1D51312F00B69C63 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */; };
-		A31E03301D51314600B69C63 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E031B1D51312F00B69C63 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */; };
-		A31E03311D51314600B69C63 /* Pogoprotos.Data.PogoprotosData.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E031C1D51312F00B69C63 /* Pogoprotos.Data.PogoprotosData.proto.swift */; };
-		A31E03321D51314600B69C63 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E031D1D51312F00B69C63 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */; };
-		A31E03331D51314600B69C63 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E031E1D51312F00B69C63 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */; };
-		A31E03341D51314600B69C63 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E031F1D51312F00B69C63 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */; };
-		A31E03351D51314600B69C63 /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03201D51312F00B69C63 /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */; };
-		A31E03361D51314600B69C63 /* Pogoprotos.Map.PogoprotosMap.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03211D51312F00B69C63 /* Pogoprotos.Map.PogoprotosMap.proto.swift */; };
-		A31E03371D51314600B69C63 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03221D51312F00B69C63 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift */; };
-		A31E03381D51314600B69C63 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03231D51312F00B69C63 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */; };
-		A31E03391D51314600B69C63 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03241D51312F00B69C63 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift */; };
-		A31E033A1D51314600B69C63 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03251D51312F00B69C63 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift */; };
-		A31E033B1D51314600B69C63 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03261D51312F00B69C63 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */; };
-		A31E033C1D51314600B69C63 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03271D51312F00B69C63 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift */; };
-		A31E033D1D51314600B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03281D51312F00B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift */; };
-		A31E033E1D51314600B69C63 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E03291D51312F00B69C63 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */; };
-		A31E033F1D51314600B69C63 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E032A1D51312F00B69C63 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */; };
-		A31E03401D51314600B69C63 /* Pogoprotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31E032B1D51312F00B69C63 /* Pogoprotos.swift */; };
-		A3B729AA4857F2FB88CD2C286A557F42 /* PGoApi-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E46BA7980A9DBB8F689794C19C59FA4 /* PGoApi-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A761F379DC7FDE30EC0FEB4E86B61637 /* PGoApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A219FCE22860A27B47F365E2364CDE /* PGoApiRequest.swift */; };
-		A83414D6453A68CE90FB7B5F91D6F790 /* Google.Protobuf.Wrappers.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740EA8DCAEED45BB601E8FCA2C870E08 /* Google.Protobuf.Wrappers.proto.swift */; };
-		AA314156AC500125F4078EE968DB14C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E400B89EB5200DBD6413F8917008DDEE /* Result.swift */; };
-		AC25A9C037341D8C0E9EA2041B5592D3 /* ConcreateExtensionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AB032B5DAE1EE8DF1A8BF189DBA3F0 /* ConcreateExtensionField.swift */; };
-		ADF19C953CE2A7D0B72EC93A81FCCC26 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 117C4446BE44E619EEF6A1353041B291 /* Alamofire-dummy.m */; };
-		AE4CF87C02C042DF13ED5B21C4FDC1E0 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B197C3F91DD3902F65F8151063D1DA4 /* Stream.swift */; };
-		B509D3A947CB87949239AC8DE2075F08 /* CodedOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3B98EE127ED61E098FC6CEC0ADDCE /* CodedOutputStream.swift */; };
-		BBB5A55ADCC257D4174D441DE1F45019 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2B15E987AE0B74B2D0AF006589D1A /* Globals.swift */; };
-		BDF3BE5EA79E5AAC1146AC0322E93C08 /* ProtocolBuffers-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0279D6FD5079A577989300ADA4EBE7 /* ProtocolBuffers-Swift-dummy.m */; };
-		BE41196F6A3903E59C3306FE3F8B43FE /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3465FE2A75E7DC66AA1BD0235AD79070 /* Notifications.swift */; };
-		C0DB70AB368765DC64BFB5FEA75E0696 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588ADA1A70AC2205ACD85CF7B1E50E9 /* ParameterEncoding.swift */; };
-		C273E0462649C60B5BFCCA9108DC8158 /* PGoApiDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */; };
-		C7B6DD7C0456C50289A2C381DFE9FA3F /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E650DC9A6372DFB56201B400E3B5F885 /* MultipartFormData.swift */; };
-		D11B7B95ECBD51300BD4184F2D70645E /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B44D2744E5AD3B4CD941661D6C913 /* ExtensionRegistry.swift */; };
-		D7A3FBB33C9B991BF293ECDA9C7273AB /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD5B5748B6B42FD091F219A21A6FB48 /* RingBuffer.swift */; };
-		E014418241CA9C11E3C484B6D0DB23F8 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5547EA8165031F2C18E62753D08E2273 /* Google.Protobuf.Api.proto.swift */; };
-		E42DFE471D5D054A00E06B91 /* subFuncA.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE461D5D054A00E06B91 /* subFuncA.swift */; };
-		E42DFE541D5D062600E06B91 /* subFuncB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE481D5D062600E06B91 /* subFuncB.swift */; };
-		E42DFE551D5D062600E06B91 /* subFuncC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE491D5D062600E06B91 /* subFuncC.swift */; };
-		E42DFE561D5D062600E06B91 /* subFuncD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE4A1D5D062600E06B91 /* subFuncD.swift */; };
-		E42DFE571D5D062600E06B91 /* subFuncE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE4B1D5D062600E06B91 /* subFuncE.swift */; };
-		E42DFE581D5D062600E06B91 /* subFuncF.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE4C1D5D062600E06B91 /* subFuncF.swift */; };
-		E42DFE591D5D062600E06B91 /* subFuncG.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE4D1D5D062600E06B91 /* subFuncG.swift */; };
-		E42DFE5A1D5D062600E06B91 /* subFuncH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE4E1D5D062600E06B91 /* subFuncH.swift */; };
-		E42DFE5B1D5D062600E06B91 /* subFuncI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE4F1D5D062600E06B91 /* subFuncI.swift */; };
-		E42DFE5C1D5D062600E06B91 /* subFuncJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE501D5D062600E06B91 /* subFuncJ.swift */; };
-		E42DFE5D1D5D062600E06B91 /* subFuncK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE511D5D062600E06B91 /* subFuncK.swift */; };
-		E42DFE5E1D5D062600E06B91 /* subFuncL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE521D5D062600E06B91 /* subFuncL.swift */; };
-		E42DFE5F1D5D062600E06B91 /* subFuncM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42DFE531D5D062600E06B91 /* subFuncM.swift */; };
-		E435DD651D5C268400749515 /* PGoEncryptHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435DD641D5C268400749515 /* PGoEncryptHelper.swift */; };
-		E4CEB0261D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEB0231D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */; };
-		E4CEB0271D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEB0241D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */; };
-		E4CEB0281D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEB0251D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */; };
-		E4E84FEA1D7F20380021FD07 /* PGoApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84FE91D7F20380021FD07 /* PGoApiResponse.swift */; };
-		E4E84FEC1D7F21A70021FD07 /* Unknown6Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84FEB1D7F21A70021FD07 /* Unknown6Builder.swift */; };
-		E4F736631D5BE08F006532BB /* PGoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736621D5BE08F006532BB /* PGoUtils.swift */; };
-		E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */; };
-		E4F7366D1D5BE0DB006532BB /* xxhash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F736691D5BE0DB006532BB /* xxhash.swift */; };
-		E6EC4FF319C2EE94CC2EF1992EF06B75 /* PGoRpcApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */; };
-		E85894DBB3CD2C8064FC01A4613F3E61 /* Google.Protobuf.AnyType.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF28469124B16E5E22527E5419DAF6 /* Google.Protobuf.AnyType.proto.swift */; };
-		E8ADFFCD0BF8342838F1E3EF1162F70F /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFF18DCA9866A0AA480B4B7850BE064 /* Google.Protobuf.Duration.proto.swift */; };
-		EEB780A9EC496C1BE6A5CB128CB6E247 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C309FB75EA6A55CB63B6F05EC9BDAF5 /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
-		EFE92E8D3813DD26E78E93EEAF6D7E7E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FD930B067C252809D3C7C692211CC /* Request.swift */; };
-		F1EF2AF5B9139512627248E7999842AF /* S2Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E506CF98E807B4E6B1D5DAED3838AF /* S2Geometry.swift */; };
-		F5A4518F6DE1E5A8187197A89186BE35 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89334F8C4B199395373338C368D3ED5D /* Extensions.swift */; };
-		F9EDC159EBBA3BC63F7D3B3C4E0E3300 /* AbstractMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCDB0F510367F81866B22DF1C7DF830 /* AbstractMessage.swift */; };
-		FDD35E601272CEFD9106CC9A77F6DBC5 /* ProtocolBuffers-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C1F23BF48B7386F828F10437BA53B509 /* ProtocolBuffers-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9886A1497F28731E1A23362C05742E21 /* subFuncC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D52FEBBD1801C0334E14530BB77E224 /* subFuncC.swift */; };
+		996840327DA0F10AB5B75E5B80C2C589 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5334699B6CFA5C4E703CD8FD32318E7 /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
+		9C4EAFB446F5B45FAF0ED72D503076CA /* GPSOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F522690AFCA171614304483DC677669 /* GPSOAuth.swift */; };
+		A377CB7D958696836B66C7EB9DC81B3F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B68E4D97BF675645C1B072D0978117 /* Extensions.swift */; };
+		A5138196148E5034603DF502A30933E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */; };
+		A79AC30123B0C2177D67F6ED6A1B3215 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320077A12B3586731B77434F05997AB7 /* SessionManager.swift */; };
+		ACD6A50974F5857744DF53962897FBD2 /* subFuncL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C64F6BC38FFF1EFBF06277B425CB671 /* subFuncL.swift */; };
+		AF158CAAF4DD319009AFC855DC995D90 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3514E56C354CC22FBEAF5ECA7F1F4 /* ParameterEncoding.swift */; };
+		B00480B825DA3F3C5EB3806F73F5BDE6 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFD6BEA0E772F3293140C7090299E5 /* RingBuffer.swift */; };
+		B01D9019A27ED03ABB21862C9AF0EAB8 /* Google.Protobuf.FieldMask.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680AE3474840CB6FFE62CC7EE7F0E77 /* Google.Protobuf.FieldMask.proto.swift */; };
+		B43B7A2A75BA6EA201CAE99487969BFD /* subFuncG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C9C880811E7F352D9B27CD102FC7B5 /* subFuncG.swift */; };
+		B687ECF17104B6E9F925C84E50AAE622 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1141C0FA37850374D73F7248CBBCBF1 /* Alamofire.framework */; };
+		B8154C96802336E5DDA5CEE97C3180A0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6ED25E99FD68EBB7DD14C2D4E3217B2 /* ResponseSerialization.swift */; };
+		B85BC863D64AC927D365ECD5C2D8F1CB /* PGoApiDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91386F673C09BA76A94EAAF865E48412 /* PGoApiDelegate.swift */; };
+		B9A7271821BF43DBA9430D579171DEA2 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34176507782C4A0E83A27EAC2D632FDB /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */; };
+		BAA0D2FF4CDFAE71C06CA15F51774621 /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53FA364C1A66CD8379537D5AD59BB1D /* UnknownFieldSet.swift */; };
+		BADAA0A7598C42154C5CAB6E45319107 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9297DD00F583707CEEBD7FF5405998D8 /* Globals.swift */; };
+		BB861D1B71EFD8650B667988AAB8249F /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710CCF5EA5B3328B4844EE05225E0A84 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift */; };
+		BC7172342C9EB9506AB6D3845CBF17AC /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5562279AD89F776A62E3587234101EB /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift */; };
+		BF8E2FC5B8205E255664FE7785D232C5 /* Google.Protobuf.Timestamp.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D3B8B38D547DC11A10681178A2E1E /* Google.Protobuf.Timestamp.proto.swift */; };
+		C0AEA97E7684DDAD56998C0AE198A433 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60708FCEBEABDF8BF378D8777791FDC4 /* ServerTrustPolicy.swift */; };
+		C15338F3B2632570EC103D96410C98A7 /* PGoAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36231CEAAD242ECEE0771D883D1B2798 /* PGoAuthDelegate.swift */; };
+		C1CEA50A442C7D53363A1CEFA9DD78BB /* Pogoprotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9034FAEF662BB373AD04E93779EA6F76 /* Pogoprotos.swift */; };
+		C24F54CA9B19DEB1355DF039FC848829 /* PGoApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5F9C586BEC2A9CF043172961D62A3 /* PGoApiResponse.swift */; };
+		C2D801E8A4F39BE1CFD9EFC04E18AEBF /* subFuncI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DB023396AC3856F9FE54080C970FDF /* subFuncI.swift */; };
+		C3AE63BE42F8579984C81FF903AA53D0 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B995FEADB54826F4E15B1EAF56F8DA4 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */; };
+		C58560953E9B3588702BB9B52E9CED32 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC392A2ABB4FE1261A91031C5B70C853 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */; };
+		C7A3408350643ADE1018826C766EE356 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631A95660A1F650F8BFD6781BE8C4C2 /* MultipartFormData.swift */; };
+		C82B348B27F730CF19F05DF3A8E24655 /* PGoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1A74EBE1FFB1EC159BF228F7743A94 /* PGoUtils.swift */; };
+		CCD3D5DB6A8EE7F5068692D1E9BBB19A /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B0046064240B708AE49299310A4F9 /* Google.Protobuf.Descriptor.proto.swift */; };
+		D2743E789B3AD0DEE549ACEFC35BBC9D /* subFuncK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E87D20EE278C88D648147EA97510D /* subFuncK.swift */; };
+		D6DDC57B2992530DD94C8C17BC457806 /* ConcreateExtensionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF623FFC6B97ABC6E8FBA5B8ED47431 /* ConcreateExtensionField.swift */; };
+		DA083CCC1C7314203FB3882F240FF0A1 /* Google.Protobuf.Type.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0DA65DBF5EAADBA9AC4AA66CE8A0A /* Google.Protobuf.Type.proto.swift */; };
+		DAF2F19D963A06491835CDEA40A83395 /* Unknown6Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91474AADFB132CC2945D924F3EFDF7A8 /* Unknown6Builder.swift */; };
+		DF1BBF94997A2F4248B42B25EA919EC2 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D181C7D5BD1CDF0C258728B96F1F74CE /* Result.swift */; };
+		E1F583CB4A68A928CD197250AA752926 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCD5DB8461DAAA21AC421E197CD757B /* TaskDelegate.swift */; };
+		E2A1C34237B4E928E5F85C097F4C2551 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10E99869F9AB2C50ABD297B281CEA87 /* DispatchQueue+Alamofire.swift */; };
+		E3ADBE0685FC3EA96AE765BEA2EB80AE /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF1F2DAA69722F450DB58C3B9FC0900 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */; };
+		E59BF19C0AFA68B741552319FC478C7B /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8339D81E4056835EBD20458C03D6CAF /* NetworkReachabilityManager.swift */; };
+		F309D2DA9D037C59C96BAA195094A3E2 /* Google.Protobuf.Wrappers.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D47837FF0EF66021649AFAFB2EBA9D /* Google.Protobuf.Wrappers.proto.swift */; };
+		F5F30B59EDECB46BF34D066D8BA19F43 /* PGoApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2375DEC62741D25CCC5D70F533415DC /* PGoApiRequest.swift */; };
+		F931F0681E4ED026EACE88BAAC659BC4 /* CodedOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415E1B4A4F9E2B24318FA3B17AD10557 /* CodedOutputStream.swift */; };
+		F96C0C8DB31B2E775C90ABC4AAA1CD87 /* PGoApi-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E46BA7980A9DBB8F689794C19C59FA4 /* PGoApi-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBAC68E7708614842ECA919D59B3F8BE /* Pogoprotos.Map.PogoprotosMap.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C2988D3EC1FCBB8ED77B4C993C9AFC /* Pogoprotos.Map.PogoprotosMap.proto.swift */; };
+		FF8123252A6C3FD269F346A7FED8C8C8 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11DABE11ACA29BC7D2E6E3EEBB3F327 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */; };
+		FFFDD494EE6D1B83DDAF5F2721F685A6 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DE1B6BB01E0BB56B0BF1D0D28E0B2A /* Validation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,21 +124,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 32DE909F174C589373212BC01F895324;
+			remoteGlobalIDString = 87F0F63A40E244D025E67D4E0606D9D4;
 			remoteInfo = PGoApi;
-		};
-		60B5A5FAE2667738702E27AB0D09CB7A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 79C040AFDDCE1BCBF6D8B5EB0B85887F;
-			remoteInfo = Alamofire;
 		};
 		8E51F8C3AF7451E09EAE028600E0ED54 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A2E4132534D22D75CBA77626BFD683C6;
+			remoteGlobalIDString = B69D5546AB35CB5B12AB6A2DAA0EDC55;
 			remoteInfo = "ProtocolBuffers-Swift";
 		};
 		AD3C92F38F74D8780F9FD7780267FA0A /* PBXContainerItemProxy */ = {
@@ -148,156 +141,163 @@
 			remoteGlobalIDString = 79C040AFDDCE1BCBF6D8B5EB0B85887F;
 			remoteInfo = Alamofire;
 		};
-		BE9273789608325F700E560606F3C966 /* PBXContainerItemProxy */ = {
+		B22960E89DA160DB7AD2398567BF20B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A2E4132534D22D75CBA77626BFD683C6;
+			remoteGlobalIDString = 79C040AFDDCE1BCBF6D8B5EB0B85887F;
+			remoteInfo = Alamofire;
+		};
+		BBD2AE3726645A6699A4C9EC85C332D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B69D5546AB35CB5B12AB6A2DAA0EDC55;
 			remoteInfo = "ProtocolBuffers-Swift";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05A36B418384DE87161327FCBEE57375 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
-		0DFF968A6CE9CD0AD8EC54FF8FAB43D5 /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
-		117C4446BE44E619EEF6A1353041B291 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
-		11E506CF98E807B4E6B1D5DAED3838AF /* S2Geometry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = S2Geometry.swift; sourceTree = "<group>"; };
-		13480D13411CA271C2112AA2C4331905 /* ProtocolBuffers-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-prefix.pch"; sourceTree = "<group>"; };
+		065D3B8B38D547DC11A10681178A2E1E /* Google.Protobuf.Timestamp.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Timestamp.proto.swift; path = Source/Google.Protobuf.Timestamp.proto.swift; sourceTree = "<group>"; };
+		085B69D9E3C44BD904004CD0169652E9 /* ProtocolBuffers-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-umbrella.h"; sourceTree = "<group>"; };
+		093AEF3B406CE90A4FA529E4D9671110 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift; sourceTree = "<group>"; };
+		0BF96AAF2EEB762F05D93BC23F104043 /* Google.Protobuf.Any.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Any.proto.swift; path = Source/Google.Protobuf.Any.proto.swift; sourceTree = "<group>"; };
+		0DF5B262444D4DB355E4492B582EFB0D /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		13ACC1E23F84F302085ED851D7F0E956 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		178D2512B73F10281E32D656CD802549 /* Pods-PGoApi_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PGoApi_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		187CD9E767E33BB5DAD142F7B94032E6 /* UnknownFieldSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnknownFieldSet.swift; path = Source/UnknownFieldSet.swift; sourceTree = "<group>"; };
+		17DB023396AC3856F9FE54080C970FDF /* subFuncI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncI.swift; sourceTree = "<group>"; };
+		19B68E4D97BF675645C1B072D0978117 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1A974373078F86099B62EB7A1EA41C4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		1BCF28469124B16E5E22527E5419DAF6 /* Google.Protobuf.AnyType.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.AnyType.proto.swift; path = Source/Google.Protobuf.AnyType.proto.swift; sourceTree = "<group>"; };
-		1C190FDAC31A01FA6833954FD814CB11 /* Download.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Source/Download.swift; sourceTree = "<group>"; };
-		1C309FB75EA6A55CB63B6F05EC9BDAF5 /* Google.Protobuf.SwiftDescriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SwiftDescriptor.proto.swift; path = Source/Google.Protobuf.SwiftDescriptor.proto.swift; sourceTree = "<group>"; };
+		1B5E87D20EE278C88D648147EA97510D /* subFuncK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncK.swift; sourceTree = "<group>"; };
 		1D6AFCF0BAC5E0DA4C223002DC031ABA /* Pods-PGoApi_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PGoApi_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		1DD2742E155469AF2DF7D4716F2DCE68 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2200437ADFA613DE56AE9D52B05E7796 /* Google.Protobuf.SourceContext.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SourceContext.proto.swift; path = Source/Google.Protobuf.SourceContext.proto.swift; sourceTree = "<group>"; };
-		2407D30F88B2385D940400E469B0FE42 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
-		2444B30E73275C117F604222D254B3B1 /* GeneratedMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GeneratedMessage.swift; path = Source/GeneratedMessage.swift; sourceTree = "<group>"; };
-		267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoApiDelegate.swift; sourceTree = "<group>"; };
-		26BC5243400021CBCA4CC23346212857 /* WireFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WireFormat.swift; path = Source/WireFormat.swift; sourceTree = "<group>"; };
-		27454FBC4E8237D5383BADD5231A2E10 /* ProtocolBuffers-Swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ProtocolBuffers-Swift.xcconfig"; sourceTree = "<group>"; };
-		297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoRpcApi.swift; sourceTree = "<group>"; };
-		2BF2B15E987AE0B74B2D0AF006589D1A /* Globals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		1E737C63F45D8CE0416D0C26480CF932 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		1FEFEA0A0CD526573BEA604C7063D430 /* S2Geometry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = S2Geometry.swift; sourceTree = "<group>"; };
+		248E98B73AFC023CA8921F73E0321B97 /* Google.Protobuf.SourceContext.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SourceContext.proto.swift; path = Source/Google.Protobuf.SourceContext.proto.swift; sourceTree = "<group>"; };
+		2680AE3474840CB6FFE62CC7EE7F0E77 /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
+		2AEA40408A3FAE14B1777CB48074FC04 /* subFuncA.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncA.swift; sourceTree = "<group>"; };
 		2C9010DFE4EEE41ACA66E7A6ACD8734B /* Pods-PGoApi_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PGoApi_Tests-umbrella.h"; sourceTree = "<group>"; };
-		3465FE2A75E7DC66AA1BD0235AD79070 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
-		3525686EE772F9BC98C357CEA5D86B68 /* Google.Protobuf.Types.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Types.proto.swift; path = Source/Google.Protobuf.Types.proto.swift; sourceTree = "<group>"; };
+		2F522690AFCA171614304483DC677669 /* GPSOAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GPSOAuth.swift; sourceTree = "<group>"; };
+		2FE6928D7EB9A192074C612BCBAD29C6 /* CodedInputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedInputStream.swift; path = Source/CodedInputStream.swift; sourceTree = "<group>"; };
+		320077A12B3586731B77434F05997AB7 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
+		34176507782C4A0E83A27EAC2D632FDB /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Enums.PogoprotosEnums.proto.swift; sourceTree = "<group>"; };
+		36231CEAAD242ECEE0771D883D1B2798 /* PGoAuthDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoAuthDelegate.swift; sourceTree = "<group>"; };
+		36D47837FF0EF66021649AFAFB2EBA9D /* Google.Protobuf.Wrappers.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Wrappers.proto.swift; path = Source/Google.Protobuf.Wrappers.proto.swift; sourceTree = "<group>"; };
+		39E48B9B1CAF3A73424C6776DACFA4ED /* subFuncB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncB.swift; sourceTree = "<group>"; };
 		3A821415FDD64E6E22D5CEB1AA78A8A7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F3ADDC51B80441E94976F0156C8E32E /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift; sourceTree = "<group>"; };
+		415E1B4A4F9E2B24318FA3B17AD10557 /* CodedOutputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedOutputStream.swift; path = Source/CodedOutputStream.swift; sourceTree = "<group>"; };
 		440428C054F88F1E9D5B7D72C4D5F35B /* PGoApi.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = PGoApi.modulemap; sourceTree = "<group>"; };
 		462D5EB5DAD4C24E499E01F856A7F492 /* Pods-PGoApi_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PGoApi_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4B197C3F91DD3902F65F8151063D1DA4 /* Stream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stream.swift; path = Source/Stream.swift; sourceTree = "<group>"; };
+		476024D2DC61ABC6CB9C6AA09A185D3C /* WireFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WireFormat.swift; path = Source/WireFormat.swift; sourceTree = "<group>"; };
+		4BFFF033FC9180706FD8902A97604A8E /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift; sourceTree = "<group>"; };
+		4C64F6BC38FFF1EFBF06277B425CB671 /* subFuncL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncL.swift; sourceTree = "<group>"; };
+		4D52FEBBD1801C0334E14530BB77E224 /* subFuncC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncC.swift; sourceTree = "<group>"; };
+		4D6611D910057B67F2218560DE7F147B /* subFuncE.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncE.swift; sourceTree = "<group>"; };
 		4E0BA8E1301F8C3D8BAF319E8F08ABE5 /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E8FD930B067C252809D3C7C692211CC /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
-		4EB85B98DE3C47AD5D8DA2029A08B40C /* Google.Protobuf.Descriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Descriptor.proto.swift; path = Source/Google.Protobuf.Descriptor.proto.swift; sourceTree = "<group>"; };
 		4EE1DB4FF39849E551D5C003986B8C51 /* Pods-PGoApi_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PGoApi_Example-frameworks.sh"; sourceTree = "<group>"; };
-		4F9AC12A54F68C34047A518836ECFA4F /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
-		52ED8ECEF1361C3A73E571AC85E9C68C /* Field.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Field.swift; path = Source/Field.swift; sourceTree = "<group>"; };
-		5547EA8165031F2C18E62753D08E2273 /* Google.Protobuf.Api.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Api.proto.swift; path = Source/Google.Protobuf.Api.proto.swift; sourceTree = "<group>"; };
-		5588ADA1A70AC2205ACD85CF7B1E50E9 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		510412BF690108630F6C8BB87073FCD1 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift; sourceTree = "<group>"; };
+		5357ABFFE739369AA85F952B262E384C /* xxhash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = xxhash.swift; path = Unknown6/xxhash.swift; sourceTree = "<group>"; };
+		538B8026DF18C4B69511733F9C6AD8E6 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift; sourceTree = "<group>"; };
+		53C4DCF8E557A4D94253CDD8232E3E12 /* Pogoprotos.Data.PogoprotosData.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.PogoprotosData.proto.swift; sourceTree = "<group>"; };
 		56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PGoApi.xcconfig; sourceTree = "<group>"; };
-		6007401503F392166E48DB66DA465356 /* ExtendableMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtendableMessage.swift; path = Source/ExtendableMessage.swift; sourceTree = "<group>"; };
+		57952D350ACCD53B941598DCCC51D9F2 /* ProtocolBuffers-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ProtocolBuffers-Swift.modulemap"; sourceTree = "<group>"; };
+		5950D6951A477D0AAB51F99E6271C9F4 /* subFuncF.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncF.swift; sourceTree = "<group>"; };
+		5B995FEADB54826F4E15B1EAF56F8DA4 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift; sourceTree = "<group>"; };
+		5C2AD8FFB72489FEFFD65B5B526144D9 /* ProtocolBuffers-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ProtocolBuffers-Swift-dummy.m"; sourceTree = "<group>"; };
+		5DBFD6BEA0E772F3293140C7090299E5 /* RingBuffer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RingBuffer.swift; path = Source/RingBuffer.swift; sourceTree = "<group>"; };
+		60708FCEBEABDF8BF378D8777791FDC4 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		60FDAB3A8FD726A70009B69165B7E181 /* Pods-PGoApi_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PGoApi_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		6442E19E93687D7C062F69F42FC1017A /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		64314F8D7BAA987ECC7685D76B068299 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6469B7914BB79A9780BEE463747B7FB0 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift; sourceTree = "<group>"; };
+		651240C9A41E76594BABA92AA41F15AC /* Google.Protobuf.Duration.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Duration.proto.swift; path = Source/Google.Protobuf.Duration.proto.swift; sourceTree = "<group>"; };
+		661E168E6F008540E5FC5A5D564106FF /* GeneratedMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GeneratedMessage.swift; path = Source/GeneratedMessage.swift; sourceTree = "<group>"; };
+		682A83FE475110D6F8755CC78BCE1EE5 /* PtcOAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PtcOAuth.swift; sourceTree = "<group>"; };
+		68DE1B6BB01E0BB56B0BF1D0D28E0B2A /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
 		6EF7E3B8FA95C7B413CA54B9221932E6 /* Pods-PGoApi_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-PGoApi_Tests.modulemap"; sourceTree = "<group>"; };
-		73E92E9F80DD66FA25A943E778CAFE25 /* CodedInputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedInputStream.swift; path = Source/CodedInputStream.swift; sourceTree = "<group>"; };
-		740EA8DCAEED45BB601E8FCA2C870E08 /* Google.Protobuf.Wrappers.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Wrappers.proto.swift; path = Source/Google.Protobuf.Wrappers.proto.swift; sourceTree = "<group>"; };
-		75A219FCE22860A27B47F365E2364CDE /* PGoApiRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoApiRequest.swift; sourceTree = "<group>"; };
-		75AED42F0774BC2A30144232FBCDA9B9 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
-		816BA448A9C6DBB694F7A5ADD3C8B6D5 /* PGoAuthDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoAuthDelegate.swift; sourceTree = "<group>"; };
-		89334F8C4B199395373338C368D3ED5D /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		8DDEC75C9A636F834E23B900B86E086E /* ProtocolBuffers-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ProtocolBuffers-Swift.modulemap"; sourceTree = "<group>"; };
+		710CCF5EA5B3328B4844EE05225E0A84 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift; sourceTree = "<group>"; };
+		712FB617E1B24B4CC025F9266FE2C81A /* subFuncM.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncM.swift; sourceTree = "<group>"; };
+		722AF76B98EEF7F14778C9F5AE526DD2 /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		732AA57CCDBF56EDBCE1460E25102623 /* subFuncJ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncJ.swift; sourceTree = "<group>"; };
+		763D0F93FD73B9976313317C6789BBCC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78C0DA65DBF5EAADBA9AC4AA66CE8A0A /* Google.Protobuf.Type.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Type.proto.swift; path = Source/Google.Protobuf.Type.proto.swift; sourceTree = "<group>"; };
+		7B651EC2CA3ABFB87E69EA4E8382BF72 /* Google.Protobuf.Struct.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Struct.proto.swift; path = Source/Google.Protobuf.Struct.proto.swift; sourceTree = "<group>"; };
+		7C841CB53E3568922A5184692C7A03AB /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift; sourceTree = "<group>"; };
+		87463D89882293ED11C8E63DA39707DE /* Google.Protobuf.Api.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Api.proto.swift; path = Source/Google.Protobuf.Api.proto.swift; sourceTree = "<group>"; };
+		8C3BFCB62F8DC943C1D91AEAB009CA3C /* PGoRpcApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoRpcApi.swift; sourceTree = "<group>"; };
+		8DB04581052D69FBBFEFC1D6515B27B1 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift; sourceTree = "<group>"; };
 		8E46BA7980A9DBB8F689794C19C59FA4 /* PGoApi-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PGoApi-umbrella.h"; sourceTree = "<group>"; };
-		8EBFFAEB650BCBE5D96213C5C99799A6 /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Source/Error.swift; sourceTree = "<group>"; };
+		8F4D919F53853AD674387001DD11DD37 /* PGoAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoAuth.swift; sourceTree = "<group>"; };
+		9034FAEF662BB373AD04E93779EA6F76 /* Pogoprotos.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.swift; sourceTree = "<group>"; };
+		91386F673C09BA76A94EAAF865E48412 /* PGoApiDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoApiDelegate.swift; sourceTree = "<group>"; };
+		91474AADFB132CC2945D924F3EFDF7A8 /* Unknown6Builder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Unknown6Builder.swift; sourceTree = "<group>"; };
+		9297DD00F583707CEEBD7FF5405998D8 /* Globals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93DEBCF76692370947479E13F13F1975 /* PtcOAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PtcOAuth.swift; sourceTree = "<group>"; };
-		96A279993B205079AC6A658937476E11 /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Upload.swift; path = Source/Upload.swift; sourceTree = "<group>"; };
-		9A407E2A5B4A8A684F5E2970E6B5A54E /* Google.Protobuf.Empty.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Empty.proto.swift; path = Source/Google.Protobuf.Empty.proto.swift; sourceTree = "<group>"; };
-		9BF31636CEA5DB5B3B8A4F033A0DA002 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
-		9BFF18DCA9866A0AA480B4B7850BE064 /* Google.Protobuf.Duration.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Duration.proto.swift; path = Source/Google.Protobuf.Duration.proto.swift; sourceTree = "<group>"; };
+		93C9C880811E7F352D9B27CD102FC7B5 /* subFuncG.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncG.swift; sourceTree = "<group>"; };
+		9415B1BE4A667A8689B7362DC94B6594 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
+		9476C7892089EFD572CD48E8CEE0E19A /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
+		96C2988D3EC1FCBB8ED77B4C993C9AFC /* Pogoprotos.Map.PogoprotosMap.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Map.PogoprotosMap.proto.swift; sourceTree = "<group>"; };
+		98FE1EA276B3CEF150A0E24E0D575467 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift; sourceTree = "<group>"; };
+		9D742CAC47E16098FA559800BD6912B7 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift; sourceTree = "<group>"; };
 		9DF5DE379E215EC7BD001707652BDB8F /* Pods-PGoApi_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PGoApi_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		9DF623FFC6B97ABC6E8FBA5B8ED47431 /* ConcreateExtensionField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConcreateExtensionField.swift; path = Source/ConcreateExtensionField.swift; sourceTree = "<group>"; };
 		A02D755E167433B11536BBD05ECC4512 /* PGoApi-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PGoApi-dummy.m"; sourceTree = "<group>"; };
+		A0C20EC2D1EDB019274411BA50EB1740 /* AbstractMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AbstractMessage.swift; path = Source/AbstractMessage.swift; sourceTree = "<group>"; };
 		A1141C0FA37850374D73F7248CBBCBF1 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A11DABE11ACA29BC7D2E6E3EEBB3F327 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Inventory.PogoprotosInventory.proto.swift; sourceTree = "<group>"; };
+		A2375DEC62741D25CCC5D70F533415DC /* PGoApiRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoApiRequest.swift; sourceTree = "<group>"; };
 		A2F9691893B1D523536E822C1CF9562C /* PGoApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PGoApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A31E03171D51312F00B69C63 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift; sourceTree = "<group>"; };
-		A31E03181D51312F00B69C63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift; sourceTree = "<group>"; };
-		A31E03191D51312F00B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift; sourceTree = "<group>"; };
-		A31E031A1D51312F00B69C63 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift; sourceTree = "<group>"; };
-		A31E031B1D51312F00B69C63 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift; sourceTree = "<group>"; };
-		A31E031C1D51312F00B69C63 /* Pogoprotos.Data.PogoprotosData.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.PogoprotosData.proto.swift; sourceTree = "<group>"; };
-		A31E031D1D51312F00B69C63 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Enums.PogoprotosEnums.proto.swift; sourceTree = "<group>"; };
-		A31E031E1D51312F00B69C63 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift; sourceTree = "<group>"; };
-		A31E031F1D51312F00B69C63 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Inventory.PogoprotosInventory.proto.swift; sourceTree = "<group>"; };
-		A31E03201D51312F00B69C63 /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift; sourceTree = "<group>"; };
-		A31E03211D51312F00B69C63 /* Pogoprotos.Map.PogoprotosMap.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Map.PogoprotosMap.proto.swift; sourceTree = "<group>"; };
-		A31E03221D51312F00B69C63 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift; sourceTree = "<group>"; };
-		A31E03231D51312F00B69C63 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift; sourceTree = "<group>"; };
-		A31E03241D51312F00B69C63 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift; sourceTree = "<group>"; };
-		A31E03251D51312F00B69C63 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift; sourceTree = "<group>"; };
-		A31E03261D51312F00B69C63 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift; sourceTree = "<group>"; };
-		A31E03271D51312F00B69C63 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift; sourceTree = "<group>"; };
-		A31E03281D51312F00B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift; sourceTree = "<group>"; };
-		A31E03291D51312F00B69C63 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift; sourceTree = "<group>"; };
-		A31E032A1D51312F00B69C63 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.PogoprotosSettings.proto.swift; sourceTree = "<group>"; };
-		A31E032B1D51312F00B69C63 /* Pogoprotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoprotos.swift; sourceTree = "<group>"; };
-		ACD3E1AD6111B387A2127EC65F03B7CB /* PGoAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoAuth.swift; sourceTree = "<group>"; };
-		AEA4811955AB20EFDE989E559F58E056 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEF63591AD13E0FE10BCD26CCEC7ECF2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4574BDA697D0CDC8BC50A28287D7BBB /* subFuncD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncD.swift; sourceTree = "<group>"; };
+		A5334699B6CFA5C4E703CD8FD32318E7 /* Google.Protobuf.SwiftDescriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SwiftDescriptor.proto.swift; path = Source/Google.Protobuf.SwiftDescriptor.proto.swift; sourceTree = "<group>"; };
+		A6ED25E99FD68EBB7DD14C2D4E3217B2 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		A8C7FCBA147118A906925DB4D7223795 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift; sourceTree = "<group>"; };
+		AB76DAD07F611E6165BF5BE098B61C31 /* ProtocolBuffers-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-prefix.pch"; sourceTree = "<group>"; };
+		ABF90B1AF83DD319A588426BD038E49C /* ProtocolBuffers-Swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ProtocolBuffers-Swift.xcconfig"; sourceTree = "<group>"; };
+		AE1A74EBE1FFB1EC159BF228F7743A94 /* PGoUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoUtils.swift; sourceTree = "<group>"; };
+		B207B07BDFBE7F0F510C134CF78CF0E5 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		B43ADDE47E7B0D0B412F13F1C6E43005 /* Pods-PGoApi_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PGoApi_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		B467B650ACCA82307AB049E1215E2533 /* Google.Protobuf.Struct.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Struct.proto.swift; path = Source/Google.Protobuf.Struct.proto.swift; sourceTree = "<group>"; };
 		B729F686B4C6B2CACB630F0F44C8E7CE /* Pods-PGoApi_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PGoApi_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		B8F242BC6D04CACDB0FA0A77E91A67A3 /* Pods-PGoApi_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PGoApi_Example-umbrella.h"; sourceTree = "<group>"; };
-		C1F23BF48B7386F828F10437BA53B509 /* ProtocolBuffers-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-umbrella.h"; sourceTree = "<group>"; };
+		BB00B4B11D3C6D28463C0D34573C4694 /* subFuncH.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = subFuncH.swift; sourceTree = "<group>"; };
+		BC1A0943622B8654324722D563F24694 /* Field.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Field.swift; path = Source/Field.swift; sourceTree = "<group>"; };
+		BDF1F2DAA69722F450DB58C3B9FC0900 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift; sourceTree = "<group>"; };
 		C348BBF05F98DA66BB19386D06DCD58F /* Pods-PGoApi_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PGoApi_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		C5562279AD89F776A62E3587234101EB /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift; sourceTree = "<group>"; };
+		C763546ED1F7161191D63A2F3D68BB50 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift; sourceTree = "<group>"; };
 		C84B4F64881E9A0E4502E292F33B873F /* Pods_PGoApi_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PGoApi_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA80C565F5AAC712F4D0270832A1E483 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
 		CCAF97974264803D1271425595E1E43F /* Pods_PGoApi_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PGoApi_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCCDB0F510367F81866B22DF1C7DF830 /* AbstractMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AbstractMessage.swift; path = Source/AbstractMessage.swift; sourceTree = "<group>"; };
 		CED500C6CFC15142A9F8234430099A8B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2E3B98EE127ED61E098FC6CEC0ADDCE /* CodedOutputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedOutputStream.swift; path = Source/CodedOutputStream.swift; sourceTree = "<group>"; };
-		D5AB032B5DAE1EE8DF1A8BF189DBA3F0 /* ConcreateExtensionField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConcreateExtensionField.swift; path = Source/ConcreateExtensionField.swift; sourceTree = "<group>"; };
-		D7FE8072B2AD3D3C1A3C9AD6C509B92A /* Google.Protobuf.Timestamp.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Timestamp.proto.swift; path = Source/Google.Protobuf.Timestamp.proto.swift; sourceTree = "<group>"; };
+		D181C7D5BD1CDF0C258728B96F1F74CE /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
+		D63D9F198FB8ACEC7E7F4B39DF9EA715 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
+		D7A7F2F51092E462FDEF3631A0197E81 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
+		D8339D81E4056835EBD20458C03D6CAF /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		D86A6C58E47E18EB4A55BA8BB73CA018 /* ExtensionRegistry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionRegistry.swift; path = Source/ExtensionRegistry.swift; sourceTree = "<group>"; };
 		D8900689A0054385392A47A6A4C686FC /* Pods-PGoApi_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PGoApi_Example.release.xcconfig"; sourceTree = "<group>"; };
-		D8F50E1CBE01638AECC68428061DDE47 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		D8A4BA58E21B9C50652DA7545213D2B5 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift; sourceTree = "<group>"; };
 		D98F33C68CF4B39328FBFA0ADF34D1A2 /* Pods-PGoApi_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PGoApi_Example-resources.sh"; sourceTree = "<group>"; };
-		DD8F4EAC0A2AE39BDC77D5B78BBDE22A /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
-		E1A1E1389F38634775C5BF02D739F92C /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
-		E400B89EB5200DBD6413F8917008DDEE /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
-		E42DFE461D5D054A00E06B91 /* subFuncA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncA.swift; sourceTree = "<group>"; };
-		E42DFE481D5D062600E06B91 /* subFuncB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncB.swift; sourceTree = "<group>"; };
-		E42DFE491D5D062600E06B91 /* subFuncC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncC.swift; sourceTree = "<group>"; };
-		E42DFE4A1D5D062600E06B91 /* subFuncD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncD.swift; sourceTree = "<group>"; };
-		E42DFE4B1D5D062600E06B91 /* subFuncE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncE.swift; sourceTree = "<group>"; };
-		E42DFE4C1D5D062600E06B91 /* subFuncF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncF.swift; sourceTree = "<group>"; };
-		E42DFE4D1D5D062600E06B91 /* subFuncG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncG.swift; sourceTree = "<group>"; };
-		E42DFE4E1D5D062600E06B91 /* subFuncH.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncH.swift; sourceTree = "<group>"; };
-		E42DFE4F1D5D062600E06B91 /* subFuncI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncI.swift; sourceTree = "<group>"; };
-		E42DFE501D5D062600E06B91 /* subFuncJ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncJ.swift; sourceTree = "<group>"; };
-		E42DFE511D5D062600E06B91 /* subFuncK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncK.swift; sourceTree = "<group>"; };
-		E42DFE521D5D062600E06B91 /* subFuncL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncL.swift; sourceTree = "<group>"; };
-		E42DFE531D5D062600E06B91 /* subFuncM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subFuncM.swift; sourceTree = "<group>"; };
-		E435DD641D5C268400749515 /* PGoEncryptHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoEncryptHelper.swift; sourceTree = "<group>"; };
-		E4CEB0231D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift; sourceTree = "<group>"; };
-		E4CEB0241D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift; sourceTree = "<group>"; };
-		E4CEB0251D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift; sourceTree = "<group>"; };
-		E4E84FE91D7F20380021FD07 /* PGoApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoApiResponse.swift; sourceTree = "<group>"; };
-		E4E84FEB1D7F21A70021FD07 /* Unknown6Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unknown6Builder.swift; sourceTree = "<group>"; };
-		E4F736621D5BE08F006532BB /* PGoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoUtils.swift; sourceTree = "<group>"; };
-		E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PGoEncrypt.swift; sourceTree = "<group>"; };
-		E4F736691D5BE0DB006532BB /* xxhash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = xxhash.swift; sourceTree = "<group>"; };
-		E650DC9A6372DFB56201B400E3B5F885 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
-		E8AFF2EC9A1BF020F609725DFE4622EE /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Source/Manager.swift; sourceTree = "<group>"; };
-		E95B44D2744E5AD3B4CD941661D6C913 /* ExtensionRegistry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionRegistry.swift; path = Source/ExtensionRegistry.swift; sourceTree = "<group>"; };
+		DA42CEF08750844FC462D76918090EE2 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		DAE3514E56C354CC22FBEAF5ECA7F1F4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		DB5B0046064240B708AE49299310A4F9 /* Google.Protobuf.Descriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Descriptor.proto.swift; path = Source/Google.Protobuf.Descriptor.proto.swift; sourceTree = "<group>"; };
+		DCCD5DB8461DAAA21AC421E197CD757B /* TaskDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskDelegate.swift; path = Source/TaskDelegate.swift; sourceTree = "<group>"; };
+		DD497FB41319455935108D8D25C5EC3F /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift; sourceTree = "<group>"; };
+		DF08BF6351D38F27B15D37FD3CB14687 /* ExtendableMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtendableMessage.swift; path = Source/ExtendableMessage.swift; sourceTree = "<group>"; };
+		E10E99869F9AB2C50ABD297B281CEA87 /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		E27DB5A7D1B4311B8AAAA1CC4FD4FF5B /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
+		E631A95660A1F650F8BFD6781BE8C4C2 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		EA9EA98C912F08C28644C7C107B9A438 /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE0279D6FD5079A577989300ADA4EBE7 /* ProtocolBuffers-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ProtocolBuffers-Swift-dummy.m"; sourceTree = "<group>"; };
+		EC392A2ABB4FE1261A91031C5B70C853 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Settings.PogoprotosSettings.proto.swift; sourceTree = "<group>"; };
 		EE4C2F5813E4E13125682A914D20B315 /* Pods-PGoApi_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-PGoApi_Example.modulemap"; sourceTree = "<group>"; };
 		F04BA56EB1D2536C8653DC8304573BA8 /* Pods-PGoApi_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PGoApi_Tests-dummy.m"; sourceTree = "<group>"; };
+		F06E5F11FD3562352BAADD2FCFF2A21B /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
+		F188510B8688BDB9922CABDC2D776EB0 /* PGoEncrypt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoEncrypt.swift; sourceTree = "<group>"; };
+		F4F5F9C586BEC2A9CF043172961D62A3 /* PGoApiResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoApiResponse.swift; sourceTree = "<group>"; };
 		F5034616F46980FA19FC72870A14BF15 /* Pods-PGoApi_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PGoApi_Example-dummy.m"; sourceTree = "<group>"; };
+		F53FA364C1A66CD8379537D5AD59BB1D /* UnknownFieldSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnknownFieldSet.swift; path = Source/UnknownFieldSet.swift; sourceTree = "<group>"; };
 		F7AFF044E7F81EB1C7B733738CEF4259 /* PGoApi-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PGoApi-prefix.pch"; sourceTree = "<group>"; };
-		F93B100338D177CC8E7089AD47DFE0D8 /* GPSOAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GPSOAuth.swift; sourceTree = "<group>"; };
-		FA47D7ED7AA2AB13D133431B6B6BE6D4 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
+		F9B0E84802842380FA48C7151D708254 /* PGoEncryptHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PGoEncryptHelper.swift; sourceTree = "<group>"; };
 		FA71E239D85167965310315D7918A8ED /* Pods-PGoApi_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PGoApi_Tests-resources.sh"; sourceTree = "<group>"; };
-		FD3A6819E07CB583DEECA694F89976F7 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
-		FDD5B5748B6B42FD091F219A21A6FB48 /* RingBuffer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RingBuffer.swift; path = Source/RingBuffer.swift; sourceTree = "<group>"; };
+		FC775E026ED4D6038EB654236399769A /* Google.Protobuf.Empty.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Empty.proto.swift; path = Source/Google.Protobuf.Empty.proto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,16 +306,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				230CF5F5F49A321F4954B8E188EFC197 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7E19DC8DEB6CE3859488FCC72CD66260 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2D3F531250C8E6D98B2C04ECFE4611A7 /* Alamofire.framework in Frameworks */,
-				A152B9A1BD0ACFB99A84EC368C805F2C /* Foundation.framework in Frameworks */,
-				666D46648504D787769C8989F4E142AE /* ProtocolBuffers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,11 +325,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBE4C1EABC12C0DFED3B07A226232B9D /* Frameworks */ = {
+		DB58C1154E77559FB255747E663992BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				529F8BA476229B04E588FC851C366733 /* Foundation.framework in Frameworks */,
+				B687ECF17104B6E9F925C84E50AAE622 /* Alamofire.framework in Frameworks */,
+				3E3FC40A030E533078511EDCB3BCC6DB /* Foundation.framework in Frameworks */,
+				6AC6B47921A0801579B15ED57F82A690 /* ProtocolBuffers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE3DA7A2A45C103A5D982AC3AD157FF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5138196148E5034603DF502A30933E2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,8 +349,8 @@
 		08BE845ECD1580B1DF45EE081E42BCCC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8C54A596E371D196255CD99A49B1CB9D /* Alamofire */,
-				C54B1B28650F0C1BFF7E08ACD4202084 /* ProtocolBuffers-Swift */,
+				475A77EF026BDA7DAD6697FAC86165E7 /* Alamofire */,
+				128844419EC385D98EF85F0AB480CEAC /* ProtocolBuffers-Swift */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -363,18 +363,35 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		119695A4731E36E83E5690CDD7BDA3D7 /* Support Files */ = {
+		128844419EC385D98EF85F0AB480CEAC /* ProtocolBuffers-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				2407D30F88B2385D940400E469B0FE42 /* Alamofire.modulemap */,
-				FA47D7ED7AA2AB13D133431B6B6BE6D4 /* Alamofire.xcconfig */,
-				117C4446BE44E619EEF6A1353041B291 /* Alamofire-dummy.m */,
-				05A36B418384DE87161327FCBEE57375 /* Alamofire-prefix.pch */,
-				4F9AC12A54F68C34047A518836ECFA4F /* Alamofire-umbrella.h */,
-				AEF63591AD13E0FE10BCD26CCEC7ECF2 /* Info.plist */,
+				A0C20EC2D1EDB019274411BA50EB1740 /* AbstractMessage.swift */,
+				2FE6928D7EB9A192074C612BCBAD29C6 /* CodedInputStream.swift */,
+				415E1B4A4F9E2B24318FA3B17AD10557 /* CodedOutputStream.swift */,
+				9DF623FFC6B97ABC6E8FBA5B8ED47431 /* ConcreateExtensionField.swift */,
+				DF08BF6351D38F27B15D37FD3CB14687 /* ExtendableMessage.swift */,
+				D86A6C58E47E18EB4A55BA8BB73CA018 /* ExtensionRegistry.swift */,
+				BC1A0943622B8654324722D563F24694 /* Field.swift */,
+				661E168E6F008540E5FC5A5D564106FF /* GeneratedMessage.swift */,
+				0BF96AAF2EEB762F05D93BC23F104043 /* Google.Protobuf.Any.proto.swift */,
+				87463D89882293ED11C8E63DA39707DE /* Google.Protobuf.Api.proto.swift */,
+				DB5B0046064240B708AE49299310A4F9 /* Google.Protobuf.Descriptor.proto.swift */,
+				651240C9A41E76594BABA92AA41F15AC /* Google.Protobuf.Duration.proto.swift */,
+				FC775E026ED4D6038EB654236399769A /* Google.Protobuf.Empty.proto.swift */,
+				2680AE3474840CB6FFE62CC7EE7F0E77 /* Google.Protobuf.FieldMask.proto.swift */,
+				248E98B73AFC023CA8921F73E0321B97 /* Google.Protobuf.SourceContext.proto.swift */,
+				7B651EC2CA3ABFB87E69EA4E8382BF72 /* Google.Protobuf.Struct.proto.swift */,
+				A5334699B6CFA5C4E703CD8FD32318E7 /* Google.Protobuf.SwiftDescriptor.proto.swift */,
+				065D3B8B38D547DC11A10681178A2E1E /* Google.Protobuf.Timestamp.proto.swift */,
+				78C0DA65DBF5EAADBA9AC4AA66CE8A0A /* Google.Protobuf.Type.proto.swift */,
+				36D47837FF0EF66021649AFAFB2EBA9D /* Google.Protobuf.Wrappers.proto.swift */,
+				5DBFD6BEA0E772F3293140C7090299E5 /* RingBuffer.swift */,
+				F53FA364C1A66CD8379537D5AD59BB1D /* UnknownFieldSet.swift */,
+				476024D2DC61ABC6CB9C6AA09A185D3C /* WireFormat.swift */,
+				C73C82E3A37FD113AF7F4761579B632F /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Alamofire";
+			path = "ProtocolBuffers-Swift";
 			sourceTree = "<group>";
 		};
 		14AED86F32B849FDF1EDBFEF6FA558FA /* Targets Support Files */ = {
@@ -389,11 +406,36 @@
 		2B94A011936D42BF9CE007729017B412 /* PGoApi */ = {
 			isa = PBXGroup;
 			children = (
-				690BA50A1224C75BF3ADD9CEFCCD72B2 /* PGoApi */,
+				FA3E87CF4D10EE00F386CC0F62130ED0 /* PGoApi */,
 				6E47D3CC80FC99F57110195E31A57801 /* Support Files */,
 			);
 			name = PGoApi;
 			path = ../..;
+			sourceTree = "<group>";
+		};
+		475A77EF026BDA7DAD6697FAC86165E7 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				F06E5F11FD3562352BAADD2FCFF2A21B /* AFError.swift */,
+				0DF5B262444D4DB355E4492B582EFB0D /* Alamofire.swift */,
+				E10E99869F9AB2C50ABD297B281CEA87 /* DispatchQueue+Alamofire.swift */,
+				E631A95660A1F650F8BFD6781BE8C4C2 /* MultipartFormData.swift */,
+				D8339D81E4056835EBD20458C03D6CAF /* NetworkReachabilityManager.swift */,
+				D7A7F2F51092E462FDEF3631A0197E81 /* Notifications.swift */,
+				DAE3514E56C354CC22FBEAF5ECA7F1F4 /* ParameterEncoding.swift */,
+				DA42CEF08750844FC462D76918090EE2 /* Request.swift */,
+				9476C7892089EFD572CD48E8CEE0E19A /* Response.swift */,
+				A6ED25E99FD68EBB7DD14C2D4E3217B2 /* ResponseSerialization.swift */,
+				D181C7D5BD1CDF0C258728B96F1F74CE /* Result.swift */,
+				60708FCEBEABDF8BF378D8777791FDC4 /* ServerTrustPolicy.swift */,
+				CA80C565F5AAC712F4D0270832A1E483 /* SessionDelegate.swift */,
+				320077A12B3586731B77434F05997AB7 /* SessionManager.swift */,
+				DCCD5DB8461DAAA21AC421E197CD757B /* TaskDelegate.swift */,
+				E27DB5A7D1B4311B8AAAA1CC4FD4FF5B /* Timeline.swift */,
+				68DE1B6BB01E0BB56B0BF1D0D28E0B2A /* Validation.swift */,
+				DD06FF6DE34C248CE6E49CBD66C83AF9 /* Support Files */,
+			);
+			path = Alamofire;
 			sourceTree = "<group>";
 		};
 		51E69F28D0147E1904A56F5D36756F71 /* Development Pods */ = {
@@ -414,35 +456,6 @@
 				4E0BA8E1301F8C3D8BAF319E8F08ABE5 /* ProtocolBuffers.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6291C70057973248E41C5ADD75306EB3 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				E4F736651D5BE0DB006532BB /* Unknown6 */,
-				A31E03161D51312F00B69C63 /* protos */,
-				ACD3E1AD6111B387A2127EC65F03B7CB /* PGoAuth.swift */,
-				816BA448A9C6DBB694F7A5ADD3C8B6D5 /* PGoAuthDelegate.swift */,
-				93DEBCF76692370947479E13F13F1975 /* PtcOAuth.swift */,
-				F93B100338D177CC8E7089AD47DFE0D8 /* GPSOAuth.swift */,
-				89334F8C4B199395373338C368D3ED5D /* Extensions.swift */,
-				2BF2B15E987AE0B74B2D0AF006589D1A /* Globals.swift */,
-				267EA15E0066C93B60710F6689511BE7 /* PGoApiDelegate.swift */,
-				75A219FCE22860A27B47F365E2364CDE /* PGoApiRequest.swift */,
-				E4E84FE91D7F20380021FD07 /* PGoApiResponse.swift */,
-				297832640413A34C6E671E759EE46D43 /* PGoRpcApi.swift */,
-				11E506CF98E807B4E6B1D5DAED3838AF /* S2Geometry.swift */,
-				E4F736621D5BE08F006532BB /* PGoUtils.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		690BA50A1224C75BF3ADD9CEFCCD72B2 /* PGoApi */ = {
-			isa = PBXGroup;
-			children = (
-				6291C70057973248E41C5ADD75306EB3 /* Classes */,
-			);
-			path = PGoApi;
 			sourceTree = "<group>";
 		};
 		6E47D3CC80FC99F57110195E31A57801 /* Support Files */ = {
@@ -507,105 +520,67 @@
 			);
 			sourceTree = "<group>";
 		};
-		7EEDCD956161C4781D308E305BC6DA29 /* Support Files */ = {
+		8D084EA9758BF3D6639EFDFC593C5BAE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AEA4811955AB20EFDE989E559F58E056 /* Info.plist */,
-				8DDEC75C9A636F834E23B900B86E086E /* ProtocolBuffers-Swift.modulemap */,
-				27454FBC4E8237D5383BADD5231A2E10 /* ProtocolBuffers-Swift.xcconfig */,
-				EE0279D6FD5079A577989300ADA4EBE7 /* ProtocolBuffers-Swift-dummy.m */,
-				13480D13411CA271C2112AA2C4331905 /* ProtocolBuffers-Swift-prefix.pch */,
-				C1F23BF48B7386F828F10437BA53B509 /* ProtocolBuffers-Swift-umbrella.h */,
+				E42F90381D8A7486007EC3A9 /* Auth */,
+				E42F90391D8A74BA007EC3A9 /* Extensions */,
+				F865F63B8734B63627D74112F0624C53 /* Platform Request */,
+				B9FC247C9AD864B820DA219BD51855C8 /* Protos */,
+				9297DD00F583707CEEBD7FF5405998D8 /* Globals.swift */,
+				91386F673C09BA76A94EAAF865E48412 /* PGoApiDelegate.swift */,
+				A2375DEC62741D25CCC5D70F533415DC /* PGoApiRequest.swift */,
+				F4F5F9C586BEC2A9CF043172961D62A3 /* PGoApiResponse.swift */,
+				8C3BFCB62F8DC943C1D91AEAB009CA3C /* PGoRpcApi.swift */,
+				AE1A74EBE1FFB1EC159BF228F7743A94 /* PGoUtils.swift */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/ProtocolBuffers-Swift";
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		8C54A596E371D196255CD99A49B1CB9D /* Alamofire */ = {
+		B9FC247C9AD864B820DA219BD51855C8 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				9BF31636CEA5DB5B3B8A4F033A0DA002 /* Alamofire.swift */,
-				1C190FDAC31A01FA6833954FD814CB11 /* Download.swift */,
-				8EBFFAEB650BCBE5D96213C5C99799A6 /* Error.swift */,
-				E8AFF2EC9A1BF020F609725DFE4622EE /* Manager.swift */,
-				E650DC9A6372DFB56201B400E3B5F885 /* MultipartFormData.swift */,
-				6442E19E93687D7C062F69F42FC1017A /* NetworkReachabilityManager.swift */,
-				3465FE2A75E7DC66AA1BD0235AD79070 /* Notifications.swift */,
-				5588ADA1A70AC2205ACD85CF7B1E50E9 /* ParameterEncoding.swift */,
-				4E8FD930B067C252809D3C7C692211CC /* Request.swift */,
-				FD3A6819E07CB583DEECA694F89976F7 /* Response.swift */,
-				D8F50E1CBE01638AECC68428061DDE47 /* ResponseSerialization.swift */,
-				E400B89EB5200DBD6413F8917008DDEE /* Result.swift */,
-				DD8F4EAC0A2AE39BDC77D5B78BBDE22A /* ServerTrustPolicy.swift */,
-				4B197C3F91DD3902F65F8151063D1DA4 /* Stream.swift */,
-				0DFF968A6CE9CD0AD8EC54FF8FAB43D5 /* Timeline.swift */,
-				96A279993B205079AC6A658937476E11 /* Upload.swift */,
-				75AED42F0774BC2A30144232FBCDA9B9 /* Validation.swift */,
-				119695A4731E36E83E5690CDD7BDA3D7 /* Support Files */,
+				9034FAEF662BB373AD04E93779EA6F76 /* Pogoprotos.swift */,
+				DD497FB41319455935108D8D25C5EC3F /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */,
+				C763546ED1F7161191D63A2F3D68BB50 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */,
+				D8A4BA58E21B9C50652DA7545213D2B5 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */,
+				BDF1F2DAA69722F450DB58C3B9FC0900 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */,
+				9D742CAC47E16098FA559800BD6912B7 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */,
+				53C4DCF8E557A4D94253CDD8232E3E12 /* Pogoprotos.Data.PogoprotosData.proto.swift */,
+				34176507782C4A0E83A27EAC2D632FDB /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */,
+				6469B7914BB79A9780BEE463747B7FB0 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */,
+				A11DABE11ACA29BC7D2E6E3EEBB3F327 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */,
+				4BFFF033FC9180706FD8902A97604A8E /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */,
+				96C2988D3EC1FCBB8ED77B4C993C9AFC /* Pogoprotos.Map.PogoprotosMap.proto.swift */,
+				093AEF3B406CE90A4FA529E4D9671110 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift */,
+				538B8026DF18C4B69511733F9C6AD8E6 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */,
+				5B995FEADB54826F4E15B1EAF56F8DA4 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */,
+				8DB04581052D69FBBFEFC1D6515B27B1 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */,
+				7C841CB53E3568922A5184692C7A03AB /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */,
+				710CCF5EA5B3328B4844EE05225E0A84 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift */,
+				A8C7FCBA147118A906925DB4D7223795 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift */,
+				510412BF690108630F6C8BB87073FCD1 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */,
+				98FE1EA276B3CEF150A0E24E0D575467 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift */,
+				C5562279AD89F776A62E3587234101EB /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift */,
+				3F3ADDC51B80441E94976F0156C8E32E /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */,
+				EC392A2ABB4FE1261A91031C5B70C853 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */,
 			);
-			path = Alamofire;
-			sourceTree = "<group>";
-		};
-		A31E03161D51312F00B69C63 /* protos */ = {
-			isa = PBXGroup;
-			children = (
-				A31E03171D51312F00B69C63 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift */,
-				A31E03181D51312F00B69C63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift */,
-				A31E03191D51312F00B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift */,
-				A31E031A1D51312F00B69C63 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift */,
-				A31E031B1D51312F00B69C63 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift */,
-				A31E031C1D51312F00B69C63 /* Pogoprotos.Data.PogoprotosData.proto.swift */,
-				A31E031D1D51312F00B69C63 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift */,
-				A31E031E1D51312F00B69C63 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift */,
-				A31E031F1D51312F00B69C63 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift */,
-				A31E03201D51312F00B69C63 /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift */,
-				A31E03211D51312F00B69C63 /* Pogoprotos.Map.PogoprotosMap.proto.swift */,
-				A31E03221D51312F00B69C63 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift */,
-				A31E03231D51312F00B69C63 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */,
-				E4CEB0231D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift */,
-				E4CEB0241D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift */,
-				E4CEB0251D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift */,
-				A31E03241D51312F00B69C63 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift */,
-				A31E03251D51312F00B69C63 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift */,
-				A31E03261D51312F00B69C63 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */,
-				A31E03271D51312F00B69C63 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift */,
-				A31E03281D51312F00B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift */,
-				A31E03291D51312F00B69C63 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */,
-				A31E032A1D51312F00B69C63 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */,
-				A31E032B1D51312F00B69C63 /* Pogoprotos.swift */,
-			);
+			name = Protos;
 			path = protos;
 			sourceTree = "<group>";
 		};
-		C54B1B28650F0C1BFF7E08ACD4202084 /* ProtocolBuffers-Swift */ = {
+		C73C82E3A37FD113AF7F4761579B632F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				CCCDB0F510367F81866B22DF1C7DF830 /* AbstractMessage.swift */,
-				73E92E9F80DD66FA25A943E778CAFE25 /* CodedInputStream.swift */,
-				D2E3B98EE127ED61E098FC6CEC0ADDCE /* CodedOutputStream.swift */,
-				D5AB032B5DAE1EE8DF1A8BF189DBA3F0 /* ConcreateExtensionField.swift */,
-				6007401503F392166E48DB66DA465356 /* ExtendableMessage.swift */,
-				E95B44D2744E5AD3B4CD941661D6C913 /* ExtensionRegistry.swift */,
-				52ED8ECEF1361C3A73E571AC85E9C68C /* Field.swift */,
-				2444B30E73275C117F604222D254B3B1 /* GeneratedMessage.swift */,
-				1BCF28469124B16E5E22527E5419DAF6 /* Google.Protobuf.AnyType.proto.swift */,
-				5547EA8165031F2C18E62753D08E2273 /* Google.Protobuf.Api.proto.swift */,
-				4EB85B98DE3C47AD5D8DA2029A08B40C /* Google.Protobuf.Descriptor.proto.swift */,
-				9BFF18DCA9866A0AA480B4B7850BE064 /* Google.Protobuf.Duration.proto.swift */,
-				9A407E2A5B4A8A684F5E2970E6B5A54E /* Google.Protobuf.Empty.proto.swift */,
-				E1A1E1389F38634775C5BF02D739F92C /* Google.Protobuf.FieldMask.proto.swift */,
-				2200437ADFA613DE56AE9D52B05E7796 /* Google.Protobuf.SourceContext.proto.swift */,
-				B467B650ACCA82307AB049E1215E2533 /* Google.Protobuf.Struct.proto.swift */,
-				1C309FB75EA6A55CB63B6F05EC9BDAF5 /* Google.Protobuf.SwiftDescriptor.proto.swift */,
-				D7FE8072B2AD3D3C1A3C9AD6C509B92A /* Google.Protobuf.Timestamp.proto.swift */,
-				3525686EE772F9BC98C357CEA5D86B68 /* Google.Protobuf.Types.proto.swift */,
-				740EA8DCAEED45BB601E8FCA2C870E08 /* Google.Protobuf.Wrappers.proto.swift */,
-				FDD5B5748B6B42FD091F219A21A6FB48 /* RingBuffer.swift */,
-				187CD9E767E33BB5DAD142F7B94032E6 /* UnknownFieldSet.swift */,
-				26BC5243400021CBCA4CC23346212857 /* WireFormat.swift */,
-				7EEDCD956161C4781D308E305BC6DA29 /* Support Files */,
+				763D0F93FD73B9976313317C6789BBCC /* Info.plist */,
+				57952D350ACCD53B941598DCCC51D9F2 /* ProtocolBuffers-Swift.modulemap */,
+				ABF90B1AF83DD319A588426BD038E49C /* ProtocolBuffers-Swift.xcconfig */,
+				5C2AD8FFB72489FEFFD65B5B526144D9 /* ProtocolBuffers-Swift-dummy.m */,
+				AB76DAD07F611E6165BF5BE098B61C31 /* ProtocolBuffers-Swift-prefix.pch */,
+				085B69D9E3C44BD904004CD0169652E9 /* ProtocolBuffers-Swift-umbrella.h */,
 			);
-			path = "ProtocolBuffers-Swift";
+			name = "Support Files";
+			path = "../Target Support Files/ProtocolBuffers-Swift";
 			sourceTree = "<group>";
 		};
 		D2A02638343F1C6A25E77AD7E1DD0315 /* Frameworks */ = {
@@ -618,54 +593,97 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E4E84FED1D7F35F20021FD07 /* Encryption */ = {
+		DD06FF6DE34C248CE6E49CBD66C83AF9 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				E4F736681D5BE0DB006532BB /* PGoEncrypt.swift */,
-				E42DFE461D5D054A00E06B91 /* subFuncA.swift */,
-				E42DFE481D5D062600E06B91 /* subFuncB.swift */,
-				E42DFE491D5D062600E06B91 /* subFuncC.swift */,
-				E42DFE4A1D5D062600E06B91 /* subFuncD.swift */,
-				E42DFE4B1D5D062600E06B91 /* subFuncE.swift */,
-				E42DFE4C1D5D062600E06B91 /* subFuncF.swift */,
-				E42DFE4D1D5D062600E06B91 /* subFuncG.swift */,
-				E42DFE4E1D5D062600E06B91 /* subFuncH.swift */,
-				E42DFE4F1D5D062600E06B91 /* subFuncI.swift */,
-				E42DFE501D5D062600E06B91 /* subFuncJ.swift */,
-				E42DFE511D5D062600E06B91 /* subFuncK.swift */,
-				E42DFE521D5D062600E06B91 /* subFuncL.swift */,
-				E42DFE531D5D062600E06B91 /* subFuncM.swift */,
-				E435DD641D5C268400749515 /* PGoEncryptHelper.swift */,
+				B207B07BDFBE7F0F510C134CF78CF0E5 /* Alamofire.modulemap */,
+				D63D9F198FB8ACEC7E7F4B39DF9EA715 /* Alamofire.xcconfig */,
+				9415B1BE4A667A8689B7362DC94B6594 /* Alamofire-dummy.m */,
+				1E737C63F45D8CE0416D0C26480CF932 /* Alamofire-prefix.pch */,
+				722AF76B98EEF7F14778C9F5AE526DD2 /* Alamofire-umbrella.h */,
+				64314F8D7BAA987ECC7685D76B068299 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Alamofire";
+			sourceTree = "<group>";
+		};
+		E42F90371D8A397B007EC3A9 /* Shuffler */ = {
+			isa = PBXGroup;
+			children = (
+				2AEA40408A3FAE14B1777CB48074FC04 /* subFuncA.swift */,
+				39E48B9B1CAF3A73424C6776DACFA4ED /* subFuncB.swift */,
+				4D52FEBBD1801C0334E14530BB77E224 /* subFuncC.swift */,
+				A4574BDA697D0CDC8BC50A28287D7BBB /* subFuncD.swift */,
+				4D6611D910057B67F2218560DE7F147B /* subFuncE.swift */,
+				5950D6951A477D0AAB51F99E6271C9F4 /* subFuncF.swift */,
+				93C9C880811E7F352D9B27CD102FC7B5 /* subFuncG.swift */,
+				BB00B4B11D3C6D28463C0D34573C4694 /* subFuncH.swift */,
+				17DB023396AC3856F9FE54080C970FDF /* subFuncI.swift */,
+				732AA57CCDBF56EDBCE1460E25102623 /* subFuncJ.swift */,
+				1B5E87D20EE278C88D648147EA97510D /* subFuncK.swift */,
+				4C64F6BC38FFF1EFBF06277B425CB671 /* subFuncL.swift */,
+				712FB617E1B24B4CC025F9266FE2C81A /* subFuncM.swift */,
+			);
+			name = Shuffler;
+			sourceTree = "<group>";
+		};
+		E42F90381D8A7486007EC3A9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				8F4D919F53853AD674387001DD11DD37 /* PGoAuth.swift */,
+				36231CEAAD242ECEE0771D883D1B2798 /* PGoAuthDelegate.swift */,
+				2F522690AFCA171614304483DC677669 /* GPSOAuth.swift */,
+				682A83FE475110D6F8755CC78BCE1EE5 /* PtcOAuth.swift */,
+			);
+			name = Auth;
+			sourceTree = "<group>";
+		};
+		E42F90391D8A74BA007EC3A9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				19B68E4D97BF675645C1B072D0978117 /* Extensions.swift */,
+				1FEFEA0A0CD526573BEA604C7063D430 /* S2Geometry.swift */,
+				5357ABFFE739369AA85F952B262E384C /* xxhash.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		E42F903A1D8A7529007EC3A9 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				E42F90371D8A397B007EC3A9 /* Shuffler */,
+				F188510B8688BDB9922CABDC2D776EB0 /* PGoEncrypt.swift */,
+				F9B0E84802842380FA48C7151D708254 /* PGoEncryptHelper.swift */,
 			);
 			name = Encryption;
 			sourceTree = "<group>";
 		};
-		E4F736651D5BE0DB006532BB /* Unknown6 */ = {
+		F865F63B8734B63627D74112F0624C53 /* Platform Request */ = {
 			isa = PBXGroup;
 			children = (
-				E4E84FED1D7F35F20021FD07 /* Encryption */,
-				E4E84FEB1D7F21A70021FD07 /* Unknown6Builder.swift */,
-				E4F736691D5BE0DB006532BB /* xxhash.swift */,
+				E42F903A1D8A7529007EC3A9 /* Encryption */,
+				91474AADFB132CC2945D924F3EFDF7A8 /* Unknown6Builder.swift */,
 			);
+			name = "Platform Request";
 			path = Unknown6;
+			sourceTree = "<group>";
+		};
+		FA3E87CF4D10EE00F386CC0F62130ED0 /* PGoApi */ = {
+			isa = PBXGroup;
+			children = (
+				8D084EA9758BF3D6639EFDFC593C5BAE /* Classes */,
+			);
+			path = PGoApi;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4DA39B841A57E01759FFC3F542801E9C /* Headers */ = {
+		441D4401C124FDD21A7618DB5F330E64 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3B729AA4857F2FB88CD2C286A557F42 /* PGoApi-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8954FB3A0E0257DB6781594A30DEB5DE /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FDD35E601272CEFD9106CC9A77F6DBC5 /* ProtocolBuffers-Swift-umbrella.h in Headers */,
+				F96C0C8DB31B2E775C90ABC4AAA1CD87 /* PGoApi-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,33 +711,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F879FD154FE6B8E4253F738431826640 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A06ECAF24A620D210B9C7305C28B130 /* ProtocolBuffers-Swift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		32DE909F174C589373212BC01F895324 /* PGoApi */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1D69FFB36BF67F650ECE280D5EDBFC4F /* Build configuration list for PBXNativeTarget "PGoApi" */;
-			buildPhases = (
-				7060713671C58D4BD2F019FB82E8CF92 /* Sources */,
-				7E19DC8DEB6CE3859488FCC72CD66260 /* Frameworks */,
-				4DA39B841A57E01759FFC3F542801E9C /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				38E6D5352F682CB7AA738DED5FFB798C /* PBXTargetDependency */,
-				563661F0E6C428F18422379C73A847EB /* PBXTargetDependency */,
-			);
-			name = PGoApi;
-			productName = PGoApi;
-			productReference = A2F9691893B1D523536E822C1CF9562C /* PGoApi.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		79C040AFDDCE1BCBF6D8B5EB0B85887F /* Alamofire */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CFB42910790CF0BDBCCEBAACD6B9367 /* Build configuration list for PBXNativeTarget "Alamofire" */;
 			buildPhases = (
-				95CC2C7E06DC188A05DAAEE9CAA555A3 /* Sources */,
+				120C4E824DDCCA024C170A491FF221A5 /* Sources */,
 				B1729F851F648EC60EE93CDB3C8BAEAD /* Frameworks */,
 				EFDF3B631BBB965A372347705CA14854 /* Headers */,
 			);
@@ -732,21 +739,23 @@
 			productReference = 1DD2742E155469AF2DF7D4716F2DCE68 /* Alamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A2E4132534D22D75CBA77626BFD683C6 /* ProtocolBuffers-Swift */ = {
+		87F0F63A40E244D025E67D4E0606D9D4 /* PGoApi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 037359B44EA6EB247AD3B3356CAB9AD7 /* Build configuration list for PBXNativeTarget "ProtocolBuffers-Swift" */;
+			buildConfigurationList = B0701305CABD893D97A4B521CEEF4B57 /* Build configuration list for PBXNativeTarget "PGoApi" */;
 			buildPhases = (
-				A835CF971C6735E1915762D192977FC9 /* Sources */,
-				FBE4C1EABC12C0DFED3B07A226232B9D /* Frameworks */,
-				8954FB3A0E0257DB6781594A30DEB5DE /* Headers */,
+				AF3137C44A9946C6489EF50D6CE927EA /* Sources */,
+				DB58C1154E77559FB255747E663992BD /* Frameworks */,
+				441D4401C124FDD21A7618DB5F330E64 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				46D3E5544DF984A0B7C9B84C90C672BA /* PBXTargetDependency */,
+				10009BFA1694C0825C84E695016A4F4D /* PBXTargetDependency */,
 			);
-			name = "ProtocolBuffers-Swift";
-			productName = "ProtocolBuffers-Swift";
-			productReference = 4E0BA8E1301F8C3D8BAF319E8F08ABE5 /* ProtocolBuffers.framework */;
+			name = PGoApi;
+			productName = PGoApi;
+			productReference = A2F9691893B1D523536E822C1CF9562C /* PGoApi.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A70D3D969BC2330F04772CBC06F086BD /* Pods-PGoApi_Tests */ = {
@@ -764,6 +773,23 @@
 			name = "Pods-PGoApi_Tests";
 			productName = "Pods-PGoApi_Tests";
 			productReference = CCAF97974264803D1271425595E1E43F /* Pods_PGoApi_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B69D5546AB35CB5B12AB6A2DAA0EDC55 /* ProtocolBuffers-Swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C35AF53F6F75813F7CCD547E3BC1E306 /* Build configuration list for PBXNativeTarget "ProtocolBuffers-Swift" */;
+			buildPhases = (
+				E4AE336A276F967B1257B0DE863260BA /* Sources */,
+				DE3DA7A2A45C103A5D982AC3AD157FF9 /* Frameworks */,
+				F879FD154FE6B8E4253F738431826640 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ProtocolBuffers-Swift";
+			productName = "ProtocolBuffers-Swift";
+			productReference = 4E0BA8E1301F8C3D8BAF319E8F08ABE5 /* ProtocolBuffers.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		D70E127CBFABA2FB7D6C25380E7E3561 /* Pods-PGoApi_Example */ = {
@@ -808,15 +834,40 @@
 			projectRoot = "";
 			targets = (
 				79C040AFDDCE1BCBF6D8B5EB0B85887F /* Alamofire */,
-				32DE909F174C589373212BC01F895324 /* PGoApi */,
+				87F0F63A40E244D025E67D4E0606D9D4 /* PGoApi */,
 				D70E127CBFABA2FB7D6C25380E7E3561 /* Pods-PGoApi_Example */,
 				A70D3D969BC2330F04772CBC06F086BD /* Pods-PGoApi_Tests */,
-				A2E4132534D22D75CBA77626BFD683C6 /* ProtocolBuffers-Swift */,
+				B69D5546AB35CB5B12AB6A2DAA0EDC55 /* ProtocolBuffers-Swift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		120C4E824DDCCA024C170A491FF221A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62143065F94E53F437DCE5D7A998D66D /* AFError.swift in Sources */,
+				8D463A0A4C65C02FDD5211F0F3C6F8B8 /* Alamofire-dummy.m in Sources */,
+				7CA5A9BA5246FDA8227233E310029392 /* Alamofire.swift in Sources */,
+				E2A1C34237B4E928E5F85C097F4C2551 /* DispatchQueue+Alamofire.swift in Sources */,
+				C7A3408350643ADE1018826C766EE356 /* MultipartFormData.swift in Sources */,
+				E59BF19C0AFA68B741552319FC478C7B /* NetworkReachabilityManager.swift in Sources */,
+				0C1B4E9FFB8B81E8833A3BAD537B1990 /* Notifications.swift in Sources */,
+				AF158CAAF4DD319009AFC855DC995D90 /* ParameterEncoding.swift in Sources */,
+				12118C354EFA36292F82A8D0CFCE45B2 /* Request.swift in Sources */,
+				86ED08F33B7D357932A9AB743E9D9EA7 /* Response.swift in Sources */,
+				B8154C96802336E5DDA5CEE97C3180A0 /* ResponseSerialization.swift in Sources */,
+				DF1BBF94997A2F4248B42B25EA919EC2 /* Result.swift in Sources */,
+				C0AEA97E7684DDAD56998C0AE198A433 /* ServerTrustPolicy.swift in Sources */,
+				907AB123FBC8BC9340D5B7350CE828DF /* SessionDelegate.swift in Sources */,
+				A79AC30123B0C2177D67F6ED6A1B3215 /* SessionManager.swift in Sources */,
+				E1F583CB4A68A928CD197250AA752926 /* TaskDelegate.swift in Sources */,
+				3982B850C43B41BA6D25F440F0412E9B /* Timeline.swift in Sources */,
+				FFFDD494EE6D1B83DDAF5F2721F685A6 /* Validation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44F146FFA0890A0481F3B31E55AC788C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -825,120 +876,95 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7060713671C58D4BD2F019FB82E8CF92 /* Sources */ = {
+		AF3137C44A9946C6489EF50D6CE927EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E42DFE561D5D062600E06B91 /* subFuncD.swift in Sources */,
-				A31E03311D51314600B69C63 /* Pogoprotos.Data.PogoprotosData.proto.swift in Sources */,
-				A31E033E1D51314600B69C63 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift in Sources */,
-				A31E03341D51314600B69C63 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift in Sources */,
-				A31E033B1D51314600B69C63 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift in Sources */,
-				0E859228B362EE3AECE9CD9A5E9B64E3 /* PGoAuth.swift in Sources */,
-				850BE3A401B3F03D96A94D6302A2349B /* PGoAuthDelegate.swift in Sources */,
-				A31E03331D51314600B69C63 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */,
-				A31E03401D51314600B69C63 /* Pogoprotos.swift in Sources */,
-				E4CEB0281D79ED1B00286806 /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift in Sources */,
-				F5A4518F6DE1E5A8187197A89186BE35 /* Extensions.swift in Sources */,
-				BBB5A55ADCC257D4174D441DE1F45019 /* Globals.swift in Sources */,
-				E42DFE551D5D062600E06B91 /* subFuncC.swift in Sources */,
-				A31E03321D51314600B69C63 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift in Sources */,
-				E435DD651D5C268400749515 /* PGoEncryptHelper.swift in Sources */,
-				A31E033C1D51314600B69C63 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift in Sources */,
-				A31E03301D51314600B69C63 /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */,
-				E4E84FEC1D7F21A70021FD07 /* Unknown6Builder.swift in Sources */,
-				E42DFE581D5D062600E06B91 /* subFuncF.swift in Sources */,
-				E4E84FEA1D7F20380021FD07 /* PGoApiResponse.swift in Sources */,
-				E42DFE471D5D054A00E06B91 /* subFuncA.swift in Sources */,
-				E4CEB0261D79ED1B00286806 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift in Sources */,
-				A31E03361D51314600B69C63 /* Pogoprotos.Map.PogoprotosMap.proto.swift in Sources */,
-				A31E033A1D51314600B69C63 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift in Sources */,
-				E42DFE5A1D5D062600E06B91 /* subFuncH.swift in Sources */,
-				A31E03381D51314600B69C63 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift in Sources */,
-				E42DFE5B1D5D062600E06B91 /* subFuncI.swift in Sources */,
-				A31E033F1D51314600B69C63 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift in Sources */,
-				3D5397280D54B105B8BD06B79D2E4524 /* GPSOAuth.swift in Sources */,
-				A31E03391D51314600B69C63 /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */,
-				E42DFE5D1D5D062600E06B91 /* subFuncK.swift in Sources */,
-				E4F7366D1D5BE0DB006532BB /* xxhash.swift in Sources */,
-				8DCCFA895D4BBFC66B33520D18B06788 /* PGoApi-dummy.m in Sources */,
-				A31E032C1D51314600B69C63 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift in Sources */,
-				C273E0462649C60B5BFCCA9108DC8158 /* PGoApiDelegate.swift in Sources */,
-				A31E03351D51314600B69C63 /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift in Sources */,
-				A761F379DC7FDE30EC0FEB4E86B61637 /* PGoApiRequest.swift in Sources */,
-				A31E032D1D51314600B69C63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift in Sources */,
-				A31E032E1D51314600B69C63 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */,
-				7978880777C45217390643A415A45F8C /* PtcOAuth.swift in Sources */,
-				E4CEB0271D79ED1B00286806 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift in Sources */,
-				E4F7366C1D5BE0DB006532BB /* PGoEncrypt.swift in Sources */,
-				E6EC4FF319C2EE94CC2EF1992EF06B75 /* PGoRpcApi.swift in Sources */,
-				F1EF2AF5B9139512627248E7999842AF /* S2Geometry.swift in Sources */,
-				E4F736631D5BE08F006532BB /* PGoUtils.swift in Sources */,
-				E42DFE5F1D5D062600E06B91 /* subFuncM.swift in Sources */,
-				E42DFE5C1D5D062600E06B91 /* subFuncJ.swift in Sources */,
-				A31E033D1D51314600B69C63 /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */,
-				E42DFE591D5D062600E06B91 /* subFuncG.swift in Sources */,
-				E42DFE541D5D062600E06B91 /* subFuncB.swift in Sources */,
-				E42DFE571D5D062600E06B91 /* subFuncE.swift in Sources */,
-				E42DFE5E1D5D062600E06B91 /* subFuncL.swift in Sources */,
-				A31E03371D51314600B69C63 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift in Sources */,
-				A31E032F1D51314600B69C63 /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */,
+				A377CB7D958696836B66C7EB9DC81B3F /* Extensions.swift in Sources */,
+				BADAA0A7598C42154C5CAB6E45319107 /* Globals.swift in Sources */,
+				9C4EAFB446F5B45FAF0ED72D503076CA /* GPSOAuth.swift in Sources */,
+				2185EF63B6BD0362A4C8A001AA0464DD /* PGoApi-dummy.m in Sources */,
+				B85BC863D64AC927D365ECD5C2D8F1CB /* PGoApiDelegate.swift in Sources */,
+				F5F30B59EDECB46BF34D066D8BA19F43 /* PGoApiRequest.swift in Sources */,
+				C24F54CA9B19DEB1355DF039FC848829 /* PGoApiResponse.swift in Sources */,
+				48EC6E9B49E5801EC67721A1DB1005EA /* PGoAuth.swift in Sources */,
+				C15338F3B2632570EC103D96410C98A7 /* PGoAuthDelegate.swift in Sources */,
+				380EA411A3A0A300E49E61396FB0321C /* PGoEncrypt.swift in Sources */,
+				81E7F412E4610610078F9A08FA4E6BE1 /* PGoEncryptHelper.swift in Sources */,
+				80E76EA77ED345980245F626C2C6D782 /* PGoRpcApi.swift in Sources */,
+				C82B348B27F730CF19F05DF3A8E24655 /* PGoUtils.swift in Sources */,
+				7DC96C00870952FC43D088DDAB0079E0 /* Pogoprotos.Data.Battle.PogoprotosDataBattle.proto.swift in Sources */,
+				810466E92F2FB738B3ABC2BF108ECA63 /* Pogoprotos.Data.Capture.PogoprotosDataCapture.proto.swift in Sources */,
+				2A7FAE7CFE89DD22DBBA37DDB8E8AE69 /* Pogoprotos.Data.Gym.PogoprotosDataGym.proto.swift in Sources */,
+				E3ADBE0685FC3EA96AE765BEA2EB80AE /* Pogoprotos.Data.Logs.PogoprotosDataLogs.proto.swift in Sources */,
+				06D2214C4451D86A16481E7301228F2D /* Pogoprotos.Data.Player.PogoprotosDataPlayer.proto.swift in Sources */,
+				323F1A2666CF5AFC8590C65935FDE708 /* Pogoprotos.Data.PogoprotosData.proto.swift in Sources */,
+				B9A7271821BF43DBA9430D579171DEA2 /* Pogoprotos.Enums.PogoprotosEnums.proto.swift in Sources */,
+				567806EF510A8D2B8727214286045A37 /* Pogoprotos.Inventory.Item.PogoprotosInventoryItem.proto.swift in Sources */,
+				FF8123252A6C3FD269F346A7FED8C8C8 /* Pogoprotos.Inventory.PogoprotosInventory.proto.swift in Sources */,
+				0F14129210CA2C9E28491CB4F202E95C /* Pogoprotos.Map.Fort.PogoprotosMapFort.proto.swift in Sources */,
+				FBAC68E7708614842ECA919D59B3F8BE /* Pogoprotos.Map.PogoprotosMap.proto.swift in Sources */,
+				17579C410F4C4E719333BAFA647CDFC4 /* Pogoprotos.Map.Pokemon.PogoprotosMapPokemon.proto.swift in Sources */,
+				01D7C9B5A183558E92828E5E8CBA90BF /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift in Sources */,
+				C3AE63BE42F8579984C81FF903AA53D0 /* Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatform.proto.swift in Sources */,
+				6D6D8F7300938615D2330F3372500D09 /* Pogoprotos.Networking.Platform.Requests.PogoprotosNetworkingPlatformRequests.proto.swift in Sources */,
+				93DF090D86FAF9DE621106526F23D4EA /* Pogoprotos.Networking.Platform.Responses.PogoprotosNetworkingPlatformResponses.proto.swift in Sources */,
+				BB861D1B71EFD8650B667988AAB8249F /* Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessages.proto.swift in Sources */,
+				29520479B18DDEAB13E2B6A358F921A8 /* Pogoprotos.Networking.Requests.PogoprotosNetworkingRequests.proto.swift in Sources */,
+				84569294A7561952CA06DCDFB30C4308 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift in Sources */,
+				3C07B35FFABA3C525D145D5FE1604272 /* Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItem.proto.swift in Sources */,
+				BC7172342C9EB9506AB6D3845CBF17AC /* Pogoprotos.Settings.Master.PogoprotosSettingsMaster.proto.swift in Sources */,
+				32ADB266D02039B58CBE2E2808B2D074 /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift in Sources */,
+				C58560953E9B3588702BB9B52E9CED32 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift in Sources */,
+				C1CEA50A442C7D53363A1CEFA9DD78BB /* Pogoprotos.swift in Sources */,
+				487E272D2F5E14E33A5D43916BA4DF9D /* PtcOAuth.swift in Sources */,
+				36CD0CAF089D35FA6491E11DAB01D68F /* S2Geometry.swift in Sources */,
+				1FAF49DB9BE07711E6CBB55DFFB24518 /* subFuncA.swift in Sources */,
+				16D54FEEAF59A54D2BED76D486A04807 /* subFuncB.swift in Sources */,
+				9886A1497F28731E1A23362C05742E21 /* subFuncC.swift in Sources */,
+				0E30250654A3E0626F22220ABD2E6FA5 /* subFuncD.swift in Sources */,
+				4E1155652C06F9E43EDC52B87D67726B /* subFuncE.swift in Sources */,
+				35398424A303F5553AA4716804B0A7BC /* subFuncF.swift in Sources */,
+				B43B7A2A75BA6EA201CAE99487969BFD /* subFuncG.swift in Sources */,
+				594655820D4D66B9E30032E3C9AB2529 /* subFuncH.swift in Sources */,
+				C2D801E8A4F39BE1CFD9EFC04E18AEBF /* subFuncI.swift in Sources */,
+				05099EFED3620363C6BE824762659D9E /* subFuncJ.swift in Sources */,
+				D2743E789B3AD0DEE549ACEFC35BBC9D /* subFuncK.swift in Sources */,
+				ACD6A50974F5857744DF53962897FBD2 /* subFuncL.swift in Sources */,
+				84047DAC959E412BC4CAC547D5FB9827 /* subFuncM.swift in Sources */,
+				DAF2F19D963A06491835CDEA40A83395 /* Unknown6Builder.swift in Sources */,
+				842973ABE0D1FD79A35E0819A63C90C3 /* xxhash.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		95CC2C7E06DC188A05DAAEE9CAA555A3 /* Sources */ = {
+		E4AE336A276F967B1257B0DE863260BA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADF19C953CE2A7D0B72EC93A81FCCC26 /* Alamofire-dummy.m in Sources */,
-				8EB11202167FCDDF1257AAAB1D1FB244 /* Alamofire.swift in Sources */,
-				5CB05FBCB32D21E194B5ECF680CB6AE0 /* Download.swift in Sources */,
-				095406039B4D371E48D08B38A2975AC8 /* Error.swift in Sources */,
-				4081EA628AF0B73AC51FFB9D7AB3B89E /* Manager.swift in Sources */,
-				C7B6DD7C0456C50289A2C381DFE9FA3F /* MultipartFormData.swift in Sources */,
-				34CCDCA848A701466256BC2927DA8856 /* NetworkReachabilityManager.swift in Sources */,
-				BE41196F6A3903E59C3306FE3F8B43FE /* Notifications.swift in Sources */,
-				C0DB70AB368765DC64BFB5FEA75E0696 /* ParameterEncoding.swift in Sources */,
-				EFE92E8D3813DD26E78E93EEAF6D7E7E /* Request.swift in Sources */,
-				62E8346F03C03E7F4D631361F325689E /* Response.swift in Sources */,
-				3EA8F215C9C1432D74E5CCA4834AA8C0 /* ResponseSerialization.swift in Sources */,
-				AA314156AC500125F4078EE968DB14C6 /* Result.swift in Sources */,
-				7B48852C4D848FA2DA416A98F6425869 /* ServerTrustPolicy.swift in Sources */,
-				AE4CF87C02C042DF13ED5B21C4FDC1E0 /* Stream.swift in Sources */,
-				16102E4E35FAA0FC4161282FECE56469 /* Timeline.swift in Sources */,
-				5BC19E6E0F199276003F0AF96838BCE5 /* Upload.swift in Sources */,
-				2D3405986FC586FA6C0A5E0B6BA7E64E /* Validation.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A835CF971C6735E1915762D192977FC9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F9EDC159EBBA3BC63F7D3B3C4E0E3300 /* AbstractMessage.swift in Sources */,
-				39AB7BAB7E7075F95EE5B85B8F95AE9F /* CodedInputStream.swift in Sources */,
-				B509D3A947CB87949239AC8DE2075F08 /* CodedOutputStream.swift in Sources */,
-				AC25A9C037341D8C0E9EA2041B5592D3 /* ConcreateExtensionField.swift in Sources */,
-				3C522A12D5E774B126D2BCB8F2164ED3 /* ExtendableMessage.swift in Sources */,
-				D11B7B95ECBD51300BD4184F2D70645E /* ExtensionRegistry.swift in Sources */,
-				3559F2467213DC4CADDF15B1D669763D /* Field.swift in Sources */,
-				056349749389185EDDDE2B4F136BE047 /* GeneratedMessage.swift in Sources */,
-				E85894DBB3CD2C8064FC01A4613F3E61 /* Google.Protobuf.AnyType.proto.swift in Sources */,
-				E014418241CA9C11E3C484B6D0DB23F8 /* Google.Protobuf.Api.proto.swift in Sources */,
-				406000F33055B235F593911E4F3E96F0 /* Google.Protobuf.Descriptor.proto.swift in Sources */,
-				E8ADFFCD0BF8342838F1E3EF1162F70F /* Google.Protobuf.Duration.proto.swift in Sources */,
-				01F9FDF97FA41999EDB982D829CCE92E /* Google.Protobuf.Empty.proto.swift in Sources */,
-				2A70E2DE25A182E203762BC0C5BD6BB8 /* Google.Protobuf.FieldMask.proto.swift in Sources */,
-				3CA562CFCEA0A8845863E650075AA5F7 /* Google.Protobuf.SourceContext.proto.swift in Sources */,
-				5E99FE3DB4D593B537EDA89B8DB6E812 /* Google.Protobuf.Struct.proto.swift in Sources */,
-				EEB780A9EC496C1BE6A5CB128CB6E247 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */,
-				695640D4508DE616F15D0C80FE1E8447 /* Google.Protobuf.Timestamp.proto.swift in Sources */,
-				5FE4F7C2DC8D0086E60B531B6213BB19 /* Google.Protobuf.Types.proto.swift in Sources */,
-				A83414D6453A68CE90FB7B5F91D6F790 /* Google.Protobuf.Wrappers.proto.swift in Sources */,
-				BDF3BE5EA79E5AAC1146AC0322E93C08 /* ProtocolBuffers-Swift-dummy.m in Sources */,
-				D7A3FBB33C9B991BF293ECDA9C7273AB /* RingBuffer.swift in Sources */,
-				40356A56DBD50DBE37E3F386D8690848 /* UnknownFieldSet.swift in Sources */,
-				284288F67EE0B019F169F3367E358327 /* WireFormat.swift in Sources */,
+				7BF6B900703166294F3D0464EB9C97E3 /* AbstractMessage.swift in Sources */,
+				75E1B1E1BCD4E7F0537039A5415F2A65 /* CodedInputStream.swift in Sources */,
+				F931F0681E4ED026EACE88BAAC659BC4 /* CodedOutputStream.swift in Sources */,
+				D6DDC57B2992530DD94C8C17BC457806 /* ConcreateExtensionField.swift in Sources */,
+				0F11040971F3BB28255D072388F39DDA /* ExtendableMessage.swift in Sources */,
+				2A1C1183954BFCB9C003A9CA9F0B3D58 /* ExtensionRegistry.swift in Sources */,
+				7CDC5AC55123C69526A9454A5B68871F /* Field.swift in Sources */,
+				78244916AEB21A789C9EBA96E16F6144 /* GeneratedMessage.swift in Sources */,
+				018E44899493913B6960D468DC86A33A /* Google.Protobuf.Any.proto.swift in Sources */,
+				6ABD7DA87D2218B432C06593A3929329 /* Google.Protobuf.Api.proto.swift in Sources */,
+				CCD3D5DB6A8EE7F5068692D1E9BBB19A /* Google.Protobuf.Descriptor.proto.swift in Sources */,
+				67DFF6D3F2256D76A74129227F93598B /* Google.Protobuf.Duration.proto.swift in Sources */,
+				2D4FB50AD899444E8A530F0C4439F7B5 /* Google.Protobuf.Empty.proto.swift in Sources */,
+				B01D9019A27ED03ABB21862C9AF0EAB8 /* Google.Protobuf.FieldMask.proto.swift in Sources */,
+				83BA0483F98454CBA87FBF9BEA7FE962 /* Google.Protobuf.SourceContext.proto.swift in Sources */,
+				2E47602CDE45B72A2214BFAF83C8107E /* Google.Protobuf.Struct.proto.swift in Sources */,
+				996840327DA0F10AB5B75E5B80C2C589 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */,
+				BF8E2FC5B8205E255664FE7785D232C5 /* Google.Protobuf.Timestamp.proto.swift in Sources */,
+				DA083CCC1C7314203FB3882F240FF0A1 /* Google.Protobuf.Type.proto.swift in Sources */,
+				F309D2DA9D037C59C96BAA195094A3E2 /* Google.Protobuf.Wrappers.proto.swift in Sources */,
+				1EB3837A7CCF4EB3658A45FF8DF9A30C /* ProtocolBuffers-Swift-dummy.m in Sources */,
+				B00480B825DA3F3C5EB3806F73F5BDE6 /* RingBuffer.swift in Sources */,
+				BAA0D2FF4CDFAE71C06CA15F51774621 /* UnknownFieldSet.swift in Sources */,
+				7A42A10E9DCC2FAF8DA86C35DFD510B3 /* WireFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -953,23 +979,23 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		38E6D5352F682CB7AA738DED5FFB798C /* PBXTargetDependency */ = {
+		10009BFA1694C0825C84E695016A4F4D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ProtocolBuffers-Swift";
+			target = B69D5546AB35CB5B12AB6A2DAA0EDC55 /* ProtocolBuffers-Swift */;
+			targetProxy = BBD2AE3726645A6699A4C9EC85C332D4 /* PBXContainerItemProxy */;
+		};
+		46D3E5544DF984A0B7C9B84C90C672BA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Alamofire;
 			target = 79C040AFDDCE1BCBF6D8B5EB0B85887F /* Alamofire */;
-			targetProxy = 60B5A5FAE2667738702E27AB0D09CB7A /* PBXContainerItemProxy */;
+			targetProxy = B22960E89DA160DB7AD2398567BF20B7 /* PBXContainerItemProxy */;
 		};
 		4774D768E27F793E7C8050B564FFAE84 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ProtocolBuffers-Swift";
-			target = A2E4132534D22D75CBA77626BFD683C6 /* ProtocolBuffers-Swift */;
+			target = B69D5546AB35CB5B12AB6A2DAA0EDC55 /* ProtocolBuffers-Swift */;
 			targetProxy = 8E51F8C3AF7451E09EAE028600E0ED54 /* PBXContainerItemProxy */;
-		};
-		563661F0E6C428F18422379C73A847EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ProtocolBuffers-Swift";
-			target = A2E4132534D22D75CBA77626BFD683C6 /* ProtocolBuffers-Swift */;
-			targetProxy = BE9273789608325F700E560606F3C966 /* PBXContainerItemProxy */;
 		};
 		BC688BBDB61810A2CEB17D3104A10F79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -980,147 +1006,19 @@
 		E5DD5B88C8C1548588BD7D7ADC447CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PGoApi;
-			target = 32DE909F174C589373212BC01F895324 /* PGoApi */;
+			target = 87F0F63A40E244D025E67D4E0606D9D4 /* PGoApi */;
 			targetProxy = 4A920B1AE11BB50D7C8D6484842D4A7C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */ = {
+		11120064F03E5A16CDB9BB826CEB9084 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABF90B1AF83DD319A588426BD038E49C /* ProtocolBuffers-Swift.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		1618FB53559C15BF14A4E02BF4FA9599 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C348BBF05F98DA66BB19386D06DCD58F /* Pods-PGoApi_Example.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-PGoApi_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-PGoApi_Example/Pods-PGoApi_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_PGoApi_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		2774E12ABB0434DB855D1BE835994E4A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = PGoApi;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		32AD5F8918CA8B349E4671410FA624C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA47D7ED7AA2AB13D133431B6B6BE6D4 /* Alamofire.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4DDD777D4F81FCFDFFAE75595D221A9D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27454FBC4E8237D5383BADD5231A2E10 /* ProtocolBuffers-Swift.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1132,87 +1030,27 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = ProtocolBuffers;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		6D950384287D9D43A36B4112F067940C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8900689A0054385392A47A6A4C686FC /* Pods-PGoApi_Example.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-PGoApi_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-PGoApi_Example/Pods-PGoApi_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_PGoApi_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		75218111E718FACE36F771E8ABECDB62 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA47D7ED7AA2AB13D133431B6B6BE6D4 /* Alamofire.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		89134216D15FD479D43A4011A5BADB3D /* Release */ = {
+		1FFE428E5A653B11AAC994667310C8F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B729F686B4C6B2CACB630F0F44C8E7CE /* Pods-PGoApi_Tests.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1223,7 +1061,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-PGoApi_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-PGoApi_Tests/Pods-PGoApi_Tests.modulemap";
@@ -1235,43 +1073,82 @@
 				PRODUCT_NAME = Pods_PGoApi_Tests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		B629FE5A54A5B6A00318D76203E07202 /* Debug */ = {
+		4B4A22A6594901B45B730A89F12E7063 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27454FBC4E8237D5383BADD5231A2E10 /* ProtocolBuffers-Swift.xcconfig */;
+			baseConfigurationReference = D8900689A0054385392A47A6A4C686FC /* Pods-PGoApi_Example.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-PGoApi_Example/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = ProtocolBuffers;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-PGoApi_Example/Pods-PGoApi_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_PGoApi_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */ = {
+		4DE84B34A956473E80F6BA0FA627B4B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = PGoApi;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1289,6 +1166,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1306,18 +1184,54 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		EC69487E6BF9EF3DE3A8157CE84A257C /* Debug */ = {
+		80CC0FB2AACAC94F284E9098D8CE1604 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D63D9F198FB8ACEC7E7F4B39DF9EA715 /* Alamofire.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B314F606B188B17D40FE454A93D59CC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1329,7 +1243,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1337,17 +1251,162 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		F82EDBF022F329345F7597AD755019C4 /* Debug */ = {
+		B7324857C38B065FEB1EEE3105C2367A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C16BAA9F619171A7CEE92BE60DA789C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABF90B1AF83DD319A588426BD038E49C /* ProtocolBuffers-Swift.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = ProtocolBuffers;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D3BC71B0DDC3EF42083161F6DD8650F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D63D9F198FB8ACEC7E7F4B39DF9EA715 /* Alamofire.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E64B6871CB989C65BB5EC03703B023F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C348BBF05F98DA66BB19386D06DCD58F /* Pods-PGoApi_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-PGoApi_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-PGoApi_Example/Pods-PGoApi_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_PGoApi_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F3D581A9C936A9F064329EF1759DE5EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9DF5DE379E215EC7BD001707652BDB8F /* Pods-PGoApi_Tests.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1358,7 +1417,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-PGoApi_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-PGoApi_Tests/Pods-PGoApi_Tests.modulemap";
@@ -1370,6 +1429,7 @@
 				PRODUCT_NAME = Pods_PGoApi_Tests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1379,29 +1439,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		037359B44EA6EB247AD3B3356CAB9AD7 /* Build configuration list for PBXNativeTarget "ProtocolBuffers-Swift" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B629FE5A54A5B6A00318D76203E07202 /* Debug */,
-				4DDD777D4F81FCFDFFAE75595D221A9D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1D69FFB36BF67F650ECE280D5EDBFC4F /* Build configuration list for PBXNativeTarget "PGoApi" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EC69487E6BF9EF3DE3A8157CE84A257C /* Debug */,
-				2774E12ABB0434DB855D1BE835994E4A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */,
-				0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */,
+				59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */,
+				B7324857C38B065FEB1EEE3105C2367A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1409,8 +1451,8 @@
 		3CFB42910790CF0BDBCCEBAACD6B9367 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				75218111E718FACE36F771E8ABECDB62 /* Debug */,
-				32AD5F8918CA8B349E4671410FA624C9 /* Release */,
+				80CC0FB2AACAC94F284E9098D8CE1604 /* Debug */,
+				D3BC71B0DDC3EF42083161F6DD8650F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1418,8 +1460,8 @@
 		6654572462D61EBA6E34D77780F7E508 /* Build configuration list for PBXNativeTarget "Pods-PGoApi_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F82EDBF022F329345F7597AD755019C4 /* Debug */,
-				89134216D15FD479D43A4011A5BADB3D /* Release */,
+				F3D581A9C936A9F064329EF1759DE5EF /* Debug */,
+				1FFE428E5A653B11AAC994667310C8F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1427,8 +1469,26 @@
 		90F663BD5EAAB8ABA1451D7A8AE3DC2D /* Build configuration list for PBXNativeTarget "Pods-PGoApi_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1618FB53559C15BF14A4E02BF4FA9599 /* Debug */,
-				6D950384287D9D43A36B4112F067940C /* Release */,
+				E64B6871CB989C65BB5EC03703B023F0 /* Debug */,
+				4B4A22A6594901B45B730A89F12E7063 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0701305CABD893D97A4B521CEEF4B57 /* Build configuration list for PBXNativeTarget "PGoApi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B314F606B188B17D40FE454A93D59CC8 /* Debug */,
+				4DE84B34A956473E80F6BA0FA627B4B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C35AF53F6F75813F7CCD547E3BC1E306 /* Build configuration list for PBXNativeTarget "ProtocolBuffers-Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C16BAA9F619171A7CEE92BE60DA789C4 /* Debug */,
+				11120064F03E5A16CDB9BB826CEB9084 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

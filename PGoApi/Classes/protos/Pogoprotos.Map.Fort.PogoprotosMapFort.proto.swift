@@ -19,7 +19,7 @@ public func == (lhs: Pogoprotos.Map.Fort.FortData, rhs: Pogoprotos.Map.Fort.Fort
   fieldCheck = fieldCheck && (lhs.hasGuardPokemonId == rhs.hasGuardPokemonId) && (!lhs.hasGuardPokemonId || lhs.guardPokemonId == rhs.guardPokemonId)
   fieldCheck = fieldCheck && (lhs.hasGuardPokemonCp == rhs.hasGuardPokemonCp) && (!lhs.hasGuardPokemonCp || lhs.guardPokemonCp == rhs.guardPokemonCp)
   fieldCheck = fieldCheck && (lhs.hasEnabled == rhs.hasEnabled) && (!lhs.hasEnabled || lhs.enabled == rhs.enabled)
-  fieldCheck = fieldCheck && (lhs.hasTypes == rhs.hasTypes) && (!lhs.hasTypes || lhs.types == rhs.types)
+  fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
   fieldCheck = fieldCheck && (lhs.hasGymPoints == rhs.hasGymPoints) && (!lhs.hasGymPoints || lhs.gymPoints == rhs.gymPoints)
   fieldCheck = fieldCheck && (lhs.hasIsInBattle == rhs.hasIsInBattle) && (!lhs.hasIsInBattle || lhs.isInBattle == rhs.isInBattle)
   fieldCheck = fieldCheck && (lhs.activeFortModifier == rhs.activeFortModifier)
@@ -81,11 +81,11 @@ public extension Pogoprotos.Map.Fort {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
@@ -94,28 +94,28 @@ public extension Pogoprotos.Map.Fort {
   //Enum type declaration start 
 
   public enum FortRenderingType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case Default = 0
-    case InternalTest = 1
+    case `default` = 0
+    case internalTest = 1
     public func toString() -> String {
       switch self {
-      case .Default: return "DEFAULT"
-      case .InternalTest: return "INTERNAL_TEST"
+      case .`default`: return "DEFAULT"
+      case .internalTest: return "INTERNAL_TEST"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Map.Fort.FortRenderingType {
       switch str {
-      case "DEFAULT":  return .Default
-      case "INTERNAL_TEST":  return .InternalTest
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "DEFAULT":  return .`default`
+      case "INTERNAL_TEST":  return .internalTest
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .Default: return ".Default"
-            case .InternalTest: return ".InternalTest"
-        }
+      switch self {
+      case .`default`: return ".`default`"
+      case .internalTest: return ".internalTest"
+      }
     }
   }
 
@@ -126,32 +126,32 @@ public extension Pogoprotos.Map.Fort {
   //Enum type declaration start 
 
   public enum FortSponsor:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case UnsetSponsor = 0
-    case Mcdonalds = 1
-    case PokemonStore = 2
+    case unsetSponsor = 0
+    case mcdonalds = 1
+    case pokemonStore = 2
     public func toString() -> String {
       switch self {
-      case .UnsetSponsor: return "UNSET_SPONSOR"
-      case .Mcdonalds: return "MCDONALDS"
-      case .PokemonStore: return "POKEMON_STORE"
+      case .unsetSponsor: return "UNSET_SPONSOR"
+      case .mcdonalds: return "MCDONALDS"
+      case .pokemonStore: return "POKEMON_STORE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Map.Fort.FortSponsor {
       switch str {
-      case "UNSET_SPONSOR":  return .UnsetSponsor
-      case "MCDONALDS":  return .Mcdonalds
-      case "POKEMON_STORE":  return .PokemonStore
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "UNSET_SPONSOR":  return .unsetSponsor
+      case "MCDONALDS":  return .mcdonalds
+      case "POKEMON_STORE":  return .pokemonStore
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .UnsetSponsor: return ".UnsetSponsor"
-            case .Mcdonalds: return ".Mcdonalds"
-            case .PokemonStore: return ".PokemonStore"
-        }
+      switch self {
+      case .unsetSponsor: return ".unsetSponsor"
+      case .mcdonalds: return ".mcdonalds"
+      case .pokemonStore: return ".pokemonStore"
+      }
     }
   }
 
@@ -162,134 +162,134 @@ public extension Pogoprotos.Map.Fort {
   //Enum type declaration start 
 
   public enum FortType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-    case Gym = 0
-    case Checkpoint = 1
+    case gym = 0
+    case checkpoint = 1
     public func toString() -> String {
       switch self {
-      case .Gym: return "GYM"
-      case .Checkpoint: return "CHECKPOINT"
+      case .gym: return "GYM"
+      case .checkpoint: return "CHECKPOINT"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Map.Fort.FortType {
       switch str {
-      case "GYM":  return .Gym
-      case "CHECKPOINT":  return .Checkpoint
-      default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+      case "GYM":  return .gym
+      case "CHECKPOINT":  return .checkpoint
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
     public var debugDescription:String { return getDescription() }
     public var description:String { return getDescription() }
     private func getDescription() -> String { 
-        switch self {
-            case .Gym: return ".Gym"
-            case .Checkpoint: return ".Checkpoint"
-        }
+      switch self {
+      case .gym: return ".gym"
+      case .checkpoint: return ".checkpoint"
+      }
     }
   }
 
   //Enum type declaration end 
 
-  final public class FortData : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasId:Bool = false
-    public private(set) var id:String = ""
+  final public class FortData : GeneratedMessage {
+    public fileprivate(set) var id:String = ""
+    public fileprivate(set) var hasId:Bool = false
 
-    public private(set) var hasLastModifiedTimestampMs:Bool = false
-    public private(set) var lastModifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var lastModifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasLastModifiedTimestampMs:Bool = false
 
-    public private(set) var hasLatitude:Bool = false
-    public private(set) var latitude:Double = Double(0)
+    public fileprivate(set) var latitude:Double = Double(0)
+    public fileprivate(set) var hasLatitude:Bool = false
 
-    public private(set) var hasLongitude:Bool = false
-    public private(set) var longitude:Double = Double(0)
+    public fileprivate(set) var longitude:Double = Double(0)
+    public fileprivate(set) var hasLongitude:Bool = false
 
-    public private(set) var hasEnabled:Bool = false
-    public private(set) var enabled:Bool = false
+    public fileprivate(set) var enabled:Bool = false
+    public fileprivate(set) var hasEnabled:Bool = false
 
-    public private(set) var types:Pogoprotos.Map.Fort.FortType = Pogoprotos.Map.Fort.FortType.Gym
-    public private(set) var hasTypes:Bool = false
-    public private(set) var ownedByTeam:Pogoprotos.Enums.TeamColor = Pogoprotos.Enums.TeamColor.Neutral
-    public private(set) var hasOwnedByTeam:Bool = false
-    public private(set) var guardPokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
-    public private(set) var hasGuardPokemonId:Bool = false
-    public private(set) var hasGuardPokemonCp:Bool = false
-    public private(set) var guardPokemonCp:Int32 = Int32(0)
+    public fileprivate(set) var type:Pogoprotos.Map.Fort.FortType = Pogoprotos.Map.Fort.FortType.gym
+    public fileprivate(set) var hasType:Bool = false
+    public fileprivate(set) var ownedByTeam:Pogoprotos.Enums.TeamColor = Pogoprotos.Enums.TeamColor.neutral
+    public fileprivate(set) var hasOwnedByTeam:Bool = false
+    public fileprivate(set) var guardPokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.missingno
+    public fileprivate(set) var hasGuardPokemonId:Bool = false
+    public fileprivate(set) var guardPokemonCp:Int32 = Int32(0)
+    public fileprivate(set) var hasGuardPokemonCp:Bool = false
 
     // Prestigate / experience of the gym
-    public private(set) var hasGymPoints:Bool = false
-    public private(set) var gymPoints:Int64 = Int64(0)
+    public fileprivate(set) var gymPoints:Int64 = Int64(0)
+    public fileprivate(set) var hasGymPoints:Bool = false
 
     // Whether someone is battling at the gym currently
-    public private(set) var hasIsInBattle:Bool = false
-    public private(set) var isInBattle:Bool = false
+    public fileprivate(set) var isInBattle:Bool = false
+    public fileprivate(set) var hasIsInBattle:Bool = false
 
     private var activeFortModifierMemoizedSerializedSize:Int32 = 0
-    public private(set) var activeFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
-    public private(set) var hasLureInfo:Bool = false
-    public private(set) var lureInfo:Pogoprotos.Map.Fort.FortLureInfo!
+    public fileprivate(set) var activeFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
+    public fileprivate(set) var lureInfo:Pogoprotos.Map.Fort.FortLureInfo!
+    public fileprivate(set) var hasLureInfo:Bool = false
     // Timestamp when the pokestop can be activated again to get items / xp
-    public private(set) var hasCooldownCompleteTimestampMs:Bool = false
-    public private(set) var cooldownCompleteTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var cooldownCompleteTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasCooldownCompleteTimestampMs:Bool = false
 
-    public private(set) var sponsor:Pogoprotos.Map.Fort.FortSponsor = Pogoprotos.Map.Fort.FortSponsor.UnsetSponsor
-    public private(set) var hasSponsor:Bool = false
-    public private(set) var renderingType:Pogoprotos.Map.Fort.FortRenderingType = Pogoprotos.Map.Fort.FortRenderingType.Default
-    public private(set) var hasRenderingType:Bool = false
+    public fileprivate(set) var sponsor:Pogoprotos.Map.Fort.FortSponsor = Pogoprotos.Map.Fort.FortSponsor.unsetSponsor
+    public fileprivate(set) var hasSponsor:Bool = false
+    public fileprivate(set) var renderingType:Pogoprotos.Map.Fort.FortRenderingType = Pogoprotos.Map.Fort.FortRenderingType.`default`
+    public fileprivate(set) var hasRenderingType:Bool = false
     required public init() {
          super.init()
     }
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasId {
-        try output.writeString(1, value:id)
+        try codedOutputStream.writeString(fieldNumber: 1, value:id)
       }
       if hasLastModifiedTimestampMs {
-        try output.writeInt64(2, value:lastModifiedTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 2, value:lastModifiedTimestampMs)
       }
       if hasLatitude {
-        try output.writeDouble(3, value:latitude)
+        try codedOutputStream.writeDouble(fieldNumber: 3, value:latitude)
       }
       if hasLongitude {
-        try output.writeDouble(4, value:longitude)
+        try codedOutputStream.writeDouble(fieldNumber: 4, value:longitude)
       }
       if hasOwnedByTeam {
-        try output.writeEnum(5, value:ownedByTeam.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 5, value:ownedByTeam.rawValue)
       }
       if hasGuardPokemonId {
-        try output.writeEnum(6, value:guardPokemonId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 6, value:guardPokemonId.rawValue)
       }
       if hasGuardPokemonCp {
-        try output.writeInt32(7, value:guardPokemonCp)
+        try codedOutputStream.writeInt32(fieldNumber: 7, value:guardPokemonCp)
       }
       if hasEnabled {
-        try output.writeBool(8, value:enabled)
+        try codedOutputStream.writeBool(fieldNumber: 8, value:enabled)
       }
-      if hasTypes {
-        try output.writeEnum(9, value:types.rawValue)
+      if hasType {
+        try codedOutputStream.writeEnum(fieldNumber: 9, value:type.rawValue)
       }
       if hasGymPoints {
-        try output.writeInt64(10, value:gymPoints)
+        try codedOutputStream.writeInt64(fieldNumber: 10, value:gymPoints)
       }
       if hasIsInBattle {
-        try output.writeBool(11, value:isInBattle)
+        try codedOutputStream.writeBool(fieldNumber: 11, value:isInBattle)
       }
       for oneValueOfactiveFortModifier in activeFortModifier {
-          try output.writeEnum(12, value:oneValueOfactiveFortModifier.rawValue)
+          try codedOutputStream.writeEnum(fieldNumber: 12, value:oneValueOfactiveFortModifier.rawValue)
       }
       if hasLureInfo {
-        try output.writeMessage(13, value:lureInfo)
+        try codedOutputStream.writeMessage(fieldNumber: 13, value:lureInfo)
       }
       if hasCooldownCompleteTimestampMs {
-        try output.writeInt64(14, value:cooldownCompleteTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 14, value:cooldownCompleteTimestampMs)
       }
       if hasSponsor {
-        try output.writeEnum(15, value:sponsor.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 15, value:sponsor.rawValue)
       }
       if hasRenderingType {
-        try output.writeEnum(16, value:renderingType.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 16, value:renderingType.rawValue)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -299,37 +299,37 @@ public extension Pogoprotos.Map.Fort {
 
       serialize_size = 0
       if hasId {
-        serialize_size += id.computeStringSize(1)
+        serialize_size += id.computeStringSize(fieldNumber: 1)
       }
       if hasLastModifiedTimestampMs {
-        serialize_size += lastModifiedTimestampMs.computeInt64Size(2)
+        serialize_size += lastModifiedTimestampMs.computeInt64Size(fieldNumber: 2)
       }
       if hasLatitude {
-        serialize_size += latitude.computeDoubleSize(3)
+        serialize_size += latitude.computeDoubleSize(fieldNumber: 3)
       }
       if hasLongitude {
-        serialize_size += longitude.computeDoubleSize(4)
+        serialize_size += longitude.computeDoubleSize(fieldNumber: 4)
       }
       if (hasOwnedByTeam) {
-        serialize_size += ownedByTeam.rawValue.computeEnumSize(5)
+        serialize_size += ownedByTeam.rawValue.computeEnumSize(fieldNumber: 5)
       }
       if (hasGuardPokemonId) {
-        serialize_size += guardPokemonId.rawValue.computeEnumSize(6)
+        serialize_size += guardPokemonId.rawValue.computeEnumSize(fieldNumber: 6)
       }
       if hasGuardPokemonCp {
-        serialize_size += guardPokemonCp.computeInt32Size(7)
+        serialize_size += guardPokemonCp.computeInt32Size(fieldNumber: 7)
       }
       if hasEnabled {
-        serialize_size += enabled.computeBoolSize(8)
+        serialize_size += enabled.computeBoolSize(fieldNumber: 8)
       }
-      if (hasTypes) {
-        serialize_size += types.rawValue.computeEnumSize(9)
+      if (hasType) {
+        serialize_size += type.rawValue.computeEnumSize(fieldNumber: 9)
       }
       if hasGymPoints {
-        serialize_size += gymPoints.computeInt64Size(10)
+        serialize_size += gymPoints.computeInt64Size(fieldNumber: 10)
       }
       if hasIsInBattle {
-        serialize_size += isInBattle.computeBoolSize(11)
+        serialize_size += isInBattle.computeBoolSize(fieldNumber: 11)
       }
       var dataSizeactiveFortModifier:Int32 = 0
       for oneValueOfactiveFortModifier in activeFortModifier {
@@ -338,50 +338,22 @@ public extension Pogoprotos.Map.Fort {
       serialize_size += dataSizeactiveFortModifier
       serialize_size += (1 * Int32(activeFortModifier.count))
       if hasLureInfo {
-          if let varSizelureInfo = lureInfo?.computeMessageSize(13) {
+          if let varSizelureInfo = lureInfo?.computeMessageSize(fieldNumber: 13) {
               serialize_size += varSizelureInfo
           }
       }
       if hasCooldownCompleteTimestampMs {
-        serialize_size += cooldownCompleteTimestampMs.computeInt64Size(14)
+        serialize_size += cooldownCompleteTimestampMs.computeInt64Size(fieldNumber: 14)
       }
       if (hasSponsor) {
-        serialize_size += sponsor.rawValue.computeEnumSize(15)
+        serialize_size += sponsor.rawValue.computeEnumSize(fieldNumber: 15)
       }
       if (hasRenderingType) {
-        serialize_size += renderingType.rawValue.computeEnumSize(16)
+        serialize_size += renderingType.rawValue.computeEnumSize(fieldNumber: 16)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Fort.FortData> {
-      var mergedArray = Array<Pogoprotos.Map.Fort.FortData>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortData? {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Fort.FortData.Builder {
       return Pogoprotos.Map.Fort.FortData.classBuilder() as! Pogoprotos.Map.Fort.FortData.Builder
@@ -389,24 +361,24 @@ public extension Pogoprotos.Map.Fort {
     public func getBuilder() -> Pogoprotos.Map.Fort.FortData.Builder {
       return classBuilder() as! Pogoprotos.Map.Fort.FortData.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortData.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortData.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Fort.FortData.Builder {
-      return try Pogoprotos.Map.Fort.FortData.builderWithPrototype(self)
+      return try Pogoprotos.Map.Fort.FortData.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Fort.FortData) throws -> Pogoprotos.Map.Fort.FortData.Builder {
-      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasId {
         jsonMap["id"] = id
       }
@@ -414,16 +386,16 @@ public extension Pogoprotos.Map.Fort {
         jsonMap["lastModifiedTimestampMs"] = "\(lastModifiedTimestampMs)"
       }
       if hasLatitude {
-        jsonMap["latitude"] = NSNumber(double:latitude)
+        jsonMap["latitude"] = NSNumber(value:latitude)
       }
       if hasLongitude {
-        jsonMap["longitude"] = NSNumber(double:longitude)
+        jsonMap["longitude"] = NSNumber(value:longitude)
       }
       if hasEnabled {
         jsonMap["enabled"] = enabled
       }
-      if hasTypes {
-        jsonMap["type"] = types.toString()
+      if hasType {
+        jsonMap["type"] = type.toString()
       }
       if hasOwnedByTeam {
         jsonMap["ownedByTeam"] = ownedByTeam.toString()
@@ -432,7 +404,7 @@ public extension Pogoprotos.Map.Fort {
         jsonMap["guardPokemonId"] = guardPokemonId.toString()
       }
       if hasGuardPokemonCp {
-        jsonMap["guardPokemonCp"] = NSNumber(int:guardPokemonCp)
+        jsonMap["guardPokemonCp"] = NSNumber(value:guardPokemonCp)
       }
       if hasGymPoints {
         jsonMap["gymPoints"] = "\(gymPoints)"
@@ -443,7 +415,7 @@ public extension Pogoprotos.Map.Fort {
       if !activeFortModifier.isEmpty {
         var jsonArrayActiveFortModifier:Array<String> = []
           for oneValueActiveFortModifier in activeFortModifier {
-            jsonArrayActiveFortModifier += [oneValueActiveFortModifier.toString()]
+            jsonArrayActiveFortModifier.append(oneValueActiveFortModifier.toString())
           }
         jsonMap["activeFortModifier"] = jsonArrayActiveFortModifier
       }
@@ -461,11 +433,11 @@ public extension Pogoprotos.Map.Fort {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortData {
+      return try Pogoprotos.Map.Fort.FortData.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Fort.FortData {
-      return try Pogoprotos.Map.Fort.FortData.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Fort.FortData {
+      return try Pogoprotos.Map.Fort.FortData.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -493,8 +465,8 @@ public extension Pogoprotos.Map.Fort {
       if hasEnabled {
         output += "\(indent) enabled: \(enabled) \n"
       }
-      if (hasTypes) {
-        output += "\(indent) types: \(types.description)\n"
+      if (hasType) {
+        output += "\(indent) type: \(type.description)\n"
       }
       if hasGymPoints {
         output += "\(indent) gymPoints: \(gymPoints) \n"
@@ -510,7 +482,7 @@ public extension Pogoprotos.Map.Fort {
       if hasLureInfo {
         output += "\(indent) lureInfo {\n"
         if let outDescLureInfo = lureInfo {
-          output += try outDescLureInfo.getDescription("\(indent)  ")
+          output += try outDescLureInfo.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
@@ -523,7 +495,7 @@ public extension Pogoprotos.Map.Fort {
       if (hasRenderingType) {
         output += "\(indent) renderingType: \(renderingType.description)\n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -553,8 +525,8 @@ public extension Pogoprotos.Map.Fort {
             if hasEnabled {
                hashCode = (hashCode &* 31) &+ enabled.hashValue
             }
-            if hasTypes {
-               hashCode = (hashCode &* 31) &+ Int(types.rawValue)
+            if hasType {
+               hashCode = (hashCode &* 31) &+ Int(type.rawValue)
             }
             if hasGymPoints {
                hashCode = (hashCode &* 31) &+ gymPoints.hashValue
@@ -593,13 +565,10 @@ public extension Pogoprotos.Map.Fort {
     override public func className() -> String {
         return "Pogoprotos.Map.Fort.FortData"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Fort.FortData.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Fort.FortData = Pogoprotos.Map.Fort.FortData()
+      fileprivate var builderResult:Pogoprotos.Map.Fort.FortData = Pogoprotos.Map.Fort.FortData()
       public func getMessage() -> Pogoprotos.Map.Fort.FortData {
           return builderResult
       }
@@ -621,7 +590,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.id = value
            }
       }
-      public func setId(value:String) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setId(_ value:String) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.id = value
         return self
       }
@@ -644,7 +613,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.lastModifiedTimestampMs = value
            }
       }
-      public func setLastModifiedTimestampMs(value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setLastModifiedTimestampMs(_ value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.lastModifiedTimestampMs = value
         return self
       }
@@ -667,7 +636,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.latitude = value
            }
       }
-      public func setLatitude(value:Double) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setLatitude(_ value:Double) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.latitude = value
         return self
       }
@@ -690,7 +659,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.longitude = value
            }
       }
-      public func setLongitude(value:Double) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setLongitude(_ value:Double) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.longitude = value
         return self
       }
@@ -713,7 +682,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.enabled = value
            }
       }
-      public func setEnabled(value:Bool) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setEnabled(_ value:Bool) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.enabled = value
         return self
       }
@@ -722,27 +691,27 @@ public extension Pogoprotos.Map.Fort {
            builderResult.enabled = false
            return self
       }
-        public var hasTypes:Bool{
+        public var hasType:Bool{
             get {
-                return builderResult.hasTypes
+                return builderResult.hasType
             }
         }
-        public var types:Pogoprotos.Map.Fort.FortType {
+        public var type:Pogoprotos.Map.Fort.FortType {
             get {
-                return builderResult.types
+                return builderResult.type
             }
             set (value) {
-                builderResult.hasTypes = true
-                builderResult.types = value
+                builderResult.hasType = true
+                builderResult.type = value
             }
         }
-        public func setTypes(value:Pogoprotos.Map.Fort.FortType) -> Pogoprotos.Map.Fort.FortData.Builder {
-          self.types = value
+        public func setType(_ value:Pogoprotos.Map.Fort.FortType) -> Pogoprotos.Map.Fort.FortData.Builder {
+          self.type = value
           return self
         }
-        public func clearTypes() -> Pogoprotos.Map.Fort.FortData.Builder {
-           builderResult.hasTypes = false
-           builderResult.types = .Gym
+        public func clearType() -> Pogoprotos.Map.Fort.FortData.Builder {
+           builderResult.hasType = false
+           builderResult.type = .gym
            return self
         }
         public var hasOwnedByTeam:Bool{
@@ -759,13 +728,13 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.ownedByTeam = value
             }
         }
-        public func setOwnedByTeam(value:Pogoprotos.Enums.TeamColor) -> Pogoprotos.Map.Fort.FortData.Builder {
+        public func setOwnedByTeam(_ value:Pogoprotos.Enums.TeamColor) -> Pogoprotos.Map.Fort.FortData.Builder {
           self.ownedByTeam = value
           return self
         }
         public func clearOwnedByTeam() -> Pogoprotos.Map.Fort.FortData.Builder {
            builderResult.hasOwnedByTeam = false
-           builderResult.ownedByTeam = .Neutral
+           builderResult.ownedByTeam = .neutral
            return self
         }
         public var hasGuardPokemonId:Bool{
@@ -782,13 +751,13 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.guardPokemonId = value
             }
         }
-        public func setGuardPokemonId(value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Fort.FortData.Builder {
+        public func setGuardPokemonId(_ value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Fort.FortData.Builder {
           self.guardPokemonId = value
           return self
         }
         public func clearGuardPokemonId() -> Pogoprotos.Map.Fort.FortData.Builder {
            builderResult.hasGuardPokemonId = false
-           builderResult.guardPokemonId = .Missingno
+           builderResult.guardPokemonId = .missingno
            return self
         }
       public var hasGuardPokemonCp:Bool {
@@ -805,7 +774,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.guardPokemonCp = value
            }
       }
-      public func setGuardPokemonCp(value:Int32) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setGuardPokemonCp(_ value:Int32) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.guardPokemonCp = value
         return self
       }
@@ -828,7 +797,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.gymPoints = value
            }
       }
-      public func setGymPoints(value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setGymPoints(_ value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.gymPoints = value
         return self
       }
@@ -851,7 +820,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.isInBattle = value
            }
       }
-      public func setIsInBattle(value:Bool) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setIsInBattle(_ value:Bool) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.isInBattle = value
         return self
       }
@@ -868,12 +837,12 @@ public extension Pogoprotos.Map.Fort {
               builderResult.activeFortModifier = value
           }
       }
-      public func setActiveFortModifier(value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setActiveFortModifier(_ value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.activeFortModifier = value
         return self
       }
       public func clearActiveFortModifier() -> Pogoprotos.Map.Fort.FortData.Builder {
-        builderResult.activeFortModifier.removeAll(keepCapacity: false)
+        builderResult.activeFortModifier.removeAll(keepingCapacity: false)
         return self
       }
       public var hasLureInfo:Bool {
@@ -893,7 +862,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.lureInfo = value
            }
       }
-      private var lureInfoBuilder_:Pogoprotos.Map.Fort.FortLureInfo.Builder! {
+      fileprivate var lureInfoBuilder_:Pogoprotos.Map.Fort.FortLureInfo.Builder! {
            didSet {
               builderResult.hasLureInfo = true
            }
@@ -903,18 +872,18 @@ public extension Pogoprotos.Map.Fort {
            lureInfoBuilder_ = Pogoprotos.Map.Fort.FortLureInfo.Builder()
            builderResult.lureInfo = lureInfoBuilder_.getMessage()
            if lureInfo != nil {
-              try! lureInfoBuilder_.mergeFrom(lureInfo)
+              _ = try! lureInfoBuilder_.mergeFrom(other: lureInfo)
            }
         }
         return lureInfoBuilder_
       }
-      public func setLureInfo(value:Pogoprotos.Map.Fort.FortLureInfo!) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setLureInfo(_ value:Pogoprotos.Map.Fort.FortLureInfo!) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.lureInfo = value
         return self
       }
       public func mergeLureInfo(value:Pogoprotos.Map.Fort.FortLureInfo) throws -> Pogoprotos.Map.Fort.FortData.Builder {
         if builderResult.hasLureInfo {
-          builderResult.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(builderResult.lureInfo).mergeFrom(value).buildPartial()
+          builderResult.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(prototype:builderResult.lureInfo).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.lureInfo = value
         }
@@ -941,7 +910,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.cooldownCompleteTimestampMs = value
            }
       }
-      public func setCooldownCompleteTimestampMs(value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
+      public func setCooldownCompleteTimestampMs(_ value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
         self.cooldownCompleteTimestampMs = value
         return self
       }
@@ -964,13 +933,13 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.sponsor = value
             }
         }
-        public func setSponsor(value:Pogoprotos.Map.Fort.FortSponsor) -> Pogoprotos.Map.Fort.FortData.Builder {
+        public func setSponsor(_ value:Pogoprotos.Map.Fort.FortSponsor) -> Pogoprotos.Map.Fort.FortData.Builder {
           self.sponsor = value
           return self
         }
         public func clearSponsor() -> Pogoprotos.Map.Fort.FortData.Builder {
            builderResult.hasSponsor = false
-           builderResult.sponsor = .UnsetSponsor
+           builderResult.sponsor = .unsetSponsor
            return self
         }
         public var hasRenderingType:Bool{
@@ -987,13 +956,13 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.renderingType = value
             }
         }
-        public func setRenderingType(value:Pogoprotos.Map.Fort.FortRenderingType) -> Pogoprotos.Map.Fort.FortData.Builder {
+        public func setRenderingType(_ value:Pogoprotos.Map.Fort.FortRenderingType) -> Pogoprotos.Map.Fort.FortData.Builder {
           self.renderingType = value
           return self
         }
         public func clearRenderingType() -> Pogoprotos.Map.Fort.FortData.Builder {
            builderResult.hasRenderingType = false
-           builderResult.renderingType = .Default
+           builderResult.renderingType = .`default`
            return self
         }
       override public var internalGetResult:GeneratedMessage {
@@ -1006,7 +975,7 @@ public extension Pogoprotos.Map.Fort {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Fort.FortData.Builder {
-        return try Pogoprotos.Map.Fort.FortData.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Fort.FortData.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Fort.FortData {
            try checkInitialized()
@@ -1035,8 +1004,8 @@ public extension Pogoprotos.Map.Fort {
         if other.hasEnabled {
              enabled = other.enabled
         }
-        if other.hasTypes {
-             types = other.types
+        if other.hasType {
+             type = other.type
         }
         if other.hasOwnedByTeam {
              ownedByTeam = other.ownedByTeam
@@ -1057,7 +1026,7 @@ public extension Pogoprotos.Map.Fort {
            builderResult.activeFortModifier += other.activeFortModifier
         }
         if (other.hasLureInfo) {
-            try mergeLureInfo(other.lureInfo)
+            _ = try mergeLureInfo(value: other.lureInfo)
         }
         if other.hasCooldownCompleteTimestampMs {
              cooldownCompleteTimestampMs = other.cooldownCompleteTimestampMs
@@ -1068,113 +1037,113 @@ public extension Pogoprotos.Map.Fort {
         if other.hasRenderingType {
              renderingType = other.renderingType
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortData.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortData.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            id = try input.readString()
+            id = try codedInputStream.readString()
 
           case 16:
-            lastModifiedTimestampMs = try input.readInt64()
+            lastModifiedTimestampMs = try codedInputStream.readInt64()
 
           case 25:
-            latitude = try input.readDouble()
+            latitude = try codedInputStream.readDouble()
 
           case 33:
-            longitude = try input.readDouble()
+            longitude = try codedInputStream.readDouble()
 
           case 40:
-            let valueIntownedByTeam = try input.readEnum()
+            let valueIntownedByTeam = try codedInputStream.readEnum()
             if let enumsownedByTeam = Pogoprotos.Enums.TeamColor(rawValue:valueIntownedByTeam){
                  ownedByTeam = enumsownedByTeam
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(5, value:Int64(valueIntownedByTeam))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 5, value:Int64(valueIntownedByTeam))
             }
 
           case 48:
-            let valueIntguardPokemonId = try input.readEnum()
+            let valueIntguardPokemonId = try codedInputStream.readEnum()
             if let enumsguardPokemonId = Pogoprotos.Enums.PokemonId(rawValue:valueIntguardPokemonId){
                  guardPokemonId = enumsguardPokemonId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(6, value:Int64(valueIntguardPokemonId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 6, value:Int64(valueIntguardPokemonId))
             }
 
           case 56:
-            guardPokemonCp = try input.readInt32()
+            guardPokemonCp = try codedInputStream.readInt32()
 
           case 64:
-            enabled = try input.readBool()
+            enabled = try codedInputStream.readBool()
 
           case 72:
-            let valueInttypes = try input.readEnum()
-            if let enumstypes = Pogoprotos.Map.Fort.FortType(rawValue:valueInttypes){
-                 types = enumstypes
+            let valueInttype = try codedInputStream.readEnum()
+            if let enumstype = Pogoprotos.Map.Fort.FortType(rawValue:valueInttype){
+                 type = enumstype
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(9, value:Int64(valueInttypes))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 9, value:Int64(valueInttype))
             }
 
           case 80:
-            gymPoints = try input.readInt64()
+            gymPoints = try codedInputStream.readInt64()
 
           case 88:
-            isInBattle = try input.readBool()
+            isInBattle = try codedInputStream.readBool()
 
           case 96:
-            let valueIntactiveFortModifier = try input.readEnum()
+            let valueIntactiveFortModifier = try codedInputStream.readEnum()
             if let enumsactiveFortModifier = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntactiveFortModifier) {
-                 builderResult.activeFortModifier += [enumsactiveFortModifier]
+                 builderResult.activeFortModifier.append(enumsactiveFortModifier)
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(12, value:Int64(valueIntactiveFortModifier))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 12, value:Int64(valueIntactiveFortModifier))
             }
 
           case 106:
             let subBuilder:Pogoprotos.Map.Fort.FortLureInfo.Builder = Pogoprotos.Map.Fort.FortLureInfo.Builder()
             if hasLureInfo {
-              try subBuilder.mergeFrom(lureInfo)
+              _ = try subBuilder.mergeFrom(other: lureInfo)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             lureInfo = subBuilder.buildPartial()
 
           case 112:
-            cooldownCompleteTimestampMs = try input.readInt64()
+            cooldownCompleteTimestampMs = try codedInputStream.readInt64()
 
           case 120:
-            let valueIntsponsor = try input.readEnum()
+            let valueIntsponsor = try codedInputStream.readEnum()
             if let enumssponsor = Pogoprotos.Map.Fort.FortSponsor(rawValue:valueIntsponsor){
                  sponsor = enumssponsor
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(15, value:Int64(valueIntsponsor))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 15, value:Int64(valueIntsponsor))
             }
 
           case 128:
-            let valueIntrenderingType = try input.readEnum()
+            let valueIntrenderingType = try codedInputStream.readEnum()
             if let enumsrenderingType = Pogoprotos.Map.Fort.FortRenderingType(rawValue:valueIntrenderingType){
                  renderingType = enumsrenderingType
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(16, value:Int64(valueIntrenderingType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 16, value:Int64(valueIntrenderingType))
             }
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortData.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortData.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Fort.FortData.Builder()
         if let jsonValueId = jsonMap["id"] as? String {
           resultDecodedBuilder.id = jsonValueId
@@ -1191,17 +1160,17 @@ public extension Pogoprotos.Map.Fort {
         if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
           resultDecodedBuilder.enabled = jsonValueEnabled
         }
-        if let jsonValueTypes = jsonMap["type"] as? String {
-          resultDecodedBuilder.types = try Pogoprotos.Map.Fort.FortType.fromString(jsonValueTypes)
+        if let jsonValueType = jsonMap["type"] as? String {
+          resultDecodedBuilder.type = try Pogoprotos.Map.Fort.FortType.fromString(str: jsonValueType)
         }
         if let jsonValueOwnedByTeam = jsonMap["ownedByTeam"] as? String {
-          resultDecodedBuilder.ownedByTeam = try Pogoprotos.Enums.TeamColor.fromString(jsonValueOwnedByTeam)
+          resultDecodedBuilder.ownedByTeam = try Pogoprotos.Enums.TeamColor.fromString(str: jsonValueOwnedByTeam)
         }
         if let jsonValueGuardPokemonId = jsonMap["guardPokemonId"] as? String {
-          resultDecodedBuilder.guardPokemonId = try Pogoprotos.Enums.PokemonId.fromString(jsonValueGuardPokemonId)
+          resultDecodedBuilder.guardPokemonId = try Pogoprotos.Enums.PokemonId.fromString(str: jsonValueGuardPokemonId)
         }
         if let jsonValueGuardPokemonCp = jsonMap["guardPokemonCp"] as? NSNumber {
-          resultDecodedBuilder.guardPokemonCp = jsonValueGuardPokemonCp.intValue
+          resultDecodedBuilder.guardPokemonCp = jsonValueGuardPokemonCp.int32Value
         }
         if let jsonValueGymPoints = jsonMap["gymPoints"] as? String {
           resultDecodedBuilder.gymPoints = Int64(jsonValueGymPoints)!
@@ -1212,48 +1181,48 @@ public extension Pogoprotos.Map.Fort {
         if let jsonValueActiveFortModifier = jsonMap["activeFortModifier"] as? Array<String> {
           var jsonArrayActiveFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> = []
           for oneValueActiveFortModifier in jsonValueActiveFortModifier {
-            let enumFromStringActiveFortModifier = try Pogoprotos.Inventory.Item.ItemId.fromString(oneValueActiveFortModifier)
-            jsonArrayActiveFortModifier += [enumFromStringActiveFortModifier]
+            let enumFromStringActiveFortModifier = try Pogoprotos.Inventory.Item.ItemId.fromString(str: oneValueActiveFortModifier)
+            jsonArrayActiveFortModifier.append(enumFromStringActiveFortModifier)
           }
           resultDecodedBuilder.activeFortModifier = jsonArrayActiveFortModifier
         }
-        if let jsonValueLureInfo = jsonMap["lureInfo"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonValueLureInfo).build()
+        if let jsonValueLureInfo = jsonMap["lureInfo"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.lureInfo = try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonMap:jsonValueLureInfo).build()
 
         }
         if let jsonValueCooldownCompleteTimestampMs = jsonMap["cooldownCompleteTimestampMs"] as? String {
           resultDecodedBuilder.cooldownCompleteTimestampMs = Int64(jsonValueCooldownCompleteTimestampMs)!
         }
         if let jsonValueSponsor = jsonMap["sponsor"] as? String {
-          resultDecodedBuilder.sponsor = try Pogoprotos.Map.Fort.FortSponsor.fromString(jsonValueSponsor)
+          resultDecodedBuilder.sponsor = try Pogoprotos.Map.Fort.FortSponsor.fromString(str: jsonValueSponsor)
         }
         if let jsonValueRenderingType = jsonMap["renderingType"] as? String {
-          resultDecodedBuilder.renderingType = try Pogoprotos.Map.Fort.FortRenderingType.fromString(jsonValueRenderingType)
+          resultDecodedBuilder.renderingType = try Pogoprotos.Map.Fort.FortRenderingType.fromString(str: jsonValueRenderingType)
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Fort.FortData.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Fort.FortData.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Fort.FortData.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Fort.FortData.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class FortLureInfo : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasFortId:Bool = false
-    public private(set) var fortId:String = ""
+  final public class FortLureInfo : GeneratedMessage {
+    public fileprivate(set) var fortId:String = ""
+    public fileprivate(set) var hasFortId:Bool = false
 
-    public private(set) var hasEncounterId:Bool = false
-    public private(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var encounterId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasEncounterId:Bool = false
 
-    public private(set) var activePokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.Missingno
-    public private(set) var hasActivePokemonId:Bool = false
-    public private(set) var hasLureExpiresTimestampMs:Bool = false
-    public private(set) var lureExpiresTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var activePokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.missingno
+    public fileprivate(set) var hasActivePokemonId:Bool = false
+    public fileprivate(set) var lureExpiresTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasLureExpiresTimestampMs:Bool = false
 
     required public init() {
          super.init()
@@ -1261,20 +1230,20 @@ public extension Pogoprotos.Map.Fort {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasFortId {
-        try output.writeString(1, value:fortId)
+        try codedOutputStream.writeString(fieldNumber: 1, value:fortId)
       }
       if hasEncounterId {
-        try output.writeFixed64(2, value:encounterId)
+        try codedOutputStream.writeFixed64(fieldNumber: 2, value:encounterId)
       }
       if hasActivePokemonId {
-        try output.writeEnum(3, value:activePokemonId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 3, value:activePokemonId.rawValue)
       }
       if hasLureExpiresTimestampMs {
-        try output.writeInt64(4, value:lureExpiresTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 4, value:lureExpiresTimestampMs)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1284,48 +1253,20 @@ public extension Pogoprotos.Map.Fort {
 
       serialize_size = 0
       if hasFortId {
-        serialize_size += fortId.computeStringSize(1)
+        serialize_size += fortId.computeStringSize(fieldNumber: 1)
       }
       if hasEncounterId {
-        serialize_size += encounterId.computeFixed64Size(2)
+        serialize_size += encounterId.computeFixed64Size(fieldNumber: 2)
       }
       if (hasActivePokemonId) {
-        serialize_size += activePokemonId.rawValue.computeEnumSize(3)
+        serialize_size += activePokemonId.rawValue.computeEnumSize(fieldNumber: 3)
       }
       if hasLureExpiresTimestampMs {
-        serialize_size += lureExpiresTimestampMs.computeInt64Size(4)
+        serialize_size += lureExpiresTimestampMs.computeInt64Size(fieldNumber: 4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Fort.FortLureInfo> {
-      var mergedArray = Array<Pogoprotos.Map.Fort.FortLureInfo>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo? {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
       return Pogoprotos.Map.Fort.FortLureInfo.classBuilder() as! Pogoprotos.Map.Fort.FortLureInfo.Builder
@@ -1333,24 +1274,24 @@ public extension Pogoprotos.Map.Fort {
     public func getBuilder() -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
       return classBuilder() as! Pogoprotos.Map.Fort.FortLureInfo.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortLureInfo.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortLureInfo.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-      return try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(self)
+      return try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Fort.FortLureInfo) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasFortId {
         jsonMap["fortId"] = fortId
       }
@@ -1365,11 +1306,11 @@ public extension Pogoprotos.Map.Fort {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+      return try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Fort.FortLureInfo {
-      return try Pogoprotos.Map.Fort.FortLureInfo.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+      return try Pogoprotos.Map.Fort.FortLureInfo.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -1385,7 +1326,7 @@ public extension Pogoprotos.Map.Fort {
       if hasLureExpiresTimestampMs {
         output += "\(indent) lureExpiresTimestampMs: \(lureExpiresTimestampMs) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1417,13 +1358,10 @@ public extension Pogoprotos.Map.Fort {
     override public func className() -> String {
         return "Pogoprotos.Map.Fort.FortLureInfo"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Fort.FortLureInfo.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Fort.FortLureInfo = Pogoprotos.Map.Fort.FortLureInfo()
+      fileprivate var builderResult:Pogoprotos.Map.Fort.FortLureInfo = Pogoprotos.Map.Fort.FortLureInfo()
       public func getMessage() -> Pogoprotos.Map.Fort.FortLureInfo {
           return builderResult
       }
@@ -1445,7 +1383,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.fortId = value
            }
       }
-      public func setFortId(value:String) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+      public func setFortId(_ value:String) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
         self.fortId = value
         return self
       }
@@ -1468,7 +1406,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.encounterId = value
            }
       }
-      public func setEncounterId(value:UInt64) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+      public func setEncounterId(_ value:UInt64) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
         self.encounterId = value
         return self
       }
@@ -1491,13 +1429,13 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.activePokemonId = value
             }
         }
-        public func setActivePokemonId(value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+        public func setActivePokemonId(_ value:Pogoprotos.Enums.PokemonId) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
           self.activePokemonId = value
           return self
         }
         public func clearActivePokemonId() -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
            builderResult.hasActivePokemonId = false
-           builderResult.activePokemonId = .Missingno
+           builderResult.activePokemonId = .missingno
            return self
         }
       public var hasLureExpiresTimestampMs:Bool {
@@ -1514,7 +1452,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.lureExpiresTimestampMs = value
            }
       }
-      public func setLureExpiresTimestampMs(value:Int64) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+      public func setLureExpiresTimestampMs(_ value:Int64) -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
         self.lureExpiresTimestampMs = value
         return self
       }
@@ -1533,7 +1471,7 @@ public extension Pogoprotos.Map.Fort {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-        return try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Fort.FortLureInfo.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Fort.FortLureInfo {
            try checkInitialized()
@@ -1559,47 +1497,47 @@ public extension Pogoprotos.Map.Fort {
         if other.hasLureExpiresTimestampMs {
              lureExpiresTimestampMs = other.lureExpiresTimestampMs
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            fortId = try input.readString()
+            fortId = try codedInputStream.readString()
 
           case 17:
-            encounterId = try input.readFixed64()
+            encounterId = try codedInputStream.readFixed64()
 
           case 24:
-            let valueIntactivePokemonId = try input.readEnum()
+            let valueIntactivePokemonId = try codedInputStream.readEnum()
             if let enumsactivePokemonId = Pogoprotos.Enums.PokemonId(rawValue:valueIntactivePokemonId){
                  activePokemonId = enumsactivePokemonId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(3, value:Int64(valueIntactivePokemonId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 3, value:Int64(valueIntactivePokemonId))
             }
 
           case 32:
-            lureExpiresTimestampMs = try input.readInt64()
+            lureExpiresTimestampMs = try codedInputStream.readInt64()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Fort.FortLureInfo.Builder()
         if let jsonValueFortId = jsonMap["fortId"] as? String {
           resultDecodedBuilder.fortId = jsonValueFortId
@@ -1608,32 +1546,32 @@ public extension Pogoprotos.Map.Fort {
           resultDecodedBuilder.encounterId = UInt64(jsonValueEncounterId)!
         }
         if let jsonValueActivePokemonId = jsonMap["activePokemonId"] as? String {
-          resultDecodedBuilder.activePokemonId = try Pogoprotos.Enums.PokemonId.fromString(jsonValueActivePokemonId)
+          resultDecodedBuilder.activePokemonId = try Pogoprotos.Enums.PokemonId.fromString(str: jsonValueActivePokemonId)
         }
         if let jsonValueLureExpiresTimestampMs = jsonMap["lureExpiresTimestampMs"] as? String {
           resultDecodedBuilder.lureExpiresTimestampMs = Int64(jsonValueLureExpiresTimestampMs)!
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Fort.FortLureInfo.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Fort.FortLureInfo.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class FortModifier : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.ItemUnknown
-    public private(set) var hasItemId:Bool = false
-    public private(set) var hasExpirationTimestampMs:Bool = false
-    public private(set) var expirationTimestampMs:Int64 = Int64(0)
+  final public class FortModifier : GeneratedMessage {
+    public fileprivate(set) var itemId:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItemId:Bool = false
+    public fileprivate(set) var expirationTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasExpirationTimestampMs:Bool = false
 
-    public private(set) var hasDeployerPlayerCodename:Bool = false
-    public private(set) var deployerPlayerCodename:String = ""
+    public fileprivate(set) var deployerPlayerCodename:String = ""
+    public fileprivate(set) var hasDeployerPlayerCodename:Bool = false
 
     required public init() {
          super.init()
@@ -1641,17 +1579,17 @@ public extension Pogoprotos.Map.Fort {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasItemId {
-        try output.writeEnum(1, value:itemId.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:itemId.rawValue)
       }
       if hasExpirationTimestampMs {
-        try output.writeInt64(2, value:expirationTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 2, value:expirationTimestampMs)
       }
       if hasDeployerPlayerCodename {
-        try output.writeString(3, value:deployerPlayerCodename)
+        try codedOutputStream.writeString(fieldNumber: 3, value:deployerPlayerCodename)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1661,45 +1599,17 @@ public extension Pogoprotos.Map.Fort {
 
       serialize_size = 0
       if (hasItemId) {
-        serialize_size += itemId.rawValue.computeEnumSize(1)
+        serialize_size += itemId.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasExpirationTimestampMs {
-        serialize_size += expirationTimestampMs.computeInt64Size(2)
+        serialize_size += expirationTimestampMs.computeInt64Size(fieldNumber: 2)
       }
       if hasDeployerPlayerCodename {
-        serialize_size += deployerPlayerCodename.computeStringSize(3)
+        serialize_size += deployerPlayerCodename.computeStringSize(fieldNumber: 3)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Fort.FortModifier> {
-      var mergedArray = Array<Pogoprotos.Map.Fort.FortModifier>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortModifier? {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Fort.FortModifier.Builder {
       return Pogoprotos.Map.Fort.FortModifier.classBuilder() as! Pogoprotos.Map.Fort.FortModifier.Builder
@@ -1707,24 +1617,24 @@ public extension Pogoprotos.Map.Fort {
     public func getBuilder() -> Pogoprotos.Map.Fort.FortModifier.Builder {
       return classBuilder() as! Pogoprotos.Map.Fort.FortModifier.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortModifier.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortModifier.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
-      return try Pogoprotos.Map.Fort.FortModifier.builderWithPrototype(self)
+      return try Pogoprotos.Map.Fort.FortModifier.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Fort.FortModifier) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasItemId {
         jsonMap["itemId"] = itemId.toString()
       }
@@ -1736,11 +1646,11 @@ public extension Pogoprotos.Map.Fort {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortModifier {
+      return try Pogoprotos.Map.Fort.FortModifier.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Fort.FortModifier {
-      return try Pogoprotos.Map.Fort.FortModifier.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Fort.FortModifier {
+      return try Pogoprotos.Map.Fort.FortModifier.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -1753,7 +1663,7 @@ public extension Pogoprotos.Map.Fort {
       if hasDeployerPlayerCodename {
         output += "\(indent) deployerPlayerCodename: \(deployerPlayerCodename) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1782,13 +1692,10 @@ public extension Pogoprotos.Map.Fort {
     override public func className() -> String {
         return "Pogoprotos.Map.Fort.FortModifier"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Fort.FortModifier.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Fort.FortModifier = Pogoprotos.Map.Fort.FortModifier()
+      fileprivate var builderResult:Pogoprotos.Map.Fort.FortModifier = Pogoprotos.Map.Fort.FortModifier()
       public func getMessage() -> Pogoprotos.Map.Fort.FortModifier {
           return builderResult
       }
@@ -1810,13 +1717,13 @@ public extension Pogoprotos.Map.Fort {
                 builderResult.itemId = value
             }
         }
-        public func setItemId(value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Map.Fort.FortModifier.Builder {
+        public func setItemId(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Map.Fort.FortModifier.Builder {
           self.itemId = value
           return self
         }
         public func clearItemId() -> Pogoprotos.Map.Fort.FortModifier.Builder {
            builderResult.hasItemId = false
-           builderResult.itemId = .ItemUnknown
+           builderResult.itemId = .itemUnknown
            return self
         }
       public var hasExpirationTimestampMs:Bool {
@@ -1833,7 +1740,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.expirationTimestampMs = value
            }
       }
-      public func setExpirationTimestampMs(value:Int64) -> Pogoprotos.Map.Fort.FortModifier.Builder {
+      public func setExpirationTimestampMs(_ value:Int64) -> Pogoprotos.Map.Fort.FortModifier.Builder {
         self.expirationTimestampMs = value
         return self
       }
@@ -1856,7 +1763,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.deployerPlayerCodename = value
            }
       }
-      public func setDeployerPlayerCodename(value:String) -> Pogoprotos.Map.Fort.FortModifier.Builder {
+      public func setDeployerPlayerCodename(_ value:String) -> Pogoprotos.Map.Fort.FortModifier.Builder {
         self.deployerPlayerCodename = value
         return self
       }
@@ -1875,7 +1782,7 @@ public extension Pogoprotos.Map.Fort {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
-        return try Pogoprotos.Map.Fort.FortModifier.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Fort.FortModifier.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Fort.FortModifier {
            try checkInitialized()
@@ -1898,47 +1805,47 @@ public extension Pogoprotos.Map.Fort {
         if other.hasDeployerPlayerCodename {
              deployerPlayerCodename = other.deployerPlayerCodename
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntitemId = try input.readEnum()
+            let valueIntitemId = try codedInputStream.readEnum()
             if let enumsitemId = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitemId){
                  itemId = enumsitemId
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntitemId))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntitemId))
             }
 
           case 16:
-            expirationTimestampMs = try input.readInt64()
+            expirationTimestampMs = try codedInputStream.readInt64()
 
           case 26:
-            deployerPlayerCodename = try input.readString()
+            deployerPlayerCodename = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Fort.FortModifier.Builder()
         if let jsonValueItemId = jsonMap["itemId"] as? String {
-          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(jsonValueItemId)
+          resultDecodedBuilder.itemId = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItemId)
         }
         if let jsonValueExpirationTimestampMs = jsonMap["expirationTimestampMs"] as? String {
           resultDecodedBuilder.expirationTimestampMs = Int64(jsonValueExpirationTimestampMs)!
@@ -1948,29 +1855,29 @@ public extension Pogoprotos.Map.Fort {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Fort.FortModifier.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Fort.FortModifier.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Fort.FortModifier.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class FortSummary : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasFortSummaryId:Bool = false
-    public private(set) var fortSummaryId:String = ""
+  final public class FortSummary : GeneratedMessage {
+    public fileprivate(set) var fortSummaryId:String = ""
+    public fileprivate(set) var hasFortSummaryId:Bool = false
 
-    public private(set) var hasLastModifiedTimestampMs:Bool = false
-    public private(set) var lastModifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var lastModifiedTimestampMs:Int64 = Int64(0)
+    public fileprivate(set) var hasLastModifiedTimestampMs:Bool = false
 
-    public private(set) var hasLatitude:Bool = false
-    public private(set) var latitude:Double = Double(0)
+    public fileprivate(set) var latitude:Double = Double(0)
+    public fileprivate(set) var hasLatitude:Bool = false
 
-    public private(set) var hasLongitude:Bool = false
-    public private(set) var longitude:Double = Double(0)
+    public fileprivate(set) var longitude:Double = Double(0)
+    public fileprivate(set) var hasLongitude:Bool = false
 
     required public init() {
          super.init()
@@ -1978,20 +1885,20 @@ public extension Pogoprotos.Map.Fort {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasFortSummaryId {
-        try output.writeString(1, value:fortSummaryId)
+        try codedOutputStream.writeString(fieldNumber: 1, value:fortSummaryId)
       }
       if hasLastModifiedTimestampMs {
-        try output.writeInt64(2, value:lastModifiedTimestampMs)
+        try codedOutputStream.writeInt64(fieldNumber: 2, value:lastModifiedTimestampMs)
       }
       if hasLatitude {
-        try output.writeDouble(3, value:latitude)
+        try codedOutputStream.writeDouble(fieldNumber: 3, value:latitude)
       }
       if hasLongitude {
-        try output.writeDouble(4, value:longitude)
+        try codedOutputStream.writeDouble(fieldNumber: 4, value:longitude)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -2001,48 +1908,20 @@ public extension Pogoprotos.Map.Fort {
 
       serialize_size = 0
       if hasFortSummaryId {
-        serialize_size += fortSummaryId.computeStringSize(1)
+        serialize_size += fortSummaryId.computeStringSize(fieldNumber: 1)
       }
       if hasLastModifiedTimestampMs {
-        serialize_size += lastModifiedTimestampMs.computeInt64Size(2)
+        serialize_size += lastModifiedTimestampMs.computeInt64Size(fieldNumber: 2)
       }
       if hasLatitude {
-        serialize_size += latitude.computeDoubleSize(3)
+        serialize_size += latitude.computeDoubleSize(fieldNumber: 3)
       }
       if hasLongitude {
-        serialize_size += longitude.computeDoubleSize(4)
+        serialize_size += longitude.computeDoubleSize(fieldNumber: 4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Map.Fort.FortSummary> {
-      var mergedArray = Array<Pogoprotos.Map.Fort.FortSummary>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortSummary? {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Map.Fort.FortSummary.Builder {
       return Pogoprotos.Map.Fort.FortSummary.classBuilder() as! Pogoprotos.Map.Fort.FortSummary.Builder
@@ -2050,24 +1929,24 @@ public extension Pogoprotos.Map.Fort {
     public func getBuilder() -> Pogoprotos.Map.Fort.FortSummary.Builder {
       return classBuilder() as! Pogoprotos.Map.Fort.FortSummary.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortSummary.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Map.Fort.FortSummary.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
-      return try Pogoprotos.Map.Fort.FortSummary.builderWithPrototype(self)
+      return try Pogoprotos.Map.Fort.FortSummary.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Map.Fort.FortSummary) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasFortSummaryId {
         jsonMap["fortSummaryId"] = fortSummaryId
       }
@@ -2075,18 +1954,18 @@ public extension Pogoprotos.Map.Fort {
         jsonMap["lastModifiedTimestampMs"] = "\(lastModifiedTimestampMs)"
       }
       if hasLatitude {
-        jsonMap["latitude"] = NSNumber(double:latitude)
+        jsonMap["latitude"] = NSNumber(value:latitude)
       }
       if hasLongitude {
-        jsonMap["longitude"] = NSNumber(double:longitude)
+        jsonMap["longitude"] = NSNumber(value:longitude)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortSummary {
+      return try Pogoprotos.Map.Fort.FortSummary.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Map.Fort.FortSummary {
-      return try Pogoprotos.Map.Fort.FortSummary.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Map.Fort.FortSummary {
+      return try Pogoprotos.Map.Fort.FortSummary.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -2102,7 +1981,7 @@ public extension Pogoprotos.Map.Fort {
       if hasLongitude {
         output += "\(indent) longitude: \(longitude) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -2134,13 +2013,10 @@ public extension Pogoprotos.Map.Fort {
     override public func className() -> String {
         return "Pogoprotos.Map.Fort.FortSummary"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Map.Fort.FortSummary.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Map.Fort.FortSummary = Pogoprotos.Map.Fort.FortSummary()
+      fileprivate var builderResult:Pogoprotos.Map.Fort.FortSummary = Pogoprotos.Map.Fort.FortSummary()
       public func getMessage() -> Pogoprotos.Map.Fort.FortSummary {
           return builderResult
       }
@@ -2162,7 +2038,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.fortSummaryId = value
            }
       }
-      public func setFortSummaryId(value:String) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setFortSummaryId(_ value:String) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.fortSummaryId = value
         return self
       }
@@ -2185,7 +2061,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.lastModifiedTimestampMs = value
            }
       }
-      public func setLastModifiedTimestampMs(value:Int64) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setLastModifiedTimestampMs(_ value:Int64) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.lastModifiedTimestampMs = value
         return self
       }
@@ -2208,7 +2084,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.latitude = value
            }
       }
-      public func setLatitude(value:Double) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setLatitude(_ value:Double) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.latitude = value
         return self
       }
@@ -2231,7 +2107,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.longitude = value
            }
       }
-      public func setLongitude(value:Double) -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      public func setLongitude(_ value:Double) -> Pogoprotos.Map.Fort.FortSummary.Builder {
         self.longitude = value
         return self
       }
@@ -2250,7 +2126,7 @@ public extension Pogoprotos.Map.Fort {
         return self
       }
       override public func clone() throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
-        return try Pogoprotos.Map.Fort.FortSummary.builderWithPrototype(builderResult)
+        return try Pogoprotos.Map.Fort.FortSummary.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Map.Fort.FortSummary {
            try checkInitialized()
@@ -2276,42 +2152,42 @@ public extension Pogoprotos.Map.Fort {
         if other.hasLongitude {
              longitude = other.longitude
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            fortSummaryId = try input.readString()
+            fortSummaryId = try codedInputStream.readString()
 
           case 16:
-            lastModifiedTimestampMs = try input.readInt64()
+            lastModifiedTimestampMs = try codedInputStream.readInt64()
 
           case 25:
-            latitude = try input.readDouble()
+            latitude = try codedInputStream.readDouble()
 
           case 33:
-            longitude = try input.readDouble()
+            longitude = try codedInputStream.readDouble()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
         let resultDecodedBuilder = Pogoprotos.Map.Fort.FortSummary.Builder()
         if let jsonValueFortSummaryId = jsonMap["fortSummaryId"] as? String {
           resultDecodedBuilder.fortSummaryId = jsonValueFortSummaryId
@@ -2327,17 +2203,137 @@ public extension Pogoprotos.Map.Fort {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Map.Fort.FortSummary.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Map.Fort.FortSummary.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Map.Fort.FortSummary.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Map.Fort.FortData: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Fort.FortData> {
+    var mergedArray = Array<Pogoprotos.Map.Fort.FortData>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortData? {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Fort.FortData {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortData {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortData {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortData {
+    return try Pogoprotos.Map.Fort.FortData.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Map.Fort.FortLureInfo: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Fort.FortLureInfo> {
+    var mergedArray = Array<Pogoprotos.Map.Fort.FortLureInfo>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo? {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortLureInfo {
+    return try Pogoprotos.Map.Fort.FortLureInfo.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Map.Fort.FortModifier: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Fort.FortModifier> {
+    var mergedArray = Array<Pogoprotos.Map.Fort.FortModifier>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortModifier? {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Fort.FortModifier {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortModifier {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortModifier {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortModifier {
+    return try Pogoprotos.Map.Fort.FortModifier.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Map.Fort.FortSummary: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Map.Fort.FortSummary> {
+    var mergedArray = Array<Pogoprotos.Map.Fort.FortSummary>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortSummary? {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Map.Fort.FortSummary {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Map.Fort.PogoprotosMapFortRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Map.Fort.FortSummary {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Map.Fort.FortSummary {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Map.Fort.FortSummary {
+    return try Pogoprotos.Map.Fort.FortSummary.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

@@ -10,19 +10,19 @@ import Foundation
 
 
 public protocol PGoApiDelegate {
-    func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse)
-    func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?)
-    func didReceiveApiException(intent: PGoApiIntent, exception: PGoApiExceptions)
+    func didReceiveApiResponse(_ intent: PGoApiIntent, response: PGoApiResponse)
+    func didReceiveApiError(_ intent: PGoApiIntent, statusCode: Int?)
+    func didReceiveApiException(_ intent: PGoApiIntent, exception: PGoApiExceptions)
 }
 
 public enum PGoApiExceptions {
-    case NoApiMethodsCalled
-    case Banned
-    case NotLoggedIn
-    case AuthTokenExpired
-    case NoAuth
-    case DelayRequired
-    case InvalidRequest
-    case SessionInvalidated
-    case Unknown
+    case noApiMethodsCalled
+    case banned
+    case notLoggedIn
+    case authTokenExpired
+    case noAuth
+    case delayRequired
+    case invalidRequest
+    case sessionInvalidated
+    case unknown
 }

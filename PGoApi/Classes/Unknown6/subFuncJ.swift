@@ -10,9 +10,8 @@ import Foundation
 
 
 internal class subFuncJ {
-    internal func subFuncJ(input_: Array<UInt32>) -> Array<UInt32> {
-        var v = Array<UInt32>(count: 464, repeatedValue: 0)
-        var input = input_
+    internal func subFuncJ(_ input:inout Array<UInt32>) {
+        var v = Array<UInt32>(repeating: 0, count: 464)
         
         v[0] = input[6]
         let part0 = (((input[141] ^ (input[73] & ~v[0])) | input[98]))
@@ -830,7 +829,5 @@ internal class subFuncJ {
         input[98] = (v[48] & ~part181)
         let part182 = ((v[97] ^ (v[73] & ~v[457])))
         input[0] = (v[48] & ~part182)
-        return input
-
     }
 }

@@ -9,29 +9,28 @@
 import Foundation
 import Alamofire
 
-public class PtcOAuth: PGoAuth {
-    public var username: String!
-    public var password: String!
-    public var accessToken: String?
-    public var expires: Int?
-    public var expired: Bool = false
-    public var loggedIn: Bool = false
-    public var delegate: PGoAuthDelegate?
-    public let authType: PGoAuthType = .Ptc
-    public var endpoint: String = PGoEndpoint.Rpc
-    public var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
-    public var manager: Manager
-    public var banned: Bool = false
+
+open class PtcOAuth: PGoAuth {
+    open var username: String!
+    open var password: String!
+    open var accessToken: String?
+    open var expires: Int?
+    open var expired: Bool = false
+    open var loggedIn: Bool = false
+    open var delegate: PGoAuthDelegate?
+    open let authType: PGoAuthType = .ptc
+    open var endpoint: String = PGoEndpoint.Rpc
+    open var authToken: Pogoprotos.Networking.Envelopes.AuthTicket?
+    open var manager: SessionManager
+    open var banned: Bool = false
     
     public init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        manager = Alamofire.Manager(configuration: configuration)
+        let configuration = URLSessionConfiguration.default
+        manager = Alamofire.SessionManager(configuration: configuration)
     }
     
-    private func getTicket(lt: String, execution: String) {
-        print("Requesting ticket...")
-        
-        let parameters = [
+    fileprivate func getTicket(lt: String, execution: String) {
+        let parameters: [String:String] = [
             "lt": lt,
             "execution": execution,
             "_eventId": "submit",
@@ -39,16 +38,16 @@ public class PtcOAuth: PGoAuth {
             "password": password
         ]
         
-        manager.request(.POST, PGoEndpoint.LoginInfo, parameters: parameters)
+        manager.request(PGoEndpoint.LoginInfo, method: .post, parameters: parameters, encoding: URLEncoding(destination: .httpBody))
             .responseData { response in
                 if let location = response.response!.allHeaderFields["Location"] as? String {
-                    let ticketRange = location.rangeOfString("?ticket=")
+                    let ticketRange = location.range(of: "?ticket=")
                     
                     // response will occasionally come back with no ticket arg
                     if ticketRange == nil {
                         self.delegate?.didNotReceiveAuth()
                     } else {
-                        let ticket = String(location.characters.suffixFrom(ticketRange!.endIndex))
+                        let ticket = String(location.characters.suffix(from: ticketRange!.upperBound))
                         self.loginOAuth(ticket)
                     }
                 } else {
@@ -57,10 +56,8 @@ public class PtcOAuth: PGoAuth {
         }
     }
     
-    private func loginOAuth(ticket: String) {
-        print("Logging in via OAuth...")
-        
-        let parameters = [
+    fileprivate func loginOAuth(_ ticket: String) {
+        let parameters: [String:String] = [
             "client_id": "mobile-app_pokemon-go",
             "redirect_uri": "https://www.nianticlabs.com/pokemongo/error",
             "client_secret": "w8ScCUXJQc6kXKw8FiOhd8Fixzht18Dq3PEVkUCP5ZPxtgyWsbTvWHFLm2wNY0JR",
@@ -68,16 +65,13 @@ public class PtcOAuth: PGoAuth {
             "code": ticket
         ]
         
-        // Remove "niantic" from the User-Agent
-        manager.session.configuration.HTTPAdditionalHeaders = [:]
-        
         self.cleanCookies()
         
-        manager.request(.POST, PGoEndpoint.LoginOAuth, parameters: parameters)
+        manager.request(PGoEndpoint.LoginOAuth, method: .post, parameters: parameters, encoding: URLEncoding(destination: .httpBody))
             .responseString { response in
                 let value = response.result.value!
                 let regex = try! NSRegularExpression(pattern: "access_token=([A-Za-z0-9\\-.]+)&expires=([0-9]+)", options: [])
-                let matches = regex.matchesInString(value, options: [], range: NSRange(location: 0, length: value.utf16.count))
+                let matches = regex.matches(in: value, options: [], range: NSRange(location: 0, length: value.utf16.count))
                 
                 guard let matchResult = matches.first else {
                     self.delegate?.didNotReceiveAuth()
@@ -85,30 +79,29 @@ public class PtcOAuth: PGoAuth {
                 }
                 
                 // Extract the access_token
-                let atRange = matchResult.rangeAtIndex(1)
+                let atRange = matchResult.rangeAt(1)
                 let atSwiftRange = atRange.rangeForString(value)!
-                self.accessToken = value.substringWithRange(atSwiftRange)
+                self.accessToken = value.substring(with: atSwiftRange)
                 
                 // Extract the expires
-                let eRange = matchResult.rangeAtIndex(2)
+                let eRange = matchResult.rangeAt(2)
                 let eSwiftRange = eRange.rangeForString(value)!
-                self.expires = Int(value.substringWithRange(eSwiftRange))
+                self.expires = Int(value.substring(with: eSwiftRange))
                 
                 self.loggedIn = true
                 self.delegate?.didReceiveAuth()
         }
     }
     
-    private func cleanCookies() {
-        if let cookies = manager.session.configuration.HTTPCookieStorage?.cookies {
+    fileprivate func cleanCookies() {
+        if let cookies = manager.session.configuration.httpCookieStorage?.cookies {
             for cookie in cookies {
-                manager.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
+                manager.session.configuration.httpCookieStorage?.deleteCookie(cookie)
             }
         }
     }
     
-    public func login(withUsername username:String, withPassword password:String) {
-        print("Starting login...")
+    open func login(withUsername username:String, withPassword password:String) {
         self.username = username
         self.password = password
         
@@ -119,17 +112,17 @@ public class PtcOAuth: PGoAuth {
             return nil
         }
         
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        let headers = [
             "User-Agent": "niantic"
         ]
         
-        manager.request(.GET, PGoEndpoint.LoginInfo)
+        manager.request(PGoEndpoint.LoginInfo, headers: headers)
             .responseJSON { response in
-                if let JSON = response.result.value {
+                if let JSON = response.result.value as? [String:Any] {
                     let lt = JSON["lt"] as! String
                     let execution = JSON["execution"] as! String
                     
-                    self.getTicket(lt, execution: execution)
+                    self.getTicket(lt: lt, execution: execution)
                 }
         }
     }

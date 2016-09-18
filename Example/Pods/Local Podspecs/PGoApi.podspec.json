@@ -16,7 +16,8 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "8.0",
+    "osx": "10.11"
   },
   "source_files": "PGoApi/Classes/**/*",
   "dependencies": {

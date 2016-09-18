@@ -10,9 +10,8 @@ import Foundation
 
 
 internal class subFuncH {
-    internal func subFuncH(input_: Array<UInt32>) -> Array<UInt32> {
-        var v = Array<UInt32>(count: 471, repeatedValue: 0)
-        var input = input_
+    internal func subFuncH(_ input:inout Array<UInt32>) {
+        var v = Array<UInt32>(repeating: 0, count: 471)
         
         v[0] = ~input[7]
         v[1] = (v[0] & input[42])
@@ -818,6 +817,5 @@ internal class subFuncH {
         let part181 = ((v[466] | v[462]))
         input[81] = (v[467] ^ part181)
         input[79] = (v[463] & v[462])
-        return input
     }
 }

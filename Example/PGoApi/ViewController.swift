@@ -9,6 +9,7 @@
 import UIKit
 import PGoApi
 
+
 class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
 
     var auth: PGoAuth!
@@ -16,8 +17,8 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     var mapCells = Pogoprotos.Networking.Responses.GetMapObjectsResponse()
     
     enum AuthMethod {
-        case PTC
-        case Google
+        case ptc
+        case google
     }
     
     @IBOutlet weak var authSegment: UISegmentedControl!
@@ -26,11 +27,11 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
     @IBOutlet weak var latField: UITextField!
     @IBOutlet weak var longField: UITextField!
     
-    @IBAction func login(sender: UIButton) {
+    @IBAction func login(_ sender: UIButton) {
         switch authSegment.selectedSegmentIndex {
-        case AuthMethod.PTC.hashValue:
+        case AuthMethod.ptc.hashValue:
             auth = PtcOAuth()
-        case AuthMethod.Google.hashValue:
+        case AuthMethod.google.hashValue:
             auth = GPSOAuth()
         default:
             break
@@ -41,7 +42,7 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
             showAlert("Error", message: "Login details are incomplete.")
             return
         }
-        if let long = Double(longField.text!), lat = Double(latField.text!) {
+        if let long = Double(longField.text!), let lat = Double(latField.text!) {
             if -180 <= long && long <= 180 && -90 <= lat && lat <= 90 {
                 print("Using latitude: \(lat) and longitude: \(long).")
             } else {
@@ -55,17 +56,17 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         auth.login(withUsername: usernameTextField.text!, withPassword: passwordTextField.text!)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "showMap") {
-            let pokeMap:PokemonMap = segue.destinationViewController as! PokemonMap
+            let pokeMap:PokemonMap = segue.destination as! PokemonMap
             pokeMap.mapCells = mapCells
         }
     }
     
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+    func showAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -87,13 +88,13 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         
         // Set the latitude/longitude of player. 
         // Altitude should be included, but it is optional and defaults to 6.0
-        request!.setLocation(Double(latField.text!)!, longitude: Double(longField.text!)!, altitude: 67.61)
+        request!.setLocation(latitude: Double(latField.text!)!, longitude: Double(longField.text!)!, altitude: 67.61)
         
         // Simulate the start, which cues methods: 
         // getPlayer(), getHatchedEggs(), getInventory(), checkAwardedBadges(), downloadSettings()
         // Results can be accessed in subresponse for intent .Login under didReceiveApiResponse()
         request!.simulateAppStart()
-        request!.makeRequest(.Login, delegate: self)
+        request!.makeRequest(intent: .login, delegate: self)
     }
     
     func didNotReceiveAuth() {
@@ -101,31 +102,31 @@ class ViewController: UIViewController, PGoAuthDelegate, PGoApiDelegate {
         print("Failed to auth!")
     }
     
-    func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
+    func didReceiveApiResponse(_ intent: PGoApiIntent, response: PGoApiResponse) {
         print("Got that API response: \(intent)")
         // Uncomment the following to view the responses
         // print(response.response)
         // print(response.subresponses)
         
-        if (intent == .Login) {
+        if (intent == .login) {
             // App simulation complete, now requesting map objects
             request!.getMapObjects()
-            request!.makeRequest(.GetMapObjects, delegate: self)
-        } else if (intent == .GetMapObjects) {
+            request!.makeRequest(intent: .getMapObjects, delegate: self)
+        } else if (intent == .getMapObjects) {
             print("Got map objects!")
             
             // Map cells are the first subresponse
             mapCells = response.subresponses[0] as! Pogoprotos.Networking.Responses.GetMapObjectsResponse
             
-            performSegueWithIdentifier("showMap", sender: nil)
+            performSegue(withIdentifier: "showMap", sender: nil)
         }
     }
     
-    func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?) {
+    func didReceiveApiError(_ intent: PGoApiIntent, statusCode: Int?) {
         print("API Error: \(statusCode)")
     }
     
-    func didReceiveApiException(intent: PGoApiIntent, exception: PGoApiExceptions) {
+    func didReceiveApiException(_ intent: PGoApiIntent, exception: PGoApiExceptions) {
         print("API Exception: \(exception)")
     }
 }

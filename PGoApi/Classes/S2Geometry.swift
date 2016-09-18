@@ -10,9 +10,9 @@ import Foundation
 
 
 public enum S2Projection {
-    case Linear
-    case Tan
-    case Quadratic
+    case linear
+    case tan
+    case quadratic
 }
 
 public enum S2Constants {
@@ -40,11 +40,11 @@ public struct S2Uv {
     public let v: Double
 }
 
-public class S2Helper {
-    public static let sharedInstance = S2Helper()
+open class S2Helper {
+    open static let sharedInstance = S2Helper()
     
-    public var lookupPos: [Int64?] = []
-    public var lookupIJ: [Int64?] = []
+    open var lookupPos: [Int64?] = []
+    open var lookupIJ: [Int64?] = []
     
     public init() {
         for _ in 0..<(1 << (2 * S2Constants.lookupBits + 2)) {
@@ -57,7 +57,7 @@ public class S2Helper {
         initLookupCell(0, i: 0, j: 0, origOrientation: S2Constants.swapMask | S2Constants.invertMask, pos: 0, orientation: S2Constants.swapMask | S2Constants.invertMask)
     }
     
-    public func initLookupCell(level: Int64, i: Int64, j: Int64, origOrientation: Int64, pos: Int64, orientation: Int64) {
+    open func initLookupCell(_ level: Int64, i: Int64, j: Int64, origOrientation: Int64, pos: Int64, orientation: Int64) {
         if level == S2Constants.lookupBits {
             let ij = (i << S2Constants.lookupBits) + j
             lookupPos[Int((ij << 2) + origOrientation)] = (pos << 2) + orientation
@@ -75,10 +75,10 @@ public class S2Helper {
     }
 }
 
-public class S2Point {
-    public let x: Double
-    public let y: Double
-    public let z: Double
+open class S2Point {
+    open let x: Double
+    open let y: Double
+    open let z: Double
     
     public init(x: Double, y: Double, z: Double) {
         self.x = x
@@ -86,11 +86,11 @@ public class S2Point {
         self.z = z
     }
     
-    public func pointAbs() -> [Double] {
+    open func pointAbs() -> [Double] {
         return [abs(x), abs(y), abs(z)]
     }
     
-    public func largestAbsComponent() -> Int64 {
+    open func largestAbsComponent() -> Int64 {
         let temp = pointAbs()
         if temp[0] > temp[1] {
             if temp[0] > temp[2] {
@@ -107,11 +107,11 @@ public class S2Point {
         }
     }
     
-    public func dotProd(o: S2Point) -> Double {
+    open func dotProd(_ o: S2Point) -> Double {
         return x * o.x + y * o.y + z * o.z
     }
     
-    public static func faceUvToXyz(face: Int64, u: Double, v: Double) -> S2Point {
+    open static func faceUvToXyz(_ face: Int64, u: Double, v: Double) -> S2Point {
         let uDouble = Double(u)
         let vDouble = Double(v)
         if face == 0 {
@@ -129,21 +129,21 @@ public class S2Point {
         }
     }
     
-    public func get(axis: Int64) -> Double {
+    open func get(_ axis: Int64) -> Double {
         return (axis == 0) ? x : (axis == 1) ? y : z
     }
 }
 
-public class S2LatLon {
-    public let lat: Double
-    public let lon: Double
+open class S2LatLon {
+    open let lat: Double
+    open let lon: Double
     
     public init(latDegrees: Double, lonDegrees: Double) {
         lat = latDegrees * M_PI / 180
         lon = lonDegrees * M_PI / 180
     }
     
-    public func toPoint() -> S2Point {
+    open func toPoint() -> S2Point {
         let phi = lat
         let theta = lon
         let cosphi = cos(phi)
@@ -151,8 +151,8 @@ public class S2LatLon {
     }
 }
 
-public class S2CellId: Equatable {
-    public var id: UInt64
+open class S2CellId: Equatable {
+    open var id: UInt64
     
     public init(id: UInt64) {
         self.id = id
@@ -160,8 +160,8 @@ public class S2CellId: Equatable {
     
     public convenience init(p: S2Point) {
         let faceUv = S2CellId.xyzToFaceUv(p)
-        let i = S2CellId.stToIj(S2CellId.uvToSt(.Quadratic, u: faceUv.u))
-        let j = S2CellId.stToIj(S2CellId.uvToSt(.Quadratic, u: faceUv.v))
+        let i = S2CellId.stToIj(S2CellId.uvToSt(.quadratic, u: faceUv.u))
+        let j = S2CellId.stToIj(S2CellId.uvToSt(.quadratic, u: faceUv.v))
         self.init(face: faceUv.face, i: i, j: j)
     }
     
@@ -169,7 +169,7 @@ public class S2CellId: Equatable {
         var n = face << (S2Constants.posBits - 1)
         var bits = face & S2Constants.swapMask
         
-        for k in 7.stride(to: -1, by: -1) {
+        for k in stride(from: 7, to: -1, by: -1) {
             let mask = (1 << S2Constants.lookupBits) - 1
             bits += (((i >> (Int64(k) * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
             bits += (((j >> (Int64(k) * S2Constants.lookupBits)) & mask) << 2)
@@ -181,7 +181,7 @@ public class S2CellId: Equatable {
         self.init(id: UInt64(n) * 2 + 1)
     }
     
-    public static func getBits(inout n: [Int64], i: Int64, j: Int64, k: Int64, inout bits: Int64) {
+    open static func getBits(_ n: inout [Int64], i: Int64, j: Int64, k: Int64, bits: inout Int64) {
         let mask: Int64 = (1 << S2Constants.lookupBits) - 1
         bits += (((i >> (k * S2Constants.lookupBits)) & mask) << (S2Constants.lookupBits + 2))
         bits += (((j >> (k * S2Constants.lookupBits)) & mask) << 2)
@@ -190,7 +190,7 @@ public class S2CellId: Equatable {
         bits &= (S2Constants.swapMask | S2Constants.invertMask)
     }
     
-    public func getBitsForIJ(inout i: Int64, inout j: Int64, k: Int64, inout bits: Int64) {
+    open func getBitsForIJ(_ i: inout Int64, j: inout Int64, k: Int64, bits: inout Int64) {
         let nbits: Int64 = (k == 7) ? (S2Constants.maxLevel - 7 * S2Constants.lookupBits) : S2Constants.lookupBits
         bits += (((id.getInt64() >> (k * 2 * S2Constants.lookupBits + 1)) & ((1 << (2 * nbits)) - 1))) << 2
         bits = S2Helper.sharedInstance.lookupIJ[Int(bits)]!
@@ -199,11 +199,11 @@ public class S2CellId: Equatable {
         bits &= (S2Constants.swapMask | S2Constants.invertMask)
     }
     
-    public func toFaceIJOrientation(inout pi: Int64, inout pj: Int64, inout orientation: Int64?) -> Int64 {
+    open func toFaceIJOrientation(_ pi: inout Int64, pj: inout Int64, orientation: inout Int64?) -> Int64 {
         let face: Int64 = self.face()
         var bits: Int64 = (face & S2Constants.swapMask)
         
-        for k in 7.stride(through: 0, by: -1) {
+        for k in stride(from: 7, through: 0, by: -1) {
             getBitsForIJ(&pi, j: &pj, k: Int64(k), bits: &bits)
         }
         
@@ -217,7 +217,7 @@ public class S2CellId: Equatable {
         return face
     }
     
-    public static func xyzToFaceUv(p: S2Point) -> S2FaceUv {
+    open static func xyzToFaceUv(_ p: S2Point) -> S2FaceUv {
         var face = p.largestAbsComponent()
         var pFace: Double
         if face == 0 {
@@ -234,7 +234,7 @@ public class S2CellId: Equatable {
         return S2FaceUv(face: face, u: uv.u, v: uv.v)
     }
     
-    public static func xyzToFace(p: S2Point) -> Int64 {
+    open static func xyzToFace(_ p: S2Point) -> Int64 {
         var face = p.largestAbsComponent()
         if (p.get(face) < 0) {
             face += 3
@@ -242,10 +242,10 @@ public class S2CellId: Equatable {
         return face
     }
     
-    public static func uvToSt(projection: S2Projection, u: Double) -> Double {
-        if projection == .Linear {
+    open static func uvToSt(_ projection: S2Projection, u: Double) -> Double {
+        if projection == .linear {
             return 0.5 * (u + 1)
-        } else if projection == .Tan {
+        } else if projection == .tan {
             return (2 * (1.0 / M_PI)) * (atan(u) * M_PI / 4.0)
         } else {
             if u >= 0 {
@@ -256,11 +256,11 @@ public class S2CellId: Equatable {
         }
     }
     
-    public static func stToIj(s: Double) -> Int64 {
+    open static func stToIj(_ s: Double) -> Int64 {
         return max(0, min(S2Constants.maxSize - 1, Int64(floor(Double(S2Constants.maxSize) * s))))
     }
     
-    public static func validFaceXyzToUv(face: Int64, p: S2Point) -> S2Uv {
+    open static func validFaceXyzToUv(_ face: Int64, p: S2Point) -> S2Uv {
         assert(p.dotProd(S2Point.faceUvToXyz(face, u: 0, v: 0)) > 0)
         if face == 0 {
             return S2Uv(u: p.y / p.x, v: p.z / p.x)
@@ -277,7 +277,7 @@ public class S2CellId: Equatable {
         }
     }
     
-    public static func fromFaceIJWrap(face: Int64, i: Int64, int j: Int64) -> S2CellId {
+    open static func fromFaceIJWrap(_ face: Int64, i: Int64, int j: Int64) -> S2CellId {
         let i = max(-1, min(S2Constants.maxSize, i))
         let j = max(-1, min(S2Constants.maxSize, j))
         
@@ -291,18 +291,18 @@ public class S2CellId: Equatable {
         return fromFaceIJ(face, i: S2CellId.stToIj(st.u), j: stToIj(st.v))
     }
     
-    public static func fromFaceIJ(face: Int64, i: Int64, j: Int64) -> S2CellId {
+    open static func fromFaceIJ(_ face: Int64, i: Int64, j: Int64) -> S2CellId {
         var n: [Int64] = [0, face << (S2Constants.posBits - 33)]
         var bits: Int64 = (face & S2Constants.swapMask)
         
-        for k in 7.stride(to: -1, by: -1) {
+        for k in stride(from: 7, to: -1, by: -1) {
             getBits(&n, i: i, j: j, k: Int64(k), bits: &bits)
         }
         
         return S2CellId(id: ((((n[1] << 32) + n[0]) << 1) + 1).getUInt64())
     }
     
-    public static func fromFaceIJSame(face: Int64, i: Int64, j: Int64, sameFace: Bool) -> S2CellId {
+    open static func fromFaceIJSame(_ face: Int64, i: Int64, j: Int64, sameFace: Bool) -> S2CellId {
         if (sameFace) {
             return fromFaceIJ(face, i: i, j: j)
         } else {
@@ -310,34 +310,34 @@ public class S2CellId: Equatable {
         }
     }
     
-    public func lsb() -> UInt64 {
+    open func lsb() -> UInt64 {
         return UInt64(bitPattern: Int64(bitPattern: id) & (0 &- Int64(bitPattern: id)))
     }
     
-    public func prev() -> S2CellId{
+    open func prev() -> S2CellId{
         return S2CellId(id: id - (lsb() << 1))
     }
     
-    public func next() -> S2CellId {
+    open func next() -> S2CellId {
         return S2CellId(id: id + (lsb() << 1))
     }
     
-    public func lsbForLevel(level: Int64) -> Int64 {
+    open func lsbForLevel(_ level: Int64) -> Int64 {
         return 1 << (2 * (30 - level))
     }
 
-    public func parent(level: Int64) -> S2CellId {
+    open func parent(_ level: Int64) -> S2CellId {
         let newLsb = self.lsbForLevel(level)
         let newId = (self.id.getInt64() & -newLsb) | newLsb
         self.id = newId.getUInt64()
         return self
     }
     
-    public func face() -> Int64 {
+    open func face() -> Int64 {
         return self.id.getInt64() >> S2Constants.posBits
     }
     
-    public func level() -> Int64 {
+    open func level() -> Int64 {
         var x = self.id
         var level: Int64 = -1
         
@@ -363,7 +363,7 @@ public class S2CellId: Equatable {
         return level
     }
 
-    public func getAllNeighbors(level: Int64) -> [S2CellId] {
+    open func getAllNeighbors(_ level: Int64) -> [S2CellId] {
         var output = [S2CellId]()
         var i: Int64 = 0
         var j: Int64 = 0
@@ -375,13 +375,13 @@ public class S2CellId: Equatable {
         j = (j & -size)
         
         let nbrSize:Int64 = 1 << (S2Constants.maxLevel - level)
-        let nbrSizeInverted = Int((-nbrSize))
+        let nbrSizeInverted = Int(-nbrSize)
         
-        nbrSizeInverted.strideByInt(to: Int(size), by: Int(nbrSize)) {k in
+        for k in stride(from: nbrSizeInverted, through: Int(size), by: Int(nbrSize)) {
             var sameFace: Bool
             if (k < 0) {
                 sameFace = (j + k >= 0)
-            } else if (k >= size) {
+            } else if (k >= Int(size)) {
                 sameFace = (j + k < S2Constants.maxSize)
             } else {
                 sameFace = true
@@ -394,7 +394,7 @@ public class S2CellId: Equatable {
         return output
     }
     
-    public func getEdgeNeighbors() -> [S2CellId] {
+    open func getEdgeNeighbors() -> [S2CellId] {
         var neighbors: [S2CellId] = []
         var i: Int64 = 0
         var j: Int64 = 0
@@ -412,31 +412,31 @@ public class S2CellId: Equatable {
         
         return neighbors
     }
-    public func getVertexNeighbors(level: Int64) -> [S2CellId] {
+    open func getVertexNeighbors(_ level: Int64) -> [S2CellId] {
         var neighbors: [S2CellId] = []
         var i: Int64 = 0
         var j: Int64 = 0
         var orientation: Int64? = nil
         let face = toFaceIJOrientation(&i, pj: &j, orientation: &orientation)
         
-        let halfSize = 1 << (S2Constants.maxLevel - (level + 1))
+        let halfSize: Int64 = 1 << (S2Constants.maxLevel - (level + 1))
         let size = halfSize << 1
         
         var iSame:Bool, jSame: Bool, iOffset: Int64, jOffset: Int64
         
         if ((i & halfSize) != 0) {
-            iOffset = size
+            iOffset = Int64(size)
             iSame = (i + size) < S2Constants.maxSize
         } else {
-            iOffset = -size
+            iOffset = -(Int64)(size)
             iSame = (i - size) >= 0
         }
         
         if (j & halfSize) != 0 {
-            jOffset = size
+            jOffset = Int64(size)
             jSame = (j + size) < S2Constants.maxSize
         } else {
-            jOffset = -size
+            jOffset = -(Int64)(size)
             jSame = (j - size) >= 0
         }
         

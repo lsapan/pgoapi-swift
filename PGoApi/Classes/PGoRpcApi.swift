@@ -14,20 +14,20 @@ import ProtocolBuffers
 
 
 internal class PGoRpcApi {
-    private let intent: PGoApiIntent
-    private var auth: PGoAuth
-    private let delegate: PGoApiDelegate?
-    private let subrequests: [PGoApiMethod]
-    private let api: PGoApiRequest
-    private var manager: Manager?
-    private var responseObject: PGoResponseObject?
-    private var unknown6Builder: platformRequest?
+    fileprivate let intent: PGoApiIntent
+    fileprivate var auth: PGoAuth
+    fileprivate let delegate: PGoApiDelegate?
+    fileprivate let subrequests: [PGoApiMethod]
+    fileprivate let api: PGoApiRequest
+    fileprivate var manager: SessionManager?
+    fileprivate var responseObject: PGoResponseObject?
+    fileprivate var unknown6Builder: platformRequest?
+    fileprivate let headers = [
+        "User-Agent": "Niantic App"
+    ]
     
     internal init(subrequests: [PGoApiMethod], intent: PGoApiIntent, auth: PGoAuth, api: PGoApiRequest, delegate: PGoApiDelegate?) {
         manager = auth.manager
-        manager!.session.configuration.HTTPAdditionalHeaders = [
-            "User-Agent": "Niantic App"
-        ]
         
         self.subrequests = subrequests
         self.intent = intent
@@ -42,16 +42,12 @@ internal class PGoRpcApi {
     
     internal func request() {
         let requestData = buildMainRequest().data()
+        let params:[String:Data] = [:]
         
-        manager!.request(.POST, auth.endpoint, parameters: [:], encoding: .Custom({
-            (convertible, params) in
-            let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
-            mutableRequest.HTTPBody = requestData
-            return (mutableRequest, nil)
-        })).responseData { response in
+        manager?.request(auth.endpoint, method: .post, parameters: params, encoding: BinaryEncoding(data: requestData), headers: headers).responseData { response in
             let statusCode = response.response?.statusCode
             if statusCode != 200 {
-                print("Unexpected response code, should be 200, got \(statusCode)")
+                self.api.debugMessage("Unexpected response code, should be 200, got \(statusCode)")
                 self.delegate?.didReceiveApiError(self.intent, statusCode: statusCode)
                 return
             }
@@ -61,7 +57,7 @@ internal class PGoRpcApi {
         }
     }
     
-    private func buildMainRequest() -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    fileprivate func buildMainRequest() -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
         self.api.debugMessage("Generating main request...")
         
         let requestBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
@@ -96,47 +92,47 @@ internal class PGoRpcApi {
         self.api.session.requestId += 1
         
         if self.api.unknown6Settings.useLocationFix {
-            requestBuilder.msSinceLastLocationfix = Int64(self.api.locationFix.timestamp)
+            requestBuilder.msSinceLastLocationfix = Int64(self.api.locationFix.timeStamp)
         } else {
             requestBuilder.msSinceLastLocationfix = Int64(UInt64.random(100, max: 300))
         }
-        
+                
         self.api.debugMessage("Building request...")
         return try! requestBuilder.build()
     }
     
-    private func parseMainResponse(data: NSData) -> PGoApiResponse {
+    fileprivate func parseMainResponse(_ data: Data) -> PGoApiResponse {
         self.api.debugMessage("Parsing main response...")
         
-        let response = try! Pogoprotos.Networking.Envelopes.ResponseEnvelope.parseFromData(data)
+        let response = try! Pogoprotos.Networking.Envelopes.ResponseEnvelope.parseFrom(data: data)
         
-        if response.statusCode == .BadRequest {
+        if response.statusCode == .badRequest {
             self.auth.banned = true
-            print("WARNING: Account may be banned.")
-            self.delegate?.didReceiveApiException(intent, exception: .Banned)
-        } else if response.statusCode == .Redirect {
+            self.api.debugMessage("WARNING: Account may be banned.")
+            self.delegate?.didReceiveApiException(intent, exception: .banned)
+        } else if response.statusCode == .redirect {
             auth.endpoint = "https://\(response.apiUrl)/rpc"
-            print("New endpoint: \(auth.endpoint)")
-        } else if response.statusCode == .InvalidAuthToken {
-            print("Auth token is expired.")
+            self.api.debugMessage("New endpoint: \(auth.endpoint)")
+        } else if response.statusCode == .invalidAuthToken {
+            self.api.debugMessage("Auth token is expired.")
             if (self.api.ApiSettings.refreshAuthTokens) {
                 self.api.refreshAuthToken()
             } else {
                 auth.expired = true
-                self.delegate?.didReceiveApiException(intent, exception: .AuthTokenExpired)
+                self.delegate?.didReceiveApiException(intent, exception: .authTokenExpired)
             }
-        } else if response.statusCode == .InvalidRequest {
-            print("Warning! Request was invalid.")
-            self.delegate?.didReceiveApiException(intent, exception: .InvalidRequest)
-        } else if response.statusCode == .InvalidPlatformRequest {
-            print("Warning! Platform request is invalid. Try adding a delay of 10 seconds.")
-            self.delegate?.didReceiveApiException(intent, exception: .DelayRequired)
-        } else if response.statusCode == .SessionInvalidated {
-            print("Warning! Session is invalid.")
-            self.delegate?.didReceiveApiException(intent, exception: .SessionInvalidated)
-        } else if response.statusCode == .Unknown {
-            print("Warning! Unknown error.")
-            self.delegate?.didReceiveApiException(intent, exception: .Unknown)
+        } else if response.statusCode == .invalidRequest {
+            self.api.debugMessage("Warning! Request was invalid.")
+            self.delegate?.didReceiveApiException(intent, exception: .invalidRequest)
+        } else if response.statusCode == .invalidPlatformRequest {
+            self.api.debugMessage("Warning! Platform request is invalid. Try adding a delay of 10 seconds.")
+            self.delegate?.didReceiveApiException(intent, exception: .delayRequired)
+        } else if response.statusCode == .sessionInvalidated {
+            self.api.debugMessage("Warning! Session is invalid.")
+            self.delegate?.didReceiveApiException(intent, exception: .sessionInvalidated)
+        } else if response.statusCode == .unknown {
+            self.api.debugMessage("Warning! Unknown error.")
+            self.delegate?.didReceiveApiException(intent, exception: .unknown)
         }
         
         if response.hasAuthTicket {
@@ -147,124 +143,124 @@ internal class PGoRpcApi {
         return PGoApiResponse(response: response, subresponses: subresponses, object: responseObject)
     }
     
-    private func setResponseObject(intent: Pogoprotos.Networking.Requests.RequestType, parsedData: GeneratedMessage) {
+    fileprivate func setResponseObject(_ intent: Pogoprotos.Networking.Requests.RequestType, parsedData: GeneratedMessage) {
         switch intent {
-        case .GetPlayer:
+        case .getPlayer:
             responseObject!.GetPlayer = parsedData as? Pogoprotos.Networking.Responses.GetPlayerResponse
-        case .GetInventory:
+        case .getInventory:
             responseObject!.GetInventory = parsedData as? Pogoprotos.Networking.Responses.GetInventoryResponse
-        case .DownloadSettings:
+        case .downloadSettings:
             responseObject!.DownloadSettings = parsedData as? Pogoprotos.Networking.Responses.DownloadSettingsResponse
-        case .DownloadItemTemplates:
+        case .downloadItemTemplates:
             responseObject!.DownloadItemTemplates = parsedData as? Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse
-        case .DownloadRemoteConfigVersion:
+        case .downloadRemoteConfigVersion:
             responseObject!.DownloadRemoteConfigVersion = parsedData as? Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse
-        case .FortSearch:
+        case .fortSearch:
             responseObject!.FortSearch = parsedData as? Pogoprotos.Networking.Responses.FortSearchResponse
-        case .Encounter:
+        case .encounter:
             responseObject!.EncounterPokemon = parsedData as? Pogoprotos.Networking.Responses.EncounterResponse
-        case .CatchPokemon:
+        case .catchPokemon:
             responseObject!.CatchPokemon = parsedData as? Pogoprotos.Networking.Responses.CatchPokemonResponse
-        case .FortDetails:
+        case .fortDetails:
             responseObject!.FortDetails = parsedData as? Pogoprotos.Networking.Responses.FortDetailsResponse
-        case .GetMapObjects:
+        case .getMapObjects:
             responseObject!.GetMapObjects = parsedData as? Pogoprotos.Networking.Responses.GetMapObjectsResponse
-        case .FortDeployPokemon:
+        case .fortDeployPokemon:
             responseObject!.FortDeployPokemon = parsedData as? Pogoprotos.Networking.Responses.FortDeployPokemonResponse
-        case .FortRecallPokemon:
+        case .fortRecallPokemon:
             responseObject!.FortRecallPokemon = parsedData as? Pogoprotos.Networking.Responses.FortRecallPokemonResponse
-        case .ReleasePokemon:
+        case .releasePokemon:
             responseObject!.ReleasePokemon = parsedData as? Pogoprotos.Networking.Responses.ReleasePokemonResponse
-        case .UseItemPotion:
+        case .useItemPotion:
             responseObject!.UseItemPotion = parsedData as? Pogoprotos.Networking.Responses.UseItemPotionResponse
-        case .UseItemCapture:
+        case .useItemCapture:
             responseObject!.UseItemCapture = parsedData as? Pogoprotos.Networking.Responses.UseItemCaptureResponse
-        case .UseItemRevive:
+        case .useItemRevive:
             responseObject!.UseItemRevive = parsedData as? Pogoprotos.Networking.Responses.UseItemReviveResponse
-        case .GetPlayerProfile:
+        case .getPlayerProfile:
             responseObject!.GetPlayerProfile = parsedData as? Pogoprotos.Networking.Responses.GetPlayerProfileResponse
-        case .EvolvePokemon:
+        case .evolvePokemon:
             responseObject!.EvolvePokemon = parsedData as? Pogoprotos.Networking.Responses.EvolvePokemonResponse
-        case .GetHatchedEggs:
+        case .getHatchedEggs:
             responseObject!.GetHatchedEggs = parsedData as? Pogoprotos.Networking.Responses.GetHatchedEggsResponse
-        case .EncounterTutorialComplete:
+        case .encounterTutorialComplete:
             responseObject!.EncounterTutorialComplete = parsedData as? Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse
-        case .LevelUpRewards:
+        case .levelUpRewards:
             responseObject!.LevelUpRewards = parsedData as? Pogoprotos.Networking.Responses.LevelUpRewardsResponse
-        case .CheckAwardedBadges:
+        case .checkAwardedBadges:
             responseObject!.CheckAwardedBadges = parsedData as? Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse
-        case .UseItemGym:
+        case .useItemGym:
             responseObject!.UseItemGym = parsedData as? Pogoprotos.Networking.Responses.UseItemGymResponse
-        case .GetGymDetails:
+        case .getGymDetails:
             responseObject!.GetGymDetails = parsedData as? Pogoprotos.Networking.Responses.GetGymDetailsResponse
-        case .StartGymBattle:
+        case .startGymBattle:
             responseObject!.StartGymBattle = parsedData as? Pogoprotos.Networking.Responses.StartGymBattleResponse
-        case .AttackGym:
+        case .attackGym:
             responseObject!.AttackGym = parsedData as? Pogoprotos.Networking.Responses.AttackGymResponse
-        case .RecycleInventoryItem:
+        case .recycleInventoryItem:
             responseObject!.RecycleInventoryItem = parsedData as? Pogoprotos.Networking.Responses.RecycleInventoryItemResponse
-        case .CollectDailyBonus:
+        case .collectDailyBonus:
             responseObject!.CollectDailyBonus = parsedData as? Pogoprotos.Networking.Responses.CollectDailyBonusResponse
-        case .UseItemXpBoost:
+        case .useItemXpBoost:
             responseObject!.UseItemXpBoost = parsedData as? Pogoprotos.Networking.Responses.UseItemXpBoostResponse
-        case .UseItemEggIncubator:
+        case .useItemEggIncubator:
             responseObject!.UseItemEggIncubator = parsedData as? Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse
-        case .UseIncense:
+        case .useIncense:
             responseObject!.UseIncense = parsedData as? Pogoprotos.Networking.Responses.UseIncenseResponse
-        case .GetIncensePokemon:
+        case .getIncensePokemon:
             responseObject!.GetIncensePokemon = parsedData as? Pogoprotos.Networking.Responses.GetIncensePokemonResponse
-        case .IncenseEncounter:
+        case .incenseEncounter:
             responseObject!.IncenseEncounter = parsedData as? Pogoprotos.Networking.Responses.IncenseEncounterResponse
-        case .AddFortModifier:
+        case .addFortModifier:
             responseObject!.AddFortModifier = parsedData as? Pogoprotos.Networking.Responses.AddFortModifierResponse
-        case .DiskEncounter:
+        case .diskEncounter:
             responseObject!.DiskEncounter = parsedData as? Pogoprotos.Networking.Responses.DiskEncounterResponse
-        case .CollectDailyDefenderBonus:
+        case .collectDailyDefenderBonus:
             responseObject!.CollectDailyBonus = parsedData as? Pogoprotos.Networking.Responses.CollectDailyBonusResponse
-        case .UpgradePokemon:
+        case .upgradePokemon:
             responseObject!.UpgradePokemon = parsedData as? Pogoprotos.Networking.Responses.UpgradePokemonResponse
-        case .SetFavoritePokemon:
+        case .setFavoritePokemon:
             responseObject!.SetFavoritePokemon = parsedData as? Pogoprotos.Networking.Responses.SetFavoritePokemonResponse
-        case .NicknamePokemon:
+        case .nicknamePokemon:
             responseObject!.NicknamePokemon = parsedData as? Pogoprotos.Networking.Responses.NicknamePokemonResponse
-        case .EquipBadge:
+        case .equipBadge:
             responseObject!.EquipBadge = parsedData as? Pogoprotos.Networking.Responses.EquipBadgeResponse
-        case .SetContactSettings:
+        case .setContactSettings:
             responseObject!.SetContactSettings = parsedData as? Pogoprotos.Networking.Responses.SetContactSettingsResponse
-        case .GetAssetDigest:
+        case .getAssetDigest:
             responseObject!.GetAssetDigest = parsedData as? Pogoprotos.Networking.Responses.GetAssetDigestResponse
-        case .GetDownloadUrls:
+        case .getDownloadUrls:
             responseObject!.GetDownloadUrls = parsedData as? Pogoprotos.Networking.Responses.GetDownloadUrlsResponse
-        case .GetSuggestedCodenames:
+        case .getSuggestedCodenames:
             responseObject!.GetSuggestedCodenames = parsedData as? Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse
-        case .CheckCodenameAvailable:
+        case .checkCodenameAvailable:
             responseObject!.CheckCodenameAvailable = parsedData as? Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse
-        case .ClaimCodename:
+        case .claimCodename:
             responseObject!.ClaimCodename = parsedData as? Pogoprotos.Networking.Responses.ClaimCodenameResponse
-        case .SetAvatar:
+        case .setAvatar:
             responseObject!.SetAvatar = parsedData as? Pogoprotos.Networking.Responses.SetAvatarResponse
-        case .SetPlayerTeam:
+        case .setPlayerTeam:
             responseObject!.SetPlayerTeam = parsedData as? Pogoprotos.Networking.Responses.SetPlayerTeamResponse
-        case .MarkTutorialComplete:
+        case .markTutorialComplete:
             responseObject!.MarkTutorialComplete = parsedData as? Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse
-        case .Echo:
+        case .echo:
             responseObject!.Echo = parsedData as? Pogoprotos.Networking.Responses.EchoResponse
-        case .SfidaActionLog:
-            responseObject!.SfidaActionLog as Pogoprotos.Networking.Responses.SfidaActionLogResponse!
-        case .CheckChallenge:
-            responseObject!.CheckChallenge as Pogoprotos.Networking.Responses.CheckChallengeResponse!
-        case .VerifyChallenge:
-            responseObject!.VerifyChallenge as Pogoprotos.Networking.Responses.VerifyChallengeResponse!
+        case .sfidaActionLog:
+            responseObject!.SfidaActionLog = parsedData as? Pogoprotos.Networking.Responses.SfidaActionLogResponse
+        case .checkChallenge:
+            responseObject!.CheckChallenge = parsedData as? Pogoprotos.Networking.Responses.CheckChallengeResponse
+        case .verifyChallenge:
+            responseObject!.VerifyChallenge = parsedData as? Pogoprotos.Networking.Responses.VerifyChallengeResponse
         default:
             return
         }
     }
     
-    private func parseSubResponses(response: Pogoprotos.Networking.Envelopes.ResponseEnvelope) -> [GeneratedMessage] {
+    fileprivate func parseSubResponses(_ response: Pogoprotos.Networking.Envelopes.ResponseEnvelope) -> [GeneratedMessage] {
         self.api.debugMessage("Parsing subresponses...")
         
         var subresponses: [GeneratedMessage] = []
-        for (idx, subresponseData) in response.returns.enumerate() {
+        for (idx, subresponseData) in response.returns.enumerated() {
             let subrequest = subrequests[idx]
             let parsedData = subrequest.parser(subresponseData)
             subresponses.append(parsedData)

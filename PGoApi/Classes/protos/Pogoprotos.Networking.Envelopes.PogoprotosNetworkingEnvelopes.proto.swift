@@ -64,7 +64,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformReq
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasTypes == rhs.hasTypes) && (!lhs.hasTypes || lhs.types == rhs.types)
+  fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
   fieldCheck = fieldCheck && (lhs.hasRequestMessage == rhs.hasRequestMessage) && (!lhs.hasRequestMessage || lhs.requestMessage == rhs.requestMessage)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
@@ -91,7 +91,7 @@ public func == (lhs: Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformRe
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasTypes == rhs.hasTypes) && (!lhs.hasTypes || lhs.types == rhs.types)
+  fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
   fieldCheck = fieldCheck && (lhs.hasResponse == rhs.hasResponse) && (!lhs.hasResponse || lhs.response == rhs.response)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
@@ -234,23 +234,23 @@ public extension Pogoprotos.Networking.Envelopes {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Networking.Requests.PogoprotosNetworkingRequestsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatformRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Networking.Requests.PogoprotosNetworkingRequestsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Networking.Platform.PogoprotosNetworkingPlatformRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
-  final public class AuthTicket : GeneratedMessage, GeneratedMessageProtocol {
-    public private(set) var hasStart:Bool = false
-    public private(set) var start:NSData = NSData()
+  final public class AuthTicket : GeneratedMessage {
+    public fileprivate(set) var start:Data = Data()
+    public fileprivate(set) var hasStart:Bool = false
 
-    public private(set) var hasExpireTimestampMs:Bool = false
-    public private(set) var expireTimestampMs:UInt64 = UInt64(0)
+    public fileprivate(set) var expireTimestampMs:UInt64 = UInt64(0)
+    public fileprivate(set) var hasExpireTimestampMs:Bool = false
 
-    public private(set) var hasEnd:Bool = false
-    public private(set) var end:NSData = NSData()
+    public fileprivate(set) var end:Data = Data()
+    public fileprivate(set) var hasEnd:Bool = false
 
     required public init() {
          super.init()
@@ -258,17 +258,17 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasStart {
-        try output.writeData(1, value:start)
+        try codedOutputStream.writeData(fieldNumber: 1, value:start)
       }
       if hasExpireTimestampMs {
-        try output.writeUInt64(2, value:expireTimestampMs)
+        try codedOutputStream.writeUInt64(fieldNumber: 2, value:expireTimestampMs)
       }
       if hasEnd {
-        try output.writeData(3, value:end)
+        try codedOutputStream.writeData(fieldNumber: 3, value:end)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -278,45 +278,17 @@ public extension Pogoprotos.Networking.Envelopes {
 
       serialize_size = 0
       if hasStart {
-        serialize_size += start.computeDataSize(1)
+        serialize_size += start.computeDataSize(fieldNumber: 1)
       }
       if hasExpireTimestampMs {
-        serialize_size += expireTimestampMs.computeUInt64Size(2)
+        serialize_size += expireTimestampMs.computeUInt64Size(fieldNumber: 2)
       }
       if hasEnd {
-        serialize_size += end.computeDataSize(3)
+        serialize_size += end.computeDataSize(fieldNumber: 3)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.AuthTicket> {
-      var mergedArray = Array<Pogoprotos.Networking.Envelopes.AuthTicket>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket? {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
       return Pogoprotos.Networking.Envelopes.AuthTicket.classBuilder() as! Pogoprotos.Networking.Envelopes.AuthTicket.Builder
@@ -324,40 +296,40 @@ public extension Pogoprotos.Networking.Envelopes {
     public func getBuilder() -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
       return classBuilder() as! Pogoprotos.Networking.Envelopes.AuthTicket.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.AuthTicket) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasStart {
-        jsonMap["start"] = start.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        jsonMap["start"] = start.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
       }
       if hasExpireTimestampMs {
         jsonMap["expireTimestampMs"] = "\(expireTimestampMs)"
       }
       if hasEnd {
-        jsonMap["end"] = end.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        jsonMap["end"] = end.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
-      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+      return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -370,7 +342,7 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasEnd {
         output += "\(indent) end: \(end) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -399,13 +371,10 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func className() -> String {
         return "Pogoprotos.Networking.Envelopes.AuthTicket"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Envelopes.AuthTicket.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Envelopes.AuthTicket = Pogoprotos.Networking.Envelopes.AuthTicket()
+      fileprivate var builderResult:Pogoprotos.Networking.Envelopes.AuthTicket = Pogoprotos.Networking.Envelopes.AuthTicket()
       public func getMessage() -> Pogoprotos.Networking.Envelopes.AuthTicket {
           return builderResult
       }
@@ -418,7 +387,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 return builderResult.hasStart
            }
       }
-      public var start:NSData {
+      public var start:Data {
            get {
                 return builderResult.start
            }
@@ -427,13 +396,13 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.start = value
            }
       }
-      public func setStart(value:NSData) -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+      public func setStart(_ value:Data) -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
         self.start = value
         return self
       }
       public func clearStart() -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder{
            builderResult.hasStart = false
-           builderResult.start = NSData()
+           builderResult.start = Data()
            return self
       }
       public var hasExpireTimestampMs:Bool {
@@ -450,7 +419,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.expireTimestampMs = value
            }
       }
-      public func setExpireTimestampMs(value:UInt64) -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+      public func setExpireTimestampMs(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
         self.expireTimestampMs = value
         return self
       }
@@ -464,7 +433,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 return builderResult.hasEnd
            }
       }
-      public var end:NSData {
+      public var end:Data {
            get {
                 return builderResult.end
            }
@@ -473,13 +442,13 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.end = value
            }
       }
-      public func setEnd(value:NSData) -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+      public func setEnd(_ value:Data) -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
         self.end = value
         return self
       }
       public func clearEnd() -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder{
            builderResult.hasEnd = false
-           builderResult.end = NSData()
+           builderResult.end = Data()
            return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -492,7 +461,7 @@ public extension Pogoprotos.Networking.Envelopes {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
-        return try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
            try checkInitialized()
@@ -515,78 +484,78 @@ public extension Pogoprotos.Networking.Envelopes {
         if other.hasEnd {
              end = other.end
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            start = try input.readData()
+            start = try codedInputStream.readData()
 
           case 16:
-            expireTimestampMs = try input.readUInt64()
+            expireTimestampMs = try codedInputStream.readUInt64()
 
           case 26:
-            end = try input.readData()
+            end = try codedInputStream.readData()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
         if let jsonValueStart = jsonMap["start"] as? String {
-          resultDecodedBuilder.start = NSData(base64EncodedString:jsonValueStart, options: NSDataBase64DecodingOptions(rawValue:0))!
+          resultDecodedBuilder.start = Data(base64Encoded:jsonValueStart, options: Data.Base64DecodingOptions(rawValue:0))!
         }
         if let jsonValueExpireTimestampMs = jsonMap["expireTimestampMs"] as? String {
           resultDecodedBuilder.expireTimestampMs = UInt64(jsonValueExpireTimestampMs)!
         }
         if let jsonValueEnd = jsonMap["end"] as? String {
-          resultDecodedBuilder.end = NSData(base64EncodedString:jsonValueEnd, options: NSDataBase64DecodingOptions(rawValue:0))!
+          resultDecodedBuilder.end = Data(base64Encoded:jsonValueEnd, options: Data.Base64DecodingOptions(rawValue:0))!
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.AuthTicket.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class RequestEnvelope : GeneratedMessage, GeneratedMessageProtocol {
+  final public class RequestEnvelope : GeneratedMessage {
 
 
     //Nested type declaration start
 
-      final public class AuthInfo : GeneratedMessage, GeneratedMessageProtocol {
+      final public class AuthInfo : GeneratedMessage {
 
 
         //Nested type declaration start
 
-          final public class Jwt : GeneratedMessage, GeneratedMessageProtocol {
-            public private(set) var hasContents:Bool = false
-            public private(set) var contents:String = ""
+          final public class Jwt : GeneratedMessage {
+            public fileprivate(set) var contents:String = ""
+            public fileprivate(set) var hasContents:Bool = false
 
-            public private(set) var hasUnknown2:Bool = false
-            public private(set) var unknown2:Int32 = Int32(0)
+            public fileprivate(set) var unknown2:Int32 = Int32(0)
+            public fileprivate(set) var hasUnknown2:Bool = false
 
             required public init() {
                  super.init()
@@ -594,14 +563,14 @@ public extension Pogoprotos.Networking.Envelopes {
             override public func isInitialized() -> Bool {
              return true
             }
-            override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+            override public func writeTo(codedOutputStream: CodedOutputStream) throws {
               if hasContents {
-                try output.writeString(1, value:contents)
+                try codedOutputStream.writeString(fieldNumber: 1, value:contents)
               }
               if hasUnknown2 {
-                try output.writeInt32(2, value:unknown2)
+                try codedOutputStream.writeInt32(fieldNumber: 2, value:unknown2)
               }
-              try unknownFields.writeToCodedOutputStream(output)
+              try unknownFields.writeTo(codedOutputStream: codedOutputStream)
             }
             override public func serializedSize() -> Int32 {
               var serialize_size:Int32 = memoizedSerializedSize
@@ -611,42 +580,14 @@ public extension Pogoprotos.Networking.Envelopes {
 
               serialize_size = 0
               if hasContents {
-                serialize_size += contents.computeStringSize(1)
+                serialize_size += contents.computeStringSize(fieldNumber: 1)
               }
               if hasUnknown2 {
-                serialize_size += unknown2.computeInt32Size(2)
+                serialize_size += unknown2.computeInt32Size(fieldNumber: 2)
               }
               serialize_size += unknownFields.serializedSize()
               memoizedSerializedSize = serialize_size
               return serialize_size
-            }
-            public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt> {
-              var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt>()
-              while let value = try parseFromDelimitedFromInputStream(input) {
-                mergedArray += [value]
-              }
-              return mergedArray
-            }
-            public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt? {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeDelimitedFromInputStream(input)?.build()
-            }
-            public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-            }
-            public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-            }
-            public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFromInputStream(input).build()
-            }
-            public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-            }
-            public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFromCodedInputStream(input).build()
-            }
-            public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
             }
             public class func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
               return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder
@@ -654,37 +595,37 @@ public extension Pogoprotos.Networking.Envelopes {
             public func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
               return classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder
             }
-            override public class func classBuilder() -> MessageBuilder {
+            override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
               return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder()
             }
-            override public func classBuilder() -> MessageBuilder {
+            override public func classBuilder() -> ProtocolBuffersMessageBuilder {
               return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder()
             }
             public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.builderWithPrototype(self)
+              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.builderWithPrototype(prototype:self)
             }
             public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(prototype)
+              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(other:prototype)
             }
-            override public func encode() throws -> Dictionary<String,AnyObject> {
+            override public func encode() throws -> Dictionary<String,Any> {
               guard isInitialized() else {
-                throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+                throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
               }
 
-              var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+              var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
               if hasContents {
                 jsonMap["contents"] = contents
               }
               if hasUnknown2 {
-                jsonMap["unknown2"] = NSNumber(int:unknown2)
+                jsonMap["unknown2"] = NSNumber(value:unknown2)
               }
               return jsonMap
             }
-            override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.decodeToBuilder(jsonMap).build()
+            override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.decodeToBuilder(jsonMap:jsonMap).build()
             }
-            override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
-              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.fromJSONToBuilder(data).build()
+            override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+              return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.fromJSONToBuilder(data:data).build()
             }
             override public func getDescription(indent:String) throws -> String {
               var output = ""
@@ -694,7 +635,7 @@ public extension Pogoprotos.Networking.Envelopes {
               if hasUnknown2 {
                 output += "\(indent) unknown2: \(unknown2) \n"
               }
-              output += unknownFields.getDescription(indent)
+              output += unknownFields.getDescription(indent: indent)
               return output
             }
             override public var hashValue:Int {
@@ -720,13 +661,10 @@ public extension Pogoprotos.Networking.Envelopes {
             override public func className() -> String {
                 return "Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt"
             }
-            override public func classMetaType() -> GeneratedMessage.Type {
-                return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.self
-            }
             //Meta information declaration end
 
             final public class Builder : GeneratedMessageBuilder {
-              private var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt()
+              fileprivate var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt()
               public func getMessage() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
                   return builderResult
               }
@@ -748,7 +686,7 @@ public extension Pogoprotos.Networking.Envelopes {
                        builderResult.contents = value
                    }
               }
-              public func setContents(value:String) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
+              public func setContents(_ value:String) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
                 self.contents = value
                 return self
               }
@@ -771,7 +709,7 @@ public extension Pogoprotos.Networking.Envelopes {
                        builderResult.unknown2 = value
                    }
               }
-              public func setUnknown2(value:Int32) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
+              public func setUnknown2(_ value:Int32) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
                 self.unknown2 = value
                 return self
               }
@@ -790,7 +728,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 return self
               }
               override public func clone() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
-                return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.builderWithPrototype(builderResult)
+                return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.builderWithPrototype(prototype:builderResult)
               }
               override public func build() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
                    try checkInitialized()
@@ -810,51 +748,51 @@ public extension Pogoprotos.Networking.Envelopes {
                 if other.hasUnknown2 {
                      unknown2 = other.unknown2
                 }
-                try mergeUnknownFields(other.unknownFields)
+                _ = try merge(unknownField: other.unknownFields)
                 return self
               }
-              override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
-                   return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+              override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
+                   return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
               }
-              override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
-                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+              override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
                 while (true) {
-                  let protobufTag = try input.readTag()
+                  let protobufTag = try codedInputStream.readTag()
                   switch protobufTag {
                   case 0: 
                     self.unknownFields = try unknownFieldsBuilder.build()
                     return self
 
                   case 10:
-                    contents = try input.readString()
+                    contents = try codedInputStream.readString()
 
                   case 16:
-                    unknown2 = try input.readInt32()
+                    unknown2 = try codedInputStream.readInt32()
 
                   default:
-                    if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                        unknownFields = try unknownFieldsBuilder.build()
                        return self
                     }
                   }
                 }
               }
-              override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
+              class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
                 let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder()
                 if let jsonValueContents = jsonMap["contents"] as? String {
                   resultDecodedBuilder.contents = jsonValueContents
                 }
                 if let jsonValueUnknown2 = jsonMap["unknown2"] as? NSNumber {
-                  resultDecodedBuilder.unknown2 = jsonValueUnknown2.intValue
+                  resultDecodedBuilder.unknown2 = jsonValueUnknown2.int32Value
                 }
                 return resultDecodedBuilder
               }
-              override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
-                let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-                guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-                  throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+              override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
-                return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.decodeToBuilder(jsDataCast)
+                return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.decodeToBuilder(jsonMap:jsDataCast)
               }
             }
 
@@ -862,25 +800,25 @@ public extension Pogoprotos.Networking.Envelopes {
 
         //Nested type declaration end
 
-        public private(set) var hasProvider:Bool = false
-        public private(set) var provider:String = ""
+        public fileprivate(set) var provider:String = ""
+        public fileprivate(set) var hasProvider:Bool = false
 
-        public private(set) var hasToken:Bool = false
-        public private(set) var token:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt!
+        public fileprivate(set) var token:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt!
+        public fileprivate(set) var hasToken:Bool = false
         required public init() {
              super.init()
         }
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasProvider {
-            try output.writeString(1, value:provider)
+            try codedOutputStream.writeString(fieldNumber: 1, value:provider)
           }
           if hasToken {
-            try output.writeMessage(2, value:token)
+            try codedOutputStream.writeMessage(fieldNumber: 2, value:token)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -890,10 +828,10 @@ public extension Pogoprotos.Networking.Envelopes {
 
           serialize_size = 0
           if hasProvider {
-            serialize_size += provider.computeStringSize(1)
+            serialize_size += provider.computeStringSize(fieldNumber: 1)
           }
           if hasToken {
-              if let varSizetoken = token?.computeMessageSize(2) {
+              if let varSizetoken = token?.computeMessageSize(fieldNumber: 2) {
                   serialize_size += varSizetoken
               }
           }
@@ -901,58 +839,30 @@ public extension Pogoprotos.Networking.Envelopes {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo? {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
           return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder
         }
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasProvider {
             jsonMap["provider"] = provider
           }
@@ -961,11 +871,11 @@ public extension Pogoprotos.Networking.Envelopes {
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -975,11 +885,11 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasToken {
             output += "\(indent) token {\n"
             if let outDescToken = token {
-              output += try outDescToken.getDescription("\(indent)  ")
+              output += try outDescToken.getDescription(indent: "\(indent)  ")
             }
             output += "\(indent) }\n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -1007,13 +917,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
               return builderResult
           }
@@ -1035,7 +942,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.provider = value
                }
           }
-          public func setProvider(value:String) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
+          public func setProvider(_ value:String) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
             self.provider = value
             return self
           }
@@ -1061,7 +968,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.token = value
                }
           }
-          private var tokenBuilder_:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder! {
+          fileprivate var tokenBuilder_:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder! {
                didSet {
                   builderResult.hasToken = true
                }
@@ -1071,18 +978,18 @@ public extension Pogoprotos.Networking.Envelopes {
                tokenBuilder_ = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder()
                builderResult.token = tokenBuilder_.getMessage()
                if token != nil {
-                  try! tokenBuilder_.mergeFrom(token)
+                  _ = try! tokenBuilder_.mergeFrom(other: token)
                }
             }
             return tokenBuilder_
           }
-          public func setToken(value:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
+          public func setToken(_ value:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
             self.token = value
             return self
           }
           public func mergeToken(value:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
             if builderResult.hasToken {
-              builderResult.token = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.builderWithPrototype(builderResult.token).mergeFrom(value).buildPartial()
+              builderResult.token = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.builderWithPrototype(prototype:builderResult.token).mergeFrom(other: value).buildPartial()
             } else {
               builderResult.token = value
             }
@@ -1105,7 +1012,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
-            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
                try checkInitialized()
@@ -1123,59 +1030,59 @@ public extension Pogoprotos.Networking.Envelopes {
                  provider = other.provider
             }
             if (other.hasToken) {
-                try mergeToken(other.token)
+                _ = try mergeToken(value: other.token)
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 10:
-                provider = try input.readString()
+                provider = try codedInputStream.readString()
 
               case 18:
                 let subBuilder:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder()
                 if hasToken {
-                  try subBuilder.mergeFrom(token)
+                  _ = try subBuilder.mergeFrom(other: token)
                 }
-                try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+                try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
                 token = subBuilder.buildPartial()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder()
             if let jsonValueProvider = jsonMap["provider"] as? String {
               resultDecodedBuilder.provider = jsonValueProvider
             }
-            if let jsonValueToken = jsonMap["token"] as? Dictionary<String,AnyObject> {
-              resultDecodedBuilder.token = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.decodeToBuilder(jsonValueToken).build()
+            if let jsonValueToken = jsonMap["token"] as? Dictionary<String,Any> {
+              resultDecodedBuilder.token = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder.decodeToBuilder(jsonMap:jsonValueToken).build()
 
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -1187,11 +1094,11 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration start
 
-      final public class PlatformRequest : GeneratedMessage, GeneratedMessageProtocol {
-        public private(set) var types:Pogoprotos.Networking.Platform.PlatformRequestType = Pogoprotos.Networking.Platform.PlatformRequestType.MethodUnset
-        public private(set) var hasTypes:Bool = false
-        public private(set) var hasRequestMessage:Bool = false
-        public private(set) var requestMessage:NSData = NSData()
+      final public class PlatformRequest : GeneratedMessage {
+        public fileprivate(set) var type:Pogoprotos.Networking.Platform.PlatformRequestType = Pogoprotos.Networking.Platform.PlatformRequestType.methodUnset
+        public fileprivate(set) var hasType:Bool = false
+        public fileprivate(set) var requestMessage:Data = Data()
+        public fileprivate(set) var hasRequestMessage:Bool = false
 
         required public init() {
              super.init()
@@ -1199,14 +1106,14 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
-          if hasTypes {
-            try output.writeEnum(1, value:types.rawValue)
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+          if hasType {
+            try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
           }
           if hasRequestMessage {
-            try output.writeData(2, value:requestMessage)
+            try codedOutputStream.writeData(fieldNumber: 2, value:requestMessage)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -1215,43 +1122,15 @@ public extension Pogoprotos.Networking.Envelopes {
           }
 
           serialize_size = 0
-          if (hasTypes) {
-            serialize_size += types.rawValue.computeEnumSize(1)
+          if (hasType) {
+            serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
           }
           if hasRequestMessage {
-            serialize_size += requestMessage.computeDataSize(2)
+            serialize_size += requestMessage.computeDataSize(fieldNumber: 2)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest? {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
           return Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder
@@ -1259,54 +1138,54 @@ public extension Pogoprotos.Networking.Envelopes {
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-          if hasTypes {
-            jsonMap["type"] = types.toString()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+          if hasType {
+            jsonMap["type"] = type.toString()
           }
           if hasRequestMessage {
-            jsonMap["requestMessage"] = requestMessage.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            jsonMap["requestMessage"] = requestMessage.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
-          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+          return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
-          if (hasTypes) {
-            output += "\(indent) types: \(types.description)\n"
+          if (hasType) {
+            output += "\(indent) type: \(type.description)\n"
           }
           if hasRequestMessage {
             output += "\(indent) requestMessage: \(requestMessage) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
-                if hasTypes {
-                   hashCode = (hashCode &* 31) &+ Int(types.rawValue)
+                if hasType {
+                   hashCode = (hashCode &* 31) &+ Int(type.rawValue)
                 }
                 if hasRequestMessage {
                    hashCode = (hashCode &* 31) &+ requestMessage.hashValue
@@ -1325,13 +1204,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest = Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest = Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
               return builderResult
           }
@@ -1339,27 +1215,27 @@ public extension Pogoprotos.Networking.Envelopes {
           required override public init () {
              super.init()
           }
-            public var hasTypes:Bool{
+            public var hasType:Bool{
                 get {
-                    return builderResult.hasTypes
+                    return builderResult.hasType
                 }
             }
-            public var types:Pogoprotos.Networking.Platform.PlatformRequestType {
+            public var type:Pogoprotos.Networking.Platform.PlatformRequestType {
                 get {
-                    return builderResult.types
+                    return builderResult.type
                 }
                 set (value) {
-                    builderResult.hasTypes = true
-                    builderResult.types = value
+                    builderResult.hasType = true
+                    builderResult.type = value
                 }
             }
-            public func setTypes(value:Pogoprotos.Networking.Platform.PlatformRequestType) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-              self.types = value
+            public func setType(_ value:Pogoprotos.Networking.Platform.PlatformRequestType) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+              self.type = value
               return self
             }
-            public func clearTypes() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-               builderResult.hasTypes = false
-               builderResult.types = .MethodUnset
+            public func clearType() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+               builderResult.hasType = false
+               builderResult.type = .methodUnset
                return self
             }
           public var hasRequestMessage:Bool {
@@ -1367,7 +1243,7 @@ public extension Pogoprotos.Networking.Envelopes {
                     return builderResult.hasRequestMessage
                }
           }
-          public var requestMessage:NSData {
+          public var requestMessage:Data {
                get {
                     return builderResult.requestMessage
                }
@@ -1376,13 +1252,13 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.requestMessage = value
                }
           }
-          public func setRequestMessage(value:NSData) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+          public func setRequestMessage(_ value:Data) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
             self.requestMessage = value
             return self
           }
           public func clearRequestMessage() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder{
                builderResult.hasRequestMessage = false
-               builderResult.requestMessage = NSData()
+               builderResult.requestMessage = Data()
                return self
           }
           override public var internalGetResult:GeneratedMessage {
@@ -1395,7 +1271,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
                try checkInitialized()
@@ -1409,62 +1285,62 @@ public extension Pogoprotos.Networking.Envelopes {
             if other == Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest() {
              return self
             }
-            if other.hasTypes {
-                 types = other.types
+            if other.hasType {
+                 type = other.type
             }
             if other.hasRequestMessage {
                  requestMessage = other.requestMessage
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 8:
-                let valueInttypes = try input.readEnum()
-                if let enumstypes = Pogoprotos.Networking.Platform.PlatformRequestType(rawValue:valueInttypes){
-                     types = enumstypes
+                let valueInttype = try codedInputStream.readEnum()
+                if let enumstype = Pogoprotos.Networking.Platform.PlatformRequestType(rawValue:valueInttype){
+                     type = enumstype
                 } else {
-                     try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueInttypes))
+                     _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
                 }
 
               case 18:
-                requestMessage = try input.readData()
+                requestMessage = try codedInputStream.readData()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder()
-            if let jsonValueTypes = jsonMap["type"] as? String {
-              resultDecodedBuilder.types = try Pogoprotos.Networking.Platform.PlatformRequestType.fromString(jsonValueTypes)
+            if let jsonValueType = jsonMap["type"] as? String {
+              resultDecodedBuilder.type = try Pogoprotos.Networking.Platform.PlatformRequestType.fromString(str: jsonValueType)
             }
             if let jsonValueRequestMessage = jsonMap["requestMessage"] as? String {
-              resultDecodedBuilder.requestMessage = NSData(base64EncodedString:jsonValueRequestMessage, options: NSDataBase64DecodingOptions(rawValue:0))!
+              resultDecodedBuilder.requestMessage = Data(base64Encoded:jsonValueRequestMessage, options: Data.Base64DecodingOptions(rawValue:0))!
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -1472,29 +1348,29 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration end
 
-    public private(set) var hasStatusCode:Bool = false
-    public private(set) var statusCode:Int32 = Int32(0)
+    public fileprivate(set) var statusCode:Int32 = Int32(0)
+    public fileprivate(set) var hasStatusCode:Bool = false
 
-    public private(set) var hasRequestId:Bool = false
-    public private(set) var requestId:UInt64 = UInt64(0)
+    public fileprivate(set) var requestId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasRequestId:Bool = false
 
-    public private(set) var requests:Array<Pogoprotos.Networking.Requests.Request>  = Array<Pogoprotos.Networking.Requests.Request>()
-    public private(set) var platformRequests:Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>  = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>()
-    public private(set) var hasLatitude:Bool = false
-    public private(set) var latitude:Double = Double(0)
+    public fileprivate(set) var requests:Array<Pogoprotos.Networking.Requests.Request>  = Array<Pogoprotos.Networking.Requests.Request>()
+    public fileprivate(set) var platformRequests:Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>  = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>()
+    public fileprivate(set) var latitude:Double = Double(0)
+    public fileprivate(set) var hasLatitude:Bool = false
 
-    public private(set) var hasLongitude:Bool = false
-    public private(set) var longitude:Double = Double(0)
+    public fileprivate(set) var longitude:Double = Double(0)
+    public fileprivate(set) var hasLongitude:Bool = false
 
-    public private(set) var hasAccuracy:Bool = false
-    public private(set) var accuracy:Double = Double(0)
+    public fileprivate(set) var accuracy:Double = Double(0)
+    public fileprivate(set) var hasAccuracy:Bool = false
 
-    public private(set) var hasAuthInfo:Bool = false
-    public private(set) var authInfo:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo!
-    public private(set) var hasAuthTicket:Bool = false
-    public private(set) var authTicket:Pogoprotos.Networking.Envelopes.AuthTicket!
-    public private(set) var hasMsSinceLastLocationfix:Bool = false
-    public private(set) var msSinceLastLocationfix:Int64 = Int64(0)
+    public fileprivate(set) var authInfo:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo!
+    public fileprivate(set) var hasAuthInfo:Bool = false
+    public fileprivate(set) var authTicket:Pogoprotos.Networking.Envelopes.AuthTicket!
+    public fileprivate(set) var hasAuthTicket:Bool = false
+    public fileprivate(set) var msSinceLastLocationfix:Int64 = Int64(0)
+    public fileprivate(set) var hasMsSinceLastLocationfix:Bool = false
 
     required public init() {
          super.init()
@@ -1502,38 +1378,38 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasStatusCode {
-        try output.writeInt32(1, value:statusCode)
+        try codedOutputStream.writeInt32(fieldNumber: 1, value:statusCode)
       }
       if hasRequestId {
-        try output.writeUInt64(3, value:requestId)
+        try codedOutputStream.writeUInt64(fieldNumber: 3, value:requestId)
       }
       for oneElementRequests in requests {
-          try output.writeMessage(4, value:oneElementRequests)
+          try codedOutputStream.writeMessage(fieldNumber: 4, value:oneElementRequests)
       }
       for oneElementPlatformRequests in platformRequests {
-          try output.writeMessage(6, value:oneElementPlatformRequests)
+          try codedOutputStream.writeMessage(fieldNumber: 6, value:oneElementPlatformRequests)
       }
       if hasLatitude {
-        try output.writeDouble(7, value:latitude)
+        try codedOutputStream.writeDouble(fieldNumber: 7, value:latitude)
       }
       if hasLongitude {
-        try output.writeDouble(8, value:longitude)
+        try codedOutputStream.writeDouble(fieldNumber: 8, value:longitude)
       }
       if hasAccuracy {
-        try output.writeDouble(9, value:accuracy)
+        try codedOutputStream.writeDouble(fieldNumber: 9, value:accuracy)
       }
       if hasAuthInfo {
-        try output.writeMessage(10, value:authInfo)
+        try codedOutputStream.writeMessage(fieldNumber: 10, value:authInfo)
       }
       if hasAuthTicket {
-        try output.writeMessage(11, value:authTicket)
+        try codedOutputStream.writeMessage(fieldNumber: 11, value:authTicket)
       }
       if hasMsSinceLastLocationfix {
-        try output.writeInt64(12, value:msSinceLastLocationfix)
+        try codedOutputStream.writeInt64(fieldNumber: 12, value:msSinceLastLocationfix)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -1543,70 +1419,42 @@ public extension Pogoprotos.Networking.Envelopes {
 
       serialize_size = 0
       if hasStatusCode {
-        serialize_size += statusCode.computeInt32Size(1)
+        serialize_size += statusCode.computeInt32Size(fieldNumber: 1)
       }
       if hasRequestId {
-        serialize_size += requestId.computeUInt64Size(3)
+        serialize_size += requestId.computeUInt64Size(fieldNumber: 3)
       }
       for oneElementRequests in requests {
-          serialize_size += oneElementRequests.computeMessageSize(4)
+          serialize_size += oneElementRequests.computeMessageSize(fieldNumber: 4)
       }
       for oneElementPlatformRequests in platformRequests {
-          serialize_size += oneElementPlatformRequests.computeMessageSize(6)
+          serialize_size += oneElementPlatformRequests.computeMessageSize(fieldNumber: 6)
       }
       if hasLatitude {
-        serialize_size += latitude.computeDoubleSize(7)
+        serialize_size += latitude.computeDoubleSize(fieldNumber: 7)
       }
       if hasLongitude {
-        serialize_size += longitude.computeDoubleSize(8)
+        serialize_size += longitude.computeDoubleSize(fieldNumber: 8)
       }
       if hasAccuracy {
-        serialize_size += accuracy.computeDoubleSize(9)
+        serialize_size += accuracy.computeDoubleSize(fieldNumber: 9)
       }
       if hasAuthInfo {
-          if let varSizeauthInfo = authInfo?.computeMessageSize(10) {
+          if let varSizeauthInfo = authInfo?.computeMessageSize(fieldNumber: 10) {
               serialize_size += varSizeauthInfo
           }
       }
       if hasAuthTicket {
-          if let varSizeauthTicket = authTicket?.computeMessageSize(11) {
+          if let varSizeauthTicket = authTicket?.computeMessageSize(fieldNumber: 11) {
               serialize_size += varSizeauthTicket
           }
       }
       if hasMsSinceLastLocationfix {
-        serialize_size += msSinceLastLocationfix.computeInt64Size(12)
+        serialize_size += msSinceLastLocationfix.computeInt64Size(fieldNumber: 12)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope> {
-      var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope? {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
       return Pogoprotos.Networking.Envelopes.RequestEnvelope.classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder
@@ -1614,54 +1462,54 @@ public extension Pogoprotos.Networking.Envelopes {
     public func getBuilder() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
       return classBuilder() as! Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.RequestEnvelope) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasStatusCode {
-        jsonMap["statusCode"] = NSNumber(int:statusCode)
+        jsonMap["statusCode"] = NSNumber(value:statusCode)
       }
       if hasRequestId {
         jsonMap["requestId"] = "\(requestId)"
       }
       if !requests.isEmpty {
-        var jsonArrayRequests:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayRequests:Array<Dictionary<String,Any>> = []
           for oneValueRequests in requests {
             let ecodedMessageRequests = try oneValueRequests.encode()
-            jsonArrayRequests += [ecodedMessageRequests]
+            jsonArrayRequests.append(ecodedMessageRequests)
           }
         jsonMap["requests"] = jsonArrayRequests
       }
       if !platformRequests.isEmpty {
-        var jsonArrayPlatformRequests:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayPlatformRequests:Array<Dictionary<String,Any>> = []
           for oneValuePlatformRequests in platformRequests {
             let ecodedMessagePlatformRequests = try oneValuePlatformRequests.encode()
-            jsonArrayPlatformRequests += [ecodedMessagePlatformRequests]
+            jsonArrayPlatformRequests.append(ecodedMessagePlatformRequests)
           }
         jsonMap["platformRequests"] = jsonArrayPlatformRequests
       }
       if hasLatitude {
-        jsonMap["latitude"] = NSNumber(double:latitude)
+        jsonMap["latitude"] = NSNumber(value:latitude)
       }
       if hasLongitude {
-        jsonMap["longitude"] = NSNumber(double:longitude)
+        jsonMap["longitude"] = NSNumber(value:longitude)
       }
       if hasAccuracy {
-        jsonMap["accuracy"] = NSNumber(double:accuracy)
+        jsonMap["accuracy"] = NSNumber(value:accuracy)
       }
       if hasAuthInfo {
         jsonMap["authInfo"] = try authInfo.encode()
@@ -1674,11 +1522,11 @@ public extension Pogoprotos.Networking.Envelopes {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
-      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+      return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -1691,14 +1539,14 @@ public extension Pogoprotos.Networking.Envelopes {
       var requestsElementIndex:Int = 0
       for oneElementRequests in requests {
           output += "\(indent) requests[\(requestsElementIndex)] {\n"
-          output += try oneElementRequests.getDescription("\(indent)  ")
+          output += try oneElementRequests.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           requestsElementIndex += 1
       }
       var platformRequestsElementIndex:Int = 0
       for oneElementPlatformRequests in platformRequests {
           output += "\(indent) platformRequests[\(platformRequestsElementIndex)] {\n"
-          output += try oneElementPlatformRequests.getDescription("\(indent)  ")
+          output += try oneElementPlatformRequests.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           platformRequestsElementIndex += 1
       }
@@ -1714,21 +1562,21 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasAuthInfo {
         output += "\(indent) authInfo {\n"
         if let outDescAuthInfo = authInfo {
-          output += try outDescAuthInfo.getDescription("\(indent)  ")
+          output += try outDescAuthInfo.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasAuthTicket {
         output += "\(indent) authTicket {\n"
         if let outDescAuthTicket = authTicket {
-          output += try outDescAuthTicket.getDescription("\(indent)  ")
+          output += try outDescAuthTicket.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasMsSinceLastLocationfix {
         output += "\(indent) msSinceLastLocationfix: \(msSinceLastLocationfix) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -1782,13 +1630,10 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func className() -> String {
         return "Pogoprotos.Networking.Envelopes.RequestEnvelope"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Envelopes.RequestEnvelope.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope = Pogoprotos.Networking.Envelopes.RequestEnvelope()
+      fileprivate var builderResult:Pogoprotos.Networking.Envelopes.RequestEnvelope = Pogoprotos.Networking.Envelopes.RequestEnvelope()
       public func getMessage() -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
           return builderResult
       }
@@ -1810,7 +1655,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.statusCode = value
            }
       }
-      public func setStatusCode(value:Int32) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setStatusCode(_ value:Int32) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.statusCode = value
         return self
       }
@@ -1833,7 +1678,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.requestId = value
            }
       }
-      public func setRequestId(value:UInt64) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setRequestId(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.requestId = value
         return self
       }
@@ -1850,12 +1695,12 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.requests = value
            }
       }
-      public func setRequests(value:Array<Pogoprotos.Networking.Requests.Request>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setRequests(_ value:Array<Pogoprotos.Networking.Requests.Request>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.requests = value
         return self
       }
       public func clearRequests() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        builderResult.requests.removeAll(keepCapacity: false)
+        builderResult.requests.removeAll(keepingCapacity: false)
         return self
       }
       public var platformRequests:Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest> {
@@ -1866,12 +1711,12 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.platformRequests = value
            }
       }
-      public func setPlatformRequests(value:Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setPlatformRequests(_ value:Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.platformRequests = value
         return self
       }
       public func clearPlatformRequests() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        builderResult.platformRequests.removeAll(keepCapacity: false)
+        builderResult.platformRequests.removeAll(keepingCapacity: false)
         return self
       }
       public var hasLatitude:Bool {
@@ -1888,7 +1733,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.latitude = value
            }
       }
-      public func setLatitude(value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setLatitude(_ value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.latitude = value
         return self
       }
@@ -1911,7 +1756,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.longitude = value
            }
       }
-      public func setLongitude(value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setLongitude(_ value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.longitude = value
         return self
       }
@@ -1934,7 +1779,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.accuracy = value
            }
       }
-      public func setAccuracy(value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setAccuracy(_ value:Double) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.accuracy = value
         return self
       }
@@ -1960,7 +1805,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.authInfo = value
            }
       }
-      private var authInfoBuilder_:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder! {
+      fileprivate var authInfoBuilder_:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder! {
            didSet {
               builderResult.hasAuthInfo = true
            }
@@ -1970,18 +1815,18 @@ public extension Pogoprotos.Networking.Envelopes {
            authInfoBuilder_ = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder()
            builderResult.authInfo = authInfoBuilder_.getMessage()
            if authInfo != nil {
-              try! authInfoBuilder_.mergeFrom(authInfo)
+              _ = try! authInfoBuilder_.mergeFrom(other: authInfo)
            }
         }
         return authInfoBuilder_
       }
-      public func setAuthInfo(value:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setAuthInfo(_ value:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.authInfo = value
         return self
       }
       public func mergeAuthInfo(value:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         if builderResult.hasAuthInfo {
-          builderResult.authInfo = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.builderWithPrototype(builderResult.authInfo).mergeFrom(value).buildPartial()
+          builderResult.authInfo = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.builderWithPrototype(prototype:builderResult.authInfo).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.authInfo = value
         }
@@ -2011,7 +1856,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.authTicket = value
            }
       }
-      private var authTicketBuilder_:Pogoprotos.Networking.Envelopes.AuthTicket.Builder! {
+      fileprivate var authTicketBuilder_:Pogoprotos.Networking.Envelopes.AuthTicket.Builder! {
            didSet {
               builderResult.hasAuthTicket = true
            }
@@ -2021,18 +1866,18 @@ public extension Pogoprotos.Networking.Envelopes {
            authTicketBuilder_ = Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
            builderResult.authTicket = authTicketBuilder_.getMessage()
            if authTicket != nil {
-              try! authTicketBuilder_.mergeFrom(authTicket)
+              _ = try! authTicketBuilder_.mergeFrom(other: authTicket)
            }
         }
         return authTicketBuilder_
       }
-      public func setAuthTicket(value:Pogoprotos.Networking.Envelopes.AuthTicket!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setAuthTicket(_ value:Pogoprotos.Networking.Envelopes.AuthTicket!) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.authTicket = value
         return self
       }
       public func mergeAuthTicket(value:Pogoprotos.Networking.Envelopes.AuthTicket) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         if builderResult.hasAuthTicket {
-          builderResult.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(builderResult.authTicket).mergeFrom(value).buildPartial()
+          builderResult.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(prototype:builderResult.authTicket).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.authTicket = value
         }
@@ -2059,7 +1904,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.msSinceLastLocationfix = value
            }
       }
-      public func setMsSinceLastLocationfix(value:Int64) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      public func setMsSinceLastLocationfix(_ value:Int64) -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         self.msSinceLastLocationfix = value
         return self
       }
@@ -2078,7 +1923,7 @@ public extension Pogoprotos.Networking.Envelopes {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        return try Pogoprotos.Networking.Envelopes.RequestEnvelope.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Envelopes.RequestEnvelope.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
            try checkInitialized()
@@ -2114,104 +1959,104 @@ public extension Pogoprotos.Networking.Envelopes {
              accuracy = other.accuracy
         }
         if (other.hasAuthInfo) {
-            try mergeAuthInfo(other.authInfo)
+            _ = try mergeAuthInfo(value: other.authInfo)
         }
         if (other.hasAuthTicket) {
-            try mergeAuthTicket(other.authTicket)
+            _ = try mergeAuthTicket(value: other.authTicket)
         }
         if other.hasMsSinceLastLocationfix {
              msSinceLastLocationfix = other.msSinceLastLocationfix
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            statusCode = try input.readInt32()
+            statusCode = try codedInputStream.readInt32()
 
           case 24:
-            requestId = try input.readUInt64()
+            requestId = try codedInputStream.readUInt64()
 
           case 34:
             let subBuilder = Pogoprotos.Networking.Requests.Request.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            requests += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            requests.append(subBuilder.buildPartial())
 
           case 50:
             let subBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            platformRequests += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            platformRequests.append(subBuilder.buildPartial())
 
           case 57:
-            latitude = try input.readDouble()
+            latitude = try codedInputStream.readDouble()
 
           case 65:
-            longitude = try input.readDouble()
+            longitude = try codedInputStream.readDouble()
 
           case 73:
-            accuracy = try input.readDouble()
+            accuracy = try codedInputStream.readDouble()
 
           case 82:
             let subBuilder:Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder = Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder()
             if hasAuthInfo {
-              try subBuilder.mergeFrom(authInfo)
+              _ = try subBuilder.mergeFrom(other: authInfo)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             authInfo = subBuilder.buildPartial()
 
           case 90:
             let subBuilder:Pogoprotos.Networking.Envelopes.AuthTicket.Builder = Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
             if hasAuthTicket {
-              try subBuilder.mergeFrom(authTicket)
+              _ = try subBuilder.mergeFrom(other: authTicket)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             authTicket = subBuilder.buildPartial()
 
           case 96:
-            msSinceLastLocationfix = try input.readInt64()
+            msSinceLastLocationfix = try codedInputStream.readInt64()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder()
         if let jsonValueStatusCode = jsonMap["statusCode"] as? NSNumber {
-          resultDecodedBuilder.statusCode = jsonValueStatusCode.intValue
+          resultDecodedBuilder.statusCode = jsonValueStatusCode.int32Value
         }
         if let jsonValueRequestId = jsonMap["requestId"] as? String {
           resultDecodedBuilder.requestId = UInt64(jsonValueRequestId)!
         }
-        if let jsonValueRequests = jsonMap["requests"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueRequests = jsonMap["requests"] as? Array<Dictionary<String,Any>> {
           var jsonArrayRequests:Array<Pogoprotos.Networking.Requests.Request> = []
           for oneValueRequests in jsonValueRequests {
-            let messageFromStringRequests = try Pogoprotos.Networking.Requests.Request.Builder.decodeToBuilder(oneValueRequests).build()
+            let messageFromStringRequests = try Pogoprotos.Networking.Requests.Request.Builder.decodeToBuilder(jsonMap:oneValueRequests).build()
 
-            jsonArrayRequests += [messageFromStringRequests]
+            jsonArrayRequests.append(messageFromStringRequests)
           }
           resultDecodedBuilder.requests = jsonArrayRequests
         }
-        if let jsonValuePlatformRequests = jsonMap["platformRequests"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValuePlatformRequests = jsonMap["platformRequests"] as? Array<Dictionary<String,Any>> {
           var jsonArrayPlatformRequests:Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest> = []
           for oneValuePlatformRequests in jsonValuePlatformRequests {
-            let messageFromStringPlatformRequests = try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.decodeToBuilder(oneValuePlatformRequests).build()
+            let messageFromStringPlatformRequests = try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder.decodeToBuilder(jsonMap:oneValuePlatformRequests).build()
 
-            jsonArrayPlatformRequests += [messageFromStringPlatformRequests]
+            jsonArrayPlatformRequests.append(messageFromStringPlatformRequests)
           }
           resultDecodedBuilder.platformRequests = jsonArrayPlatformRequests
         }
@@ -2224,12 +2069,12 @@ public extension Pogoprotos.Networking.Envelopes {
         if let jsonValueAccuracy = jsonMap["accuracy"] as? NSNumber {
           resultDecodedBuilder.accuracy = jsonValueAccuracy.doubleValue
         }
-        if let jsonValueAuthInfo = jsonMap["authInfo"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.authInfo = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsonValueAuthInfo).build()
+        if let jsonValueAuthInfo = jsonMap["authInfo"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.authInfo = try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder.decodeToBuilder(jsonMap:jsonValueAuthInfo).build()
 
         }
-        if let jsonValueAuthTicket = jsonMap["authTicket"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonValueAuthTicket).build()
+        if let jsonValueAuthTicket = jsonMap["authTicket"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonMap:jsonValueAuthTicket).build()
 
         }
         if let jsonValueMsSinceLastLocationfix = jsonMap["msSinceLastLocationfix"] as? String {
@@ -2237,27 +2082,27 @@ public extension Pogoprotos.Networking.Envelopes {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class ResponseEnvelope : GeneratedMessage, GeneratedMessageProtocol {
+  final public class ResponseEnvelope : GeneratedMessage {
 
 
     //Nested type declaration start
 
-      final public class PlatformResponse : GeneratedMessage, GeneratedMessageProtocol {
-        public private(set) var types:Pogoprotos.Networking.Platform.PlatformRequestType = Pogoprotos.Networking.Platform.PlatformRequestType.MethodUnset
-        public private(set) var hasTypes:Bool = false
-        public private(set) var hasResponse:Bool = false
-        public private(set) var response:NSData = NSData()
+      final public class PlatformResponse : GeneratedMessage {
+        public fileprivate(set) var type:Pogoprotos.Networking.Platform.PlatformRequestType = Pogoprotos.Networking.Platform.PlatformRequestType.methodUnset
+        public fileprivate(set) var hasType:Bool = false
+        public fileprivate(set) var response:Data = Data()
+        public fileprivate(set) var hasResponse:Bool = false
 
         required public init() {
              super.init()
@@ -2265,14 +2110,14 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
-          if hasTypes {
-            try output.writeEnum(1, value:types.rawValue)
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+          if hasType {
+            try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
           }
           if hasResponse {
-            try output.writeData(2, value:response)
+            try codedOutputStream.writeData(fieldNumber: 2, value:response)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -2281,43 +2126,15 @@ public extension Pogoprotos.Networking.Envelopes {
           }
 
           serialize_size = 0
-          if (hasTypes) {
-            serialize_size += types.rawValue.computeEnumSize(1)
+          if (hasType) {
+            serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
           }
           if hasResponse {
-            serialize_size += response.computeDataSize(2)
+            serialize_size += response.computeDataSize(fieldNumber: 2)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse? {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
           return Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.classBuilder() as! Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder
@@ -2325,54 +2142,54 @@ public extension Pogoprotos.Networking.Envelopes {
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-          if hasTypes {
-            jsonMap["type"] = types.toString()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+          if hasType {
+            jsonMap["type"] = type.toString()
           }
           if hasResponse {
-            jsonMap["response"] = response.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            jsonMap["response"] = response.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
-          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+          return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
-          if (hasTypes) {
-            output += "\(indent) types: \(types.description)\n"
+          if (hasType) {
+            output += "\(indent) type: \(type.description)\n"
           }
           if hasResponse {
             output += "\(indent) response: \(response) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
-                if hasTypes {
-                   hashCode = (hashCode &* 31) &+ Int(types.rawValue)
+                if hasType {
+                   hashCode = (hashCode &* 31) &+ Int(type.rawValue)
                 }
                 if hasResponse {
                    hashCode = (hashCode &* 31) &+ response.hashValue
@@ -2391,13 +2208,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse = Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse = Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
               return builderResult
           }
@@ -2405,27 +2219,27 @@ public extension Pogoprotos.Networking.Envelopes {
           required override public init () {
              super.init()
           }
-            public var hasTypes:Bool{
+            public var hasType:Bool{
                 get {
-                    return builderResult.hasTypes
+                    return builderResult.hasType
                 }
             }
-            public var types:Pogoprotos.Networking.Platform.PlatformRequestType {
+            public var type:Pogoprotos.Networking.Platform.PlatformRequestType {
                 get {
-                    return builderResult.types
+                    return builderResult.type
                 }
                 set (value) {
-                    builderResult.hasTypes = true
-                    builderResult.types = value
+                    builderResult.hasType = true
+                    builderResult.type = value
                 }
             }
-            public func setTypes(value:Pogoprotos.Networking.Platform.PlatformRequestType) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-              self.types = value
+            public func setType(_ value:Pogoprotos.Networking.Platform.PlatformRequestType) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+              self.type = value
               return self
             }
-            public func clearTypes() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-               builderResult.hasTypes = false
-               builderResult.types = .MethodUnset
+            public func clearType() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+               builderResult.hasType = false
+               builderResult.type = .methodUnset
                return self
             }
           public var hasResponse:Bool {
@@ -2433,7 +2247,7 @@ public extension Pogoprotos.Networking.Envelopes {
                     return builderResult.hasResponse
                }
           }
-          public var response:NSData {
+          public var response:Data {
                get {
                     return builderResult.response
                }
@@ -2442,13 +2256,13 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.response = value
                }
           }
-          public func setResponse(value:NSData) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+          public func setResponse(_ value:Data) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
             self.response = value
             return self
           }
           public func clearResponse() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder{
                builderResult.hasResponse = false
-               builderResult.response = NSData()
+               builderResult.response = Data()
                return self
           }
           override public var internalGetResult:GeneratedMessage {
@@ -2461,7 +2275,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-            return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
                try checkInitialized()
@@ -2475,62 +2289,62 @@ public extension Pogoprotos.Networking.Envelopes {
             if other == Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse() {
              return self
             }
-            if other.hasTypes {
-                 types = other.types
+            if other.hasType {
+                 type = other.type
             }
             if other.hasResponse {
                  response = other.response
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 8:
-                let valueInttypes = try input.readEnum()
-                if let enumstypes = Pogoprotos.Networking.Platform.PlatformRequestType(rawValue:valueInttypes){
-                     types = enumstypes
+                let valueInttype = try codedInputStream.readEnum()
+                if let enumstype = Pogoprotos.Networking.Platform.PlatformRequestType(rawValue:valueInttype){
+                     type = enumstype
                 } else {
-                     try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueInttypes))
+                     _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
                 }
 
               case 18:
-                response = try input.readData()
+                response = try codedInputStream.readData()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder()
-            if let jsonValueTypes = jsonMap["type"] as? String {
-              resultDecodedBuilder.types = try Pogoprotos.Networking.Platform.PlatformRequestType.fromString(jsonValueTypes)
+            if let jsonValueType = jsonMap["type"] as? String {
+              resultDecodedBuilder.type = try Pogoprotos.Networking.Platform.PlatformRequestType.fromString(str: jsonValueType)
             }
             if let jsonValueResponse = jsonMap["response"] as? String {
-              resultDecodedBuilder.response = NSData(base64EncodedString:jsonValueResponse, options: NSDataBase64DecodingOptions(rawValue:0))!
+              resultDecodedBuilder.response = Data(base64Encoded:jsonValueResponse, options: Data.Base64DecodingOptions(rawValue:0))!
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -2543,91 +2357,91 @@ public extension Pogoprotos.Networking.Envelopes {
       //Enum type declaration start 
 
       public enum StatusCode:Int32, CustomDebugStringConvertible, CustomStringConvertible {
-        case Unknown = 0
+        case unknown = 0
 
         // valid response with no api url
-        case Ok = 1
+        case ok = 1
 
         // the response envelope has api_url set and this response is valid
-        case OkRpcUrlInResponse = 2
+        case okRpcUrlInResponse = 2
 
         // bad request
-        case BadRequest = 3
+        case badRequest = 3
 
         // using unimplemented request or corrupt request
-        case InvalidRequest = 51
+        case invalidRequest = 51
 
         // invalid platform request or corrupt platform request
-        case InvalidPlatformRequest = 52
+        case invalidPlatformRequest = 52
 
         // a new rpc endpoint is available and you should redirect to there
-        case Redirect = 53
+        case redirect = 53
 
         // occurs when you send blank authinfo, or sending nonsense timings (ie LocationFix.timestampSnapshot == Signature.timestampSinceStart)
-        case SessionInvalidated = 100
+        case sessionInvalidated = 100
 
         // occurs when the login token is invalid
-        case InvalidAuthToken = 102
+        case invalidAuthToken = 102
         public func toString() -> String {
           switch self {
-          case .Unknown: return "UNKNOWN"
-          case .Ok: return "OK"
-          case .OkRpcUrlInResponse: return "OK_RPC_URL_IN_RESPONSE"
-          case .BadRequest: return "BAD_REQUEST"
-          case .InvalidRequest: return "INVALID_REQUEST"
-          case .InvalidPlatformRequest: return "INVALID_PLATFORM_REQUEST"
-          case .Redirect: return "REDIRECT"
-          case .SessionInvalidated: return "SESSION_INVALIDATED"
-          case .InvalidAuthToken: return "INVALID_AUTH_TOKEN"
+          case .unknown: return "UNKNOWN"
+          case .ok: return "OK"
+          case .okRpcUrlInResponse: return "OK_RPC_URL_IN_RESPONSE"
+          case .badRequest: return "BAD_REQUEST"
+          case .invalidRequest: return "INVALID_REQUEST"
+          case .invalidPlatformRequest: return "INVALID_PLATFORM_REQUEST"
+          case .redirect: return "REDIRECT"
+          case .sessionInvalidated: return "SESSION_INVALIDATED"
+          case .invalidAuthToken: return "INVALID_AUTH_TOKEN"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode {
           switch str {
-          case "UNKNOWN":  return .Unknown
-          case "OK":  return .Ok
-          case "OK_RPC_URL_IN_RESPONSE":  return .OkRpcUrlInResponse
-          case "BAD_REQUEST":  return .BadRequest
-          case "INVALID_REQUEST":  return .InvalidRequest
-          case "INVALID_PLATFORM_REQUEST":  return .InvalidPlatformRequest
-          case "REDIRECT":  return .Redirect
-          case "SESSION_INVALIDATED":  return .SessionInvalidated
-          case "INVALID_AUTH_TOKEN":  return .InvalidAuthToken
-          default: throw ProtocolBuffersError.InvalidProtocolBuffer("Conversion String to Enum has failed.")
+          case "UNKNOWN":  return .unknown
+          case "OK":  return .ok
+          case "OK_RPC_URL_IN_RESPONSE":  return .okRpcUrlInResponse
+          case "BAD_REQUEST":  return .badRequest
+          case "INVALID_REQUEST":  return .invalidRequest
+          case "INVALID_PLATFORM_REQUEST":  return .invalidPlatformRequest
+          case "REDIRECT":  return .redirect
+          case "SESSION_INVALIDATED":  return .sessionInvalidated
+          case "INVALID_AUTH_TOKEN":  return .invalidAuthToken
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
         public var debugDescription:String { return getDescription() }
         public var description:String { return getDescription() }
         private func getDescription() -> String { 
-            switch self {
-                case .Unknown: return ".Unknown"
-                case .Ok: return ".Ok"
-                case .OkRpcUrlInResponse: return ".OkRpcUrlInResponse"
-                case .BadRequest: return ".BadRequest"
-                case .InvalidRequest: return ".InvalidRequest"
-                case .InvalidPlatformRequest: return ".InvalidPlatformRequest"
-                case .Redirect: return ".Redirect"
-                case .SessionInvalidated: return ".SessionInvalidated"
-                case .InvalidAuthToken: return ".InvalidAuthToken"
-            }
+          switch self {
+          case .unknown: return ".unknown"
+          case .ok: return ".ok"
+          case .okRpcUrlInResponse: return ".okRpcUrlInResponse"
+          case .badRequest: return ".badRequest"
+          case .invalidRequest: return ".invalidRequest"
+          case .invalidPlatformRequest: return ".invalidPlatformRequest"
+          case .redirect: return ".redirect"
+          case .sessionInvalidated: return ".sessionInvalidated"
+          case .invalidAuthToken: return ".invalidAuthToken"
+          }
         }
       }
 
       //Enum type declaration end 
 
-    public private(set) var statusCode:Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode = Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode.Unknown
-    public private(set) var hasStatusCode:Bool = false
-    public private(set) var hasRequestId:Bool = false
-    public private(set) var requestId:UInt64 = UInt64(0)
+    public fileprivate(set) var statusCode:Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode = Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode.unknown
+    public fileprivate(set) var hasStatusCode:Bool = false
+    public fileprivate(set) var requestId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasRequestId:Bool = false
 
-    public private(set) var hasApiUrl:Bool = false
-    public private(set) var apiUrl:String = ""
+    public fileprivate(set) var apiUrl:String = ""
+    public fileprivate(set) var hasApiUrl:Bool = false
 
-    public private(set) var platformReturns:Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>  = Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>()
-    public private(set) var hasAuthTicket:Bool = false
-    public private(set) var authTicket:Pogoprotos.Networking.Envelopes.AuthTicket!
-    public private(set) var returns:Array<NSData> = Array<NSData>()
-    public private(set) var hasError:Bool = false
-    public private(set) var error:String = ""
+    public fileprivate(set) var platformReturns:Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>  = Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>()
+    public fileprivate(set) var authTicket:Pogoprotos.Networking.Envelopes.AuthTicket!
+    public fileprivate(set) var hasAuthTicket:Bool = false
+    public fileprivate(set) var returns:Array<Data> = Array<Data>()
+    public fileprivate(set) var error:String = ""
+    public fileprivate(set) var hasError:Bool = false
 
     required public init() {
          super.init()
@@ -2635,31 +2449,31 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasStatusCode {
-        try output.writeEnum(1, value:statusCode.rawValue)
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:statusCode.rawValue)
       }
       if hasRequestId {
-        try output.writeUInt64(2, value:requestId)
+        try codedOutputStream.writeUInt64(fieldNumber: 2, value:requestId)
       }
       if hasApiUrl {
-        try output.writeString(3, value:apiUrl)
+        try codedOutputStream.writeString(fieldNumber: 3, value:apiUrl)
       }
       for oneElementPlatformReturns in platformReturns {
-          try output.writeMessage(6, value:oneElementPlatformReturns)
+          try codedOutputStream.writeMessage(fieldNumber: 6, value:oneElementPlatformReturns)
       }
       if hasAuthTicket {
-        try output.writeMessage(7, value:authTicket)
+        try codedOutputStream.writeMessage(fieldNumber: 7, value:authTicket)
       }
       if !returns.isEmpty {
         for oneValuereturns in returns {
-          try output.writeData(100, value:oneValuereturns)
+          try codedOutputStream.writeData(fieldNumber: 100, value:oneValuereturns)
         }
       }
       if hasError {
-        try output.writeString(101, value:error)
+        try codedOutputStream.writeString(fieldNumber: 101, value:error)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -2669,19 +2483,19 @@ public extension Pogoprotos.Networking.Envelopes {
 
       serialize_size = 0
       if (hasStatusCode) {
-        serialize_size += statusCode.rawValue.computeEnumSize(1)
+        serialize_size += statusCode.rawValue.computeEnumSize(fieldNumber: 1)
       }
       if hasRequestId {
-        serialize_size += requestId.computeUInt64Size(2)
+        serialize_size += requestId.computeUInt64Size(fieldNumber: 2)
       }
       if hasApiUrl {
-        serialize_size += apiUrl.computeStringSize(3)
+        serialize_size += apiUrl.computeStringSize(fieldNumber: 3)
       }
       for oneElementPlatformReturns in platformReturns {
-          serialize_size += oneElementPlatformReturns.computeMessageSize(6)
+          serialize_size += oneElementPlatformReturns.computeMessageSize(fieldNumber: 6)
       }
       if hasAuthTicket {
-          if let varSizeauthTicket = authTicket?.computeMessageSize(7) {
+          if let varSizeauthTicket = authTicket?.computeMessageSize(fieldNumber: 7) {
               serialize_size += varSizeauthTicket
           }
       }
@@ -2692,39 +2506,11 @@ public extension Pogoprotos.Networking.Envelopes {
       serialize_size += dataSizeReturns
       serialize_size += 2 * Int32(returns.count)
       if hasError {
-        serialize_size += error.computeStringSize(101)
+        serialize_size += error.computeStringSize(fieldNumber: 101)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope> {
-      var mergedArray = Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope? {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
       return Pogoprotos.Networking.Envelopes.ResponseEnvelope.classBuilder() as! Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder
@@ -2732,24 +2518,24 @@ public extension Pogoprotos.Networking.Envelopes {
     public func getBuilder() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
       return classBuilder() as! Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.ResponseEnvelope) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasStatusCode {
         jsonMap["statusCode"] = statusCode.toString()
       }
@@ -2760,10 +2546,10 @@ public extension Pogoprotos.Networking.Envelopes {
         jsonMap["apiUrl"] = apiUrl
       }
       if !platformReturns.isEmpty {
-        var jsonArrayPlatformReturns:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayPlatformReturns:Array<Dictionary<String,Any>> = []
           for oneValuePlatformReturns in platformReturns {
             let ecodedMessagePlatformReturns = try oneValuePlatformReturns.encode()
-            jsonArrayPlatformReturns += [ecodedMessagePlatformReturns]
+            jsonArrayPlatformReturns.append(ecodedMessagePlatformReturns)
           }
         jsonMap["platformReturns"] = jsonArrayPlatformReturns
       }
@@ -2773,7 +2559,7 @@ public extension Pogoprotos.Networking.Envelopes {
       if !returns.isEmpty {
         var jsonArrayReturns:Array<String> = []
           for oneValueReturns in returns {
-            jsonArrayReturns += [oneValueReturns.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))]
+            jsonArrayReturns.append(oneValueReturns.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)))
           }
         jsonMap["returns"] = jsonArrayReturns
       }
@@ -2782,11 +2568,11 @@ public extension Pogoprotos.Networking.Envelopes {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
-      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+      return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -2802,14 +2588,14 @@ public extension Pogoprotos.Networking.Envelopes {
       var platformReturnsElementIndex:Int = 0
       for oneElementPlatformReturns in platformReturns {
           output += "\(indent) platformReturns[\(platformReturnsElementIndex)] {\n"
-          output += try oneElementPlatformReturns.getDescription("\(indent)  ")
+          output += try oneElementPlatformReturns.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           platformReturnsElementIndex += 1
       }
       if hasAuthTicket {
         output += "\(indent) authTicket {\n"
         if let outDescAuthTicket = authTicket {
-          output += try outDescAuthTicket.getDescription("\(indent)  ")
+          output += try outDescAuthTicket.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
@@ -2821,7 +2607,7 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasError {
         output += "\(indent) error: \(error) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -2864,13 +2650,10 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func className() -> String {
         return "Pogoprotos.Networking.Envelopes.ResponseEnvelope"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Envelopes.ResponseEnvelope.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Envelopes.ResponseEnvelope = Pogoprotos.Networking.Envelopes.ResponseEnvelope()
+      fileprivate var builderResult:Pogoprotos.Networking.Envelopes.ResponseEnvelope = Pogoprotos.Networking.Envelopes.ResponseEnvelope()
       public func getMessage() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
           return builderResult
       }
@@ -2892,13 +2675,13 @@ public extension Pogoprotos.Networking.Envelopes {
                 builderResult.statusCode = value
             }
         }
-        public func setStatusCode(value:Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+        public func setStatusCode(_ value:Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
           self.statusCode = value
           return self
         }
         public func clearStatusCode() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
            builderResult.hasStatusCode = false
-           builderResult.statusCode = .Unknown
+           builderResult.statusCode = .unknown
            return self
         }
       public var hasRequestId:Bool {
@@ -2915,7 +2698,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.requestId = value
            }
       }
-      public func setRequestId(value:UInt64) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setRequestId(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.requestId = value
         return self
       }
@@ -2938,7 +2721,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.apiUrl = value
            }
       }
-      public func setApiUrl(value:String) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setApiUrl(_ value:String) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.apiUrl = value
         return self
       }
@@ -2955,12 +2738,12 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.platformReturns = value
            }
       }
-      public func setPlatformReturns(value:Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setPlatformReturns(_ value:Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.platformReturns = value
         return self
       }
       public func clearPlatformReturns() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-        builderResult.platformReturns.removeAll(keepCapacity: false)
+        builderResult.platformReturns.removeAll(keepingCapacity: false)
         return self
       }
       public var hasAuthTicket:Bool {
@@ -2980,7 +2763,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.authTicket = value
            }
       }
-      private var authTicketBuilder_:Pogoprotos.Networking.Envelopes.AuthTicket.Builder! {
+      fileprivate var authTicketBuilder_:Pogoprotos.Networking.Envelopes.AuthTicket.Builder! {
            didSet {
               builderResult.hasAuthTicket = true
            }
@@ -2990,18 +2773,18 @@ public extension Pogoprotos.Networking.Envelopes {
            authTicketBuilder_ = Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
            builderResult.authTicket = authTicketBuilder_.getMessage()
            if authTicket != nil {
-              try! authTicketBuilder_.mergeFrom(authTicket)
+              _ = try! authTicketBuilder_.mergeFrom(other: authTicket)
            }
         }
         return authTicketBuilder_
       }
-      public func setAuthTicket(value:Pogoprotos.Networking.Envelopes.AuthTicket!) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setAuthTicket(_ value:Pogoprotos.Networking.Envelopes.AuthTicket!) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.authTicket = value
         return self
       }
       public func mergeAuthTicket(value:Pogoprotos.Networking.Envelopes.AuthTicket) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         if builderResult.hasAuthTicket {
-          builderResult.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(builderResult.authTicket).mergeFrom(value).buildPartial()
+          builderResult.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.builderWithPrototype(prototype:builderResult.authTicket).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.authTicket = value
         }
@@ -3014,7 +2797,7 @@ public extension Pogoprotos.Networking.Envelopes {
         builderResult.authTicket = nil
         return self
       }
-      public var returns:Array<NSData> {
+      public var returns:Array<Data> {
            get {
                return builderResult.returns
            }
@@ -3022,12 +2805,12 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.returns = array
            }
       }
-      public func setReturns(value:Array<NSData>) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setReturns(_ value:Array<Data>) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.returns = value
         return self
       }
       public func clearReturns() -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-         builderResult.returns.removeAll(keepCapacity: false)
+         builderResult.returns.removeAll(keepingCapacity: false)
          return self
       }
       public var hasError:Bool {
@@ -3044,7 +2827,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.error = value
            }
       }
-      public func setError(value:String) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      public func setError(_ value:String) -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         self.error = value
         return self
       }
@@ -3063,7 +2846,7 @@ public extension Pogoprotos.Networking.Envelopes {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-        return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
            try checkInitialized()
@@ -3090,7 +2873,7 @@ public extension Pogoprotos.Networking.Envelopes {
            builderResult.platformReturns += other.platformReturns
         }
         if (other.hasAuthTicket) {
-            try mergeAuthTicket(other.authTicket)
+            _ = try mergeAuthTicket(value: other.authTicket)
         }
         if !other.returns.isEmpty {
             builderResult.returns += other.returns
@@ -3098,66 +2881,66 @@ public extension Pogoprotos.Networking.Envelopes {
         if other.hasError {
              error = other.error
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 8:
-            let valueIntstatusCode = try input.readEnum()
+            let valueIntstatusCode = try codedInputStream.readEnum()
             if let enumsstatusCode = Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode(rawValue:valueIntstatusCode){
                  statusCode = enumsstatusCode
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntstatusCode))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntstatusCode))
             }
 
           case 16:
-            requestId = try input.readUInt64()
+            requestId = try codedInputStream.readUInt64()
 
           case 26:
-            apiUrl = try input.readString()
+            apiUrl = try codedInputStream.readString()
 
           case 50:
             let subBuilder = Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            platformReturns += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            platformReturns.append(subBuilder.buildPartial())
 
           case 58:
             let subBuilder:Pogoprotos.Networking.Envelopes.AuthTicket.Builder = Pogoprotos.Networking.Envelopes.AuthTicket.Builder()
             if hasAuthTicket {
-              try subBuilder.mergeFrom(authTicket)
+              _ = try subBuilder.mergeFrom(other: authTicket)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             authTicket = subBuilder.buildPartial()
 
           case 802:
-            returns += [try input.readData()]
+            returns += [try codedInputStream.readData()]
 
           case 810:
-            error = try input.readString()
+            error = try codedInputStream.readString()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder()
         if let jsonValueStatusCode = jsonMap["statusCode"] as? String {
-          resultDecodedBuilder.statusCode = try Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode.fromString(jsonValueStatusCode)
+          resultDecodedBuilder.statusCode = try Pogoprotos.Networking.Envelopes.ResponseEnvelope.StatusCode.fromString(str: jsonValueStatusCode)
         }
         if let jsonValueRequestId = jsonMap["requestId"] as? String {
           resultDecodedBuilder.requestId = UInt64(jsonValueRequestId)!
@@ -3165,23 +2948,23 @@ public extension Pogoprotos.Networking.Envelopes {
         if let jsonValueApiUrl = jsonMap["apiUrl"] as? String {
           resultDecodedBuilder.apiUrl = jsonValueApiUrl
         }
-        if let jsonValuePlatformReturns = jsonMap["platformReturns"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValuePlatformReturns = jsonMap["platformReturns"] as? Array<Dictionary<String,Any>> {
           var jsonArrayPlatformReturns:Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse> = []
           for oneValuePlatformReturns in jsonValuePlatformReturns {
-            let messageFromStringPlatformReturns = try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.decodeToBuilder(oneValuePlatformReturns).build()
+            let messageFromStringPlatformReturns = try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder.decodeToBuilder(jsonMap:oneValuePlatformReturns).build()
 
-            jsonArrayPlatformReturns += [messageFromStringPlatformReturns]
+            jsonArrayPlatformReturns.append(messageFromStringPlatformReturns)
           }
           resultDecodedBuilder.platformReturns = jsonArrayPlatformReturns
         }
-        if let jsonValueAuthTicket = jsonMap["authTicket"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonValueAuthTicket).build()
+        if let jsonValueAuthTicket = jsonMap["authTicket"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.authTicket = try Pogoprotos.Networking.Envelopes.AuthTicket.Builder.decodeToBuilder(jsonMap:jsonValueAuthTicket).build()
 
         }
         if let jsonValueReturns = jsonMap["returns"] as? Array<String> {
-          var jsonArrayReturns:Array<NSData> = []
+          var jsonArrayReturns:Array<Data> = []
           for oneValueReturns in jsonValueReturns {
-            jsonArrayReturns += [NSData(base64EncodedString:oneValueReturns, options: NSDataBase64DecodingOptions(rawValue:0))!]
+            jsonArrayReturns.append(Data(base64Encoded:oneValueReturns, options: Data.Base64DecodingOptions(rawValue:0))!)
           }
           resultDecodedBuilder.returns = jsonArrayReturns
         }
@@ -3190,68 +2973,68 @@ public extension Pogoprotos.Networking.Envelopes {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class Signature : GeneratedMessage, GeneratedMessageProtocol {
+  final public class Signature : GeneratedMessage {
 
 
     //Nested type declaration start
 
-      final public class LocationFix : GeneratedMessage, GeneratedMessageProtocol {
+      final public class LocationFix : GeneratedMessage {
         // "network", "gps", "fused", possibly others
-        public private(set) var hasProvider:Bool = false
-        public private(set) var provider:String = ""
+        public fileprivate(set) var provider:String = ""
+        public fileprivate(set) var hasProvider:Bool = false
 
         // in ms since start
-        public private(set) var hasTimestampSnapshot:Bool = false
-        public private(set) var timestampSnapshot:UInt64 = UInt64(0)
+        public fileprivate(set) var timestampSnapshot:UInt64 = UInt64(0)
+        public fileprivate(set) var hasTimestampSnapshot:Bool = false
 
         // Confirmed on android/ios
-        public private(set) var hasAltitude:Bool = false
-        public private(set) var altitude:Float = Float(0)
+        public fileprivate(set) var altitude:Float = Float(0)
+        public fileprivate(set) var hasAltitude:Bool = false
 
-        public private(set) var hasLatitude:Bool = false
-        public private(set) var latitude:Float = Float(0)
+        public fileprivate(set) var latitude:Float = Float(0)
+        public fileprivate(set) var hasLatitude:Bool = false
 
-        public private(set) var hasLongitude:Bool = false
-        public private(set) var longitude:Float = Float(0)
+        public fileprivate(set) var longitude:Float = Float(0)
+        public fileprivate(set) var hasLongitude:Bool = false
 
         // iOS only (-1 for no reading available, speed in m/s)
-        public private(set) var hasSpeed:Bool = false
-        public private(set) var speed:Float = Float(0)
+        public fileprivate(set) var speed:Float = Float(0)
+        public fileprivate(set) var hasSpeed:Bool = false
 
         // iOS only (range seems to be -1 for not reading, and 0 to 360 for reading) confirmed by @marcel
-        public private(set) var hasCourse:Bool = false
-        public private(set) var course:Float = Float(0)
+        public fileprivate(set) var course:Float = Float(0)
+        public fileprivate(set) var hasCourse:Bool = false
 
         // in meters, both on Android and iOS
-        public private(set) var hasHorizontalAccuracy:Bool = false
-        public private(set) var horizontalAccuracy:Float = Float(0)
+        public fileprivate(set) var horizontalAccuracy:Float = Float(0)
+        public fileprivate(set) var hasHorizontalAccuracy:Bool = false
 
         // iOS only 
-        public private(set) var hasVerticalAccuracy:Bool = false
-        public private(set) var verticalAccuracy:Float = Float(0)
+        public fileprivate(set) var verticalAccuracy:Float = Float(0)
+        public fileprivate(set) var hasVerticalAccuracy:Bool = false
 
         // Usually 3 (possibly GPS status: 1 = no fix, 2 = acquiring/inaccurate, 3 = fix acquired)
-        public private(set) var hasProviderStatus:Bool = false
-        public private(set) var providerStatus:UInt64 = UInt64(0)
+        public fileprivate(set) var providerStatus:UInt64 = UInt64(0)
+        public fileprivate(set) var hasProviderStatus:Bool = false
 
         // On iOS there are some LocationFixes with unk26=1 and everything else empty
-        public private(set) var hasFloor:Bool = false
-        public private(set) var floor:UInt32 = UInt32(0)
+        public fileprivate(set) var floor:UInt32 = UInt32(0)
+        public fileprivate(set) var hasFloor:Bool = false
 
         // Always 1 (if there is data at all)
-        public private(set) var hasLocationType:Bool = false
-        public private(set) var locationType:UInt64 = UInt64(0)
+        public fileprivate(set) var locationType:UInt64 = UInt64(0)
+        public fileprivate(set) var hasLocationType:Bool = false
 
         required public init() {
              super.init()
@@ -3259,44 +3042,44 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasProvider {
-            try output.writeString(1, value:provider)
+            try codedOutputStream.writeString(fieldNumber: 1, value:provider)
           }
           if hasTimestampSnapshot {
-            try output.writeUInt64(2, value:timestampSnapshot)
+            try codedOutputStream.writeUInt64(fieldNumber: 2, value:timestampSnapshot)
           }
           if hasAltitude {
-            try output.writeFloat(4, value:altitude)
+            try codedOutputStream.writeFloat(fieldNumber: 4, value:altitude)
           }
           if hasLatitude {
-            try output.writeFloat(13, value:latitude)
+            try codedOutputStream.writeFloat(fieldNumber: 13, value:latitude)
           }
           if hasLongitude {
-            try output.writeFloat(14, value:longitude)
+            try codedOutputStream.writeFloat(fieldNumber: 14, value:longitude)
           }
           if hasSpeed {
-            try output.writeFloat(18, value:speed)
+            try codedOutputStream.writeFloat(fieldNumber: 18, value:speed)
           }
           if hasCourse {
-            try output.writeFloat(20, value:course)
+            try codedOutputStream.writeFloat(fieldNumber: 20, value:course)
           }
           if hasHorizontalAccuracy {
-            try output.writeFloat(21, value:horizontalAccuracy)
+            try codedOutputStream.writeFloat(fieldNumber: 21, value:horizontalAccuracy)
           }
           if hasVerticalAccuracy {
-            try output.writeFloat(22, value:verticalAccuracy)
+            try codedOutputStream.writeFloat(fieldNumber: 22, value:verticalAccuracy)
           }
           if hasProviderStatus {
-            try output.writeUInt64(26, value:providerStatus)
+            try codedOutputStream.writeUInt64(fieldNumber: 26, value:providerStatus)
           }
           if hasFloor {
-            try output.writeUInt32(27, value:floor)
+            try codedOutputStream.writeUInt32(fieldNumber: 27, value:floor)
           }
           if hasLocationType {
-            try output.writeUInt64(28, value:locationType)
+            try codedOutputStream.writeUInt64(fieldNumber: 28, value:locationType)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -3306,72 +3089,44 @@ public extension Pogoprotos.Networking.Envelopes {
 
           serialize_size = 0
           if hasProvider {
-            serialize_size += provider.computeStringSize(1)
+            serialize_size += provider.computeStringSize(fieldNumber: 1)
           }
           if hasTimestampSnapshot {
-            serialize_size += timestampSnapshot.computeUInt64Size(2)
+            serialize_size += timestampSnapshot.computeUInt64Size(fieldNumber: 2)
           }
           if hasAltitude {
-            serialize_size += altitude.computeFloatSize(4)
+            serialize_size += altitude.computeFloatSize(fieldNumber: 4)
           }
           if hasLatitude {
-            serialize_size += latitude.computeFloatSize(13)
+            serialize_size += latitude.computeFloatSize(fieldNumber: 13)
           }
           if hasLongitude {
-            serialize_size += longitude.computeFloatSize(14)
+            serialize_size += longitude.computeFloatSize(fieldNumber: 14)
           }
           if hasSpeed {
-            serialize_size += speed.computeFloatSize(18)
+            serialize_size += speed.computeFloatSize(fieldNumber: 18)
           }
           if hasCourse {
-            serialize_size += course.computeFloatSize(20)
+            serialize_size += course.computeFloatSize(fieldNumber: 20)
           }
           if hasHorizontalAccuracy {
-            serialize_size += horizontalAccuracy.computeFloatSize(21)
+            serialize_size += horizontalAccuracy.computeFloatSize(fieldNumber: 21)
           }
           if hasVerticalAccuracy {
-            serialize_size += verticalAccuracy.computeFloatSize(22)
+            serialize_size += verticalAccuracy.computeFloatSize(fieldNumber: 22)
           }
           if hasProviderStatus {
-            serialize_size += providerStatus.computeUInt64Size(26)
+            serialize_size += providerStatus.computeUInt64Size(fieldNumber: 26)
           }
           if hasFloor {
-            serialize_size += floor.computeUInt32Size(27)
+            serialize_size += floor.computeUInt32Size(fieldNumber: 27)
           }
           if hasLocationType {
-            serialize_size += locationType.computeUInt64Size(28)
+            serialize_size += locationType.computeUInt64Size(fieldNumber: 28)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix? {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
           return Pogoprotos.Networking.Envelopes.Signature.LocationFix.classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder
@@ -3379,24 +3134,24 @@ public extension Pogoprotos.Networking.Envelopes {
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Signature.LocationFix) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasProvider {
             jsonMap["provider"] = provider
           }
@@ -3404,42 +3159,42 @@ public extension Pogoprotos.Networking.Envelopes {
             jsonMap["timestampSnapshot"] = "\(timestampSnapshot)"
           }
           if hasAltitude {
-            jsonMap["altitude"] = NSNumber(float:altitude)
+            jsonMap["altitude"] = NSNumber(value:altitude)
           }
           if hasLatitude {
-            jsonMap["latitude"] = NSNumber(float:latitude)
+            jsonMap["latitude"] = NSNumber(value:latitude)
           }
           if hasLongitude {
-            jsonMap["longitude"] = NSNumber(float:longitude)
+            jsonMap["longitude"] = NSNumber(value:longitude)
           }
           if hasSpeed {
-            jsonMap["speed"] = NSNumber(float:speed)
+            jsonMap["speed"] = NSNumber(value:speed)
           }
           if hasCourse {
-            jsonMap["course"] = NSNumber(float:course)
+            jsonMap["course"] = NSNumber(value:course)
           }
           if hasHorizontalAccuracy {
-            jsonMap["horizontalAccuracy"] = NSNumber(float:horizontalAccuracy)
+            jsonMap["horizontalAccuracy"] = NSNumber(value:horizontalAccuracy)
           }
           if hasVerticalAccuracy {
-            jsonMap["verticalAccuracy"] = NSNumber(float:verticalAccuracy)
+            jsonMap["verticalAccuracy"] = NSNumber(value:verticalAccuracy)
           }
           if hasProviderStatus {
             jsonMap["providerStatus"] = "\(providerStatus)"
           }
           if hasFloor {
-            jsonMap["floor"] = NSNumber(unsignedInt:floor)
+            jsonMap["floor"] = NSNumber(value:floor)
           }
           if hasLocationType {
             jsonMap["locationType"] = "\(locationType)"
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
-          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+          return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -3479,7 +3234,7 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasLocationType {
             output += "\(indent) locationType: \(locationType) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -3535,13 +3290,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.Signature.LocationFix"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.Signature.LocationFix.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.Signature.LocationFix = Pogoprotos.Networking.Envelopes.Signature.LocationFix()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.Signature.LocationFix = Pogoprotos.Networking.Envelopes.Signature.LocationFix()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
               return builderResult
           }
@@ -3563,7 +3315,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.provider = value
                }
           }
-          public func setProvider(value:String) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setProvider(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.provider = value
             return self
           }
@@ -3586,7 +3338,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.timestampSnapshot = value
                }
           }
-          public func setTimestampSnapshot(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setTimestampSnapshot(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.timestampSnapshot = value
             return self
           }
@@ -3609,7 +3361,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.altitude = value
                }
           }
-          public func setAltitude(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setAltitude(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.altitude = value
             return self
           }
@@ -3632,7 +3384,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.latitude = value
                }
           }
-          public func setLatitude(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setLatitude(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.latitude = value
             return self
           }
@@ -3655,7 +3407,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.longitude = value
                }
           }
-          public func setLongitude(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setLongitude(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.longitude = value
             return self
           }
@@ -3678,7 +3430,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.speed = value
                }
           }
-          public func setSpeed(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setSpeed(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.speed = value
             return self
           }
@@ -3701,7 +3453,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.course = value
                }
           }
-          public func setCourse(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setCourse(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.course = value
             return self
           }
@@ -3724,7 +3476,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.horizontalAccuracy = value
                }
           }
-          public func setHorizontalAccuracy(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setHorizontalAccuracy(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.horizontalAccuracy = value
             return self
           }
@@ -3747,7 +3499,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.verticalAccuracy = value
                }
           }
-          public func setVerticalAccuracy(value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setVerticalAccuracy(_ value:Float) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.verticalAccuracy = value
             return self
           }
@@ -3770,7 +3522,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.providerStatus = value
                }
           }
-          public func setProviderStatus(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setProviderStatus(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.providerStatus = value
             return self
           }
@@ -3793,7 +3545,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.floor = value
                }
           }
-          public func setFloor(value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setFloor(_ value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.floor = value
             return self
           }
@@ -3816,7 +3568,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.locationType = value
                }
           }
-          public func setLocationType(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          public func setLocationType(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             self.locationType = value
             return self
           }
@@ -3835,7 +3587,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-            return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
                try checkInitialized()
@@ -3885,66 +3637,66 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasLocationType {
                  locationType = other.locationType
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 10:
-                provider = try input.readString()
+                provider = try codedInputStream.readString()
 
               case 16:
-                timestampSnapshot = try input.readUInt64()
+                timestampSnapshot = try codedInputStream.readUInt64()
 
               case 37:
-                altitude = try input.readFloat()
+                altitude = try codedInputStream.readFloat()
 
               case 109:
-                latitude = try input.readFloat()
+                latitude = try codedInputStream.readFloat()
 
               case 117:
-                longitude = try input.readFloat()
+                longitude = try codedInputStream.readFloat()
 
               case 149:
-                speed = try input.readFloat()
+                speed = try codedInputStream.readFloat()
 
               case 165:
-                course = try input.readFloat()
+                course = try codedInputStream.readFloat()
 
               case 173:
-                horizontalAccuracy = try input.readFloat()
+                horizontalAccuracy = try codedInputStream.readFloat()
 
               case 181:
-                verticalAccuracy = try input.readFloat()
+                verticalAccuracy = try codedInputStream.readFloat()
 
               case 208:
-                providerStatus = try input.readUInt64()
+                providerStatus = try codedInputStream.readUInt64()
 
               case 216:
-                floor = try input.readUInt32()
+                floor = try codedInputStream.readUInt32()
 
               case 224:
-                locationType = try input.readUInt64()
+                locationType = try codedInputStream.readUInt64()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
             if let jsonValueProvider = jsonMap["provider"] as? String {
               resultDecodedBuilder.provider = jsonValueProvider
@@ -3977,19 +3729,19 @@ public extension Pogoprotos.Networking.Envelopes {
               resultDecodedBuilder.providerStatus = UInt64(jsonValueProviderStatus)!
             }
             if let jsonValueFloor = jsonMap["floor"] as? NSNumber {
-              resultDecodedBuilder.floor = jsonValueFloor.unsignedIntValue
+              resultDecodedBuilder.floor = jsonValueFloor.uint32Value
             }
             if let jsonValueLocationType = jsonMap["locationType"] as? String {
               resultDecodedBuilder.locationType = UInt64(jsonValueLocationType)!
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -4002,23 +3754,23 @@ public extension Pogoprotos.Networking.Envelopes {
     //Nested type declaration start
 
       // don't really care about this since we're not using it
-      final public class AndroidGpsInfo : GeneratedMessage, GeneratedMessageProtocol {
-        public private(set) var hasTimeToFix:Bool = false
-        public private(set) var timeToFix:UInt64 = UInt64(0)
+      final public class AndroidGpsInfo : GeneratedMessage {
+        public fileprivate(set) var timeToFix:UInt64 = UInt64(0)
+        public fileprivate(set) var hasTimeToFix:Bool = false
 
-        public private(set) var satellitesPrn:Array<Int32> = Array<Int32>()
+        public fileprivate(set) var satellitesPrn:Array<Int32> = Array<Int32>()
         private var satellitesPrnMemoizedSerializedSize:Int32 = -1
-        public private(set) var azimuth:Array<Float> = Array<Float>()
+        public fileprivate(set) var azimuth:Array<Float> = Array<Float>()
         private var azimuthMemoizedSerializedSize:Int32 = -1
-        public private(set) var elevation:Array<Float> = Array<Float>()
+        public fileprivate(set) var elevation:Array<Float> = Array<Float>()
         private var elevationMemoizedSerializedSize:Int32 = -1
-        public private(set) var snr:Array<Float> = Array<Float>()
+        public fileprivate(set) var snr:Array<Float> = Array<Float>()
         private var snrMemoizedSerializedSize:Int32 = -1
-        public private(set) var hasAlmanac:Array<Bool> = Array<Bool>()
+        public fileprivate(set) var hasAlmanac:Array<Bool> = Array<Bool>()
         private var hasAlmanacMemoizedSerializedSize:Int32 = -1
-        public private(set) var hasEphemeris:Array<Bool> = Array<Bool>()
+        public fileprivate(set) var hasEphemeris:Array<Bool> = Array<Bool>()
         private var hasEphemerisMemoizedSerializedSize:Int32 = -1
-        public private(set) var usedInFix:Array<Bool> = Array<Bool>()
+        public fileprivate(set) var usedInFix:Array<Bool> = Array<Bool>()
         private var usedInFixMemoizedSerializedSize:Int32 = -1
         required public init() {
              super.init()
@@ -4026,60 +3778,60 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasTimeToFix {
-            try output.writeUInt64(1, value:timeToFix)
+            try codedOutputStream.writeUInt64(fieldNumber: 1, value:timeToFix)
           }
           if !satellitesPrn.isEmpty {
-            try output.writeRawVarint32(18)
-            try output.writeRawVarint32(satellitesPrnMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 18)
+            try codedOutputStream.writeRawVarint32(value: satellitesPrnMemoizedSerializedSize)
             for oneValuesatellitesPrn in satellitesPrn {
-              try output.writeInt32NoTag(oneValuesatellitesPrn)
+              try codedOutputStream.writeInt32NoTag(value: oneValuesatellitesPrn)
             }
           }
           if !azimuth.isEmpty {
-            try output.writeRawVarint32(26)
-            try output.writeRawVarint32(azimuthMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 26)
+            try codedOutputStream.writeRawVarint32(value: azimuthMemoizedSerializedSize)
             for oneValueazimuth in azimuth {
-              try output.writeFloatNoTag(oneValueazimuth)
+              try codedOutputStream.writeFloatNoTag(value: oneValueazimuth)
             }
           }
           if !elevation.isEmpty {
-            try output.writeRawVarint32(34)
-            try output.writeRawVarint32(elevationMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 34)
+            try codedOutputStream.writeRawVarint32(value: elevationMemoizedSerializedSize)
             for oneValueelevation in elevation {
-              try output.writeFloatNoTag(oneValueelevation)
+              try codedOutputStream.writeFloatNoTag(value: oneValueelevation)
             }
           }
           if !snr.isEmpty {
-            try output.writeRawVarint32(42)
-            try output.writeRawVarint32(snrMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 42)
+            try codedOutputStream.writeRawVarint32(value: snrMemoizedSerializedSize)
             for oneValuesnr in snr {
-              try output.writeFloatNoTag(oneValuesnr)
+              try codedOutputStream.writeFloatNoTag(value: oneValuesnr)
             }
           }
           if !hasAlmanac.isEmpty {
-            try output.writeRawVarint32(50)
-            try output.writeRawVarint32(hasAlmanacMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 50)
+            try codedOutputStream.writeRawVarint32(value: hasAlmanacMemoizedSerializedSize)
             for oneValuehasAlmanac in hasAlmanac {
-              try output.writeBoolNoTag(oneValuehasAlmanac)
+              try codedOutputStream.writeBoolNoTag(value: oneValuehasAlmanac)
             }
           }
           if !hasEphemeris.isEmpty {
-            try output.writeRawVarint32(58)
-            try output.writeRawVarint32(hasEphemerisMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 58)
+            try codedOutputStream.writeRawVarint32(value: hasEphemerisMemoizedSerializedSize)
             for oneValuehasEphemeris in hasEphemeris {
-              try output.writeBoolNoTag(oneValuehasEphemeris)
+              try codedOutputStream.writeBoolNoTag(value: oneValuehasEphemeris)
             }
           }
           if !usedInFix.isEmpty {
-            try output.writeRawVarint32(66)
-            try output.writeRawVarint32(usedInFixMemoizedSerializedSize)
+            try codedOutputStream.writeRawVarint32(value: 66)
+            try codedOutputStream.writeRawVarint32(value: usedInFixMemoizedSerializedSize)
             for oneValueusedInFix in usedInFix {
-              try output.writeBoolNoTag(oneValueusedInFix)
+              try codedOutputStream.writeBoolNoTag(value: oneValueusedInFix)
             }
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -4089,7 +3841,7 @@ public extension Pogoprotos.Networking.Envelopes {
 
           serialize_size = 0
           if hasTimeToFix {
-            serialize_size += timeToFix.computeUInt64Size(1)
+            serialize_size += timeToFix.computeUInt64Size(fieldNumber: 1)
           }
           var dataSizeSatellitesPrn:Int32 = 0
           for oneValuesatellitesPrn in satellitesPrn {
@@ -4153,86 +3905,58 @@ public extension Pogoprotos.Networking.Envelopes {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo? {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
           return Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder
         }
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasTimeToFix {
             jsonMap["timeToFix"] = "\(timeToFix)"
           }
           if !satellitesPrn.isEmpty {
             var jsonArraySatellitesPrn:Array<NSNumber> = []
               for oneValueSatellitesPrn in satellitesPrn {
-                jsonArraySatellitesPrn += [NSNumber(int:oneValueSatellitesPrn)]
+                jsonArraySatellitesPrn.append(NSNumber(value:oneValueSatellitesPrn))
               }
             jsonMap["satellitesPrn"] = jsonArraySatellitesPrn
           }
           if !azimuth.isEmpty {
             var jsonArrayAzimuth:Array<NSNumber> = []
               for oneValueAzimuth in azimuth {
-                jsonArrayAzimuth += [NSNumber(float:oneValueAzimuth)]
+                jsonArrayAzimuth.append(NSNumber(value:oneValueAzimuth))
               }
             jsonMap["azimuth"] = jsonArrayAzimuth
           }
           if !elevation.isEmpty {
             var jsonArrayElevation:Array<NSNumber> = []
               for oneValueElevation in elevation {
-                jsonArrayElevation += [NSNumber(float:oneValueElevation)]
+                jsonArrayElevation.append(NSNumber(value:oneValueElevation))
               }
             jsonMap["elevation"] = jsonArrayElevation
           }
           if !snr.isEmpty {
             var jsonArraySnr:Array<NSNumber> = []
               for oneValueSnr in snr {
-                jsonArraySnr += [NSNumber(float:oneValueSnr)]
+                jsonArraySnr.append(NSNumber(value:oneValueSnr))
               }
             jsonMap["snr"] = jsonArraySnr
           }
@@ -4247,11 +3971,11 @@ public extension Pogoprotos.Networking.Envelopes {
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+          return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -4293,7 +4017,7 @@ public extension Pogoprotos.Networking.Envelopes {
               output += "\(indent) usedInFix[\(usedInFixElementIndex)]: \(oneValueUsedInFix)\n"
               usedInFixElementIndex += 1
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -4337,13 +4061,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo = Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo = Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
               return builderResult
           }
@@ -4365,7 +4086,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.timeToFix = value
                }
           }
-          public func setTimeToFix(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setTimeToFix(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.timeToFix = value
             return self
           }
@@ -4382,12 +4103,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.satellitesPrn = array
                }
           }
-          public func setSatellitesPrn(value:Array<Int32>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setSatellitesPrn(_ value:Array<Int32>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.satellitesPrn = value
             return self
           }
           public func clearSatellitesPrn() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.satellitesPrn.removeAll(keepCapacity: false)
+             builderResult.satellitesPrn.removeAll(keepingCapacity: false)
              return self
           }
           public var azimuth:Array<Float> {
@@ -4398,12 +4119,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.azimuth = array
                }
           }
-          public func setAzimuth(value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setAzimuth(_ value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.azimuth = value
             return self
           }
           public func clearAzimuth() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.azimuth.removeAll(keepCapacity: false)
+             builderResult.azimuth.removeAll(keepingCapacity: false)
              return self
           }
           public var elevation:Array<Float> {
@@ -4414,12 +4135,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.elevation = array
                }
           }
-          public func setElevation(value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setElevation(_ value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.elevation = value
             return self
           }
           public func clearElevation() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.elevation.removeAll(keepCapacity: false)
+             builderResult.elevation.removeAll(keepingCapacity: false)
              return self
           }
           public var snr:Array<Float> {
@@ -4430,12 +4151,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.snr = array
                }
           }
-          public func setSnr(value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setSnr(_ value:Array<Float>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.snr = value
             return self
           }
           public func clearSnr() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.snr.removeAll(keepCapacity: false)
+             builderResult.snr.removeAll(keepingCapacity: false)
              return self
           }
           public var hasAlmanac:Array<Bool> {
@@ -4446,12 +4167,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.hasAlmanac = array
                }
           }
-          public func setHasAlmanac(value:Array<Bool>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setHasAlmanac(_ value:Array<Bool>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.hasAlmanac = value
             return self
           }
           public func clearHasAlmanac() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.hasAlmanac.removeAll(keepCapacity: false)
+             builderResult.hasAlmanac.removeAll(keepingCapacity: false)
              return self
           }
           public var hasEphemeris:Array<Bool> {
@@ -4462,12 +4183,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.hasEphemeris = array
                }
           }
-          public func setHasEphemeris(value:Array<Bool>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setHasEphemeris(_ value:Array<Bool>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.hasEphemeris = value
             return self
           }
           public func clearHasEphemeris() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.hasEphemeris.removeAll(keepCapacity: false)
+             builderResult.hasEphemeris.removeAll(keepingCapacity: false)
              return self
           }
           public var usedInFix:Array<Bool> {
@@ -4478,12 +4199,12 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.usedInFix = array
                }
           }
-          public func setUsedInFix(value:Array<Bool>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          public func setUsedInFix(_ value:Array<Bool>) -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             self.usedInFix = value
             return self
           }
           public func clearUsedInFix() -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-             builderResult.usedInFix.removeAll(keepCapacity: false)
+             builderResult.usedInFix.removeAll(keepingCapacity: false)
              return self
           }
           override public var internalGetResult:GeneratedMessage {
@@ -4496,7 +4217,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-            return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
                try checkInitialized()
@@ -4534,89 +4255,89 @@ public extension Pogoprotos.Networking.Envelopes {
             if !other.usedInFix.isEmpty {
                 builderResult.usedInFix += other.usedInFix
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 8:
-                timeToFix = try input.readUInt64()
+                timeToFix = try codedInputStream.readUInt64()
 
               case 18:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.satellitesPrn += [try input.readInt32()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.satellitesPrn.append(try codedInputStream.readInt32())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               case 26:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.azimuth += [try input.readFloat()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.azimuth.append(try codedInputStream.readFloat())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               case 34:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.elevation += [try input.readFloat()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.elevation.append(try codedInputStream.readFloat())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               case 42:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.snr += [try input.readFloat()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.snr.append(try codedInputStream.readFloat())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               case 50:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.hasAlmanac += [try input.readBool()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.hasAlmanac.append(try codedInputStream.readBool())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               case 58:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.hasEphemeris += [try input.readBool()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.hasEphemeris.append(try codedInputStream.readBool())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               case 66:
-                let length:Int32 = try input.readRawVarint32()
-                let limit:Int32 = try input.pushLimit(length)
-                while (input.bytesUntilLimit() > 0) {
-                  builderResult.usedInFix += [try input.readBool()]
+                let length = Int(try codedInputStream.readRawVarint32())
+                let limit = try codedInputStream.pushLimit(byteLimit: length)
+                while (codedInputStream.bytesUntilLimit() > 0) {
+                  builderResult.usedInFix.append(try codedInputStream.readBool())
                 }
-                input.popLimit(limit)
+                codedInputStream.popLimit(oldLimit: limit)
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder()
             if let jsonValueTimeToFix = jsonMap["timeToFix"] as? String {
               resultDecodedBuilder.timeToFix = UInt64(jsonValueTimeToFix)!
@@ -4624,28 +4345,28 @@ public extension Pogoprotos.Networking.Envelopes {
             if let jsonValueSatellitesPrn = jsonMap["satellitesPrn"] as? Array<NSNumber> {
               var jsonArraySatellitesPrn:Array<Int32> = []
               for oneValueSatellitesPrn in jsonValueSatellitesPrn {
-                jsonArraySatellitesPrn += [oneValueSatellitesPrn.intValue]
+                jsonArraySatellitesPrn.append(oneValueSatellitesPrn.int32Value)
               }
               resultDecodedBuilder.satellitesPrn = jsonArraySatellitesPrn
             }
             if let jsonValueAzimuth = jsonMap["azimuth"] as? Array<NSNumber> {
               var jsonArrayAzimuth:Array<Float> = []
               for oneValueAzimuth in jsonValueAzimuth {
-                jsonArrayAzimuth += [oneValueAzimuth.floatValue]
+                jsonArrayAzimuth.append(oneValueAzimuth.floatValue)
               }
               resultDecodedBuilder.azimuth = jsonArrayAzimuth
             }
             if let jsonValueElevation = jsonMap["elevation"] as? Array<NSNumber> {
               var jsonArrayElevation:Array<Float> = []
               for oneValueElevation in jsonValueElevation {
-                jsonArrayElevation += [oneValueElevation.floatValue]
+                jsonArrayElevation.append(oneValueElevation.floatValue)
               }
               resultDecodedBuilder.elevation = jsonArrayElevation
             }
             if let jsonValueSnr = jsonMap["snr"] as? Array<NSNumber> {
               var jsonArraySnr:Array<Float> = []
               for oneValueSnr in jsonValueSnr {
-                jsonArraySnr += [oneValueSnr.floatValue]
+                jsonArraySnr.append(oneValueSnr.floatValue)
               }
               resultDecodedBuilder.snr = jsonArraySnr
             }
@@ -4660,12 +4381,12 @@ public extension Pogoprotos.Networking.Envelopes {
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -4677,59 +4398,59 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration start
 
-      final public class SensorInfo : GeneratedMessage, GeneratedMessageProtocol {
+      final public class SensorInfo : GeneratedMessage {
         // in ms since start
-        public private(set) var hasTimestampSnapshot:Bool = false
-        public private(set) var timestampSnapshot:UInt64 = UInt64(0)
+        public fileprivate(set) var timestampSnapshot:UInt64 = UInt64(0)
+        public fileprivate(set) var hasTimestampSnapshot:Bool = false
 
-        public private(set) var hasLinearAccelerationX:Bool = false
-        public private(set) var linearAccelerationX:Double = Double(0)
+        public fileprivate(set) var linearAccelerationX:Double = Double(0)
+        public fileprivate(set) var hasLinearAccelerationX:Bool = false
 
-        public private(set) var hasLinearAccelerationY:Bool = false
-        public private(set) var linearAccelerationY:Double = Double(0)
+        public fileprivate(set) var linearAccelerationY:Double = Double(0)
+        public fileprivate(set) var hasLinearAccelerationY:Bool = false
 
-        public private(set) var hasLinearAccelerationZ:Bool = false
-        public private(set) var linearAccelerationZ:Double = Double(0)
+        public fileprivate(set) var linearAccelerationZ:Double = Double(0)
+        public fileprivate(set) var hasLinearAccelerationZ:Bool = false
 
-        public private(set) var hasMagneticFieldX:Bool = false
-        public private(set) var magneticFieldX:Double = Double(0)
+        public fileprivate(set) var magneticFieldX:Double = Double(0)
+        public fileprivate(set) var hasMagneticFieldX:Bool = false
 
-        public private(set) var hasMagneticFieldY:Bool = false
-        public private(set) var magneticFieldY:Double = Double(0)
+        public fileprivate(set) var magneticFieldY:Double = Double(0)
+        public fileprivate(set) var hasMagneticFieldY:Bool = false
 
-        public private(set) var hasMagneticFieldZ:Bool = false
-        public private(set) var magneticFieldZ:Double = Double(0)
+        public fileprivate(set) var magneticFieldZ:Double = Double(0)
+        public fileprivate(set) var hasMagneticFieldZ:Bool = false
 
-        public private(set) var hasRotationVectorX:Bool = false
-        public private(set) var rotationVectorX:Double = Double(0)
+        public fileprivate(set) var rotationVectorX:Double = Double(0)
+        public fileprivate(set) var hasRotationVectorX:Bool = false
 
-        public private(set) var hasRotationVectorY:Bool = false
-        public private(set) var rotationVectorY:Double = Double(0)
+        public fileprivate(set) var rotationVectorY:Double = Double(0)
+        public fileprivate(set) var hasRotationVectorY:Bool = false
 
-        public private(set) var hasRotationVectorZ:Bool = false
-        public private(set) var rotationVectorZ:Double = Double(0)
+        public fileprivate(set) var rotationVectorZ:Double = Double(0)
+        public fileprivate(set) var hasRotationVectorZ:Bool = false
 
-        public private(set) var hasGyroscopeRawX:Bool = false
-        public private(set) var gyroscopeRawX:Double = Double(0)
+        public fileprivate(set) var gyroscopeRawX:Double = Double(0)
+        public fileprivate(set) var hasGyroscopeRawX:Bool = false
 
-        public private(set) var hasGyroscopeRawY:Bool = false
-        public private(set) var gyroscopeRawY:Double = Double(0)
+        public fileprivate(set) var gyroscopeRawY:Double = Double(0)
+        public fileprivate(set) var hasGyroscopeRawY:Bool = false
 
-        public private(set) var hasGyroscopeRawZ:Bool = false
-        public private(set) var gyroscopeRawZ:Double = Double(0)
+        public fileprivate(set) var gyroscopeRawZ:Double = Double(0)
+        public fileprivate(set) var hasGyroscopeRawZ:Bool = false
 
-        public private(set) var hasGravityX:Bool = false
-        public private(set) var gravityX:Double = Double(0)
+        public fileprivate(set) var gravityX:Double = Double(0)
+        public fileprivate(set) var hasGravityX:Bool = false
 
-        public private(set) var hasGravityY:Bool = false
-        public private(set) var gravityY:Double = Double(0)
+        public fileprivate(set) var gravityY:Double = Double(0)
+        public fileprivate(set) var hasGravityY:Bool = false
 
-        public private(set) var hasGravityZ:Bool = false
-        public private(set) var gravityZ:Double = Double(0)
+        public fileprivate(set) var gravityZ:Double = Double(0)
+        public fileprivate(set) var hasGravityZ:Bool = false
 
         // Always 3
-        public private(set) var hasAccelerometerAxes:Bool = false
-        public private(set) var accelerometerAxes:UInt64 = UInt64(0)
+        public fileprivate(set) var accelerometerAxes:UInt64 = UInt64(0)
+        public fileprivate(set) var hasAccelerometerAxes:Bool = false
 
         required public init() {
              super.init()
@@ -4737,59 +4458,59 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasTimestampSnapshot {
-            try output.writeUInt64(1, value:timestampSnapshot)
+            try codedOutputStream.writeUInt64(fieldNumber: 1, value:timestampSnapshot)
           }
           if hasLinearAccelerationX {
-            try output.writeDouble(3, value:linearAccelerationX)
+            try codedOutputStream.writeDouble(fieldNumber: 3, value:linearAccelerationX)
           }
           if hasLinearAccelerationY {
-            try output.writeDouble(4, value:linearAccelerationY)
+            try codedOutputStream.writeDouble(fieldNumber: 4, value:linearAccelerationY)
           }
           if hasLinearAccelerationZ {
-            try output.writeDouble(5, value:linearAccelerationZ)
+            try codedOutputStream.writeDouble(fieldNumber: 5, value:linearAccelerationZ)
           }
           if hasMagneticFieldX {
-            try output.writeDouble(6, value:magneticFieldX)
+            try codedOutputStream.writeDouble(fieldNumber: 6, value:magneticFieldX)
           }
           if hasMagneticFieldY {
-            try output.writeDouble(7, value:magneticFieldY)
+            try codedOutputStream.writeDouble(fieldNumber: 7, value:magneticFieldY)
           }
           if hasMagneticFieldZ {
-            try output.writeDouble(8, value:magneticFieldZ)
+            try codedOutputStream.writeDouble(fieldNumber: 8, value:magneticFieldZ)
           }
           if hasRotationVectorX {
-            try output.writeDouble(10, value:rotationVectorX)
+            try codedOutputStream.writeDouble(fieldNumber: 10, value:rotationVectorX)
           }
           if hasRotationVectorY {
-            try output.writeDouble(11, value:rotationVectorY)
+            try codedOutputStream.writeDouble(fieldNumber: 11, value:rotationVectorY)
           }
           if hasRotationVectorZ {
-            try output.writeDouble(12, value:rotationVectorZ)
+            try codedOutputStream.writeDouble(fieldNumber: 12, value:rotationVectorZ)
           }
           if hasGyroscopeRawX {
-            try output.writeDouble(13, value:gyroscopeRawX)
+            try codedOutputStream.writeDouble(fieldNumber: 13, value:gyroscopeRawX)
           }
           if hasGyroscopeRawY {
-            try output.writeDouble(14, value:gyroscopeRawY)
+            try codedOutputStream.writeDouble(fieldNumber: 14, value:gyroscopeRawY)
           }
           if hasGyroscopeRawZ {
-            try output.writeDouble(15, value:gyroscopeRawZ)
+            try codedOutputStream.writeDouble(fieldNumber: 15, value:gyroscopeRawZ)
           }
           if hasGravityX {
-            try output.writeDouble(16, value:gravityX)
+            try codedOutputStream.writeDouble(fieldNumber: 16, value:gravityX)
           }
           if hasGravityY {
-            try output.writeDouble(17, value:gravityY)
+            try codedOutputStream.writeDouble(fieldNumber: 17, value:gravityY)
           }
           if hasGravityZ {
-            try output.writeDouble(18, value:gravityZ)
+            try codedOutputStream.writeDouble(fieldNumber: 18, value:gravityZ)
           }
           if hasAccelerometerAxes {
-            try output.writeUInt64(19, value:accelerometerAxes)
+            try codedOutputStream.writeUInt64(fieldNumber: 19, value:accelerometerAxes)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -4799,87 +4520,59 @@ public extension Pogoprotos.Networking.Envelopes {
 
           serialize_size = 0
           if hasTimestampSnapshot {
-            serialize_size += timestampSnapshot.computeUInt64Size(1)
+            serialize_size += timestampSnapshot.computeUInt64Size(fieldNumber: 1)
           }
           if hasLinearAccelerationX {
-            serialize_size += linearAccelerationX.computeDoubleSize(3)
+            serialize_size += linearAccelerationX.computeDoubleSize(fieldNumber: 3)
           }
           if hasLinearAccelerationY {
-            serialize_size += linearAccelerationY.computeDoubleSize(4)
+            serialize_size += linearAccelerationY.computeDoubleSize(fieldNumber: 4)
           }
           if hasLinearAccelerationZ {
-            serialize_size += linearAccelerationZ.computeDoubleSize(5)
+            serialize_size += linearAccelerationZ.computeDoubleSize(fieldNumber: 5)
           }
           if hasMagneticFieldX {
-            serialize_size += magneticFieldX.computeDoubleSize(6)
+            serialize_size += magneticFieldX.computeDoubleSize(fieldNumber: 6)
           }
           if hasMagneticFieldY {
-            serialize_size += magneticFieldY.computeDoubleSize(7)
+            serialize_size += magneticFieldY.computeDoubleSize(fieldNumber: 7)
           }
           if hasMagneticFieldZ {
-            serialize_size += magneticFieldZ.computeDoubleSize(8)
+            serialize_size += magneticFieldZ.computeDoubleSize(fieldNumber: 8)
           }
           if hasRotationVectorX {
-            serialize_size += rotationVectorX.computeDoubleSize(10)
+            serialize_size += rotationVectorX.computeDoubleSize(fieldNumber: 10)
           }
           if hasRotationVectorY {
-            serialize_size += rotationVectorY.computeDoubleSize(11)
+            serialize_size += rotationVectorY.computeDoubleSize(fieldNumber: 11)
           }
           if hasRotationVectorZ {
-            serialize_size += rotationVectorZ.computeDoubleSize(12)
+            serialize_size += rotationVectorZ.computeDoubleSize(fieldNumber: 12)
           }
           if hasGyroscopeRawX {
-            serialize_size += gyroscopeRawX.computeDoubleSize(13)
+            serialize_size += gyroscopeRawX.computeDoubleSize(fieldNumber: 13)
           }
           if hasGyroscopeRawY {
-            serialize_size += gyroscopeRawY.computeDoubleSize(14)
+            serialize_size += gyroscopeRawY.computeDoubleSize(fieldNumber: 14)
           }
           if hasGyroscopeRawZ {
-            serialize_size += gyroscopeRawZ.computeDoubleSize(15)
+            serialize_size += gyroscopeRawZ.computeDoubleSize(fieldNumber: 15)
           }
           if hasGravityX {
-            serialize_size += gravityX.computeDoubleSize(16)
+            serialize_size += gravityX.computeDoubleSize(fieldNumber: 16)
           }
           if hasGravityY {
-            serialize_size += gravityY.computeDoubleSize(17)
+            serialize_size += gravityY.computeDoubleSize(fieldNumber: 17)
           }
           if hasGravityZ {
-            serialize_size += gravityZ.computeDoubleSize(18)
+            serialize_size += gravityZ.computeDoubleSize(fieldNumber: 18)
           }
           if hasAccelerometerAxes {
-            serialize_size += accelerometerAxes.computeUInt64Size(19)
+            serialize_size += accelerometerAxes.computeUInt64Size(fieldNumber: 19)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.SensorInfo> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.SensorInfo>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo? {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
           return Pogoprotos.Networking.Envelopes.Signature.SensorInfo.classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder
@@ -4887,82 +4580,82 @@ public extension Pogoprotos.Networking.Envelopes {
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Signature.SensorInfo) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasTimestampSnapshot {
             jsonMap["timestampSnapshot"] = "\(timestampSnapshot)"
           }
           if hasLinearAccelerationX {
-            jsonMap["linearAccelerationX"] = NSNumber(double:linearAccelerationX)
+            jsonMap["linearAccelerationX"] = NSNumber(value:linearAccelerationX)
           }
           if hasLinearAccelerationY {
-            jsonMap["linearAccelerationY"] = NSNumber(double:linearAccelerationY)
+            jsonMap["linearAccelerationY"] = NSNumber(value:linearAccelerationY)
           }
           if hasLinearAccelerationZ {
-            jsonMap["linearAccelerationZ"] = NSNumber(double:linearAccelerationZ)
+            jsonMap["linearAccelerationZ"] = NSNumber(value:linearAccelerationZ)
           }
           if hasMagneticFieldX {
-            jsonMap["magneticFieldX"] = NSNumber(double:magneticFieldX)
+            jsonMap["magneticFieldX"] = NSNumber(value:magneticFieldX)
           }
           if hasMagneticFieldY {
-            jsonMap["magneticFieldY"] = NSNumber(double:magneticFieldY)
+            jsonMap["magneticFieldY"] = NSNumber(value:magneticFieldY)
           }
           if hasMagneticFieldZ {
-            jsonMap["magneticFieldZ"] = NSNumber(double:magneticFieldZ)
+            jsonMap["magneticFieldZ"] = NSNumber(value:magneticFieldZ)
           }
           if hasRotationVectorX {
-            jsonMap["rotationVectorX"] = NSNumber(double:rotationVectorX)
+            jsonMap["rotationVectorX"] = NSNumber(value:rotationVectorX)
           }
           if hasRotationVectorY {
-            jsonMap["rotationVectorY"] = NSNumber(double:rotationVectorY)
+            jsonMap["rotationVectorY"] = NSNumber(value:rotationVectorY)
           }
           if hasRotationVectorZ {
-            jsonMap["rotationVectorZ"] = NSNumber(double:rotationVectorZ)
+            jsonMap["rotationVectorZ"] = NSNumber(value:rotationVectorZ)
           }
           if hasGyroscopeRawX {
-            jsonMap["gyroscopeRawX"] = NSNumber(double:gyroscopeRawX)
+            jsonMap["gyroscopeRawX"] = NSNumber(value:gyroscopeRawX)
           }
           if hasGyroscopeRawY {
-            jsonMap["gyroscopeRawY"] = NSNumber(double:gyroscopeRawY)
+            jsonMap["gyroscopeRawY"] = NSNumber(value:gyroscopeRawY)
           }
           if hasGyroscopeRawZ {
-            jsonMap["gyroscopeRawZ"] = NSNumber(double:gyroscopeRawZ)
+            jsonMap["gyroscopeRawZ"] = NSNumber(value:gyroscopeRawZ)
           }
           if hasGravityX {
-            jsonMap["gravityX"] = NSNumber(double:gravityX)
+            jsonMap["gravityX"] = NSNumber(value:gravityX)
           }
           if hasGravityY {
-            jsonMap["gravityY"] = NSNumber(double:gravityY)
+            jsonMap["gravityY"] = NSNumber(value:gravityY)
           }
           if hasGravityZ {
-            jsonMap["gravityZ"] = NSNumber(double:gravityZ)
+            jsonMap["gravityZ"] = NSNumber(value:gravityZ)
           }
           if hasAccelerometerAxes {
             jsonMap["accelerometerAxes"] = "\(accelerometerAxes)"
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+          return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -5017,7 +4710,7 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasAccelerometerAxes {
             output += "\(indent) accelerometerAxes: \(accelerometerAxes) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -5088,13 +4781,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.Signature.SensorInfo"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.Signature.SensorInfo.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.Signature.SensorInfo = Pogoprotos.Networking.Envelopes.Signature.SensorInfo()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.Signature.SensorInfo = Pogoprotos.Networking.Envelopes.Signature.SensorInfo()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
               return builderResult
           }
@@ -5116,7 +4806,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.timestampSnapshot = value
                }
           }
-          public func setTimestampSnapshot(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setTimestampSnapshot(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.timestampSnapshot = value
             return self
           }
@@ -5139,7 +4829,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.linearAccelerationX = value
                }
           }
-          public func setLinearAccelerationX(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setLinearAccelerationX(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.linearAccelerationX = value
             return self
           }
@@ -5162,7 +4852,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.linearAccelerationY = value
                }
           }
-          public func setLinearAccelerationY(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setLinearAccelerationY(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.linearAccelerationY = value
             return self
           }
@@ -5185,7 +4875,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.linearAccelerationZ = value
                }
           }
-          public func setLinearAccelerationZ(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setLinearAccelerationZ(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.linearAccelerationZ = value
             return self
           }
@@ -5208,7 +4898,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.magneticFieldX = value
                }
           }
-          public func setMagneticFieldX(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setMagneticFieldX(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.magneticFieldX = value
             return self
           }
@@ -5231,7 +4921,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.magneticFieldY = value
                }
           }
-          public func setMagneticFieldY(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setMagneticFieldY(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.magneticFieldY = value
             return self
           }
@@ -5254,7 +4944,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.magneticFieldZ = value
                }
           }
-          public func setMagneticFieldZ(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setMagneticFieldZ(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.magneticFieldZ = value
             return self
           }
@@ -5277,7 +4967,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.rotationVectorX = value
                }
           }
-          public func setRotationVectorX(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setRotationVectorX(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.rotationVectorX = value
             return self
           }
@@ -5300,7 +4990,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.rotationVectorY = value
                }
           }
-          public func setRotationVectorY(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setRotationVectorY(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.rotationVectorY = value
             return self
           }
@@ -5323,7 +5013,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.rotationVectorZ = value
                }
           }
-          public func setRotationVectorZ(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setRotationVectorZ(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.rotationVectorZ = value
             return self
           }
@@ -5346,7 +5036,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.gyroscopeRawX = value
                }
           }
-          public func setGyroscopeRawX(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setGyroscopeRawX(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.gyroscopeRawX = value
             return self
           }
@@ -5369,7 +5059,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.gyroscopeRawY = value
                }
           }
-          public func setGyroscopeRawY(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setGyroscopeRawY(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.gyroscopeRawY = value
             return self
           }
@@ -5392,7 +5082,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.gyroscopeRawZ = value
                }
           }
-          public func setGyroscopeRawZ(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setGyroscopeRawZ(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.gyroscopeRawZ = value
             return self
           }
@@ -5415,7 +5105,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.gravityX = value
                }
           }
-          public func setGravityX(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setGravityX(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.gravityX = value
             return self
           }
@@ -5438,7 +5128,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.gravityY = value
                }
           }
-          public func setGravityY(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setGravityY(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.gravityY = value
             return self
           }
@@ -5461,7 +5151,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.gravityZ = value
                }
           }
-          public func setGravityZ(value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setGravityZ(_ value:Double) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.gravityZ = value
             return self
           }
@@ -5484,7 +5174,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.accelerometerAxes = value
                }
           }
-          public func setAccelerometerAxes(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          public func setAccelerometerAxes(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             self.accelerometerAxes = value
             return self
           }
@@ -5503,7 +5193,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
-            return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
                try checkInitialized()
@@ -5568,81 +5258,81 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasAccelerometerAxes {
                  accelerometerAxes = other.accelerometerAxes
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 8:
-                timestampSnapshot = try input.readUInt64()
+                timestampSnapshot = try codedInputStream.readUInt64()
 
               case 25:
-                linearAccelerationX = try input.readDouble()
+                linearAccelerationX = try codedInputStream.readDouble()
 
               case 33:
-                linearAccelerationY = try input.readDouble()
+                linearAccelerationY = try codedInputStream.readDouble()
 
               case 41:
-                linearAccelerationZ = try input.readDouble()
+                linearAccelerationZ = try codedInputStream.readDouble()
 
               case 49:
-                magneticFieldX = try input.readDouble()
+                magneticFieldX = try codedInputStream.readDouble()
 
               case 57:
-                magneticFieldY = try input.readDouble()
+                magneticFieldY = try codedInputStream.readDouble()
 
               case 65:
-                magneticFieldZ = try input.readDouble()
+                magneticFieldZ = try codedInputStream.readDouble()
 
               case 81:
-                rotationVectorX = try input.readDouble()
+                rotationVectorX = try codedInputStream.readDouble()
 
               case 89:
-                rotationVectorY = try input.readDouble()
+                rotationVectorY = try codedInputStream.readDouble()
 
               case 97:
-                rotationVectorZ = try input.readDouble()
+                rotationVectorZ = try codedInputStream.readDouble()
 
               case 105:
-                gyroscopeRawX = try input.readDouble()
+                gyroscopeRawX = try codedInputStream.readDouble()
 
               case 113:
-                gyroscopeRawY = try input.readDouble()
+                gyroscopeRawY = try codedInputStream.readDouble()
 
               case 121:
-                gyroscopeRawZ = try input.readDouble()
+                gyroscopeRawZ = try codedInputStream.readDouble()
 
               case 129:
-                gravityX = try input.readDouble()
+                gravityX = try codedInputStream.readDouble()
 
               case 137:
-                gravityY = try input.readDouble()
+                gravityY = try codedInputStream.readDouble()
 
               case 145:
-                gravityZ = try input.readDouble()
+                gravityZ = try codedInputStream.readDouble()
 
               case 152:
-                accelerometerAxes = try input.readUInt64()
+                accelerometerAxes = try codedInputStream.readUInt64()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
             if let jsonValueTimestampSnapshot = jsonMap["timestampSnapshot"] as? String {
               resultDecodedBuilder.timestampSnapshot = UInt64(jsonValueTimestampSnapshot)!
@@ -5697,12 +5387,12 @@ public extension Pogoprotos.Networking.Envelopes {
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -5714,56 +5404,56 @@ public extension Pogoprotos.Networking.Envelopes {
 
     //Nested type declaration start
 
-      final public class DeviceInfo : GeneratedMessage, GeneratedMessageProtocol {
+      final public class DeviceInfo : GeneratedMessage {
         // Hex string
-        public private(set) var hasDeviceId:Bool = false
-        public private(set) var deviceId:String = ""
+        public fileprivate(set) var deviceId:String = ""
+        public fileprivate(set) var hasDeviceId:Bool = false
 
-        public private(set) var hasAndroidBoardName:Bool = false
-        public private(set) var androidBoardName:String = ""
+        public fileprivate(set) var androidBoardName:String = ""
+        public fileprivate(set) var hasAndroidBoardName:Bool = false
 
-        public private(set) var hasAndroidBootloader:Bool = false
-        public private(set) var androidBootloader:String = ""
+        public fileprivate(set) var androidBootloader:String = ""
+        public fileprivate(set) var hasAndroidBootloader:Bool = false
 
         // On Android: product.brand
-        public private(set) var hasDeviceBrand:Bool = false
-        public private(set) var deviceBrand:String = ""
+        public fileprivate(set) var deviceBrand:String = ""
+        public fileprivate(set) var hasDeviceBrand:Bool = false
 
         // On Android: product.device
-        public private(set) var hasDeviceModel:Bool = false
-        public private(set) var deviceModel:String = ""
+        public fileprivate(set) var deviceModel:String = ""
+        public fileprivate(set) var hasDeviceModel:Bool = false
 
         // Android only, build.display.id
-        public private(set) var hasDeviceModelIdentifier:Bool = false
-        public private(set) var deviceModelIdentifier:String = ""
+        public fileprivate(set) var deviceModelIdentifier:String = ""
+        public fileprivate(set) var hasDeviceModelIdentifier:Bool = false
 
         // On Android: boot.hardware
-        public private(set) var hasDeviceModelBoot:Bool = false
-        public private(set) var deviceModelBoot:String = ""
+        public fileprivate(set) var deviceModelBoot:String = ""
+        public fileprivate(set) var hasDeviceModelBoot:Bool = false
 
         // On Android: product.manufacturer
-        public private(set) var hasHardwareManufacturer:Bool = false
-        public private(set) var hardwareManufacturer:String = ""
+        public fileprivate(set) var hardwareManufacturer:String = ""
+        public fileprivate(set) var hasHardwareManufacturer:Bool = false
 
         // On Android: product.model
-        public private(set) var hasHardwareModel:Bool = false
-        public private(set) var hardwareModel:String = ""
+        public fileprivate(set) var hardwareModel:String = ""
+        public fileprivate(set) var hasHardwareModel:Bool = false
 
         // On Android: product.name, on iOS: "iPhone OS"
-        public private(set) var hasFirmwareBrand:Bool = false
-        public private(set) var firmwareBrand:String = ""
+        public fileprivate(set) var firmwareBrand:String = ""
+        public fileprivate(set) var hasFirmwareBrand:Bool = false
 
         // Android only, build.tags
-        public private(set) var hasFirmwareTags:Bool = false
-        public private(set) var firmwareTags:String = ""
+        public fileprivate(set) var firmwareTags:String = ""
+        public fileprivate(set) var hasFirmwareTags:Bool = false
 
         // On Android: build.type, on iOS instead: iOS version
-        public private(set) var hasFirmwareType:Bool = false
-        public private(set) var firmwareType:String = ""
+        public fileprivate(set) var firmwareType:String = ""
+        public fileprivate(set) var hasFirmwareType:Bool = false
 
         // Android only, build.fingerprint
-        public private(set) var hasFirmwareFingerprint:Bool = false
-        public private(set) var firmwareFingerprint:String = ""
+        public fileprivate(set) var firmwareFingerprint:String = ""
+        public fileprivate(set) var hasFirmwareFingerprint:Bool = false
 
         required public init() {
              super.init()
@@ -5771,47 +5461,47 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasDeviceId {
-            try output.writeString(1, value:deviceId)
+            try codedOutputStream.writeString(fieldNumber: 1, value:deviceId)
           }
           if hasAndroidBoardName {
-            try output.writeString(2, value:androidBoardName)
+            try codedOutputStream.writeString(fieldNumber: 2, value:androidBoardName)
           }
           if hasAndroidBootloader {
-            try output.writeString(3, value:androidBootloader)
+            try codedOutputStream.writeString(fieldNumber: 3, value:androidBootloader)
           }
           if hasDeviceBrand {
-            try output.writeString(4, value:deviceBrand)
+            try codedOutputStream.writeString(fieldNumber: 4, value:deviceBrand)
           }
           if hasDeviceModel {
-            try output.writeString(5, value:deviceModel)
+            try codedOutputStream.writeString(fieldNumber: 5, value:deviceModel)
           }
           if hasDeviceModelIdentifier {
-            try output.writeString(6, value:deviceModelIdentifier)
+            try codedOutputStream.writeString(fieldNumber: 6, value:deviceModelIdentifier)
           }
           if hasDeviceModelBoot {
-            try output.writeString(7, value:deviceModelBoot)
+            try codedOutputStream.writeString(fieldNumber: 7, value:deviceModelBoot)
           }
           if hasHardwareManufacturer {
-            try output.writeString(8, value:hardwareManufacturer)
+            try codedOutputStream.writeString(fieldNumber: 8, value:hardwareManufacturer)
           }
           if hasHardwareModel {
-            try output.writeString(9, value:hardwareModel)
+            try codedOutputStream.writeString(fieldNumber: 9, value:hardwareModel)
           }
           if hasFirmwareBrand {
-            try output.writeString(10, value:firmwareBrand)
+            try codedOutputStream.writeString(fieldNumber: 10, value:firmwareBrand)
           }
           if hasFirmwareTags {
-            try output.writeString(12, value:firmwareTags)
+            try codedOutputStream.writeString(fieldNumber: 12, value:firmwareTags)
           }
           if hasFirmwareType {
-            try output.writeString(13, value:firmwareType)
+            try codedOutputStream.writeString(fieldNumber: 13, value:firmwareType)
           }
           if hasFirmwareFingerprint {
-            try output.writeString(14, value:firmwareFingerprint)
+            try codedOutputStream.writeString(fieldNumber: 14, value:firmwareFingerprint)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -5821,75 +5511,47 @@ public extension Pogoprotos.Networking.Envelopes {
 
           serialize_size = 0
           if hasDeviceId {
-            serialize_size += deviceId.computeStringSize(1)
+            serialize_size += deviceId.computeStringSize(fieldNumber: 1)
           }
           if hasAndroidBoardName {
-            serialize_size += androidBoardName.computeStringSize(2)
+            serialize_size += androidBoardName.computeStringSize(fieldNumber: 2)
           }
           if hasAndroidBootloader {
-            serialize_size += androidBootloader.computeStringSize(3)
+            serialize_size += androidBootloader.computeStringSize(fieldNumber: 3)
           }
           if hasDeviceBrand {
-            serialize_size += deviceBrand.computeStringSize(4)
+            serialize_size += deviceBrand.computeStringSize(fieldNumber: 4)
           }
           if hasDeviceModel {
-            serialize_size += deviceModel.computeStringSize(5)
+            serialize_size += deviceModel.computeStringSize(fieldNumber: 5)
           }
           if hasDeviceModelIdentifier {
-            serialize_size += deviceModelIdentifier.computeStringSize(6)
+            serialize_size += deviceModelIdentifier.computeStringSize(fieldNumber: 6)
           }
           if hasDeviceModelBoot {
-            serialize_size += deviceModelBoot.computeStringSize(7)
+            serialize_size += deviceModelBoot.computeStringSize(fieldNumber: 7)
           }
           if hasHardwareManufacturer {
-            serialize_size += hardwareManufacturer.computeStringSize(8)
+            serialize_size += hardwareManufacturer.computeStringSize(fieldNumber: 8)
           }
           if hasHardwareModel {
-            serialize_size += hardwareModel.computeStringSize(9)
+            serialize_size += hardwareModel.computeStringSize(fieldNumber: 9)
           }
           if hasFirmwareBrand {
-            serialize_size += firmwareBrand.computeStringSize(10)
+            serialize_size += firmwareBrand.computeStringSize(fieldNumber: 10)
           }
           if hasFirmwareTags {
-            serialize_size += firmwareTags.computeStringSize(12)
+            serialize_size += firmwareTags.computeStringSize(fieldNumber: 12)
           }
           if hasFirmwareType {
-            serialize_size += firmwareType.computeStringSize(13)
+            serialize_size += firmwareType.computeStringSize(fieldNumber: 13)
           }
           if hasFirmwareFingerprint {
-            serialize_size += firmwareFingerprint.computeStringSize(14)
+            serialize_size += firmwareFingerprint.computeStringSize(fieldNumber: 14)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.DeviceInfo> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.DeviceInfo>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo? {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
           return Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder
@@ -5897,24 +5559,24 @@ public extension Pogoprotos.Networking.Envelopes {
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasDeviceId {
             jsonMap["deviceId"] = deviceId
           }
@@ -5956,11 +5618,11 @@ public extension Pogoprotos.Networking.Envelopes {
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
-          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+          return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -6003,7 +5665,7 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasFirmwareFingerprint {
             output += "\(indent) firmwareFingerprint: \(firmwareFingerprint) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -6062,13 +5724,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.Signature.DeviceInfo"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
               return builderResult
           }
@@ -6090,7 +5749,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.deviceId = value
                }
           }
-          public func setDeviceId(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setDeviceId(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.deviceId = value
             return self
           }
@@ -6113,7 +5772,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.androidBoardName = value
                }
           }
-          public func setAndroidBoardName(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setAndroidBoardName(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.androidBoardName = value
             return self
           }
@@ -6136,7 +5795,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.androidBootloader = value
                }
           }
-          public func setAndroidBootloader(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setAndroidBootloader(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.androidBootloader = value
             return self
           }
@@ -6159,7 +5818,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.deviceBrand = value
                }
           }
-          public func setDeviceBrand(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setDeviceBrand(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.deviceBrand = value
             return self
           }
@@ -6182,7 +5841,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.deviceModel = value
                }
           }
-          public func setDeviceModel(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setDeviceModel(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.deviceModel = value
             return self
           }
@@ -6205,7 +5864,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.deviceModelIdentifier = value
                }
           }
-          public func setDeviceModelIdentifier(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setDeviceModelIdentifier(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.deviceModelIdentifier = value
             return self
           }
@@ -6228,7 +5887,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.deviceModelBoot = value
                }
           }
-          public func setDeviceModelBoot(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setDeviceModelBoot(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.deviceModelBoot = value
             return self
           }
@@ -6251,7 +5910,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.hardwareManufacturer = value
                }
           }
-          public func setHardwareManufacturer(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setHardwareManufacturer(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.hardwareManufacturer = value
             return self
           }
@@ -6274,7 +5933,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.hardwareModel = value
                }
           }
-          public func setHardwareModel(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setHardwareModel(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.hardwareModel = value
             return self
           }
@@ -6297,7 +5956,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.firmwareBrand = value
                }
           }
-          public func setFirmwareBrand(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setFirmwareBrand(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.firmwareBrand = value
             return self
           }
@@ -6320,7 +5979,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.firmwareTags = value
                }
           }
-          public func setFirmwareTags(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setFirmwareTags(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.firmwareTags = value
             return self
           }
@@ -6343,7 +6002,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.firmwareType = value
                }
           }
-          public func setFirmwareType(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setFirmwareType(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.firmwareType = value
             return self
           }
@@ -6366,7 +6025,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.firmwareFingerprint = value
                }
           }
-          public func setFirmwareFingerprint(value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          public func setFirmwareFingerprint(_ value:String) -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             self.firmwareFingerprint = value
             return self
           }
@@ -6385,7 +6044,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
-            return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
                try checkInitialized()
@@ -6438,69 +6097,69 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasFirmwareFingerprint {
                  firmwareFingerprint = other.firmwareFingerprint
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 10:
-                deviceId = try input.readString()
+                deviceId = try codedInputStream.readString()
 
               case 18:
-                androidBoardName = try input.readString()
+                androidBoardName = try codedInputStream.readString()
 
               case 26:
-                androidBootloader = try input.readString()
+                androidBootloader = try codedInputStream.readString()
 
               case 34:
-                deviceBrand = try input.readString()
+                deviceBrand = try codedInputStream.readString()
 
               case 42:
-                deviceModel = try input.readString()
+                deviceModel = try codedInputStream.readString()
 
               case 50:
-                deviceModelIdentifier = try input.readString()
+                deviceModelIdentifier = try codedInputStream.readString()
 
               case 58:
-                deviceModelBoot = try input.readString()
+                deviceModelBoot = try codedInputStream.readString()
 
               case 66:
-                hardwareManufacturer = try input.readString()
+                hardwareManufacturer = try codedInputStream.readString()
 
               case 74:
-                hardwareModel = try input.readString()
+                hardwareModel = try codedInputStream.readString()
 
               case 82:
-                firmwareBrand = try input.readString()
+                firmwareBrand = try codedInputStream.readString()
 
               case 98:
-                firmwareTags = try input.readString()
+                firmwareTags = try codedInputStream.readString()
 
               case 106:
-                firmwareType = try input.readString()
+                firmwareType = try codedInputStream.readString()
 
               case 114:
-                firmwareFingerprint = try input.readString()
+                firmwareFingerprint = try codedInputStream.readString()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
             if let jsonValueDeviceId = jsonMap["deviceId"] as? String {
               resultDecodedBuilder.deviceId = jsonValueDeviceId
@@ -6543,12 +6202,12 @@ public extension Pogoprotos.Networking.Envelopes {
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -6561,34 +6220,34 @@ public extension Pogoprotos.Networking.Envelopes {
     //Nested type declaration start
 
       // Only used in iOS - Android just sends an empty version
-      final public class ActivityStatus : GeneratedMessage, GeneratedMessageProtocol {
+      final public class ActivityStatus : GeneratedMessage {
         // all of these had 1 as their value
-        public private(set) var hasStartTimeMs:Bool = false
-        public private(set) var startTimeMs:UInt64 = UInt64(0)
+        public fileprivate(set) var startTimeMs:UInt64 = UInt64(0)
+        public fileprivate(set) var hasStartTimeMs:Bool = false
 
-        public private(set) var hasUnknownStatus:Bool = false
-        public private(set) var unknownStatus:Bool = false
+        public fileprivate(set) var unknownStatus:Bool = false
+        public fileprivate(set) var hasUnknownStatus:Bool = false
 
-        public private(set) var hasWalking:Bool = false
-        public private(set) var walking:Bool = false
+        public fileprivate(set) var walking:Bool = false
+        public fileprivate(set) var hasWalking:Bool = false
 
-        public private(set) var hasRunning:Bool = false
-        public private(set) var running:Bool = false
+        public fileprivate(set) var running:Bool = false
+        public fileprivate(set) var hasRunning:Bool = false
 
-        public private(set) var hasStationary:Bool = false
-        public private(set) var stationary:Bool = false
+        public fileprivate(set) var stationary:Bool = false
+        public fileprivate(set) var hasStationary:Bool = false
 
-        public private(set) var hasAutomotive:Bool = false
-        public private(set) var automotive:Bool = false
+        public fileprivate(set) var automotive:Bool = false
+        public fileprivate(set) var hasAutomotive:Bool = false
 
-        public private(set) var hasTilting:Bool = false
-        public private(set) var tilting:Bool = false
+        public fileprivate(set) var tilting:Bool = false
+        public fileprivate(set) var hasTilting:Bool = false
 
-        public private(set) var hasCycling:Bool = false
-        public private(set) var cycling:Bool = false
+        public fileprivate(set) var cycling:Bool = false
+        public fileprivate(set) var hasCycling:Bool = false
 
-        public private(set) var hasStatus:Bool = false
-        public private(set) var status:NSData = NSData()
+        public fileprivate(set) var status:Data = Data()
+        public fileprivate(set) var hasStatus:Bool = false
 
         required public init() {
              super.init()
@@ -6596,35 +6255,35 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func isInitialized() -> Bool {
          return true
         }
-        override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
           if hasStartTimeMs {
-            try output.writeUInt64(1, value:startTimeMs)
+            try codedOutputStream.writeUInt64(fieldNumber: 1, value:startTimeMs)
           }
           if hasUnknownStatus {
-            try output.writeBool(2, value:unknownStatus)
+            try codedOutputStream.writeBool(fieldNumber: 2, value:unknownStatus)
           }
           if hasWalking {
-            try output.writeBool(3, value:walking)
+            try codedOutputStream.writeBool(fieldNumber: 3, value:walking)
           }
           if hasRunning {
-            try output.writeBool(4, value:running)
+            try codedOutputStream.writeBool(fieldNumber: 4, value:running)
           }
           if hasStationary {
-            try output.writeBool(5, value:stationary)
+            try codedOutputStream.writeBool(fieldNumber: 5, value:stationary)
           }
           if hasAutomotive {
-            try output.writeBool(6, value:automotive)
+            try codedOutputStream.writeBool(fieldNumber: 6, value:automotive)
           }
           if hasTilting {
-            try output.writeBool(7, value:tilting)
+            try codedOutputStream.writeBool(fieldNumber: 7, value:tilting)
           }
           if hasCycling {
-            try output.writeBool(8, value:cycling)
+            try codedOutputStream.writeBool(fieldNumber: 8, value:cycling)
           }
           if hasStatus {
-            try output.writeData(9, value:status)
+            try codedOutputStream.writeData(fieldNumber: 9, value:status)
           }
-          try unknownFields.writeToCodedOutputStream(output)
+          try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
         override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
@@ -6634,63 +6293,35 @@ public extension Pogoprotos.Networking.Envelopes {
 
           serialize_size = 0
           if hasStartTimeMs {
-            serialize_size += startTimeMs.computeUInt64Size(1)
+            serialize_size += startTimeMs.computeUInt64Size(fieldNumber: 1)
           }
           if hasUnknownStatus {
-            serialize_size += unknownStatus.computeBoolSize(2)
+            serialize_size += unknownStatus.computeBoolSize(fieldNumber: 2)
           }
           if hasWalking {
-            serialize_size += walking.computeBoolSize(3)
+            serialize_size += walking.computeBoolSize(fieldNumber: 3)
           }
           if hasRunning {
-            serialize_size += running.computeBoolSize(4)
+            serialize_size += running.computeBoolSize(fieldNumber: 4)
           }
           if hasStationary {
-            serialize_size += stationary.computeBoolSize(5)
+            serialize_size += stationary.computeBoolSize(fieldNumber: 5)
           }
           if hasAutomotive {
-            serialize_size += automotive.computeBoolSize(6)
+            serialize_size += automotive.computeBoolSize(fieldNumber: 6)
           }
           if hasTilting {
-            serialize_size += tilting.computeBoolSize(7)
+            serialize_size += tilting.computeBoolSize(fieldNumber: 7)
           }
           if hasCycling {
-            serialize_size += cycling.computeBoolSize(8)
+            serialize_size += cycling.computeBoolSize(fieldNumber: 8)
           }
           if hasStatus {
-            serialize_size += status.computeDataSize(9)
+            serialize_size += status.computeDataSize(fieldNumber: 9)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
-        }
-        public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.ActivityStatus> {
-          var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.ActivityStatus>()
-          while let value = try parseFromDelimitedFromInputStream(input) {
-            mergedArray += [value]
-          }
-          return mergedArray
-        }
-        public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus? {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeDelimitedFromInputStream(input)?.build()
-        }
-        public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-        }
-        public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFromInputStream(input).build()
-        }
-        public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFromCodedInputStream(input).build()
-        }
-        public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
         public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
           return Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder
@@ -6698,24 +6329,24 @@ public extension Pogoprotos.Networking.Envelopes {
         public func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
           return classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder
         }
-        override public class func classBuilder() -> MessageBuilder {
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
         }
-        override public func classBuilder() -> MessageBuilder {
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
           return Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
         }
         public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.builderWithPrototype(self)
+          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.builderWithPrototype(prototype:self)
         }
         public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(prototype)
+          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(other:prototype)
         }
-        override public func encode() throws -> Dictionary<String,AnyObject> {
+        override public func encode() throws -> Dictionary<String,Any> {
           guard isInitialized() else {
-            throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+            throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
           }
 
-          var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+          var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
           if hasStartTimeMs {
             jsonMap["startTimeMs"] = "\(startTimeMs)"
           }
@@ -6741,15 +6372,15 @@ public extension Pogoprotos.Networking.Envelopes {
             jsonMap["cycling"] = cycling
           }
           if hasStatus {
-            jsonMap["status"] = status.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            jsonMap["status"] = status.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
           }
           return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
-          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.fromJSONToBuilder(data).build()
+        override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+          return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.fromJSONToBuilder(data:data).build()
         }
         override public func getDescription(indent:String) throws -> String {
           var output = ""
@@ -6780,7 +6411,7 @@ public extension Pogoprotos.Networking.Envelopes {
           if hasStatus {
             output += "\(indent) status: \(status) \n"
           }
-          output += unknownFields.getDescription(indent)
+          output += unknownFields.getDescription(indent: indent)
           return output
         }
         override public var hashValue:Int {
@@ -6827,13 +6458,10 @@ public extension Pogoprotos.Networking.Envelopes {
         override public func className() -> String {
             return "Pogoprotos.Networking.Envelopes.Signature.ActivityStatus"
         }
-        override public func classMetaType() -> GeneratedMessage.Type {
-            return Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.self
-        }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          private var builderResult:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus()
+          fileprivate var builderResult:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus()
           public func getMessage() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
               return builderResult
           }
@@ -6855,7 +6483,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.startTimeMs = value
                }
           }
-          public func setStartTimeMs(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setStartTimeMs(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.startTimeMs = value
             return self
           }
@@ -6878,7 +6506,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.unknownStatus = value
                }
           }
-          public func setUnknownStatus(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setUnknownStatus(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.unknownStatus = value
             return self
           }
@@ -6901,7 +6529,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.walking = value
                }
           }
-          public func setWalking(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setWalking(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.walking = value
             return self
           }
@@ -6924,7 +6552,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.running = value
                }
           }
-          public func setRunning(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setRunning(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.running = value
             return self
           }
@@ -6947,7 +6575,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.stationary = value
                }
           }
-          public func setStationary(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setStationary(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.stationary = value
             return self
           }
@@ -6970,7 +6598,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.automotive = value
                }
           }
-          public func setAutomotive(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setAutomotive(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.automotive = value
             return self
           }
@@ -6993,7 +6621,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.tilting = value
                }
           }
-          public func setTilting(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setTilting(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.tilting = value
             return self
           }
@@ -7016,7 +6644,7 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.cycling = value
                }
           }
-          public func setCycling(value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setCycling(_ value:Bool) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.cycling = value
             return self
           }
@@ -7030,7 +6658,7 @@ public extension Pogoprotos.Networking.Envelopes {
                     return builderResult.hasStatus
                }
           }
-          public var status:NSData {
+          public var status:Data {
                get {
                     return builderResult.status
                }
@@ -7039,13 +6667,13 @@ public extension Pogoprotos.Networking.Envelopes {
                    builderResult.status = value
                }
           }
-          public func setStatus(value:NSData) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          public func setStatus(_ value:Data) -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             self.status = value
             return self
           }
           public func clearStatus() -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder{
                builderResult.hasStatus = false
-               builderResult.status = NSData()
+               builderResult.status = Data()
                return self
           }
           override public var internalGetResult:GeneratedMessage {
@@ -7058,7 +6686,7 @@ public extension Pogoprotos.Networking.Envelopes {
             return self
           }
           override public func clone() throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
-            return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.builderWithPrototype(builderResult)
+            return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.builderWithPrototype(prototype:builderResult)
           }
           override public func build() throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
                try checkInitialized()
@@ -7099,57 +6727,57 @@ public extension Pogoprotos.Networking.Envelopes {
             if other.hasStatus {
                  status = other.status
             }
-            try mergeUnknownFields(other.unknownFields)
+            _ = try merge(unknownField: other.unknownFields)
             return self
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
-               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+               return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
           }
-          override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+          override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
             while (true) {
-              let protobufTag = try input.readTag()
+              let protobufTag = try codedInputStream.readTag()
               switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
               case 8:
-                startTimeMs = try input.readUInt64()
+                startTimeMs = try codedInputStream.readUInt64()
 
               case 16:
-                unknownStatus = try input.readBool()
+                unknownStatus = try codedInputStream.readBool()
 
               case 24:
-                walking = try input.readBool()
+                walking = try codedInputStream.readBool()
 
               case 32:
-                running = try input.readBool()
+                running = try codedInputStream.readBool()
 
               case 40:
-                stationary = try input.readBool()
+                stationary = try codedInputStream.readBool()
 
               case 48:
-                automotive = try input.readBool()
+                automotive = try codedInputStream.readBool()
 
               case 56:
-                tilting = try input.readBool()
+                tilting = try codedInputStream.readBool()
 
               case 64:
-                cycling = try input.readBool()
+                cycling = try codedInputStream.readBool()
 
               case 74:
-                status = try input.readData()
+                status = try codedInputStream.readData()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
               }
             }
           }
-          override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+          class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
             let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
             if let jsonValueStartTimeMs = jsonMap["startTimeMs"] as? String {
               resultDecodedBuilder.startTimeMs = UInt64(jsonValueStartTimeMs)!
@@ -7176,16 +6804,16 @@ public extension Pogoprotos.Networking.Envelopes {
               resultDecodedBuilder.cycling = jsonValueCycling
             }
             if let jsonValueStatus = jsonMap["status"] as? String {
-              resultDecodedBuilder.status = NSData(base64EncodedString:jsonValueStatus, options: NSDataBase64DecodingOptions(rawValue:0))!
+              resultDecodedBuilder.status = Data(base64Encoded:jsonValueStatus, options: Data.Base64DecodingOptions(rawValue:0))!
             }
             return resultDecodedBuilder
           }
-          override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
-            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-            guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-              throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+          override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder {
+            let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
             }
-            return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsDataCast)
+            return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsonMap:jsDataCast)
           }
         }
 
@@ -7194,40 +6822,40 @@ public extension Pogoprotos.Networking.Envelopes {
     //Nested type declaration end
 
     // in ms
-    public private(set) var hasTimestampSinceStart:Bool = false
-    public private(set) var timestampSinceStart:UInt64 = UInt64(0)
+    public fileprivate(set) var timestampSinceStart:UInt64 = UInt64(0)
+    public fileprivate(set) var hasTimestampSinceStart:Bool = false
 
-    public private(set) var locationFix:Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>  = Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>()
-    public private(set) var hasGpsInfo:Bool = false
-    public private(set) var gpsInfo:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo!
-    public private(set) var hasSensorInfo:Bool = false
-    public private(set) var sensorInfo:Pogoprotos.Networking.Envelopes.Signature.SensorInfo!
-    public private(set) var hasDeviceInfo:Bool = false
-    public private(set) var deviceInfo:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo!
-    public private(set) var hasActivityStatus:Bool = false
-    public private(set) var activityStatus:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus!
+    public fileprivate(set) var locationFix:Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>  = Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>()
+    public fileprivate(set) var gpsInfo:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo!
+    public fileprivate(set) var hasGpsInfo:Bool = false
+    public fileprivate(set) var sensorInfo:Pogoprotos.Networking.Envelopes.Signature.SensorInfo!
+    public fileprivate(set) var hasSensorInfo:Bool = false
+    public fileprivate(set) var deviceInfo:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo!
+    public fileprivate(set) var hasDeviceInfo:Bool = false
+    public fileprivate(set) var activityStatus:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus!
+    public fileprivate(set) var hasActivityStatus:Bool = false
     // Location1 hashed signed based on the auth_token or auth_info - xxHash32
-    public private(set) var hasLocationHash1:Bool = false
-    public private(set) var locationHash1:UInt32 = UInt32(0)
+    public fileprivate(set) var locationHash1:UInt32 = UInt32(0)
+    public fileprivate(set) var hasLocationHash1:Bool = false
 
     // Location2 hashed (unsigned) - xxHash32
-    public private(set) var hasLocationHash2:Bool = false
-    public private(set) var locationHash2:UInt32 = UInt32(0)
+    public fileprivate(set) var locationHash2:UInt32 = UInt32(0)
+    public fileprivate(set) var hasLocationHash2:Bool = false
 
     // 16 bytes, unique per session
-    public private(set) var hasSessionHash:Bool = false
-    public private(set) var sessionHash:NSData = NSData()
+    public fileprivate(set) var sessionHash:Data = Data()
+    public fileprivate(set) var hasSessionHash:Bool = false
 
     // epoch timestamp in ms
-    public private(set) var hasTimestamp:Bool = false
-    public private(set) var timestamp:UInt64 = UInt64(0)
+    public fileprivate(set) var timestamp:UInt64 = UInt64(0)
+    public fileprivate(set) var hasTimestamp:Bool = false
 
     // hashes of each request message in a hashArray signed based on the auth_token or auth_info - xxhash64
-    public private(set) var requestHash:Array<UInt64> = Array<UInt64>()
+    public fileprivate(set) var requestHash:Array<UInt64> = Array<UInt64>()
     private var requestHashMemoizedSerializedSize:Int32 = -1
     // for 0.33 its static -8537042734809897855 or 0x898654dd2753a481, generated via xxHash64("\"b8fa9757195897aae92c53dbcf8a60fb3d86d745\"".ToByteArray(), 0x88533787)
-    public private(set) var hasUnknown25:Bool = false
-    public private(set) var unknown25:Int64 = Int64(0)
+    public fileprivate(set) var unknown25:Int64 = Int64(0)
+    public fileprivate(set) var hasUnknown25:Bool = false
 
     required public init() {
          super.init()
@@ -7235,48 +6863,48 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if hasTimestampSinceStart {
-        try output.writeUInt64(2, value:timestampSinceStart)
+        try codedOutputStream.writeUInt64(fieldNumber: 2, value:timestampSinceStart)
       }
       for oneElementLocationFix in locationFix {
-          try output.writeMessage(4, value:oneElementLocationFix)
+          try codedOutputStream.writeMessage(fieldNumber: 4, value:oneElementLocationFix)
       }
       if hasGpsInfo {
-        try output.writeMessage(5, value:gpsInfo)
+        try codedOutputStream.writeMessage(fieldNumber: 5, value:gpsInfo)
       }
       if hasSensorInfo {
-        try output.writeMessage(7, value:sensorInfo)
+        try codedOutputStream.writeMessage(fieldNumber: 7, value:sensorInfo)
       }
       if hasDeviceInfo {
-        try output.writeMessage(8, value:deviceInfo)
+        try codedOutputStream.writeMessage(fieldNumber: 8, value:deviceInfo)
       }
       if hasActivityStatus {
-        try output.writeMessage(9, value:activityStatus)
+        try codedOutputStream.writeMessage(fieldNumber: 9, value:activityStatus)
       }
       if hasLocationHash1 {
-        try output.writeUInt32(10, value:locationHash1)
+        try codedOutputStream.writeUInt32(fieldNumber: 10, value:locationHash1)
       }
       if hasLocationHash2 {
-        try output.writeUInt32(20, value:locationHash2)
+        try codedOutputStream.writeUInt32(fieldNumber: 20, value:locationHash2)
       }
       if hasSessionHash {
-        try output.writeData(22, value:sessionHash)
+        try codedOutputStream.writeData(fieldNumber: 22, value:sessionHash)
       }
       if hasTimestamp {
-        try output.writeUInt64(23, value:timestamp)
+        try codedOutputStream.writeUInt64(fieldNumber: 23, value:timestamp)
       }
       if !requestHash.isEmpty {
-        try output.writeRawVarint32(194)
-        try output.writeRawVarint32(requestHashMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 194)
+        try codedOutputStream.writeRawVarint32(value: requestHashMemoizedSerializedSize)
         for oneValuerequestHash in requestHash {
-          try output.writeUInt64NoTag(oneValuerequestHash)
+          try codedOutputStream.writeUInt64NoTag(value: oneValuerequestHash)
         }
       }
       if hasUnknown25 {
-        try output.writeInt64(25, value:unknown25)
+        try codedOutputStream.writeInt64(fieldNumber: 25, value:unknown25)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -7286,42 +6914,42 @@ public extension Pogoprotos.Networking.Envelopes {
 
       serialize_size = 0
       if hasTimestampSinceStart {
-        serialize_size += timestampSinceStart.computeUInt64Size(2)
+        serialize_size += timestampSinceStart.computeUInt64Size(fieldNumber: 2)
       }
       for oneElementLocationFix in locationFix {
-          serialize_size += oneElementLocationFix.computeMessageSize(4)
+          serialize_size += oneElementLocationFix.computeMessageSize(fieldNumber: 4)
       }
       if hasGpsInfo {
-          if let varSizegpsInfo = gpsInfo?.computeMessageSize(5) {
+          if let varSizegpsInfo = gpsInfo?.computeMessageSize(fieldNumber: 5) {
               serialize_size += varSizegpsInfo
           }
       }
       if hasSensorInfo {
-          if let varSizesensorInfo = sensorInfo?.computeMessageSize(7) {
+          if let varSizesensorInfo = sensorInfo?.computeMessageSize(fieldNumber: 7) {
               serialize_size += varSizesensorInfo
           }
       }
       if hasDeviceInfo {
-          if let varSizedeviceInfo = deviceInfo?.computeMessageSize(8) {
+          if let varSizedeviceInfo = deviceInfo?.computeMessageSize(fieldNumber: 8) {
               serialize_size += varSizedeviceInfo
           }
       }
       if hasActivityStatus {
-          if let varSizeactivityStatus = activityStatus?.computeMessageSize(9) {
+          if let varSizeactivityStatus = activityStatus?.computeMessageSize(fieldNumber: 9) {
               serialize_size += varSizeactivityStatus
           }
       }
       if hasLocationHash1 {
-        serialize_size += locationHash1.computeUInt32Size(10)
+        serialize_size += locationHash1.computeUInt32Size(fieldNumber: 10)
       }
       if hasLocationHash2 {
-        serialize_size += locationHash2.computeUInt32Size(20)
+        serialize_size += locationHash2.computeUInt32Size(fieldNumber: 20)
       }
       if hasSessionHash {
-        serialize_size += sessionHash.computeDataSize(22)
+        serialize_size += sessionHash.computeDataSize(fieldNumber: 22)
       }
       if hasTimestamp {
-        serialize_size += timestamp.computeUInt64Size(23)
+        serialize_size += timestamp.computeUInt64Size(fieldNumber: 23)
       }
       var dataSizeRequestHash:Int32 = 0
       for oneValuerequestHash in requestHash {
@@ -7334,39 +6962,11 @@ public extension Pogoprotos.Networking.Envelopes {
       }
       requestHashMemoizedSerializedSize = dataSizeRequestHash
       if hasUnknown25 {
-        serialize_size += unknown25.computeInt64Size(25)
+        serialize_size += unknown25.computeInt64Size(fieldNumber: 25)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature> {
-      var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature? {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.Builder {
       return Pogoprotos.Networking.Envelopes.Signature.classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.Builder
@@ -7374,32 +6974,32 @@ public extension Pogoprotos.Networking.Envelopes {
     public func getBuilder() -> Pogoprotos.Networking.Envelopes.Signature.Builder {
       return classBuilder() as! Pogoprotos.Networking.Envelopes.Signature.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.Signature.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Networking.Envelopes.Signature.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-      return try Pogoprotos.Networking.Envelopes.Signature.builderWithPrototype(self)
+      return try Pogoprotos.Networking.Envelopes.Signature.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Networking.Envelopes.Signature) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if hasTimestampSinceStart {
         jsonMap["timestampSinceStart"] = "\(timestampSinceStart)"
       }
       if !locationFix.isEmpty {
-        var jsonArrayLocationFix:Array<Dictionary<String,AnyObject>> = []
+        var jsonArrayLocationFix:Array<Dictionary<String,Any>> = []
           for oneValueLocationFix in locationFix {
             let ecodedMessageLocationFix = try oneValueLocationFix.encode()
-            jsonArrayLocationFix += [ecodedMessageLocationFix]
+            jsonArrayLocationFix.append(ecodedMessageLocationFix)
           }
         jsonMap["locationFix"] = jsonArrayLocationFix
       }
@@ -7416,13 +7016,13 @@ public extension Pogoprotos.Networking.Envelopes {
         jsonMap["activityStatus"] = try activityStatus.encode()
       }
       if hasLocationHash1 {
-        jsonMap["locationHash1"] = NSNumber(unsignedInt:locationHash1)
+        jsonMap["locationHash1"] = NSNumber(value:locationHash1)
       }
       if hasLocationHash2 {
-        jsonMap["locationHash2"] = NSNumber(unsignedInt:locationHash2)
+        jsonMap["locationHash2"] = NSNumber(value:locationHash2)
       }
       if hasSessionHash {
-        jsonMap["sessionHash"] = sessionHash.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        jsonMap["sessionHash"] = sessionHash.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
       }
       if hasTimestamp {
         jsonMap["timestamp"] = "\(timestamp)"
@@ -7430,7 +7030,7 @@ public extension Pogoprotos.Networking.Envelopes {
       if !requestHash.isEmpty {
         var jsonArrayRequestHash:Array<String> = []
           for oneValueRequestHash in requestHash {
-            jsonArrayRequestHash += ["\(oneValueRequestHash)"]
+            jsonArrayRequestHash.append("\(oneValueRequestHash)")
           }
         jsonMap["requestHash"] = jsonArrayRequestHash
       }
@@ -7439,11 +7039,11 @@ public extension Pogoprotos.Networking.Envelopes {
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature {
+      return try Pogoprotos.Networking.Envelopes.Signature.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature {
-      return try Pogoprotos.Networking.Envelopes.Signature.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature {
+      return try Pogoprotos.Networking.Envelopes.Signature.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -7453,35 +7053,35 @@ public extension Pogoprotos.Networking.Envelopes {
       var locationFixElementIndex:Int = 0
       for oneElementLocationFix in locationFix {
           output += "\(indent) locationFix[\(locationFixElementIndex)] {\n"
-          output += try oneElementLocationFix.getDescription("\(indent)  ")
+          output += try oneElementLocationFix.getDescription(indent: "\(indent)  ")
           output += "\(indent)}\n"
           locationFixElementIndex += 1
       }
       if hasGpsInfo {
         output += "\(indent) gpsInfo {\n"
         if let outDescGpsInfo = gpsInfo {
-          output += try outDescGpsInfo.getDescription("\(indent)  ")
+          output += try outDescGpsInfo.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasSensorInfo {
         output += "\(indent) sensorInfo {\n"
         if let outDescSensorInfo = sensorInfo {
-          output += try outDescSensorInfo.getDescription("\(indent)  ")
+          output += try outDescSensorInfo.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasDeviceInfo {
         output += "\(indent) deviceInfo {\n"
         if let outDescDeviceInfo = deviceInfo {
-          output += try outDescDeviceInfo.getDescription("\(indent)  ")
+          output += try outDescDeviceInfo.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
       if hasActivityStatus {
         output += "\(indent) activityStatus {\n"
         if let outDescActivityStatus = activityStatus {
-          output += try outDescActivityStatus.getDescription("\(indent)  ")
+          output += try outDescActivityStatus.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
@@ -7505,7 +7105,7 @@ public extension Pogoprotos.Networking.Envelopes {
       if hasUnknown25 {
         output += "\(indent) unknown25: \(unknown25) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -7569,13 +7169,10 @@ public extension Pogoprotos.Networking.Envelopes {
     override public func className() -> String {
         return "Pogoprotos.Networking.Envelopes.Signature"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Networking.Envelopes.Signature.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Networking.Envelopes.Signature = Pogoprotos.Networking.Envelopes.Signature()
+      fileprivate var builderResult:Pogoprotos.Networking.Envelopes.Signature = Pogoprotos.Networking.Envelopes.Signature()
       public func getMessage() -> Pogoprotos.Networking.Envelopes.Signature {
           return builderResult
       }
@@ -7597,7 +7194,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.timestampSinceStart = value
            }
       }
-      public func setTimestampSinceStart(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setTimestampSinceStart(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.timestampSinceStart = value
         return self
       }
@@ -7614,12 +7211,12 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.locationFix = value
            }
       }
-      public func setLocationFix(value:Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setLocationFix(_ value:Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.locationFix = value
         return self
       }
       public func clearLocationFix() -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-        builderResult.locationFix.removeAll(keepCapacity: false)
+        builderResult.locationFix.removeAll(keepingCapacity: false)
         return self
       }
       public var hasGpsInfo:Bool {
@@ -7639,7 +7236,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.gpsInfo = value
            }
       }
-      private var gpsInfoBuilder_:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder! {
+      fileprivate var gpsInfoBuilder_:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder! {
            didSet {
               builderResult.hasGpsInfo = true
            }
@@ -7649,18 +7246,18 @@ public extension Pogoprotos.Networking.Envelopes {
            gpsInfoBuilder_ = Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder()
            builderResult.gpsInfo = gpsInfoBuilder_.getMessage()
            if gpsInfo != nil {
-              try! gpsInfoBuilder_.mergeFrom(gpsInfo)
+              _ = try! gpsInfoBuilder_.mergeFrom(other: gpsInfo)
            }
         }
         return gpsInfoBuilder_
       }
-      public func setGpsInfo(value:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setGpsInfo(_ value:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.gpsInfo = value
         return self
       }
       public func mergeGpsInfo(value:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         if builderResult.hasGpsInfo {
-          builderResult.gpsInfo = try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.builderWithPrototype(builderResult.gpsInfo).mergeFrom(value).buildPartial()
+          builderResult.gpsInfo = try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.builderWithPrototype(prototype:builderResult.gpsInfo).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.gpsInfo = value
         }
@@ -7690,7 +7287,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.sensorInfo = value
            }
       }
-      private var sensorInfoBuilder_:Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder! {
+      fileprivate var sensorInfoBuilder_:Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder! {
            didSet {
               builderResult.hasSensorInfo = true
            }
@@ -7700,18 +7297,18 @@ public extension Pogoprotos.Networking.Envelopes {
            sensorInfoBuilder_ = Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
            builderResult.sensorInfo = sensorInfoBuilder_.getMessage()
            if sensorInfo != nil {
-              try! sensorInfoBuilder_.mergeFrom(sensorInfo)
+              _ = try! sensorInfoBuilder_.mergeFrom(other: sensorInfo)
            }
         }
         return sensorInfoBuilder_
       }
-      public func setSensorInfo(value:Pogoprotos.Networking.Envelopes.Signature.SensorInfo!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setSensorInfo(_ value:Pogoprotos.Networking.Envelopes.Signature.SensorInfo!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.sensorInfo = value
         return self
       }
       public func mergeSensorInfo(value:Pogoprotos.Networking.Envelopes.Signature.SensorInfo) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         if builderResult.hasSensorInfo {
-          builderResult.sensorInfo = try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.builderWithPrototype(builderResult.sensorInfo).mergeFrom(value).buildPartial()
+          builderResult.sensorInfo = try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.builderWithPrototype(prototype:builderResult.sensorInfo).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.sensorInfo = value
         }
@@ -7741,7 +7338,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.deviceInfo = value
            }
       }
-      private var deviceInfoBuilder_:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder! {
+      fileprivate var deviceInfoBuilder_:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder! {
            didSet {
               builderResult.hasDeviceInfo = true
            }
@@ -7751,18 +7348,18 @@ public extension Pogoprotos.Networking.Envelopes {
            deviceInfoBuilder_ = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
            builderResult.deviceInfo = deviceInfoBuilder_.getMessage()
            if deviceInfo != nil {
-              try! deviceInfoBuilder_.mergeFrom(deviceInfo)
+              _ = try! deviceInfoBuilder_.mergeFrom(other: deviceInfo)
            }
         }
         return deviceInfoBuilder_
       }
-      public func setDeviceInfo(value:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setDeviceInfo(_ value:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.deviceInfo = value
         return self
       }
       public func mergeDeviceInfo(value:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         if builderResult.hasDeviceInfo {
-          builderResult.deviceInfo = try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.builderWithPrototype(builderResult.deviceInfo).mergeFrom(value).buildPartial()
+          builderResult.deviceInfo = try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.builderWithPrototype(prototype:builderResult.deviceInfo).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.deviceInfo = value
         }
@@ -7792,7 +7389,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.activityStatus = value
            }
       }
-      private var activityStatusBuilder_:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder! {
+      fileprivate var activityStatusBuilder_:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder! {
            didSet {
               builderResult.hasActivityStatus = true
            }
@@ -7802,18 +7399,18 @@ public extension Pogoprotos.Networking.Envelopes {
            activityStatusBuilder_ = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
            builderResult.activityStatus = activityStatusBuilder_.getMessage()
            if activityStatus != nil {
-              try! activityStatusBuilder_.mergeFrom(activityStatus)
+              _ = try! activityStatusBuilder_.mergeFrom(other: activityStatus)
            }
         }
         return activityStatusBuilder_
       }
-      public func setActivityStatus(value:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setActivityStatus(_ value:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus!) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.activityStatus = value
         return self
       }
       public func mergeActivityStatus(value:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         if builderResult.hasActivityStatus {
-          builderResult.activityStatus = try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.builderWithPrototype(builderResult.activityStatus).mergeFrom(value).buildPartial()
+          builderResult.activityStatus = try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.builderWithPrototype(prototype:builderResult.activityStatus).mergeFrom(other: value).buildPartial()
         } else {
           builderResult.activityStatus = value
         }
@@ -7840,7 +7437,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.locationHash1 = value
            }
       }
-      public func setLocationHash1(value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setLocationHash1(_ value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.locationHash1 = value
         return self
       }
@@ -7863,7 +7460,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.locationHash2 = value
            }
       }
-      public func setLocationHash2(value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setLocationHash2(_ value:UInt32) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.locationHash2 = value
         return self
       }
@@ -7877,7 +7474,7 @@ public extension Pogoprotos.Networking.Envelopes {
                 return builderResult.hasSessionHash
            }
       }
-      public var sessionHash:NSData {
+      public var sessionHash:Data {
            get {
                 return builderResult.sessionHash
            }
@@ -7886,13 +7483,13 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.sessionHash = value
            }
       }
-      public func setSessionHash(value:NSData) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setSessionHash(_ value:Data) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.sessionHash = value
         return self
       }
       public func clearSessionHash() -> Pogoprotos.Networking.Envelopes.Signature.Builder{
            builderResult.hasSessionHash = false
-           builderResult.sessionHash = NSData()
+           builderResult.sessionHash = Data()
            return self
       }
       public var hasTimestamp:Bool {
@@ -7909,7 +7506,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.timestamp = value
            }
       }
-      public func setTimestamp(value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setTimestamp(_ value:UInt64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.timestamp = value
         return self
       }
@@ -7926,12 +7523,12 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.requestHash = array
            }
       }
-      public func setRequestHash(value:Array<UInt64>) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setRequestHash(_ value:Array<UInt64>) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.requestHash = value
         return self
       }
       public func clearRequestHash() -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-         builderResult.requestHash.removeAll(keepCapacity: false)
+         builderResult.requestHash.removeAll(keepingCapacity: false)
          return self
       }
       public var hasUnknown25:Bool {
@@ -7948,7 +7545,7 @@ public extension Pogoprotos.Networking.Envelopes {
                builderResult.unknown25 = value
            }
       }
-      public func setUnknown25(value:Int64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      public func setUnknown25(_ value:Int64) -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         self.unknown25 = value
         return self
       }
@@ -7967,7 +7564,7 @@ public extension Pogoprotos.Networking.Envelopes {
         return self
       }
       override public func clone() throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-        return try Pogoprotos.Networking.Envelopes.Signature.builderWithPrototype(builderResult)
+        return try Pogoprotos.Networking.Envelopes.Signature.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Networking.Envelopes.Signature {
            try checkInitialized()
@@ -7988,16 +7585,16 @@ public extension Pogoprotos.Networking.Envelopes {
            builderResult.locationFix += other.locationFix
         }
         if (other.hasGpsInfo) {
-            try mergeGpsInfo(other.gpsInfo)
+            _ = try mergeGpsInfo(value: other.gpsInfo)
         }
         if (other.hasSensorInfo) {
-            try mergeSensorInfo(other.sensorInfo)
+            _ = try mergeSensorInfo(value: other.sensorInfo)
         }
         if (other.hasDeviceInfo) {
-            try mergeDeviceInfo(other.deviceInfo)
+            _ = try mergeDeviceInfo(value: other.deviceInfo)
         }
         if (other.hasActivityStatus) {
-            try mergeActivityStatus(other.activityStatus)
+            _ = try mergeActivityStatus(value: other.activityStatus)
         }
         if other.hasLocationHash1 {
              locationHash1 = other.locationHash1
@@ -8017,130 +7614,130 @@ public extension Pogoprotos.Networking.Envelopes {
         if other.hasUnknown25 {
              unknown25 = other.unknown25
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 16:
-            timestampSinceStart = try input.readUInt64()
+            timestampSinceStart = try codedInputStream.readUInt64()
 
           case 34:
             let subBuilder = Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            locationFix += [subBuilder.buildPartial()]
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            locationFix.append(subBuilder.buildPartial())
 
           case 42:
             let subBuilder:Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder = Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder()
             if hasGpsInfo {
-              try subBuilder.mergeFrom(gpsInfo)
+              _ = try subBuilder.mergeFrom(other: gpsInfo)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             gpsInfo = subBuilder.buildPartial()
 
           case 58:
             let subBuilder:Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder = Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder()
             if hasSensorInfo {
-              try subBuilder.mergeFrom(sensorInfo)
+              _ = try subBuilder.mergeFrom(other: sensorInfo)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             sensorInfo = subBuilder.buildPartial()
 
           case 66:
             let subBuilder:Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder = Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder()
             if hasDeviceInfo {
-              try subBuilder.mergeFrom(deviceInfo)
+              _ = try subBuilder.mergeFrom(other: deviceInfo)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             deviceInfo = subBuilder.buildPartial()
 
           case 74:
             let subBuilder:Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder = Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder()
             if hasActivityStatus {
-              try subBuilder.mergeFrom(activityStatus)
+              _ = try subBuilder.mergeFrom(other: activityStatus)
             }
-            try input.readMessage(subBuilder, extensionRegistry:extensionRegistry)
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             activityStatus = subBuilder.buildPartial()
 
           case 80:
-            locationHash1 = try input.readUInt32()
+            locationHash1 = try codedInputStream.readUInt32()
 
           case 160:
-            locationHash2 = try input.readUInt32()
+            locationHash2 = try codedInputStream.readUInt32()
 
           case 178:
-            sessionHash = try input.readData()
+            sessionHash = try codedInputStream.readData()
 
           case 184:
-            timestamp = try input.readUInt64()
+            timestamp = try codedInputStream.readUInt64()
 
           case 194:
-            let length:Int32 = try input.readRawVarint32()
-            let limit:Int32 = try input.pushLimit(length)
-            while (input.bytesUntilLimit() > 0) {
-              builderResult.requestHash += [try input.readUInt64()]
+            let length = Int(try codedInputStream.readRawVarint32())
+            let limit = try codedInputStream.pushLimit(byteLimit: length)
+            while (codedInputStream.bytesUntilLimit() > 0) {
+              builderResult.requestHash.append(try codedInputStream.readUInt64())
             }
-            input.popLimit(limit)
+            codedInputStream.popLimit(oldLimit: limit)
 
           case 200:
-            unknown25 = try input.readInt64()
+            unknown25 = try codedInputStream.readInt64()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
         let resultDecodedBuilder = Pogoprotos.Networking.Envelopes.Signature.Builder()
         if let jsonValueTimestampSinceStart = jsonMap["timestampSinceStart"] as? String {
           resultDecodedBuilder.timestampSinceStart = UInt64(jsonValueTimestampSinceStart)!
         }
-        if let jsonValueLocationFix = jsonMap["locationFix"] as? Array<Dictionary<String,AnyObject>> {
+        if let jsonValueLocationFix = jsonMap["locationFix"] as? Array<Dictionary<String,Any>> {
           var jsonArrayLocationFix:Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix> = []
           for oneValueLocationFix in jsonValueLocationFix {
-            let messageFromStringLocationFix = try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.decodeToBuilder(oneValueLocationFix).build()
+            let messageFromStringLocationFix = try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder.decodeToBuilder(jsonMap:oneValueLocationFix).build()
 
-            jsonArrayLocationFix += [messageFromStringLocationFix]
+            jsonArrayLocationFix.append(messageFromStringLocationFix)
           }
           resultDecodedBuilder.locationFix = jsonArrayLocationFix
         }
-        if let jsonValueGpsInfo = jsonMap["gpsInfo"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.gpsInfo = try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.decodeToBuilder(jsonValueGpsInfo).build()
+        if let jsonValueGpsInfo = jsonMap["gpsInfo"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.gpsInfo = try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder.decodeToBuilder(jsonMap:jsonValueGpsInfo).build()
 
         }
-        if let jsonValueSensorInfo = jsonMap["sensorInfo"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.sensorInfo = try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.decodeToBuilder(jsonValueSensorInfo).build()
+        if let jsonValueSensorInfo = jsonMap["sensorInfo"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.sensorInfo = try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder.decodeToBuilder(jsonMap:jsonValueSensorInfo).build()
 
         }
-        if let jsonValueDeviceInfo = jsonMap["deviceInfo"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.deviceInfo = try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.decodeToBuilder(jsonValueDeviceInfo).build()
+        if let jsonValueDeviceInfo = jsonMap["deviceInfo"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.deviceInfo = try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder.decodeToBuilder(jsonMap:jsonValueDeviceInfo).build()
 
         }
-        if let jsonValueActivityStatus = jsonMap["activityStatus"] as? Dictionary<String,AnyObject> {
-          resultDecodedBuilder.activityStatus = try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsonValueActivityStatus).build()
+        if let jsonValueActivityStatus = jsonMap["activityStatus"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.activityStatus = try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder.decodeToBuilder(jsonMap:jsonValueActivityStatus).build()
 
         }
         if let jsonValueLocationHash1 = jsonMap["locationHash1"] as? NSNumber {
-          resultDecodedBuilder.locationHash1 = jsonValueLocationHash1.unsignedIntValue
+          resultDecodedBuilder.locationHash1 = jsonValueLocationHash1.uint32Value
         }
         if let jsonValueLocationHash2 = jsonMap["locationHash2"] as? NSNumber {
-          resultDecodedBuilder.locationHash2 = jsonValueLocationHash2.unsignedIntValue
+          resultDecodedBuilder.locationHash2 = jsonValueLocationHash2.uint32Value
         }
         if let jsonValueSessionHash = jsonMap["sessionHash"] as? String {
-          resultDecodedBuilder.sessionHash = NSData(base64EncodedString:jsonValueSessionHash, options: NSDataBase64DecodingOptions(rawValue:0))!
+          resultDecodedBuilder.sessionHash = Data(base64Encoded:jsonValueSessionHash, options: Data.Base64DecodingOptions(rawValue:0))!
         }
         if let jsonValueTimestamp = jsonMap["timestamp"] as? String {
           resultDecodedBuilder.timestamp = UInt64(jsonValueTimestamp)!
@@ -8148,7 +7745,7 @@ public extension Pogoprotos.Networking.Envelopes {
         if let jsonValueRequestHash = jsonMap["requestHash"] as? Array<String> {
           var jsonArrayRequestHash:Array<UInt64> = []
           for oneValueRequestHash in jsonValueRequestHash {
-            jsonArrayRequestHash += [UInt64(oneValueRequestHash)!]
+            jsonArrayRequestHash.append(UInt64(oneValueRequestHash)!)
           }
           resultDecodedBuilder.requestHash = jsonArrayRequestHash
         }
@@ -8157,17 +7754,407 @@ public extension Pogoprotos.Networking.Envelopes {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Envelopes.Signature.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Networking.Envelopes.Signature.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Networking.Envelopes.Signature.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Networking.Envelopes.AuthTicket: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.AuthTicket> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.AuthTicket>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket? {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.AuthTicket {
+    return try Pogoprotos.Networking.Envelopes.AuthTicket.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.RequestEnvelope: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope? {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo? {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt? {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.AuthInfo.Jwt.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest? {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
+    return try Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.ResponseEnvelope: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope? {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse? {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse {
+    return try Pogoprotos.Networking.Envelopes.ResponseEnvelope.PlatformResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.Signature: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature? {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.Signature {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature {
+    return try Pogoprotos.Networking.Envelopes.Signature.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.Signature.LocationFix: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.LocationFix>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix? {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.LocationFix {
+    return try Pogoprotos.Networking.Envelopes.Signature.LocationFix.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo? {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.AndroidGpsInfo.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.Signature.SensorInfo: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.SensorInfo> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.SensorInfo>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo? {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.SensorInfo.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.Signature.DeviceInfo: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.DeviceInfo> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.DeviceInfo>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo? {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.DeviceInfo {
+    return try Pogoprotos.Networking.Envelopes.Signature.DeviceInfo.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Envelopes.Signature.ActivityStatus: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Envelopes.Signature.ActivityStatus> {
+    var mergedArray = Array<Pogoprotos.Networking.Envelopes.Signature.ActivityStatus>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus? {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Envelopes.Signature.ActivityStatus {
+    return try Pogoprotos.Networking.Envelopes.Signature.ActivityStatus.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)

@@ -43,22 +43,22 @@ public extension Pogoprotos.Data.Capture {
 
     init() {
       extensionRegistry = ExtensionRegistry()
-      registerAllExtensions(extensionRegistry)
-      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(extensionRegistry)
-      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(extensionRegistry)
+      registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
-    public func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(registry: ExtensionRegistry) {
     }
   }
 
-  final public class CaptureAward : GeneratedMessage, GeneratedMessageProtocol {
+  final public class CaptureAward : GeneratedMessage {
     private var activityTypeMemoizedSerializedSize:Int32 = 0
-    public private(set) var activityType:Array<Pogoprotos.Enums.ActivityType> = Array<Pogoprotos.Enums.ActivityType>()
-    public private(set) var xp:Array<Int32> = Array<Int32>()
+    public fileprivate(set) var activityType:Array<Pogoprotos.Enums.ActivityType> = Array<Pogoprotos.Enums.ActivityType>()
+    public fileprivate(set) var xp:Array<Int32> = Array<Int32>()
     private var xpMemoizedSerializedSize:Int32 = -1
-    public private(set) var candy:Array<Int32> = Array<Int32>()
+    public fileprivate(set) var candy:Array<Int32> = Array<Int32>()
     private var candyMemoizedSerializedSize:Int32 = -1
-    public private(set) var stardust:Array<Int32> = Array<Int32>()
+    public fileprivate(set) var stardust:Array<Int32> = Array<Int32>()
     private var stardustMemoizedSerializedSize:Int32 = -1
     required public init() {
          super.init()
@@ -66,36 +66,36 @@ public extension Pogoprotos.Data.Capture {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if !activityType.isEmpty {
-        try output.writeRawVarint32(10)
-        try output.writeRawVarint32(activityTypeMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 10)
+        try codedOutputStream.writeRawVarint32(value: activityTypeMemoizedSerializedSize)
       }
       for oneValueOfactivityType in activityType {
-          try output.writeEnumNoTag(oneValueOfactivityType.rawValue)
+          try codedOutputStream.writeEnumNoTag(value: oneValueOfactivityType.rawValue)
       }
       if !xp.isEmpty {
-        try output.writeRawVarint32(18)
-        try output.writeRawVarint32(xpMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 18)
+        try codedOutputStream.writeRawVarint32(value: xpMemoizedSerializedSize)
         for oneValuexp in xp {
-          try output.writeInt32NoTag(oneValuexp)
+          try codedOutputStream.writeInt32NoTag(value: oneValuexp)
         }
       }
       if !candy.isEmpty {
-        try output.writeRawVarint32(26)
-        try output.writeRawVarint32(candyMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 26)
+        try codedOutputStream.writeRawVarint32(value: candyMemoizedSerializedSize)
         for oneValuecandy in candy {
-          try output.writeInt32NoTag(oneValuecandy)
+          try codedOutputStream.writeInt32NoTag(value: oneValuecandy)
         }
       }
       if !stardust.isEmpty {
-        try output.writeRawVarint32(34)
-        try output.writeRawVarint32(stardustMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 34)
+        try codedOutputStream.writeRawVarint32(value: stardustMemoizedSerializedSize)
         for oneValuestardust in stardust {
-          try output.writeInt32NoTag(oneValuestardust)
+          try codedOutputStream.writeInt32NoTag(value: oneValuestardust)
         }
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -148,93 +148,65 @@ public extension Pogoprotos.Data.Capture {
       memoizedSerializedSize = serialize_size
       return serialize_size
     }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Data.Capture.CaptureAward> {
-      var mergedArray = Array<Pogoprotos.Data.Capture.CaptureAward>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Capture.CaptureAward? {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Data.Capture.PogoprotosDataCaptureRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
     public class func getBuilder() -> Pogoprotos.Data.Capture.CaptureAward.Builder {
       return Pogoprotos.Data.Capture.CaptureAward.classBuilder() as! Pogoprotos.Data.Capture.CaptureAward.Builder
     }
     public func getBuilder() -> Pogoprotos.Data.Capture.CaptureAward.Builder {
       return classBuilder() as! Pogoprotos.Data.Capture.CaptureAward.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Capture.CaptureAward.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Capture.CaptureAward.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-      return try Pogoprotos.Data.Capture.CaptureAward.builderWithPrototype(self)
+      return try Pogoprotos.Data.Capture.CaptureAward.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Data.Capture.CaptureAward) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if !activityType.isEmpty {
         var jsonArrayActivityType:Array<String> = []
           for oneValueActivityType in activityType {
-            jsonArrayActivityType += [oneValueActivityType.toString()]
+            jsonArrayActivityType.append(oneValueActivityType.toString())
           }
         jsonMap["activityType"] = jsonArrayActivityType
       }
       if !xp.isEmpty {
         var jsonArrayXp:Array<NSNumber> = []
           for oneValueXp in xp {
-            jsonArrayXp += [NSNumber(int:oneValueXp)]
+            jsonArrayXp.append(NSNumber(value:oneValueXp))
           }
         jsonMap["xp"] = jsonArrayXp
       }
       if !candy.isEmpty {
         var jsonArrayCandy:Array<NSNumber> = []
           for oneValueCandy in candy {
-            jsonArrayCandy += [NSNumber(int:oneValueCandy)]
+            jsonArrayCandy.append(NSNumber(value:oneValueCandy))
           }
         jsonMap["candy"] = jsonArrayCandy
       }
       if !stardust.isEmpty {
         var jsonArrayStardust:Array<NSNumber> = []
           for oneValueStardust in stardust {
-            jsonArrayStardust += [NSNumber(int:oneValueStardust)]
+            jsonArrayStardust.append(NSNumber(value:oneValueStardust))
           }
         jsonMap["stardust"] = jsonArrayStardust
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Capture.CaptureAward {
+      return try Pogoprotos.Data.Capture.CaptureAward.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Data.Capture.CaptureAward {
-      return try Pogoprotos.Data.Capture.CaptureAward.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Data.Capture.CaptureAward {
+      return try Pogoprotos.Data.Capture.CaptureAward.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -258,7 +230,7 @@ public extension Pogoprotos.Data.Capture {
           output += "\(indent) stardust[\(stardustElementIndex)]: \(oneValueStardust)\n"
           stardustElementIndex += 1
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -290,13 +262,10 @@ public extension Pogoprotos.Data.Capture {
     override public func className() -> String {
         return "Pogoprotos.Data.Capture.CaptureAward"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Data.Capture.CaptureAward.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Data.Capture.CaptureAward = Pogoprotos.Data.Capture.CaptureAward()
+      fileprivate var builderResult:Pogoprotos.Data.Capture.CaptureAward = Pogoprotos.Data.Capture.CaptureAward()
       public func getMessage() -> Pogoprotos.Data.Capture.CaptureAward {
           return builderResult
       }
@@ -312,12 +281,12 @@ public extension Pogoprotos.Data.Capture {
               builderResult.activityType = value
           }
       }
-      public func setActivityType(value:Array<Pogoprotos.Enums.ActivityType>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+      public func setActivityType(_ value:Array<Pogoprotos.Enums.ActivityType>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
         self.activityType = value
         return self
       }
       public func clearActivityType() -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-        builderResult.activityType.removeAll(keepCapacity: false)
+        builderResult.activityType.removeAll(keepingCapacity: false)
         return self
       }
       public var xp:Array<Int32> {
@@ -328,12 +297,12 @@ public extension Pogoprotos.Data.Capture {
                builderResult.xp = array
            }
       }
-      public func setXp(value:Array<Int32>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+      public func setXp(_ value:Array<Int32>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
         self.xp = value
         return self
       }
       public func clearXp() -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-         builderResult.xp.removeAll(keepCapacity: false)
+         builderResult.xp.removeAll(keepingCapacity: false)
          return self
       }
       public var candy:Array<Int32> {
@@ -344,12 +313,12 @@ public extension Pogoprotos.Data.Capture {
                builderResult.candy = array
            }
       }
-      public func setCandy(value:Array<Int32>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+      public func setCandy(_ value:Array<Int32>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
         self.candy = value
         return self
       }
       public func clearCandy() -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-         builderResult.candy.removeAll(keepCapacity: false)
+         builderResult.candy.removeAll(keepingCapacity: false)
          return self
       }
       public var stardust:Array<Int32> {
@@ -360,12 +329,12 @@ public extension Pogoprotos.Data.Capture {
                builderResult.stardust = array
            }
       }
-      public func setStardust(value:Array<Int32>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+      public func setStardust(_ value:Array<Int32>) -> Pogoprotos.Data.Capture.CaptureAward.Builder {
         self.stardust = value
         return self
       }
       public func clearStardust() -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-         builderResult.stardust.removeAll(keepCapacity: false)
+         builderResult.stardust.removeAll(keepingCapacity: false)
          return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -378,7 +347,7 @@ public extension Pogoprotos.Data.Capture {
         return self
       }
       override public func clone() throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-        return try Pogoprotos.Data.Capture.CaptureAward.builderWithPrototype(builderResult)
+        return try Pogoprotos.Data.Capture.CaptureAward.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Data.Capture.CaptureAward {
            try checkInitialized()
@@ -404,117 +373,117 @@ public extension Pogoprotos.Data.Capture {
         if !other.stardust.isEmpty {
             builderResult.stardust += other.stardust
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            let length:Int32 = try input.readRawVarint32()
-            let oldLimit:Int32 = try input.pushLimit(length)
-            while input.bytesUntilLimit() > 0 {
-            let valueIntactivityType = try input.readEnum()
+            let length = Int(try codedInputStream.readRawVarint32())
+            let oldLimit = try codedInputStream.pushLimit(byteLimit: length)
+            while codedInputStream.bytesUntilLimit() > 0 {
+            let valueIntactivityType = try codedInputStream.readEnum()
             if let enumsactivityType = Pogoprotos.Enums.ActivityType(rawValue:valueIntactivityType) {
-                 builderResult.activityType += [enumsactivityType]
+                 builderResult.activityType.append(enumsactivityType)
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntactivityType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntactivityType))
             }
             }
-            input.popLimit(oldLimit)
+            codedInputStream.popLimit(oldLimit: oldLimit)
 
           case 18:
-            let length:Int32 = try input.readRawVarint32()
-            let limit:Int32 = try input.pushLimit(length)
-            while (input.bytesUntilLimit() > 0) {
-              builderResult.xp += [try input.readInt32()]
+            let length = Int(try codedInputStream.readRawVarint32())
+            let limit = try codedInputStream.pushLimit(byteLimit: length)
+            while (codedInputStream.bytesUntilLimit() > 0) {
+              builderResult.xp.append(try codedInputStream.readInt32())
             }
-            input.popLimit(limit)
+            codedInputStream.popLimit(oldLimit: limit)
 
           case 26:
-            let length:Int32 = try input.readRawVarint32()
-            let limit:Int32 = try input.pushLimit(length)
-            while (input.bytesUntilLimit() > 0) {
-              builderResult.candy += [try input.readInt32()]
+            let length = Int(try codedInputStream.readRawVarint32())
+            let limit = try codedInputStream.pushLimit(byteLimit: length)
+            while (codedInputStream.bytesUntilLimit() > 0) {
+              builderResult.candy.append(try codedInputStream.readInt32())
             }
-            input.popLimit(limit)
+            codedInputStream.popLimit(oldLimit: limit)
 
           case 34:
-            let length:Int32 = try input.readRawVarint32()
-            let limit:Int32 = try input.pushLimit(length)
-            while (input.bytesUntilLimit() > 0) {
-              builderResult.stardust += [try input.readInt32()]
+            let length = Int(try codedInputStream.readRawVarint32())
+            let limit = try codedInputStream.pushLimit(byteLimit: length)
+            while (codedInputStream.bytesUntilLimit() > 0) {
+              builderResult.stardust.append(try codedInputStream.readInt32())
             }
-            input.popLimit(limit)
+            codedInputStream.popLimit(oldLimit: limit)
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
         let resultDecodedBuilder = Pogoprotos.Data.Capture.CaptureAward.Builder()
         if let jsonValueActivityType = jsonMap["activityType"] as? Array<String> {
           var jsonArrayActivityType:Array<Pogoprotos.Enums.ActivityType> = []
           for oneValueActivityType in jsonValueActivityType {
-            let enumFromStringActivityType = try Pogoprotos.Enums.ActivityType.fromString(oneValueActivityType)
-            jsonArrayActivityType += [enumFromStringActivityType]
+            let enumFromStringActivityType = try Pogoprotos.Enums.ActivityType.fromString(str: oneValueActivityType)
+            jsonArrayActivityType.append(enumFromStringActivityType)
           }
           resultDecodedBuilder.activityType = jsonArrayActivityType
         }
         if let jsonValueXp = jsonMap["xp"] as? Array<NSNumber> {
           var jsonArrayXp:Array<Int32> = []
           for oneValueXp in jsonValueXp {
-            jsonArrayXp += [oneValueXp.intValue]
+            jsonArrayXp.append(oneValueXp.int32Value)
           }
           resultDecodedBuilder.xp = jsonArrayXp
         }
         if let jsonValueCandy = jsonMap["candy"] as? Array<NSNumber> {
           var jsonArrayCandy:Array<Int32> = []
           for oneValueCandy in jsonValueCandy {
-            jsonArrayCandy += [oneValueCandy.intValue]
+            jsonArrayCandy.append(oneValueCandy.int32Value)
           }
           resultDecodedBuilder.candy = jsonArrayCandy
         }
         if let jsonValueStardust = jsonMap["stardust"] as? Array<NSNumber> {
           var jsonArrayStardust:Array<Int32> = []
           for oneValueStardust in jsonValueStardust {
-            jsonArrayStardust += [oneValueStardust.intValue]
+            jsonArrayStardust.append(oneValueStardust.int32Value)
           }
           resultDecodedBuilder.stardust = jsonArrayStardust
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Data.Capture.CaptureAward.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Data.Capture.CaptureAward.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Data.Capture.CaptureAward.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
-  final public class CaptureProbability : GeneratedMessage, GeneratedMessageProtocol {
+  final public class CaptureProbability : GeneratedMessage {
     private var pokeballTypeMemoizedSerializedSize:Int32 = 0
-    public private(set) var pokeballType:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
-    public private(set) var captureProbability:Array<Float> = Array<Float>()
+    public fileprivate(set) var pokeballType:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
+    public fileprivate(set) var captureProbability:Array<Float> = Array<Float>()
     private var captureProbabilityMemoizedSerializedSize:Int32 = -1
-    public private(set) var hasReticleDifficultyScale:Bool = false
-    public private(set) var reticleDifficultyScale:Double = Double(0)
+    public fileprivate(set) var reticleDifficultyScale:Double = Double(0)
+    public fileprivate(set) var hasReticleDifficultyScale:Bool = false
 
     required public init() {
          super.init()
@@ -522,25 +491,25 @@ public extension Pogoprotos.Data.Capture {
     override public func isInitialized() -> Bool {
      return true
     }
-    override public func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
       if !pokeballType.isEmpty {
-        try output.writeRawVarint32(10)
-        try output.writeRawVarint32(pokeballTypeMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 10)
+        try codedOutputStream.writeRawVarint32(value: pokeballTypeMemoizedSerializedSize)
       }
       for oneValueOfpokeballType in pokeballType {
-          try output.writeEnumNoTag(oneValueOfpokeballType.rawValue)
+          try codedOutputStream.writeEnumNoTag(value: oneValueOfpokeballType.rawValue)
       }
       if !captureProbability.isEmpty {
-        try output.writeRawVarint32(18)
-        try output.writeRawVarint32(captureProbabilityMemoizedSerializedSize)
+        try codedOutputStream.writeRawVarint32(value: 18)
+        try codedOutputStream.writeRawVarint32(value: captureProbabilityMemoizedSerializedSize)
         for oneValuecaptureProbability in captureProbability {
-          try output.writeFloatNoTag(oneValuecaptureProbability)
+          try codedOutputStream.writeFloatNoTag(value: oneValuecaptureProbability)
         }
       }
       if hasReticleDifficultyScale {
-        try output.writeDouble(12, value:reticleDifficultyScale)
+        try codedOutputStream.writeDouble(fieldNumber: 12, value:reticleDifficultyScale)
       }
-      try unknownFields.writeToCodedOutputStream(output)
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
     override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
@@ -568,39 +537,11 @@ public extension Pogoprotos.Data.Capture {
       }
       captureProbabilityMemoizedSerializedSize = dataSizeCaptureProbability
       if hasReticleDifficultyScale {
-        serialize_size += reticleDifficultyScale.computeDoubleSize(12)
+        serialize_size += reticleDifficultyScale.computeDoubleSize(fieldNumber: 12)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
-    }
-    public class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Pogoprotos.Data.Capture.CaptureProbability> {
-      var mergedArray = Array<Pogoprotos.Data.Capture.CaptureProbability>()
-      while let value = try parseFromDelimitedFromInputStream(input) {
-        mergedArray += [value]
-      }
-      return mergedArray
-    }
-    public class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability? {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeDelimitedFromInputStream(input)?.build()
-    }
-    public class func parseFromData(data:NSData) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFromData(data, extensionRegistry:Pogoprotos.Data.Capture.PogoprotosDataCaptureRoot.sharedInstance.extensionRegistry).build()
-    }
-    public class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFromInputStream(input).build()
-    }
-    public class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFromCodedInputStream(input).build()
-    }
-    public class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
     public class func getBuilder() -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
       return Pogoprotos.Data.Capture.CaptureProbability.classBuilder() as! Pogoprotos.Data.Capture.CaptureProbability.Builder
@@ -608,48 +549,48 @@ public extension Pogoprotos.Data.Capture {
     public func getBuilder() -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
       return classBuilder() as! Pogoprotos.Data.Capture.CaptureProbability.Builder
     }
-    override public class func classBuilder() -> MessageBuilder {
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Capture.CaptureProbability.Builder()
     }
-    override public func classBuilder() -> MessageBuilder {
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
       return Pogoprotos.Data.Capture.CaptureProbability.Builder()
     }
     public func toBuilder() throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-      return try Pogoprotos.Data.Capture.CaptureProbability.builderWithPrototype(self)
+      return try Pogoprotos.Data.Capture.CaptureProbability.builderWithPrototype(prototype:self)
     }
     public class func builderWithPrototype(prototype:Pogoprotos.Data.Capture.CaptureProbability) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(prototype)
+      return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(other:prototype)
     }
-    override public func encode() throws -> Dictionary<String,AnyObject> {
+    override public func encode() throws -> Dictionary<String,Any> {
       guard isInitialized() else {
-        throw ProtocolBuffersError.InvalidProtocolBuffer("Uninitialized Message")
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
       }
 
-      var jsonMap:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
       if !pokeballType.isEmpty {
         var jsonArrayPokeballType:Array<String> = []
           for oneValuePokeballType in pokeballType {
-            jsonArrayPokeballType += [oneValuePokeballType.toString()]
+            jsonArrayPokeballType.append(oneValuePokeballType.toString())
           }
         jsonMap["pokeballType"] = jsonArrayPokeballType
       }
       if !captureProbability.isEmpty {
         var jsonArrayCaptureProbability:Array<NSNumber> = []
           for oneValueCaptureProbability in captureProbability {
-            jsonArrayCaptureProbability += [NSNumber(float:oneValueCaptureProbability)]
+            jsonArrayCaptureProbability.append(NSNumber(value:oneValueCaptureProbability))
           }
         jsonMap["captureProbability"] = jsonArrayCaptureProbability
       }
       if hasReticleDifficultyScale {
-        jsonMap["reticleDifficultyScale"] = NSNumber(double:reticleDifficultyScale)
+        jsonMap["reticleDifficultyScale"] = NSNumber(value:reticleDifficultyScale)
       }
       return jsonMap
     }
-    override class public func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder.decodeToBuilder(jsonMap).build()
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+      return try Pogoprotos.Data.Capture.CaptureProbability.Builder.decodeToBuilder(jsonMap:jsonMap).build()
     }
-    override class public func fromJSON(data:NSData) throws -> Pogoprotos.Data.Capture.CaptureProbability {
-      return try Pogoprotos.Data.Capture.CaptureProbability.Builder.fromJSONToBuilder(data).build()
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+      return try Pogoprotos.Data.Capture.CaptureProbability.Builder.fromJSONToBuilder(data:data).build()
     }
     override public func getDescription(indent:String) throws -> String {
       var output = ""
@@ -666,7 +607,7 @@ public extension Pogoprotos.Data.Capture {
       if hasReticleDifficultyScale {
         output += "\(indent) reticleDifficultyScale: \(reticleDifficultyScale) \n"
       }
-      output += unknownFields.getDescription(indent)
+      output += unknownFields.getDescription(indent: indent)
       return output
     }
     override public var hashValue:Int {
@@ -695,13 +636,10 @@ public extension Pogoprotos.Data.Capture {
     override public func className() -> String {
         return "Pogoprotos.Data.Capture.CaptureProbability"
     }
-    override public func classMetaType() -> GeneratedMessage.Type {
-        return Pogoprotos.Data.Capture.CaptureProbability.self
-    }
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      private var builderResult:Pogoprotos.Data.Capture.CaptureProbability = Pogoprotos.Data.Capture.CaptureProbability()
+      fileprivate var builderResult:Pogoprotos.Data.Capture.CaptureProbability = Pogoprotos.Data.Capture.CaptureProbability()
       public func getMessage() -> Pogoprotos.Data.Capture.CaptureProbability {
           return builderResult
       }
@@ -717,12 +655,12 @@ public extension Pogoprotos.Data.Capture {
               builderResult.pokeballType = value
           }
       }
-      public func setPokeballType(value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+      public func setPokeballType(_ value:Array<Pogoprotos.Inventory.Item.ItemId>) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
         self.pokeballType = value
         return self
       }
       public func clearPokeballType() -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-        builderResult.pokeballType.removeAll(keepCapacity: false)
+        builderResult.pokeballType.removeAll(keepingCapacity: false)
         return self
       }
       public var captureProbability:Array<Float> {
@@ -733,12 +671,12 @@ public extension Pogoprotos.Data.Capture {
                builderResult.captureProbability = array
            }
       }
-      public func setCaptureProbability(value:Array<Float>) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+      public func setCaptureProbability(_ value:Array<Float>) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
         self.captureProbability = value
         return self
       }
       public func clearCaptureProbability() -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-         builderResult.captureProbability.removeAll(keepCapacity: false)
+         builderResult.captureProbability.removeAll(keepingCapacity: false)
          return self
       }
       public var hasReticleDifficultyScale:Bool {
@@ -755,7 +693,7 @@ public extension Pogoprotos.Data.Capture {
                builderResult.reticleDifficultyScale = value
            }
       }
-      public func setReticleDifficultyScale(value:Double) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+      public func setReticleDifficultyScale(_ value:Double) -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
         self.reticleDifficultyScale = value
         return self
       }
@@ -774,7 +712,7 @@ public extension Pogoprotos.Data.Capture {
         return self
       }
       override public func clone() throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-        return try Pogoprotos.Data.Capture.CaptureProbability.builderWithPrototype(builderResult)
+        return try Pogoprotos.Data.Capture.CaptureProbability.builderWithPrototype(prototype:builderResult)
       }
       override public func build() throws -> Pogoprotos.Data.Capture.CaptureProbability {
            try checkInitialized()
@@ -797,67 +735,67 @@ public extension Pogoprotos.Data.Capture {
         if other.hasReticleDifficultyScale {
              reticleDifficultyScale = other.reticleDifficultyScale
         }
-        try mergeUnknownFields(other.unknownFields)
+        _ = try merge(unknownField: other.unknownFields)
         return self
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-           return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
       }
-      override public func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
         while (true) {
-          let protobufTag = try input.readTag()
+          let protobufTag = try codedInputStream.readTag()
           switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
 
           case 10:
-            let length:Int32 = try input.readRawVarint32()
-            let oldLimit:Int32 = try input.pushLimit(length)
-            while input.bytesUntilLimit() > 0 {
-            let valueIntpokeballType = try input.readEnum()
+            let length = Int(try codedInputStream.readRawVarint32())
+            let oldLimit = try codedInputStream.pushLimit(byteLimit: length)
+            while codedInputStream.bytesUntilLimit() > 0 {
+            let valueIntpokeballType = try codedInputStream.readEnum()
             if let enumspokeballType = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntpokeballType) {
-                 builderResult.pokeballType += [enumspokeballType]
+                 builderResult.pokeballType.append(enumspokeballType)
             } else {
-                 try unknownFieldsBuilder.mergeVarintField(1, value:Int64(valueIntpokeballType))
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntpokeballType))
             }
             }
-            input.popLimit(oldLimit)
+            codedInputStream.popLimit(oldLimit: oldLimit)
 
           case 18:
-            let length:Int32 = try input.readRawVarint32()
-            let limit:Int32 = try input.pushLimit(length)
-            while (input.bytesUntilLimit() > 0) {
-              builderResult.captureProbability += [try input.readFloat()]
+            let length = Int(try codedInputStream.readRawVarint32())
+            let limit = try codedInputStream.pushLimit(byteLimit: length)
+            while (codedInputStream.bytesUntilLimit() > 0) {
+              builderResult.captureProbability.append(try codedInputStream.readFloat())
             }
-            input.popLimit(limit)
+            codedInputStream.popLimit(oldLimit: limit)
 
           case 97:
-            reticleDifficultyScale = try input.readDouble()
+            reticleDifficultyScale = try codedInputStream.readDouble()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }
           }
         }
       }
-      override class public func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
         let resultDecodedBuilder = Pogoprotos.Data.Capture.CaptureProbability.Builder()
         if let jsonValuePokeballType = jsonMap["pokeballType"] as? Array<String> {
           var jsonArrayPokeballType:Array<Pogoprotos.Inventory.Item.ItemId> = []
           for oneValuePokeballType in jsonValuePokeballType {
-            let enumFromStringPokeballType = try Pogoprotos.Inventory.Item.ItemId.fromString(oneValuePokeballType)
-            jsonArrayPokeballType += [enumFromStringPokeballType]
+            let enumFromStringPokeballType = try Pogoprotos.Inventory.Item.ItemId.fromString(str: oneValuePokeballType)
+            jsonArrayPokeballType.append(enumFromStringPokeballType)
           }
           resultDecodedBuilder.pokeballType = jsonArrayPokeballType
         }
         if let jsonValueCaptureProbability = jsonMap["captureProbability"] as? Array<NSNumber> {
           var jsonArrayCaptureProbability:Array<Float> = []
           for oneValueCaptureProbability in jsonValueCaptureProbability {
-            jsonArrayCaptureProbability += [oneValueCaptureProbability.floatValue]
+            jsonArrayCaptureProbability.append(oneValueCaptureProbability.floatValue)
           }
           resultDecodedBuilder.captureProbability = jsonArrayCaptureProbability
         }
@@ -866,17 +804,77 @@ public extension Pogoprotos.Data.Capture {
         }
         return resultDecodedBuilder
       }
-      override class public func fromJSONToBuilder(data:NSData) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
-        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        guard let jsDataCast = jsonData as? Dictionary<String,AnyObject> else {
-          throw ProtocolBuffersError.InvalidProtocolBuffer("Invalid JSON data")
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Data.Capture.CaptureProbability.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
-        return try Pogoprotos.Data.Capture.CaptureProbability.Builder.decodeToBuilder(jsDataCast)
+        return try Pogoprotos.Data.Capture.CaptureProbability.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
   }
 
+}
+extension Pogoprotos.Data.Capture.CaptureAward: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Data.Capture.CaptureAward> {
+    var mergedArray = Array<Pogoprotos.Data.Capture.CaptureAward>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Capture.CaptureAward? {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Data.Capture.CaptureAward {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Data.Capture.PogoprotosDataCaptureRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Capture.CaptureAward {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureAward {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureAward {
+    return try Pogoprotos.Data.Capture.CaptureAward.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Data.Capture.CaptureProbability: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Data.Capture.CaptureProbability> {
+    var mergedArray = Array<Pogoprotos.Data.Capture.CaptureProbability>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability? {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Data.Capture.PogoprotosDataCaptureRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Data.Capture.CaptureProbability {
+    return try Pogoprotos.Data.Capture.CaptureProbability.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
 }
 
 // @@protoc_insertion_point(global_scope)
