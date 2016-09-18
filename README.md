@@ -2,6 +2,8 @@
 
 This library allows you to communicate with the Pokemon GO servers as if you are a native client.
 
+For Swift 3.0 support, use the [Swift3.0 branch](https://github.com/lsapan/pgoapi-swift/tree/Swift3.0).
+
 It supports:
 
 - Authentication (both PTC and Google)
