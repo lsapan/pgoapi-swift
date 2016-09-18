@@ -14,8 +14,8 @@ It supports:
 The fastest way to get up and running is with CocoaPods. It isn't published in the CocoaPods repo yet due to dependency issues, but you can still easily use it by adding the following to your Podfile:
 ```
 use_frameworks!
-pod 'PGoApi', :git => 'https://github.com/lsapan/pgoapi-swift', :branch => 'master'
-pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift', :branch => 'ProtoBuf3.0-Swift2.0'
+pod 'PGoApi', :git => 'https://github.com/lsapan/pgoapi-swift', :branch => 'Swift3.0'
+pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift', :branch => 'ProtoBuf3.0-Swift3.0'
 ```
 
 Be sure to include ProtocolBuffers-Swift as shown above.
