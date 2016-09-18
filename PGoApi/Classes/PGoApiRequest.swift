@@ -58,7 +58,7 @@ internal struct PGoVersion {
 
 internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
-    internal var checkChallenge: Bool = true
+    internal var checkChallenge: Bool = false
     internal var useResponseObjects: Bool = false
     internal var showMessages: Bool = true
 }
