@@ -58,7 +58,6 @@ internal struct PGoVersion {
 
 internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
-    internal var checkChallenge: Bool = false
     internal var useResponseObjects: Bool = false
     internal var showMessages: Bool = true
 }
@@ -192,10 +191,6 @@ open class PGoApiRequest {
             return
         }
         
-        if ApiSettings.checkChallenge {
-            checkChallenge()
-        }
-        
         let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: self.auth!, api: self, delegate: delegate)
         request.request()
         methodList.removeAll()
@@ -211,18 +206,17 @@ open class PGoApiRequest {
         Location.floor = floor
     }
     
-    open func setApiSettings(refreshAuthTokens: Bool, checkChallenge: Bool, useResponseObjects: Bool, showMessages: Bool) {
-        ApiSettings.refreshAuthTokens = refreshAuthTokens
-        ApiSettings.checkChallenge = checkChallenge
-        ApiSettings.useResponseObjects = useResponseObjects
-        ApiSettings.showMessages = showMessages
+    open func setApiSettings(refreshAuthTokens: Bool? = true, useResponseObjects: Bool? = false, showMessages: Bool? = true) {
+        ApiSettings.refreshAuthTokens = refreshAuthTokens!
+        ApiSettings.useResponseObjects = useResponseObjects!
+        ApiSettings.showMessages = showMessages!
     }
     
-    open func setPlatformRequestSettings(useActivityStatus: Bool, useDeviceInfo: Bool, useSensorInfo: Bool, useLocationFix: Bool) {
-        unknown6Settings.useActivityStatus = useActivityStatus
-        unknown6Settings.useDeviceInfo = useDeviceInfo
-        unknown6Settings.useSensorInfo = useSensorInfo
-        unknown6Settings.useLocationFix = useLocationFix
+    open func setPlatformRequestSettings(useActivityStatus: Bool? = true, useDeviceInfo: Bool? = true, useSensorInfo: Bool? = true, useLocationFix: Bool? = true) {
+        unknown6Settings.useActivityStatus = useActivityStatus!
+        unknown6Settings.useDeviceInfo = useDeviceInfo!
+        unknown6Settings.useSensorInfo = useSensorInfo!
+        unknown6Settings.useLocationFix = useLocationFix!
     }
     
     open func setLocationFixSettings(locationFixCount: Int? = 28, errorChance: UInt32? = 25) {
@@ -831,7 +825,7 @@ open class PGoApiRequest {
     
     open func getBuddyWalked() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage.Builder()
-        methodList.append(PGoApiMethod(id: .checkChallenge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .getBuddyWalked, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.parseFrom(data: data)
         }))
 
@@ -840,13 +834,13 @@ open class PGoApiRequest {
     open func setBuddyPokemon(pokemonId: UInt64) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.append(PGoApiMethod(id: .checkChallenge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .setBuddyPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.parseFrom(data: data)
         }))
         
     }
     
-    fileprivate func checkChallenge(debug: Bool? = nil) {
+    open func checkChallenge(debug: Bool? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage.Builder()
         if debug != nil {
             messageBuilder.debugRequest = debug!
