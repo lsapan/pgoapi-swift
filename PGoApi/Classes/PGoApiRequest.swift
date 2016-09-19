@@ -811,7 +811,7 @@ public class PGoApiRequest {
     
     public func getBuddyWalked() {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage.Builder()
-        methodList.append(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .GetBuddyWalked, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetBuddyWalkedResponse.parseFromData(data)
         }))
 
@@ -820,7 +820,7 @@ public class PGoApiRequest {
     public func setBuddyPokemon(pokemonId: UInt64) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage.Builder()
         messageBuilder.pokemonId = pokemonId
-        methodList.append(PGoApiMethod(id: .CheckChallenge, message: try! messageBuilder.build(), parser: { data in
+        methodList.append(PGoApiMethod(id: .SetBuddyPokemon, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.SetBuddyPokemonResponse.parseFromData(data)
         }))
         
