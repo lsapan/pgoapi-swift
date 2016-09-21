@@ -38,17 +38,17 @@ public class PGoLocationUtils {
         public var duration: Double
     }
     
-    public func getAltitudeAndHorizontalAccuracy(latitude latitude: Double, longitude: Double, completionHandler: (altitude: Double?, horizontalAccuracy: Double?) -> ()) {
+    public func getAltitudeAndVerticalAccuracy(latitude latitude: Double, longitude: Double, completionHandler: (altitude: Double?, horizontalAccuracy: Double?) -> ()) {
         /*
          
          Example func for completionHandler:
-         func receiveAltitudeAndHorizontalAccuracy(altitude: Double?, horizontalAccuracy: Double?)
+         func receiveAltitudeAndVerticalAccuracy(altitude: Double?, verticalAccuracy: Double?)
          
          */
         Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/elevation/json?locations=\(latitude),\(longitude)&sensor=false", parameters: nil)
             .responseJSON { response in
                 var altitude:Double? = nil
-                var horizontalAccuracy:Double? = nil
+                var verticalAccuracy:Double? = nil
 
                 if let JSON = response.result.value {
                     let dict = JSON as! [String:AnyObject]
@@ -57,14 +57,14 @@ public class PGoLocationUtils {
                             if let alt = result[0]["elevation"] as? Double {
                                 altitude = alt
                             }
-                            if let horAcc = result[0]["resolution"] as? Double {
-                                horizontalAccuracy = horAcc
+                            if let verAcc = result[0]["resolution"] as? Double {
+                                verticalAccuracy = verAcc
                             }
                         }
                     }
-                    completionHandler(altitude: altitude, horizontalAccuracy: horizontalAccuracy)
+                    completionHandler(altitude: altitude, verticalAccuracy: verticalAccuracy)
                 } else {
-                    completionHandler(altitude: nil, horizontalAccuracy: nil)
+                    completionHandler(altitude: nil, verticalAccuracy: nil)
                 }
         }
     }
