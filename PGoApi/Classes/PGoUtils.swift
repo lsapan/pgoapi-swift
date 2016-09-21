@@ -58,11 +58,11 @@ open class PGoLocationUtils {
         public var duration: Double
     }
     
-    open func getAltitudeAndVerticalAccuracy(latitude: Double, longitude: Double, completionHandler: @escaping (_ altitude: Double?, _ horizontalAccuracy: Double?) -> ()) {
+    open static func getAltitudeAndVerticalAccuracy(latitude: Double, longitude: Double, completionHandler: @escaping (_ altitude: Double?, _ verticalAccuracy: Double?) -> ()) {
         /*
          
          Example func for completionHandler:
-         func receiveAltitudeAndHorizontalAccuracy(altitude: Double?, verticalAccuracy: Double?)
+         func receiveAltitudeAndVerticalAccuracy(altitude: Double?, verticalAccuracy: Double?)
          
          */
         Alamofire.request("https://maps.googleapis.com/maps/api/elevation/json?locations=\(latitude),\(longitude)&sensor=false").responseJSON { response in
@@ -76,8 +76,8 @@ open class PGoLocationUtils {
                             if let alt = result[0]["elevation"] as? Double {
                                 altitude = alt
                             }
-                            if let horAcc = result[0]["resolution"] as? Double {
-                                verticalAccuracy = horAcc
+                            if let verAcc = result[0]["resolution"] as? Double {
+                                verticalAccuracy = verAcc
                             }
                         }
                     }
@@ -88,7 +88,7 @@ open class PGoLocationUtils {
         }
     }
     
-    open func reverseGeocode(latitude: Double, longitude: Double, completionHandler: @escaping (PGoLocationUtils.PGoCoordinate?) -> ()) {
+    open static func reverseGeocode(latitude: Double, longitude: Double, completionHandler: @escaping (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
          Example func for completionHandler:
@@ -122,7 +122,7 @@ open class PGoLocationUtils {
         })
     }
     
-    open func geocode(location: String, completionHandler: @escaping (PGoLocationUtils.PGoCoordinate?) -> ()) {
+    open static func geocode(location: String, completionHandler: @escaping (PGoLocationUtils.PGoCoordinate?) -> ()) {
         /*
          
          Example func for completionHandler:
@@ -132,7 +132,7 @@ open class PGoLocationUtils {
         
         var result: PGoCoordinate?
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(location, completionHandler: {(placeData: [CLPlacemark]?, error: NSError?) -> Void in
+        geocoder.geocodeAddressString(location, completionHandler: {(placeData: [CLPlacemark]?, error: Error?) -> Void in
             if (placeData?.count > 0) {
                 let addressDictionary = placeData![0]
                 result = PGoCoordinate(
@@ -153,10 +153,10 @@ open class PGoLocationUtils {
             } else {
                 completionHandler(nil)
             }
-        } as! CLGeocodeCompletionHandler)
+        })
     }
     
-    open func getDistanceBetweenPoints(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, unit: PGoLocationUtils.unit? = .meters) -> Double {
+    open static func getDistanceBetweenPoints(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, unit: PGoLocationUtils.unit? = .meters) -> Double {
         
         let start = CLLocation.init(latitude: startLatitude, longitude: startLongitude)
         let end = CLLocation.init(latitude: endLatitude, longitude: endLongitude)
@@ -172,7 +172,7 @@ open class PGoLocationUtils {
         return distance
     }
     
-    open func moveDistanceToPoint(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, distance: Double, unitOfDistance: PGoLocationUtils.unit? = .meters) -> PGoLocationUtils.PGoCoordinate {
+    open static func moveDistanceToPoint(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, distance: Double, unitOfDistance: PGoLocationUtils.unit? = .meters) -> PGoLocationUtils.PGoCoordinate {
         let maxDistance = getDistanceBetweenPoints(startLatitude: startLatitude, startLongitude: startLongitude, endLatitude: endLatitude, endLongitude: endLongitude)
         
         var distanceConverted = distance
@@ -201,7 +201,7 @@ open class PGoLocationUtils {
         )
     }
     
-    open func moveDistanceWithBearing(startLatitude:Double, startLongitude:Double, bearing: Double, distance: Double, bearingUnits: PGoLocationUtils.bearingUnits? = .radian, unitOfDistance: PGoLocationUtils.unit? = .meters) -> PGoLocationUtils.PGoCoordinate {
+    open static func moveDistanceWithBearing(startLatitude:Double, startLongitude:Double, bearing: Double, distance: Double, bearingUnits: PGoLocationUtils.bearingUnits? = .radian, unitOfDistance: PGoLocationUtils.unit? = .meters) -> PGoLocationUtils.PGoCoordinate {
         
         var distanceConverted = distance
         if unitOfDistance == .miles {
@@ -236,14 +236,14 @@ open class PGoLocationUtils {
         )
     }
     
-    fileprivate func getMKMapItem(lat: Double, long: Double) -> MKMapItem {
+    fileprivate static func getMKMapItem(lat: Double, long: Double) -> MKMapItem {
         let sourceLoc2D = CLLocationCoordinate2DMake(lat, long)
         let sourcePlacemark = MKPlacemark(coordinate: sourceLoc2D, addressDictionary: nil)
         let source = MKMapItem(placemark: sourcePlacemark)
         return source
     }
     
-    open func getDirectionsFromToLocations(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, transportType: MKDirectionsTransportType? = .walking, completionHandler: @escaping (PGoLocationUtils.PGoDirections?) -> ()) {
+    open static func getDirectionsFromToLocations(startLatitude:Double, startLongitude:Double, endLatitude:Double, endLongitude: Double, transportType: MKDirectionsTransportType? = .walking, completionHandler: @escaping (PGoLocationUtils.PGoDirections?) -> ()) {
         
         /*
          
@@ -265,7 +265,7 @@ open class PGoLocationUtils {
         
         let directions = MKDirections(request: request)
         directions.calculate (completionHandler: {
-            (response: MKDirectionsResponse?, error: NSError?) in
+            (response: MKDirectionsResponse?, error: Error?) in
             if let routeResponse = response?.routes {
                 let fastestRoute: MKRoute =
                     routeResponse.sorted(by: {$0.expectedTravelTime <
@@ -293,6 +293,6 @@ open class PGoLocationUtils {
             } else {
                 completionHandler(nil)
             }
-        } as! MKDirectionsHandler)
+        })
     }
 }
