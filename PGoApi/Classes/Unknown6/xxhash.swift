@@ -35,13 +35,13 @@ open class xxhash {
             var v4: UInt32 = seed &- xxhash.PRIME32_1
             
             while index <= limit {
-                v1 = h32sub(v1, buf: input, index: index)
+                h32sub(&v1, buf: input, index: index)
                 index += 4
-                v2 = h32sub(v2, buf: input, index: index)
+                h32sub(&v2, buf: input, index: index)
                 index += 4
-                v3 = h32sub(v3, buf: input, index: index)
+                h32sub(&v3, buf: input, index: index)
                 index += 4
-                v4 = h32sub(v4, buf: input, index: index)
+                h32sub(&v4, buf: input, index: index)
                 index += 4
             }
 
@@ -156,28 +156,16 @@ open class xxhash {
         return h64
     }
     
-    fileprivate static func h32sub(_ value_: UInt32, buf: [UInt8], index: Int32) -> UInt32 {
-        var value = value_
+    fileprivate static func h32sub(_ value: inout UInt32, buf: [UInt8], index: Int32) {
         let buffer = Array(buf[Int(index)..<buf.count])
         let read_value: UInt32 = UnsafeConverter.bytesAsUInt32(buffer)
         value = value &+ read_value &* xxhash.PRIME32_2
         value = xxhash.rotl32(value, count: 13)
         value = value &* xxhash.PRIME32_1
-        return value
     }
     
     fileprivate static func rotl32(_ x: UInt32, count: UInt32) -> UInt32 {
         return x << count | x >> (32 - count)
-    }
-    
-    fileprivate static func h64sub(_ value_: UInt64, buf: [UInt8], index: Int64) -> UInt64 {
-        var value = value_
-        let buffer = Array(buf[Int(index)..<buf.count])
-        let read_value: UInt64 = UnsafeConverter.bytesAsUInt64(buffer)
-        value = value &+ read_value &* xxhash.PRIME64_2
-        value = xxhash.rotl64(value, count: 13)
-        value = value &* xxhash.PRIME64_1
-        return value
     }
     
     fileprivate static func rotl64(_ x: UInt64, count: UInt64) -> UInt64 {
