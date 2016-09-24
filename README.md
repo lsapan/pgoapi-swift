@@ -2,7 +2,7 @@
 
 This library allows you to communicate with the Pokemon GO servers as if you are a native client.
 
-For legacy Swift2.3 support, use the [Swift2.3](https://github.com/lsapan/pgoapi-swift/tree/Swift2.3). branch. For Swift 3.0 support, use the [Swift3.0 branch](https://github.com/lsapan/pgoapi-swift/tree/Swift3.0).
+For legacy Swift2.3 support, use the [Swift2.3 branch](https://github.com/lsapan/pgoapi-swift/tree/Swift2.3). For Swift 3.0 support, use the [Swift3.0 branch](https://github.com/lsapan/pgoapi-swift/tree/Swift3.0).
 
 ## Requirements
 Master branch:
