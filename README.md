@@ -11,7 +11,7 @@ Master branch:
 
 Swift3.0/Swift2.3 branch:
 - Xcode 8
-- iOS 9/OSX 10.11
+- iOS 9+/OSX 10.11+
 
 ## Features
 - [x] Authentication (both PTC and Google)
