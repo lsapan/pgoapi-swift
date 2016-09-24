@@ -38,7 +38,7 @@ public class PGoLocationUtils {
         public var duration: Double
     }
     
-    public func getAltitudeAndVerticalAccuracy(latitude latitude: Double, longitude: Double, completionHandler: (altitude: Double?, verticalAccuracy: Double?) -> ()) {
+    public func getAltitudeAndVerticalAccuracy(latitude latitude: Double, longitude: Double, completionHandler:(Double?, Double?) -> ()) {
         /*
          
          Example func for completionHandler:
@@ -62,9 +62,9 @@ public class PGoLocationUtils {
                             }
                         }
                     }
-                    completionHandler(altitude: altitude, verticalAccuracy: verticalAccuracy)
+                    completionHandler(altitude, verticalAccuracy)
                 } else {
-                    completionHandler(altitude: nil, verticalAccuracy: nil)
+                    completionHandler(nil, nil)
                 }
         }
     }
