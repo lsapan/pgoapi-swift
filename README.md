@@ -2,15 +2,22 @@
 
 This library allows you to communicate with the Pokemon GO servers as if you are a native client.
 
-For Swift 3.0 support, use the [Swift3.0 branch](https://github.com/lsapan/pgoapi-swift/tree/Swift3.0).
+For legacy Swift2.3 support, use the [Swift2.3](https://github.com/lsapan/pgoapi-swift/tree/Swift2.3). branch. For Swift 3.0 support, use the [Swift3.0 branch](https://github.com/lsapan/pgoapi-swift/tree/Swift3.0).
 
-It supports:
+## Requirements
+Master branch:
+- Xcode 7.3
+- iOS 8
 
-- Authentication (both PTC and Google)
-- Player Information
-- Map Objects and Pokemon
-- Inventory
-- and much *(much!)* more.
+Swift3.0/Swift2.3 branch:
+- Xcode 8
+- iOS 9/OSX 10.11
+
+## Features
+- [x] Authentication (both PTC and Google)
+- [x] All implemented API requests in POGOProtos (player details, inventory, map objects..)
+- [x] Platform request/unknown6 signature builder
+- [x] and much *(much!)* more.
 
 ## Installation
 The fastest way to get up and running is with CocoaPods. It isn't published in the CocoaPods repo yet due to dependency issues, but you can still easily use it by adding the following to your Podfile:
@@ -61,4 +68,4 @@ I'll add documentation on how to update the protos here later. That said, I upda
 In short: please do! The example app needs some love, and it'd be great to get that fleshed out so others can get going faster.
 
 ## Credits
-Special thanks to https://github.com/tejado/pgoapi for the python implemention as well as  https://github.com/AeonLucid/POGOProtos for specing out the protos.
+Special thanks to https://github.com/tejado/pgoapi for the python implemention as well as https://github.com/AeonLucid/POGOProtos for specing out the protos.
