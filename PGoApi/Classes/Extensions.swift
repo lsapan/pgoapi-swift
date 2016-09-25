@@ -36,7 +36,7 @@ internal extension NSData {
     }
     internal static func randomBytes(len: Int? = 32) -> NSData {
         var randomBytes = [UInt8](count: len!, repeatedValue: 0)
-        SecRandomCopyBytes(kSecRandomDefault, len!, &randomBytes)
+        _ = SecRandomCopyBytes(kSecRandomDefault, len!, &randomBytes)
         return NSData(bytes: randomBytes, length: len!)
     }
 }
