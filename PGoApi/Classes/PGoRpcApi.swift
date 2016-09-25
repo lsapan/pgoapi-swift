@@ -72,6 +72,12 @@ internal class PGoRpcApi {
         requestBuilder.longitude = self.api.Location.long
         requestBuilder.accuracy = self.api.Location.horizontalAccuracy
         
+        if auth.authToken == nil {
+            requestBuilder.authInfo = unknown6Builder!.generateAuthInfo()
+        } else {
+            requestBuilder.authTicket = auth.authToken!
+        }
+        
         self.api.debugMessage("Generating subrequests...")
         for subrequest in subrequests {
             self.api.debugMessage("Processing \(subrequest)...")
@@ -80,15 +86,7 @@ internal class PGoRpcApi {
             subrequestBuilder.requestMessage = subrequest.message.data()
             let subData = try! subrequestBuilder.build()
             requestBuilder.requests += [subData]
-            if auth.authToken != nil {
-                unknown6Builder!.requestHashes.append(unknown6Builder!.hashRequest(subData.data()))
-            }
-        }
-        
-        if auth.authToken == nil {
-            requestBuilder.authInfo = unknown6Builder!.generateAuthInfo()
-        } else {
-            requestBuilder.authTicket = auth.authToken!
+            unknown6Builder!.requestHashes.append(unknown6Builder!.hashRequest(subData.data()))
         }
         
         requestBuilder.platformRequests = [unknown6Builder!.build()]
