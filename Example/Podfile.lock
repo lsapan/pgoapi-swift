@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (3.5.0)
   - PGoApi (0.1.0):
-    - Alamofire (~> 3.5)
+    - Alamofire (~> 3.4)
     - ProtocolBuffers-Swift (~> 3.0)
   - ProtocolBuffers-Swift (3.0.0)
 
