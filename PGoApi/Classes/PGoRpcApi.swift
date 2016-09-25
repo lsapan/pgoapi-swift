@@ -96,7 +96,7 @@ internal class PGoRpcApi {
         if self.api.unknown6Settings.useLocationFix {
             requestBuilder.msSinceLastLocationfix = Int64(self.api.locationFix.timestamp)
         } else {
-            requestBuilder.msSinceLastLocationfix = Int64(UInt64.random(100, max: 300))
+            requestBuilder.msSinceLastLocationfix = Int64(UInt64.random(900, max: 1100))
         }
         
         self.api.debugMessage("Building request...")
