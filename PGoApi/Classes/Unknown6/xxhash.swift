@@ -136,7 +136,7 @@ open class xxhash {
         }
         
         while p <= (bEnd - 4) {
-            h64 ^= UnsafeConverter.bytesAsUInt64(Array(input[Int(p)..<Int(len)])) &* xxhash.PRIME64_1
+            h64 ^= UInt64(UnsafeConverter.bytesAsUInt32(Array(input[Int(p)..<Int(len)]))) &* xxhash.PRIME64_1
             h64 = xxhash.rotl64(h64, count: 23) &* xxhash.PRIME64_2 &+ xxhash.PRIME64_3
             p += 4
         }
