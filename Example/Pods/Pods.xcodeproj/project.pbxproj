@@ -197,7 +197,7 @@
 		4E0BA8E1301F8C3D8BAF319E8F08ABE5 /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE1DB4FF39849E551D5C003986B8C51 /* Pods-PGoApi_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PGoApi_Example-frameworks.sh"; sourceTree = "<group>"; };
 		510412BF690108630F6C8BB87073FCD1 /* Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Responses.PogoprotosNetworkingResponses.proto.swift; sourceTree = "<group>"; };
-		5357ABFFE739369AA85F952B262E384C /* xxhash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = xxhash.swift; path = Unknown6/xxhash.swift; sourceTree = "<group>"; };
+		5357ABFFE739369AA85F952B262E384C /* xxhash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = xxhash.swift; sourceTree = "<group>"; };
 		538B8026DF18C4B69511733F9C6AD8E6 /* Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Networking.Envelopes.PogoprotosNetworkingEnvelopes.proto.swift; sourceTree = "<group>"; };
 		53C4DCF8E557A4D94253CDD8232E3E12 /* Pogoprotos.Data.PogoprotosData.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pogoprotos.Data.PogoprotosData.proto.swift; sourceTree = "<group>"; };
 		56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PGoApi.xcconfig; sourceTree = "<group>"; };
@@ -523,21 +523,25 @@
 		8D084EA9758BF3D6639EFDFC593C5BAE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E42F90381D8A7486007EC3A9 /* Auth */,
-				E42F90391D8A74BA007EC3A9 /* Extensions */,
-				F865F63B8734B63627D74112F0624C53 /* Platform Request */,
-				B9FC247C9AD864B820DA219BD51855C8 /* Protos */,
+				19B68E4D97BF675645C1B072D0978117 /* Extensions.swift */,
 				9297DD00F583707CEEBD7FF5405998D8 /* Globals.swift */,
+				2F522690AFCA171614304483DC677669 /* GPSOAuth.swift */,
 				91386F673C09BA76A94EAAF865E48412 /* PGoApiDelegate.swift */,
 				A2375DEC62741D25CCC5D70F533415DC /* PGoApiRequest.swift */,
 				F4F5F9C586BEC2A9CF043172961D62A3 /* PGoApiResponse.swift */,
+				8F4D919F53853AD674387001DD11DD37 /* PGoAuth.swift */,
+				36231CEAAD242ECEE0771D883D1B2798 /* PGoAuthDelegate.swift */,
 				8C3BFCB62F8DC943C1D91AEAB009CA3C /* PGoRpcApi.swift */,
 				AE1A74EBE1FFB1EC159BF228F7743A94 /* PGoUtils.swift */,
+				682A83FE475110D6F8755CC78BCE1EE5 /* PtcOAuth.swift */,
+				1FEFEA0A0CD526573BEA604C7063D430 /* S2Geometry.swift */,
+				B9FC247C9AD864B820DA219BD51855C8 /* protos */,
+				F865F63B8734B63627D74112F0624C53 /* Unknown6 */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		B9FC247C9AD864B820DA219BD51855C8 /* Protos */ = {
+		B9FC247C9AD864B820DA219BD51855C8 /* protos */ = {
 			isa = PBXGroup;
 			children = (
 				9034FAEF662BB373AD04E93779EA6F76 /* Pogoprotos.swift */,
@@ -565,7 +569,6 @@
 				3F3ADDC51B80441E94976F0156C8E32E /* Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemon.proto.swift */,
 				EC392A2ABB4FE1261A91031C5B70C853 /* Pogoprotos.Settings.PogoprotosSettings.proto.swift */,
 			);
-			name = Protos;
 			path = protos;
 			sourceTree = "<group>";
 		};
@@ -607,9 +610,11 @@
 			path = "../Target Support Files/Alamofire";
 			sourceTree = "<group>";
 		};
-		E42F90371D8A397B007EC3A9 /* Shuffler */ = {
+		F865F63B8734B63627D74112F0624C53 /* Unknown6 */ = {
 			isa = PBXGroup;
 			children = (
+				F188510B8688BDB9922CABDC2D776EB0 /* PGoEncrypt.swift */,
+				F9B0E84802842380FA48C7151D708254 /* PGoEncryptHelper.swift */,
 				2AEA40408A3FAE14B1777CB48074FC04 /* subFuncA.swift */,
 				39E48B9B1CAF3A73424C6776DACFA4ED /* subFuncB.swift */,
 				4D52FEBBD1801C0334E14530BB77E224 /* subFuncC.swift */,
@@ -623,48 +628,9 @@
 				1B5E87D20EE278C88D648147EA97510D /* subFuncK.swift */,
 				4C64F6BC38FFF1EFBF06277B425CB671 /* subFuncL.swift */,
 				712FB617E1B24B4CC025F9266FE2C81A /* subFuncM.swift */,
-			);
-			name = Shuffler;
-			sourceTree = "<group>";
-		};
-		E42F90381D8A7486007EC3A9 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				8F4D919F53853AD674387001DD11DD37 /* PGoAuth.swift */,
-				36231CEAAD242ECEE0771D883D1B2798 /* PGoAuthDelegate.swift */,
-				2F522690AFCA171614304483DC677669 /* GPSOAuth.swift */,
-				682A83FE475110D6F8755CC78BCE1EE5 /* PtcOAuth.swift */,
-			);
-			name = Auth;
-			sourceTree = "<group>";
-		};
-		E42F90391D8A74BA007EC3A9 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				19B68E4D97BF675645C1B072D0978117 /* Extensions.swift */,
-				1FEFEA0A0CD526573BEA604C7063D430 /* S2Geometry.swift */,
+				91474AADFB132CC2945D924F3EFDF7A8 /* Unknown6Builder.swift */,
 				5357ABFFE739369AA85F952B262E384C /* xxhash.swift */,
 			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
-		E42F903A1D8A7529007EC3A9 /* Encryption */ = {
-			isa = PBXGroup;
-			children = (
-				E42F90371D8A397B007EC3A9 /* Shuffler */,
-				F188510B8688BDB9922CABDC2D776EB0 /* PGoEncrypt.swift */,
-				F9B0E84802842380FA48C7151D708254 /* PGoEncryptHelper.swift */,
-			);
-			name = Encryption;
-			sourceTree = "<group>";
-		};
-		F865F63B8734B63627D74112F0624C53 /* Platform Request */ = {
-			isa = PBXGroup;
-			children = (
-				E42F903A1D8A7529007EC3A9 /* Encryption */,
-				91474AADFB132CC2945D924F3EFDF7A8 /* Unknown6Builder.swift */,
-			);
-			name = "Platform Request";
 			path = Unknown6;
 			sourceTree = "<group>";
 		};
@@ -1030,7 +996,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1080,6 +1046,38 @@
 			};
 			name = Release;
 		};
+		228320EF2E79196DF54FB3E60E866641 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = PGoApi;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		4B4A22A6594901B45B730A89F12E7063 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D8900689A0054385392A47A6A4C686FC /* Pods-PGoApi_Example.release.xcconfig */;
@@ -1107,38 +1105,6 @@
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pods_PGoApi_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4DE84B34A956473E80F6BA0FA627B4B0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = PGoApi;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1192,7 +1158,7 @@
 			};
 			name = Debug;
 		};
-		80CC0FB2AACAC94F284E9098D8CE1604 /* Debug */ = {
+		7F93EF234CD87F7448472375CC1EFA96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D63D9F198FB8ACEC7E7F4B39DF9EA715 /* Alamofire.xcconfig */;
 			buildSettings = {
@@ -1215,39 +1181,6 @@
 				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		B314F606B188B17D40FE454A93D59CC8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = PGoApi;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1316,7 +1249,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1331,7 +1264,40 @@
 			};
 			name = Debug;
 		};
-		D3BC71B0DDC3EF42083161F6DD8650F9 /* Release */ = {
+		C688744F631D0693196026688DFE939D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56E4DB906F744B2DABD8FAED5A27D8B0 /* PGoApi.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PGoApi/PGoApi-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PGoApi/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PGoApi/PGoApi.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = PGoApi;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DDA5A606A0B7062DEA5E47CD9FA65A3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D63D9F198FB8ACEC7E7F4B39DF9EA715 /* Alamofire.xcconfig */;
 			buildSettings = {
@@ -1451,8 +1417,8 @@
 		3CFB42910790CF0BDBCCEBAACD6B9367 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				80CC0FB2AACAC94F284E9098D8CE1604 /* Debug */,
-				D3BC71B0DDC3EF42083161F6DD8650F9 /* Release */,
+				7F93EF234CD87F7448472375CC1EFA96 /* Debug */,
+				DDA5A606A0B7062DEA5E47CD9FA65A3D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1478,8 +1444,8 @@
 		B0701305CABD893D97A4B521CEEF4B57 /* Build configuration list for PBXNativeTarget "PGoApi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B314F606B188B17D40FE454A93D59CC8 /* Debug */,
-				4DE84B34A956473E80F6BA0FA627B4B0 /* Release */,
+				C688744F631D0693196026688DFE939D /* Debug */,
+				228320EF2E79196DF54FB3E60E866641 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
