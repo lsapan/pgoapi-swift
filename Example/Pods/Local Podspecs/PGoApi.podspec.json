@@ -16,13 +16,13 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0",
+    "ios": "9.0",
     "osx": "10.11"
   },
   "source_files": "PGoApi/Classes/**/*",
   "dependencies": {
     "Alamofire": [
-      "~> 3.4"
+      "~> 4.0"
     ],
     "ProtocolBuffers-Swift": [
       "~> 3.0"
