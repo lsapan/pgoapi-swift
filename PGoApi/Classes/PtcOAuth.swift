@@ -24,9 +24,32 @@ open class PtcOAuth: PGoAuth {
     open var manager: SessionManager
     open var banned: Bool = false
     
-    public init() {
+    public init(proxyHost: String? = nil, proxyPort: String? = nil) {
         let configuration = URLSessionConfiguration.default
+        if proxyHost != nil && proxyPort != nil {
+            var proxyConfiguration = [NSObject: Any]()
+            proxyConfiguration[kCFNetworkProxiesHTTPProxy] = proxyHost!
+            proxyConfiguration[kCFNetworkProxiesHTTPPort] = proxyPort!
+            proxyConfiguration[kCFNetworkProxiesHTTPEnable] = 1
+            configuration.connectionProxyDictionary = proxyConfiguration
+        }
         manager = Alamofire.SessionManager(configuration: configuration)
+    }
+    
+    public func disableProxy() {
+        var proxy = manager.session.configuration.connectionProxyDictionary
+        proxy?[kCFNetworkProxiesHTTPEnable as AnyHashable] = 0
+        manager.session.configuration.connectionProxyDictionary = proxy
+    }
+    
+    public func enableProxy(proxyHost: String? = nil, proxyPort: String? = nil) {
+        var proxy = manager.session.configuration.connectionProxyDictionary
+        proxy?[kCFNetworkProxiesHTTPEnable as AnyHashable] = 1
+        if proxyHost != nil && proxyPort != nil {
+            proxy?[kCFNetworkProxiesHTTPProxy as AnyHashable] = proxyHost!
+            proxy?[kCFNetworkProxiesHTTPPort as AnyHashable] = proxyPort!
+        }
+        manager.session.configuration.connectionProxyDictionary = proxy
     }
     
     fileprivate func getTicket(lt: String, execution: String) {
