@@ -60,6 +60,7 @@ internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
     internal var useResponseObjects: Bool = false
     internal var showMessages: Bool = true
+    internal var checkChallenge: Bool = true
 }
 
 internal struct platformRequestSettings {
@@ -191,6 +192,10 @@ open class PGoApiRequest {
             return
         }
         
+        if ApiSettings.checkChallenge {
+            checkChallenge(debug: true)
+        }
+        
         let request = PGoRpcApi(subrequests: methodList, intent: intent, auth: self.auth!, api: self, delegate: delegate)
         request.request()
         methodList.removeAll()
@@ -206,10 +211,11 @@ open class PGoApiRequest {
         Location.floor = floor
     }
     
-    open func setApiSettings(refreshAuthTokens: Bool? = true, useResponseObjects: Bool? = false, showMessages: Bool? = true) {
+    open func setApiSettings(refreshAuthTokens: Bool? = true, useResponseObjects: Bool? = false, showMessages: Bool? = true, checkChallenge: Bool? = true) {
         ApiSettings.refreshAuthTokens = refreshAuthTokens!
         ApiSettings.useResponseObjects = useResponseObjects!
         ApiSettings.showMessages = showMessages!
+        ApiSettings.checkChallenge = checkChallenge!
     }
     
     open func setPlatformRequestSettings(useActivityStatus: Bool? = true, useDeviceInfo: Bool? = true, useSensorInfo: Bool? = true, useLocationFix: Bool? = true) {

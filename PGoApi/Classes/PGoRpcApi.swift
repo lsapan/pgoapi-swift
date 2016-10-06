@@ -268,6 +268,12 @@ internal class PGoRpcApi {
                 }
                 setResponseObject(subrequest.id, parsedData: parsedData)
             }
+            if subrequest.id == .checkChallenge {
+                if (parsedData as! Pogoprotos.Networking.Responses.CheckChallengeResponse).hasShowChallenge {
+                    self.api.debugMessage("Warning! Captcha is required.")
+                    self.delegate?.didReceiveApiException(intent, exception: .captchaRequired)
+                }
+            }
         }
         return subresponses
     }

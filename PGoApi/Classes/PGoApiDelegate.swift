@@ -25,4 +25,5 @@ public enum PGoApiExceptions {
     case invalidRequest
     case sessionInvalidated
     case unknown
+    case captchaRequired
 }
