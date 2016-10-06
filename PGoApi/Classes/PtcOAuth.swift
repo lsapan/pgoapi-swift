@@ -24,13 +24,13 @@ open class PtcOAuth: PGoAuth {
     open var manager: SessionManager
     open var banned: Bool = false
     
-    public init(proxyHost: String? = nil, proxyPort: String? = nil) {
+    public init(proxyHost: String? = nil, proxyPort: Int? = nil) {
         let configuration = URLSessionConfiguration.default
         if proxyHost != nil && proxyPort != nil {
             var proxyConfiguration = [NSObject: Any]()
             proxyConfiguration[kCFNetworkProxiesHTTPProxy] = proxyHost!
             proxyConfiguration[kCFNetworkProxiesHTTPPort] = proxyPort!
-            proxyConfiguration[kCFNetworkProxiesHTTPEnable] = 1
+            proxyConfiguration[kCFNetworkProxiesHTTPEnable] = true
             configuration.connectionProxyDictionary = proxyConfiguration
         }
         manager = Alamofire.SessionManager(configuration: configuration)
@@ -38,13 +38,13 @@ open class PtcOAuth: PGoAuth {
     
     public func disableProxy() {
         var proxy = manager.session.configuration.connectionProxyDictionary
-        proxy?[kCFNetworkProxiesHTTPEnable as AnyHashable] = 0
+        proxy?[kCFNetworkProxiesHTTPEnable as AnyHashable] = false
         manager.session.configuration.connectionProxyDictionary = proxy
     }
     
-    public func enableProxy(proxyHost: String? = nil, proxyPort: String? = nil) {
+    public func enableProxy(proxyHost: String? = nil, proxyPort: Int? = nil) {
         var proxy = manager.session.configuration.connectionProxyDictionary
-        proxy?[kCFNetworkProxiesHTTPEnable as AnyHashable] = 1
+        proxy?[kCFNetworkProxiesHTTPEnable as AnyHashable] = true
         if proxyHost != nil && proxyPort != nil {
             proxy?[kCFNetworkProxiesHTTPProxy as AnyHashable] = proxyHost!
             proxy?[kCFNetworkProxiesHTTPPort as AnyHashable] = proxyPort!
