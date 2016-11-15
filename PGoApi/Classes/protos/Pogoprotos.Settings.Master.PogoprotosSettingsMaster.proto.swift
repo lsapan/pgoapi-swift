@@ -14,6 +14,7 @@ public func == (lhs: Pogoprotos.Settings.Master.BadgeSettings, rhs: Pogoprotos.S
   fieldCheck = fieldCheck && (lhs.hasBadgeType == rhs.hasBadgeType) && (!lhs.hasBadgeType || lhs.badgeType == rhs.badgeType)
   fieldCheck = fieldCheck && (lhs.hasBadgeRank == rhs.hasBadgeRank) && (!lhs.hasBadgeRank || lhs.badgeRank == rhs.badgeRank)
   fieldCheck = fieldCheck && (lhs.targets == rhs.targets)
+  fieldCheck = fieldCheck && (lhs.captureReward == rhs.captureReward)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -236,6 +237,7 @@ public func == (lhs: Pogoprotos.Settings.Master.PokemonSettings, rhs: Pogoprotos
   fieldCheck = fieldCheck && (lhs.hasCandyToEvolve == rhs.hasCandyToEvolve) && (!lhs.hasCandyToEvolve || lhs.candyToEvolve == rhs.candyToEvolve)
   fieldCheck = fieldCheck && (lhs.hasKmBuddyDistance == rhs.hasKmBuddyDistance) && (!lhs.hasKmBuddyDistance || lhs.kmBuddyDistance == rhs.kmBuddyDistance)
   fieldCheck = fieldCheck && (lhs.hasBuddySize == rhs.hasBuddySize) && (!lhs.hasBuddySize || lhs.buddySize == rhs.buddySize)
+  fieldCheck = fieldCheck && (lhs.hasModelHeight == rhs.hasModelHeight) && (!lhs.hasModelHeight || lhs.modelHeight == rhs.modelHeight)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -249,6 +251,17 @@ public func == (lhs: Pogoprotos.Settings.Master.PokemonUpgradeSettings, rhs: Pog
   fieldCheck = fieldCheck && (lhs.hasAllowedLevelsAbovePlayer == rhs.hasAllowedLevelsAbovePlayer) && (!lhs.hasAllowedLevelsAbovePlayer || lhs.allowedLevelsAbovePlayer == rhs.allowedLevelsAbovePlayer)
   fieldCheck = fieldCheck && (lhs.candyCost == rhs.candyCost)
   fieldCheck = fieldCheck && (lhs.stardustCost == rhs.stardustCost)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Settings.Master.QuestSettings, rhs: Pogoprotos.Settings.Master.QuestSettings) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasQuestType == rhs.hasQuestType) && (!lhs.hasQuestType || lhs.questType == rhs.questType)
+  fieldCheck = fieldCheck && (lhs.hasDailyQuest == rhs.hasDailyQuest) && (!lhs.hasDailyQuest || lhs.dailyQuest == rhs.dailyQuest)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -278,9 +291,11 @@ public extension Pogoprotos.Settings.Master {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(registry: extensionRegistry)
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.Badge.PogoprotosDataBadgeRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
       Pogoprotos.Inventory.Item.PogoprotosInventoryItemRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
       Pogoprotos.Settings.Master.Item.PogoprotosSettingsMasterItemRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
       Pogoprotos.Settings.Master.Pokemon.PogoprotosSettingsMasterPokemonRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Settings.Master.Quest.PogoprotosSettingsMasterQuestRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
     public func registerAllExtensions(registry: ExtensionRegistry) {
     }
@@ -294,6 +309,7 @@ public extension Pogoprotos.Settings.Master {
 
     public fileprivate(set) var targets:Array<Int32> = Array<Int32>()
     private var targetsMemoizedSerializedSize:Int32 = -1
+    public fileprivate(set) var captureReward:Array<Pogoprotos.Data.Badge.BadgeCaptureReward>  = Array<Pogoprotos.Data.Badge.BadgeCaptureReward>()
     required public init() {
          super.init()
     }
@@ -313,6 +329,9 @@ public extension Pogoprotos.Settings.Master {
         for oneValuetargets in targets {
           try codedOutputStream.writeInt32NoTag(value: oneValuetargets)
         }
+      }
+      for oneElementCaptureReward in captureReward {
+          try codedOutputStream.writeMessage(fieldNumber: 4, value:oneElementCaptureReward)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -339,6 +358,9 @@ public extension Pogoprotos.Settings.Master {
         serialize_size += dataSizeTargets.computeInt32SizeNoTag()
       }
       targetsMemoizedSerializedSize = dataSizeTargets
+      for oneElementCaptureReward in captureReward {
+          serialize_size += oneElementCaptureReward.computeMessageSize(fieldNumber: 4)
+      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -380,6 +402,14 @@ public extension Pogoprotos.Settings.Master {
           }
         jsonMap["targets"] = jsonArrayTargets
       }
+      if !captureReward.isEmpty {
+        var jsonArrayCaptureReward:Array<Dictionary<String,Any>> = []
+          for oneValueCaptureReward in captureReward {
+            let ecodedMessageCaptureReward = try oneValueCaptureReward.encode()
+            jsonArrayCaptureReward.append(ecodedMessageCaptureReward)
+          }
+        jsonMap["captureReward"] = jsonArrayCaptureReward
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.Master.BadgeSettings {
@@ -401,6 +431,13 @@ public extension Pogoprotos.Settings.Master {
           output += "\(indent) targets[\(targetsElementIndex)]: \(oneValueTargets)\n"
           targetsElementIndex += 1
       }
+      var captureRewardElementIndex:Int = 0
+      for oneElementCaptureReward in captureReward {
+          output += "\(indent) captureReward[\(captureRewardElementIndex)] {\n"
+          output += try oneElementCaptureReward.getDescription(indent: "\(indent)  ")
+          output += "\(indent)}\n"
+          captureRewardElementIndex += 1
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -415,6 +452,9 @@ public extension Pogoprotos.Settings.Master {
             }
             for oneValueTargets in targets {
                 hashCode = (hashCode &* 31) &+ oneValueTargets.hashValue
+            }
+            for oneElementCaptureReward in captureReward {
+                hashCode = (hashCode &* 31) &+ oneElementCaptureReward.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -433,7 +473,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.BadgeSettings = Pogoprotos.Settings.Master.BadgeSettings()
+      private var builderResult:Pogoprotos.Settings.Master.BadgeSettings = Pogoprotos.Settings.Master.BadgeSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.BadgeSettings {
           return builderResult
       }
@@ -503,6 +543,22 @@ public extension Pogoprotos.Settings.Master {
          builderResult.targets.removeAll(keepingCapacity: false)
          return self
       }
+      public var captureReward:Array<Pogoprotos.Data.Badge.BadgeCaptureReward> {
+           get {
+               return builderResult.captureReward
+           }
+           set (value) {
+               builderResult.captureReward = value
+           }
+      }
+      public func setCaptureReward(_ value:Array<Pogoprotos.Data.Badge.BadgeCaptureReward>) -> Pogoprotos.Settings.Master.BadgeSettings.Builder {
+        self.captureReward = value
+        return self
+      }
+      public func clearCaptureReward() -> Pogoprotos.Settings.Master.BadgeSettings.Builder {
+        builderResult.captureReward.removeAll(keepingCapacity: false)
+        return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -535,6 +591,9 @@ public extension Pogoprotos.Settings.Master {
         }
         if !other.targets.isEmpty {
             builderResult.targets += other.targets
+        }
+        if !other.captureReward.isEmpty  {
+           builderResult.captureReward += other.captureReward
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -570,6 +629,11 @@ public extension Pogoprotos.Settings.Master {
             }
             codedInputStream.popLimit(oldLimit: limit)
 
+          case 34:
+            let subBuilder = Pogoprotos.Data.Badge.BadgeCaptureReward.Builder()
+            try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
+            captureReward.append(subBuilder.buildPartial())
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -592,6 +656,15 @@ public extension Pogoprotos.Settings.Master {
             jsonArrayTargets.append(oneValueTargets.int32Value)
           }
           resultDecodedBuilder.targets = jsonArrayTargets
+        }
+        if let jsonValueCaptureReward = jsonMap["captureReward"] as? Array<Dictionary<String,Any>> {
+          var jsonArrayCaptureReward:Array<Pogoprotos.Data.Badge.BadgeCaptureReward> = []
+          for oneValueCaptureReward in jsonValueCaptureReward {
+            let messageFromStringCaptureReward = try Pogoprotos.Data.Badge.BadgeCaptureReward.Builder.decodeToBuilder(jsonMap:oneValueCaptureReward).build()
+
+            jsonArrayCaptureReward.append(messageFromStringCaptureReward)
+          }
+          resultDecodedBuilder.captureReward = jsonArrayCaptureReward
         }
         return resultDecodedBuilder
       }
@@ -1170,7 +1243,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.CameraSettings = Pogoprotos.Settings.Master.CameraSettings()
+      private var builderResult:Pogoprotos.Settings.Master.CameraSettings = Pogoprotos.Settings.Master.CameraSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.CameraSettings {
           return builderResult
       }
@@ -1952,7 +2025,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.EncounterSettings = Pogoprotos.Settings.Master.EncounterSettings()
+      private var builderResult:Pogoprotos.Settings.Master.EncounterSettings = Pogoprotos.Settings.Master.EncounterSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.EncounterSettings {
           return builderResult
       }
@@ -2342,7 +2415,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.EquippedBadgeSettings = Pogoprotos.Settings.Master.EquippedBadgeSettings()
+      private var builderResult:Pogoprotos.Settings.Master.EquippedBadgeSettings = Pogoprotos.Settings.Master.EquippedBadgeSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.EquippedBadgeSettings {
           return builderResult
       }
@@ -2860,7 +2933,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.GymBattleSettings = Pogoprotos.Settings.Master.GymBattleSettings()
+      private var builderResult:Pogoprotos.Settings.Master.GymBattleSettings = Pogoprotos.Settings.Master.GymBattleSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.GymBattleSettings {
           return builderResult
       }
@@ -3624,7 +3697,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.GymLevelSettings = Pogoprotos.Settings.Master.GymLevelSettings()
+      private var builderResult:Pogoprotos.Settings.Master.GymLevelSettings = Pogoprotos.Settings.Master.GymLevelSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.GymLevelSettings {
           return builderResult
       }
@@ -4021,7 +4094,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.IapItemDisplay = Pogoprotos.Settings.Master.IapItemDisplay()
+      private var builderResult:Pogoprotos.Settings.Master.IapItemDisplay = Pogoprotos.Settings.Master.IapItemDisplay()
       public func getMessage() -> Pogoprotos.Settings.Master.IapItemDisplay {
           return builderResult
       }
@@ -4486,7 +4559,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.IapSettings = Pogoprotos.Settings.Master.IapSettings()
+      private var builderResult:Pogoprotos.Settings.Master.IapSettings = Pogoprotos.Settings.Master.IapSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.IapSettings {
           return builderResult
       }
@@ -5190,7 +5263,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.ItemSettings = Pogoprotos.Settings.Master.ItemSettings()
+      private var builderResult:Pogoprotos.Settings.Master.ItemSettings = Pogoprotos.Settings.Master.ItemSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.ItemSettings {
           return builderResult
       }
@@ -5330,7 +5403,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.pokeball = value
            }
       }
-      fileprivate var pokeballBuilder_:Pogoprotos.Settings.Master.Item.PokeballAttributes.Builder! {
+      private var pokeballBuilder_:Pogoprotos.Settings.Master.Item.PokeballAttributes.Builder! {
            didSet {
               builderResult.hasPokeball = true
            }
@@ -5381,7 +5454,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.potion = value
            }
       }
-      fileprivate var potionBuilder_:Pogoprotos.Settings.Master.Item.PotionAttributes.Builder! {
+      private var potionBuilder_:Pogoprotos.Settings.Master.Item.PotionAttributes.Builder! {
            didSet {
               builderResult.hasPotion = true
            }
@@ -5432,7 +5505,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.revive = value
            }
       }
-      fileprivate var reviveBuilder_:Pogoprotos.Settings.Master.Item.ReviveAttributes.Builder! {
+      private var reviveBuilder_:Pogoprotos.Settings.Master.Item.ReviveAttributes.Builder! {
            didSet {
               builderResult.hasRevive = true
            }
@@ -5483,7 +5556,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.battle = value
            }
       }
-      fileprivate var battleBuilder_:Pogoprotos.Settings.Master.Item.BattleAttributes.Builder! {
+      private var battleBuilder_:Pogoprotos.Settings.Master.Item.BattleAttributes.Builder! {
            didSet {
               builderResult.hasBattle = true
            }
@@ -5534,7 +5607,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.food = value
            }
       }
-      fileprivate var foodBuilder_:Pogoprotos.Settings.Master.Item.FoodAttributes.Builder! {
+      private var foodBuilder_:Pogoprotos.Settings.Master.Item.FoodAttributes.Builder! {
            didSet {
               builderResult.hasFood = true
            }
@@ -5585,7 +5658,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.inventoryUpgrade = value
            }
       }
-      fileprivate var inventoryUpgradeBuilder_:Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes.Builder! {
+      private var inventoryUpgradeBuilder_:Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes.Builder! {
            didSet {
               builderResult.hasInventoryUpgrade = true
            }
@@ -5636,7 +5709,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.xpBoost = value
            }
       }
-      fileprivate var xpBoostBuilder_:Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes.Builder! {
+      private var xpBoostBuilder_:Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes.Builder! {
            didSet {
               builderResult.hasXpBoost = true
            }
@@ -5687,7 +5760,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.incense = value
            }
       }
-      fileprivate var incenseBuilder_:Pogoprotos.Settings.Master.Item.IncenseAttributes.Builder! {
+      private var incenseBuilder_:Pogoprotos.Settings.Master.Item.IncenseAttributes.Builder! {
            didSet {
               builderResult.hasIncense = true
            }
@@ -5738,7 +5811,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.eggIncubator = value
            }
       }
-      fileprivate var eggIncubatorBuilder_:Pogoprotos.Settings.Master.Item.EggIncubatorAttributes.Builder! {
+      private var eggIncubatorBuilder_:Pogoprotos.Settings.Master.Item.EggIncubatorAttributes.Builder! {
            didSet {
               builderResult.hasEggIncubator = true
            }
@@ -5789,7 +5862,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.fortModifier = value
            }
       }
-      fileprivate var fortModifierBuilder_:Pogoprotos.Settings.Master.Item.FortModifierAttributes.Builder! {
+      private var fortModifierBuilder_:Pogoprotos.Settings.Master.Item.FortModifierAttributes.Builder! {
            didSet {
               builderResult.hasFortModifier = true
            }
@@ -6196,7 +6269,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.MoveSequenceSettings = Pogoprotos.Settings.Master.MoveSequenceSettings()
+      private var builderResult:Pogoprotos.Settings.Master.MoveSequenceSettings = Pogoprotos.Settings.Master.MoveSequenceSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.MoveSequenceSettings {
           return builderResult
       }
@@ -6637,7 +6710,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.MoveSettings = Pogoprotos.Settings.Master.MoveSettings()
+      private var builderResult:Pogoprotos.Settings.Master.MoveSettings = Pogoprotos.Settings.Master.MoveSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.MoveSettings {
           return builderResult
       }
@@ -7411,7 +7484,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.PlayerLevelSettings = Pogoprotos.Settings.Master.PlayerLevelSettings()
+      private var builderResult:Pogoprotos.Settings.Master.PlayerLevelSettings = Pogoprotos.Settings.Master.PlayerLevelSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.PlayerLevelSettings {
           return builderResult
       }
@@ -7743,6 +7816,9 @@ public extension Pogoprotos.Settings.Master {
 
     public fileprivate(set) var buddySize:Pogoprotos.Settings.Master.PokemonSettings.BuddySize = Pogoprotos.Settings.Master.PokemonSettings.BuddySize.buddyMedium
     public fileprivate(set) var hasBuddySize:Bool = false
+    public fileprivate(set) var modelHeight:Float = Float(0)
+    public fileprivate(set) var hasModelHeight:Bool = false
+
     required public init() {
          super.init()
     }
@@ -7822,6 +7898,9 @@ public extension Pogoprotos.Settings.Master {
       }
       if hasBuddySize {
         try codedOutputStream.writeEnum(fieldNumber: 24, value:buddySize.rawValue)
+      }
+      if hasModelHeight {
+        try codedOutputStream.writeFloat(fieldNumber: 25, value:modelHeight)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -7920,6 +7999,9 @@ public extension Pogoprotos.Settings.Master {
       }
       if (hasBuddySize) {
         serialize_size += buddySize.rawValue.computeEnumSize(fieldNumber: 24)
+      }
+      if hasModelHeight {
+        serialize_size += modelHeight.computeFloatSize(fieldNumber: 25)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -8034,6 +8116,9 @@ public extension Pogoprotos.Settings.Master {
       if hasBuddySize {
         jsonMap["buddySize"] = buddySize.toString()
       }
+      if hasModelHeight {
+        jsonMap["modelHeight"] = NSNumber(value:modelHeight)
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.Master.PokemonSettings {
@@ -8133,6 +8218,9 @@ public extension Pogoprotos.Settings.Master {
       if (hasBuddySize) {
         output += "\(indent) buddySize: \(buddySize.description)\n"
       }
+      if hasModelHeight {
+        output += "\(indent) modelHeight: \(modelHeight) \n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -8214,6 +8302,9 @@ public extension Pogoprotos.Settings.Master {
             if hasBuddySize {
                hashCode = (hashCode &* 31) &+ Int(buddySize.rawValue)
             }
+            if hasModelHeight {
+               hashCode = (hashCode &* 31) &+ modelHeight.hashValue
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -8231,7 +8322,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.PokemonSettings = Pogoprotos.Settings.Master.PokemonSettings()
+      private var builderResult:Pogoprotos.Settings.Master.PokemonSettings = Pogoprotos.Settings.Master.PokemonSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.PokemonSettings {
           return builderResult
       }
@@ -8348,7 +8439,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.camera = value
            }
       }
-      fileprivate var cameraBuilder_:Pogoprotos.Settings.Master.Pokemon.CameraAttributes.Builder! {
+      private var cameraBuilder_:Pogoprotos.Settings.Master.Pokemon.CameraAttributes.Builder! {
            didSet {
               builderResult.hasCamera = true
            }
@@ -8399,7 +8490,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.encounter = value
            }
       }
-      fileprivate var encounterBuilder_:Pogoprotos.Settings.Master.Pokemon.EncounterAttributes.Builder! {
+      private var encounterBuilder_:Pogoprotos.Settings.Master.Pokemon.EncounterAttributes.Builder! {
            didSet {
               builderResult.hasEncounter = true
            }
@@ -8450,7 +8541,7 @@ public extension Pogoprotos.Settings.Master {
                builderResult.stats = value
            }
       }
-      fileprivate var statsBuilder_:Pogoprotos.Settings.Master.Pokemon.StatsAttributes.Builder! {
+      private var statsBuilder_:Pogoprotos.Settings.Master.Pokemon.StatsAttributes.Builder! {
            didSet {
               builderResult.hasStats = true
            }
@@ -8824,6 +8915,29 @@ public extension Pogoprotos.Settings.Master {
            builderResult.buddySize = .buddyMedium
            return self
         }
+      public var hasModelHeight:Bool {
+           get {
+                return builderResult.hasModelHeight
+           }
+      }
+      public var modelHeight:Float {
+           get {
+                return builderResult.modelHeight
+           }
+           set (value) {
+               builderResult.hasModelHeight = true
+               builderResult.modelHeight = value
+           }
+      }
+      public func setModelHeight(_ value:Float) -> Pogoprotos.Settings.Master.PokemonSettings.Builder {
+        self.modelHeight = value
+        return self
+      }
+      public func clearModelHeight() -> Pogoprotos.Settings.Master.PokemonSettings.Builder{
+           builderResult.hasModelHeight = false
+           builderResult.modelHeight = Float(0)
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -8916,6 +9030,9 @@ public extension Pogoprotos.Settings.Master {
         }
         if other.hasBuddySize {
              buddySize = other.buddySize
+        }
+        if other.hasModelHeight {
+             modelHeight = other.modelHeight
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -9071,6 +9188,9 @@ public extension Pogoprotos.Settings.Master {
                  _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 24, value:Int64(valueIntbuddySize))
             }
 
+          case 205:
+            modelHeight = try codedInputStream.readFloat()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -9171,6 +9291,9 @@ public extension Pogoprotos.Settings.Master {
         }
         if let jsonValueBuddySize = jsonMap["buddySize"] as? String {
           resultDecodedBuilder.buddySize = try Pogoprotos.Settings.Master.PokemonSettings.BuddySize.fromString(str: jsonValueBuddySize)
+        }
+        if let jsonValueModelHeight = jsonMap["modelHeight"] as? NSNumber {
+          resultDecodedBuilder.modelHeight = jsonValueModelHeight.floatValue
         }
         return resultDecodedBuilder
       }
@@ -9367,7 +9490,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.PokemonUpgradeSettings = Pogoprotos.Settings.Master.PokemonUpgradeSettings()
+      private var builderResult:Pogoprotos.Settings.Master.PokemonUpgradeSettings = Pogoprotos.Settings.Master.PokemonUpgradeSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.PokemonUpgradeSettings {
           return builderResult
       }
@@ -9569,6 +9692,299 @@ public extension Pogoprotos.Settings.Master {
 
   }
 
+  final public class QuestSettings : GeneratedMessage {
+    public fileprivate(set) var questType:Pogoprotos.Enums.QuestType = Pogoprotos.Enums.QuestType.questUnknownType
+    public fileprivate(set) var hasQuestType:Bool = false
+    public fileprivate(set) var dailyQuest:Pogoprotos.Settings.Master.Quest.DailyQuestSettings!
+    public fileprivate(set) var hasDailyQuest:Bool = false
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if hasQuestType {
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:questType.rawValue)
+      }
+      if hasDailyQuest {
+        try codedOutputStream.writeMessage(fieldNumber: 2, value:dailyQuest)
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if (hasQuestType) {
+        serialize_size += questType.rawValue.computeEnumSize(fieldNumber: 1)
+      }
+      if hasDailyQuest {
+          if let varSizedailyQuest = dailyQuest?.computeMessageSize(fieldNumber: 2) {
+              serialize_size += varSizedailyQuest
+          }
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+      return Pogoprotos.Settings.Master.QuestSettings.classBuilder() as! Pogoprotos.Settings.Master.QuestSettings.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+      return classBuilder() as! Pogoprotos.Settings.Master.QuestSettings.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.Master.QuestSettings.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.Master.QuestSettings.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+      return try Pogoprotos.Settings.Master.QuestSettings.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Settings.Master.QuestSettings) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+      return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if hasQuestType {
+        jsonMap["questType"] = questType.toString()
+      }
+      if hasDailyQuest {
+        jsonMap["dailyQuest"] = try dailyQuest.encode()
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.Master.QuestSettings {
+      return try Pogoprotos.Settings.Master.QuestSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Settings.Master.QuestSettings {
+      return try Pogoprotos.Settings.Master.QuestSettings.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if (hasQuestType) {
+        output += "\(indent) questType: \(questType.description)\n"
+      }
+      if hasDailyQuest {
+        output += "\(indent) dailyQuest {\n"
+        if let outDescDailyQuest = dailyQuest {
+          output += try outDescDailyQuest.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasQuestType {
+               hashCode = (hashCode &* 31) &+ Int(questType.rawValue)
+            }
+            if hasDailyQuest {
+                if let hashValuedailyQuest = dailyQuest?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuedailyQuest
+                }
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Settings.Master.QuestSettings"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Settings.Master.QuestSettings"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Settings.Master.QuestSettings = Pogoprotos.Settings.Master.QuestSettings()
+      public func getMessage() -> Pogoprotos.Settings.Master.QuestSettings {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+        public var hasQuestType:Bool{
+            get {
+                return builderResult.hasQuestType
+            }
+        }
+        public var questType:Pogoprotos.Enums.QuestType {
+            get {
+                return builderResult.questType
+            }
+            set (value) {
+                builderResult.hasQuestType = true
+                builderResult.questType = value
+            }
+        }
+        public func setQuestType(_ value:Pogoprotos.Enums.QuestType) -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+          self.questType = value
+          return self
+        }
+        public func clearQuestType() -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+           builderResult.hasQuestType = false
+           builderResult.questType = .questUnknownType
+           return self
+        }
+      public var hasDailyQuest:Bool {
+           get {
+               return builderResult.hasDailyQuest
+           }
+      }
+      public var dailyQuest:Pogoprotos.Settings.Master.Quest.DailyQuestSettings! {
+           get {
+               if dailyQuestBuilder_ != nil {
+                  builderResult.dailyQuest = dailyQuestBuilder_.getMessage()
+               }
+               return builderResult.dailyQuest
+           }
+           set (value) {
+               builderResult.hasDailyQuest = true
+               builderResult.dailyQuest = value
+           }
+      }
+      private var dailyQuestBuilder_:Pogoprotos.Settings.Master.Quest.DailyQuestSettings.Builder! {
+           didSet {
+              builderResult.hasDailyQuest = true
+           }
+      }
+      public func getDailyQuestBuilder() -> Pogoprotos.Settings.Master.Quest.DailyQuestSettings.Builder {
+        if dailyQuestBuilder_ == nil {
+           dailyQuestBuilder_ = Pogoprotos.Settings.Master.Quest.DailyQuestSettings.Builder()
+           builderResult.dailyQuest = dailyQuestBuilder_.getMessage()
+           if dailyQuest != nil {
+              _ = try! dailyQuestBuilder_.mergeFrom(other: dailyQuest)
+           }
+        }
+        return dailyQuestBuilder_
+      }
+      public func setDailyQuest(_ value:Pogoprotos.Settings.Master.Quest.DailyQuestSettings!) -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        self.dailyQuest = value
+        return self
+      }
+      public func mergeDailyQuest(value:Pogoprotos.Settings.Master.Quest.DailyQuestSettings) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        if builderResult.hasDailyQuest {
+          builderResult.dailyQuest = try Pogoprotos.Settings.Master.Quest.DailyQuestSettings.builderWithPrototype(prototype:builderResult.dailyQuest).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.dailyQuest = value
+        }
+        builderResult.hasDailyQuest = true
+        return self
+      }
+      public func clearDailyQuest() -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        dailyQuestBuilder_ = nil
+        builderResult.hasDailyQuest = false
+        builderResult.dailyQuest = nil
+        return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        builderResult = Pogoprotos.Settings.Master.QuestSettings()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        return try Pogoprotos.Settings.Master.QuestSettings.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Settings.Master.QuestSettings {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Settings.Master.QuestSettings {
+        let returnMe:Pogoprotos.Settings.Master.QuestSettings = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Settings.Master.QuestSettings) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        if other == Pogoprotos.Settings.Master.QuestSettings() {
+         return self
+        }
+        if other.hasQuestType {
+             questType = other.questType
+        }
+        if (other.hasDailyQuest) {
+            _ = try mergeDailyQuest(value: other.dailyQuest)
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            let valueIntquestType = try codedInputStream.readEnum()
+            if let enumsquestType = Pogoprotos.Enums.QuestType(rawValue:valueIntquestType){
+                 questType = enumsquestType
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntquestType))
+            }
+
+          case 18:
+            let subBuilder:Pogoprotos.Settings.Master.Quest.DailyQuestSettings.Builder = Pogoprotos.Settings.Master.Quest.DailyQuestSettings.Builder()
+            if hasDailyQuest {
+              _ = try subBuilder.mergeFrom(other: dailyQuest)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            dailyQuest = subBuilder.buildPartial()
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        let resultDecodedBuilder = Pogoprotos.Settings.Master.QuestSettings.Builder()
+        if let jsonValueQuestType = jsonMap["questType"] as? String {
+          resultDecodedBuilder.questType = try Pogoprotos.Enums.QuestType.fromString(str: jsonValueQuestType)
+        }
+        if let jsonValueDailyQuest = jsonMap["dailyQuest"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.dailyQuest = try Pogoprotos.Settings.Master.Quest.DailyQuestSettings.Builder.decodeToBuilder(jsonMap:jsonValueDailyQuest).build()
+
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Settings.Master.QuestSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
   final public class TypeEffectiveSettings : GeneratedMessage {
     public fileprivate(set) var attackScalar:Array<Float> = Array<Float>()
     private var attackScalarMemoizedSerializedSize:Int32 = -1
@@ -9696,7 +10112,7 @@ public extension Pogoprotos.Settings.Master {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.TypeEffectiveSettings = Pogoprotos.Settings.Master.TypeEffectiveSettings()
+      private var builderResult:Pogoprotos.Settings.Master.TypeEffectiveSettings = Pogoprotos.Settings.Master.TypeEffectiveSettings()
       public func getMessage() -> Pogoprotos.Settings.Master.TypeEffectiveSettings {
           return builderResult
       }
@@ -10256,6 +10672,36 @@ extension Pogoprotos.Settings.Master.PokemonUpgradeSettings: GeneratedMessagePro
   }
   public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.Master.PokemonUpgradeSettings {
     return try Pogoprotos.Settings.Master.PokemonUpgradeSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Settings.Master.QuestSettings: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Settings.Master.QuestSettings> {
+    var mergedArray = Array<Pogoprotos.Settings.Master.QuestSettings>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.Master.QuestSettings? {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Settings.Master.QuestSettings {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Settings.Master.PogoprotosSettingsMasterRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.Master.QuestSettings {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.Master.QuestSettings {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.Master.QuestSettings {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.Master.QuestSettings {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.Master.QuestSettings {
+    return try Pogoprotos.Settings.Master.QuestSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
   }
 }
 extension Pogoprotos.Settings.Master.TypeEffectiveSettings: GeneratedMessageProtocol {

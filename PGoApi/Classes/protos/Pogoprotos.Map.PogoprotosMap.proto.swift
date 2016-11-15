@@ -424,7 +424,7 @@ public extension Pogoprotos.Map {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.MapCell = Pogoprotos.Map.MapCell()
+      private var builderResult:Pogoprotos.Map.MapCell = Pogoprotos.Map.MapCell()
       public func getMessage() -> Pogoprotos.Map.MapCell {
           return builderResult
       }
@@ -960,7 +960,7 @@ public extension Pogoprotos.Map {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.SpawnPoint = Pogoprotos.Map.SpawnPoint()
+      private var builderResult:Pogoprotos.Map.SpawnPoint = Pogoprotos.Map.SpawnPoint()
       public func getMessage() -> Pogoprotos.Map.SpawnPoint {
           return builderResult
       }

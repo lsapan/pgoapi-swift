@@ -239,7 +239,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.BattleAttributes = Pogoprotos.Settings.Master.Item.BattleAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.BattleAttributes = Pogoprotos.Settings.Master.Item.BattleAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.BattleAttributes {
           return builderResult
       }
@@ -472,7 +472,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.EggIncubatorAttributes = Pogoprotos.Settings.Master.Item.EggIncubatorAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.EggIncubatorAttributes = Pogoprotos.Settings.Master.Item.EggIncubatorAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.EggIncubatorAttributes {
           return builderResult
       }
@@ -757,7 +757,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes = Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes = Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.ExperienceBoostAttributes {
           return builderResult
       }
@@ -1045,7 +1045,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.FoodAttributes = Pogoprotos.Settings.Master.Item.FoodAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.FoodAttributes = Pogoprotos.Settings.Master.Item.FoodAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.FoodAttributes {
           return builderResult
       }
@@ -1330,7 +1330,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.FortModifierAttributes = Pogoprotos.Settings.Master.Item.FortModifierAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.FortModifierAttributes = Pogoprotos.Settings.Master.Item.FortModifierAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.FortModifierAttributes {
           return builderResult
       }
@@ -1676,7 +1676,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.IncenseAttributes = Pogoprotos.Settings.Master.Item.IncenseAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.IncenseAttributes = Pogoprotos.Settings.Master.Item.IncenseAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.IncenseAttributes {
           return builderResult
       }
@@ -2086,7 +2086,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes = Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes = Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.InventoryUpgradeAttributes {
           return builderResult
       }
@@ -2374,7 +2374,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.PokeballAttributes = Pogoprotos.Settings.Master.Item.PokeballAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.PokeballAttributes = Pogoprotos.Settings.Master.Item.PokeballAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.PokeballAttributes {
           return builderResult
       }
@@ -2691,7 +2691,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.PotionAttributes = Pogoprotos.Settings.Master.Item.PotionAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.PotionAttributes = Pogoprotos.Settings.Master.Item.PotionAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.PotionAttributes {
           return builderResult
       }
@@ -2921,7 +2921,7 @@ public extension Pogoprotos.Settings.Master.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Item.ReviveAttributes = Pogoprotos.Settings.Master.Item.ReviveAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Item.ReviveAttributes = Pogoprotos.Settings.Master.Item.ReviveAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Item.ReviveAttributes {
           return builderResult
       }

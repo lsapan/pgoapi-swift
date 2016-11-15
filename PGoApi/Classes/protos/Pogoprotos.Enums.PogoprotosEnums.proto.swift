@@ -53,6 +53,9 @@ public extension Pogoprotos.Enums {
     case activityHatchEggLargeBonus = 21
     case activityDefeatGymDefender = 22
     case activityDefeatGymLeader = 23
+    case activityCatchFirstCatchStreakBonus = 24
+    case activitySearchFortFirstOfTheDay = 25
+    case activitySearchFortStreakBonus = 26
     public func toString() -> String {
       switch self {
       case .activityUnknown: return "ACTIVITY_UNKNOWN"
@@ -79,6 +82,9 @@ public extension Pogoprotos.Enums {
       case .activityHatchEggLargeBonus: return "ACTIVITY_HATCH_EGG_LARGE_BONUS"
       case .activityDefeatGymDefender: return "ACTIVITY_DEFEAT_GYM_DEFENDER"
       case .activityDefeatGymLeader: return "ACTIVITY_DEFEAT_GYM_LEADER"
+      case .activityCatchFirstCatchStreakBonus: return "ACTIVITY_CATCH_FIRST_CATCH_STREAK_BONUS"
+      case .activitySearchFortFirstOfTheDay: return "ACTIVITY_SEARCH_FORT_FIRST_OF_THE_DAY"
+      case .activitySearchFortStreakBonus: return "ACTIVITY_SEARCH_FORT_STREAK_BONUS"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Enums.ActivityType {
@@ -107,6 +113,9 @@ public extension Pogoprotos.Enums {
       case "ACTIVITY_HATCH_EGG_LARGE_BONUS":  return .activityHatchEggLargeBonus
       case "ACTIVITY_DEFEAT_GYM_DEFENDER":  return .activityDefeatGymDefender
       case "ACTIVITY_DEFEAT_GYM_LEADER":  return .activityDefeatGymLeader
+      case "ACTIVITY_CATCH_FIRST_CATCH_STREAK_BONUS":  return .activityCatchFirstCatchStreakBonus
+      case "ACTIVITY_SEARCH_FORT_FIRST_OF_THE_DAY":  return .activitySearchFortFirstOfTheDay
+      case "ACTIVITY_SEARCH_FORT_STREAK_BONUS":  return .activitySearchFortStreakBonus
       default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
@@ -138,6 +147,9 @@ public extension Pogoprotos.Enums {
       case .activityHatchEggLargeBonus: return ".activityHatchEggLargeBonus"
       case .activityDefeatGymDefender: return ".activityDefeatGymDefender"
       case .activityDefeatGymLeader: return ".activityDefeatGymLeader"
+      case .activityCatchFirstCatchStreakBonus: return ".activityCatchFirstCatchStreakBonus"
+      case .activitySearchFortFirstOfTheDay: return ".activitySearchFortFirstOfTheDay"
+      case .activitySearchFortStreakBonus: return ".activitySearchFortStreakBonus"
       }
     }
   }
@@ -438,6 +450,42 @@ public extension Pogoprotos.Enums {
       case .camTargetShoulderAttackerDefender: return ".camTargetShoulderAttackerDefender"
       case .camTargetShoulderAttackerDefenderMirror: return ".camTargetShoulderAttackerDefenderMirror"
       case .camTargetAttackerDefenderWorld: return ".camTargetAttackerDefenderWorld"
+      }
+    }
+  }
+
+  //Enum type declaration end 
+
+
+
+  //Enum type declaration start 
+
+  public enum EncounterType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+    case spawnPoint = 0
+    case incense = 1
+    case disk = 2
+    public func toString() -> String {
+      switch self {
+      case .spawnPoint: return "SPAWN_POINT"
+      case .incense: return "INCENSE"
+      case .disk: return "DISK"
+      }
+    }
+    public static func fromString(str:String) throws -> Pogoprotos.Enums.EncounterType {
+      switch str {
+      case "SPAWN_POINT":  return .spawnPoint
+      case "INCENSE":  return .incense
+      case "DISK":  return .disk
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
+      }
+    }
+    public var debugDescription:String { return getDescription() }
+    public var description:String { return getDescription() }
+    private func getDescription() -> String { 
+      switch self {
+      case .spawnPoint: return ".spawnPoint"
+      case .incense: return ".incense"
+      case .disk: return ".disk"
       }
     }
   }
@@ -806,6 +854,58 @@ public extension Pogoprotos.Enums {
     case familyDratini = 147
     case familyMewtwo = 150
     case familyMew = 151
+    case familyChikorita = 152
+    case familyCyndaquil = 155
+    case familyTotodile = 158
+    case familySentret = 161
+    case familyHoothoot = 163
+    case familyLedyba = 165
+    case familySpinarak = 167
+    case familyChinchou = 170
+    case familyTogepi = 175
+    case familyNatu = 177
+    case familyMareep = 179
+    case familyMarill = 183
+    case familySudowoodo = 185
+    case familyHoppip = 187
+    case familyAipom = 190
+    case familySunkern = 191
+    case familyYanma = 193
+    case familyWooper = 194
+    case familyMurkrow = 198
+    case familyMisdreavus = 200
+    case familyUnown = 201
+    case familyWobbuffet = 202
+    case familyGirafarig = 203
+    case familyPineco = 204
+    case familyDunsparce = 206
+    case familyGligar = 207
+    case familySnubbull = 209
+    case familyQwilfish = 211
+    case familyShuckle = 213
+    case familyHeracross = 214
+    case familySneasel = 215
+    case familyTeddiursa = 216
+    case familySlugma = 218
+    case familySwinub = 220
+    case familyCorsola = 222
+    case familyRemoraid = 223
+    case familyDelibird = 225
+    case familyMantine = 226
+    case familySkarmory = 227
+    case familyHoundour = 228
+    case familyPhanpy = 231
+    case familyStantler = 234
+    case familySmeargle = 235
+    case familyTyrogue = 236
+    case familyMiltank = 241
+    case familyRaikou = 243
+    case familyEntei = 244
+    case familySuicune = 245
+    case familyLarvitar = 246
+    case familyLugia = 249
+    case familyHoOh = 250
+    case familyCelebi = 251
     public func toString() -> String {
       switch self {
       case .familyUnset: return "FAMILY_UNSET"
@@ -889,6 +989,58 @@ public extension Pogoprotos.Enums {
       case .familyDratini: return "FAMILY_DRATINI"
       case .familyMewtwo: return "FAMILY_MEWTWO"
       case .familyMew: return "FAMILY_MEW"
+      case .familyChikorita: return "FAMILY_CHIKORITA"
+      case .familyCyndaquil: return "FAMILY_CYNDAQUIL"
+      case .familyTotodile: return "FAMILY_TOTODILE"
+      case .familySentret: return "FAMILY_SENTRET"
+      case .familyHoothoot: return "FAMILY_HOOTHOOT"
+      case .familyLedyba: return "FAMILY_LEDYBA"
+      case .familySpinarak: return "FAMILY_SPINARAK"
+      case .familyChinchou: return "FAMILY_CHINCHOU"
+      case .familyTogepi: return "FAMILY_TOGEPI"
+      case .familyNatu: return "FAMILY_NATU"
+      case .familyMareep: return "FAMILY_MAREEP"
+      case .familyMarill: return "FAMILY_MARILL"
+      case .familySudowoodo: return "FAMILY_SUDOWOODO"
+      case .familyHoppip: return "FAMILY_HOPPIP"
+      case .familyAipom: return "FAMILY_AIPOM"
+      case .familySunkern: return "FAMILY_SUNKERN"
+      case .familyYanma: return "FAMILY_YANMA"
+      case .familyWooper: return "FAMILY_WOOPER"
+      case .familyMurkrow: return "FAMILY_MURKROW"
+      case .familyMisdreavus: return "FAMILY_MISDREAVUS"
+      case .familyUnown: return "FAMILY_UNOWN"
+      case .familyWobbuffet: return "FAMILY_WOBBUFFET"
+      case .familyGirafarig: return "FAMILY_GIRAFARIG"
+      case .familyPineco: return "FAMILY_PINECO"
+      case .familyDunsparce: return "FAMILY_DUNSPARCE"
+      case .familyGligar: return "FAMILY_GLIGAR"
+      case .familySnubbull: return "FAMILY_SNUBBULL"
+      case .familyQwilfish: return "FAMILY_QWILFISH"
+      case .familyShuckle: return "FAMILY_SHUCKLE"
+      case .familyHeracross: return "FAMILY_HERACROSS"
+      case .familySneasel: return "FAMILY_SNEASEL"
+      case .familyTeddiursa: return "FAMILY_TEDDIURSA"
+      case .familySlugma: return "FAMILY_SLUGMA"
+      case .familySwinub: return "FAMILY_SWINUB"
+      case .familyCorsola: return "FAMILY_CORSOLA"
+      case .familyRemoraid: return "FAMILY_REMORAID"
+      case .familyDelibird: return "FAMILY_DELIBIRD"
+      case .familyMantine: return "FAMILY_MANTINE"
+      case .familySkarmory: return "FAMILY_SKARMORY"
+      case .familyHoundour: return "FAMILY_HOUNDOUR"
+      case .familyPhanpy: return "FAMILY_PHANPY"
+      case .familyStantler: return "FAMILY_STANTLER"
+      case .familySmeargle: return "FAMILY_SMEARGLE"
+      case .familyTyrogue: return "FAMILY_TYROGUE"
+      case .familyMiltank: return "FAMILY_MILTANK"
+      case .familyRaikou: return "FAMILY_RAIKOU"
+      case .familyEntei: return "FAMILY_ENTEI"
+      case .familySuicune: return "FAMILY_SUICUNE"
+      case .familyLarvitar: return "FAMILY_LARVITAR"
+      case .familyLugia: return "FAMILY_LUGIA"
+      case .familyHoOh: return "FAMILY_HO_OH"
+      case .familyCelebi: return "FAMILY_CELEBI"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Enums.PokemonFamilyId {
@@ -974,6 +1126,58 @@ public extension Pogoprotos.Enums {
       case "FAMILY_DRATINI":  return .familyDratini
       case "FAMILY_MEWTWO":  return .familyMewtwo
       case "FAMILY_MEW":  return .familyMew
+      case "FAMILY_CHIKORITA":  return .familyChikorita
+      case "FAMILY_CYNDAQUIL":  return .familyCyndaquil
+      case "FAMILY_TOTODILE":  return .familyTotodile
+      case "FAMILY_SENTRET":  return .familySentret
+      case "FAMILY_HOOTHOOT":  return .familyHoothoot
+      case "FAMILY_LEDYBA":  return .familyLedyba
+      case "FAMILY_SPINARAK":  return .familySpinarak
+      case "FAMILY_CHINCHOU":  return .familyChinchou
+      case "FAMILY_TOGEPI":  return .familyTogepi
+      case "FAMILY_NATU":  return .familyNatu
+      case "FAMILY_MAREEP":  return .familyMareep
+      case "FAMILY_MARILL":  return .familyMarill
+      case "FAMILY_SUDOWOODO":  return .familySudowoodo
+      case "FAMILY_HOPPIP":  return .familyHoppip
+      case "FAMILY_AIPOM":  return .familyAipom
+      case "FAMILY_SUNKERN":  return .familySunkern
+      case "FAMILY_YANMA":  return .familyYanma
+      case "FAMILY_WOOPER":  return .familyWooper
+      case "FAMILY_MURKROW":  return .familyMurkrow
+      case "FAMILY_MISDREAVUS":  return .familyMisdreavus
+      case "FAMILY_UNOWN":  return .familyUnown
+      case "FAMILY_WOBBUFFET":  return .familyWobbuffet
+      case "FAMILY_GIRAFARIG":  return .familyGirafarig
+      case "FAMILY_PINECO":  return .familyPineco
+      case "FAMILY_DUNSPARCE":  return .familyDunsparce
+      case "FAMILY_GLIGAR":  return .familyGligar
+      case "FAMILY_SNUBBULL":  return .familySnubbull
+      case "FAMILY_QWILFISH":  return .familyQwilfish
+      case "FAMILY_SHUCKLE":  return .familyShuckle
+      case "FAMILY_HERACROSS":  return .familyHeracross
+      case "FAMILY_SNEASEL":  return .familySneasel
+      case "FAMILY_TEDDIURSA":  return .familyTeddiursa
+      case "FAMILY_SLUGMA":  return .familySlugma
+      case "FAMILY_SWINUB":  return .familySwinub
+      case "FAMILY_CORSOLA":  return .familyCorsola
+      case "FAMILY_REMORAID":  return .familyRemoraid
+      case "FAMILY_DELIBIRD":  return .familyDelibird
+      case "FAMILY_MANTINE":  return .familyMantine
+      case "FAMILY_SKARMORY":  return .familySkarmory
+      case "FAMILY_HOUNDOUR":  return .familyHoundour
+      case "FAMILY_PHANPY":  return .familyPhanpy
+      case "FAMILY_STANTLER":  return .familyStantler
+      case "FAMILY_SMEARGLE":  return .familySmeargle
+      case "FAMILY_TYROGUE":  return .familyTyrogue
+      case "FAMILY_MILTANK":  return .familyMiltank
+      case "FAMILY_RAIKOU":  return .familyRaikou
+      case "FAMILY_ENTEI":  return .familyEntei
+      case "FAMILY_SUICUNE":  return .familySuicune
+      case "FAMILY_LARVITAR":  return .familyLarvitar
+      case "FAMILY_LUGIA":  return .familyLugia
+      case "FAMILY_HO_OH":  return .familyHoOh
+      case "FAMILY_CELEBI":  return .familyCelebi
       default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
@@ -1062,6 +1266,58 @@ public extension Pogoprotos.Enums {
       case .familyDratini: return ".familyDratini"
       case .familyMewtwo: return ".familyMewtwo"
       case .familyMew: return ".familyMew"
+      case .familyChikorita: return ".familyChikorita"
+      case .familyCyndaquil: return ".familyCyndaquil"
+      case .familyTotodile: return ".familyTotodile"
+      case .familySentret: return ".familySentret"
+      case .familyHoothoot: return ".familyHoothoot"
+      case .familyLedyba: return ".familyLedyba"
+      case .familySpinarak: return ".familySpinarak"
+      case .familyChinchou: return ".familyChinchou"
+      case .familyTogepi: return ".familyTogepi"
+      case .familyNatu: return ".familyNatu"
+      case .familyMareep: return ".familyMareep"
+      case .familyMarill: return ".familyMarill"
+      case .familySudowoodo: return ".familySudowoodo"
+      case .familyHoppip: return ".familyHoppip"
+      case .familyAipom: return ".familyAipom"
+      case .familySunkern: return ".familySunkern"
+      case .familyYanma: return ".familyYanma"
+      case .familyWooper: return ".familyWooper"
+      case .familyMurkrow: return ".familyMurkrow"
+      case .familyMisdreavus: return ".familyMisdreavus"
+      case .familyUnown: return ".familyUnown"
+      case .familyWobbuffet: return ".familyWobbuffet"
+      case .familyGirafarig: return ".familyGirafarig"
+      case .familyPineco: return ".familyPineco"
+      case .familyDunsparce: return ".familyDunsparce"
+      case .familyGligar: return ".familyGligar"
+      case .familySnubbull: return ".familySnubbull"
+      case .familyQwilfish: return ".familyQwilfish"
+      case .familyShuckle: return ".familyShuckle"
+      case .familyHeracross: return ".familyHeracross"
+      case .familySneasel: return ".familySneasel"
+      case .familyTeddiursa: return ".familyTeddiursa"
+      case .familySlugma: return ".familySlugma"
+      case .familySwinub: return ".familySwinub"
+      case .familyCorsola: return ".familyCorsola"
+      case .familyRemoraid: return ".familyRemoraid"
+      case .familyDelibird: return ".familyDelibird"
+      case .familyMantine: return ".familyMantine"
+      case .familySkarmory: return ".familySkarmory"
+      case .familyHoundour: return ".familyHoundour"
+      case .familyPhanpy: return ".familyPhanpy"
+      case .familyStantler: return ".familyStantler"
+      case .familySmeargle: return ".familySmeargle"
+      case .familyTyrogue: return ".familyTyrogue"
+      case .familyMiltank: return ".familyMiltank"
+      case .familyRaikou: return ".familyRaikou"
+      case .familyEntei: return ".familyEntei"
+      case .familySuicune: return ".familySuicune"
+      case .familyLarvitar: return ".familyLarvitar"
+      case .familyLugia: return ".familyLugia"
+      case .familyHoOh: return ".familyHoOh"
+      case .familyCelebi: return ".familyCelebi"
       }
     }
   }
@@ -1225,6 +1481,106 @@ public extension Pogoprotos.Enums {
     case dragonite = 149
     case mewtwo = 150
     case mew = 151
+    case chikorita = 152
+    case bayleef = 153
+    case meganium = 154
+    case cyndaquil = 155
+    case quilava = 156
+    case typhlosion = 157
+    case totodile = 158
+    case croconaw = 159
+    case feraligatr = 160
+    case sentret = 161
+    case furret = 162
+    case hoothoot = 163
+    case noctowl = 164
+    case ledyba = 165
+    case ledian = 166
+    case spinarak = 167
+    case ariados = 168
+    case crobat = 169
+    case chinchou = 170
+    case lanturn = 171
+    case pichu = 172
+    case cleffa = 173
+    case igglybuff = 174
+    case togepi = 175
+    case togetic = 176
+    case natu = 177
+    case xatu = 178
+    case mareep = 179
+    case flaaffy = 180
+    case ampharos = 181
+    case bellossom = 182
+    case marill = 183
+    case azumarill = 184
+    case sudowoodo = 185
+    case politoed = 186
+    case hoppip = 187
+    case skiploom = 188
+    case jumpluff = 189
+    case aipom = 190
+    case sunkern = 191
+    case sunflora = 192
+    case yanma = 193
+    case wooper = 194
+    case quagsire = 195
+    case espeon = 196
+    case umbreon = 197
+    case murkrow = 198
+    case slowking = 199
+    case misdreavus = 200
+    case unown = 201
+    case wobbuffet = 202
+    case girafarig = 203
+    case pineco = 204
+    case forretress = 205
+    case dunsparce = 206
+    case gligar = 207
+    case steelix = 208
+    case snubbull = 209
+    case granbull = 210
+    case qwilfish = 211
+    case scizor = 212
+    case shuckle = 213
+    case heracross = 214
+    case sneasel = 215
+    case teddiursa = 216
+    case ursaring = 217
+    case slugma = 218
+    case magcargo = 219
+    case swinub = 220
+    case piloswine = 221
+    case corsola = 222
+    case remoraid = 223
+    case octillery = 224
+    case delibird = 225
+    case mantine = 226
+    case skarmory = 227
+    case houndour = 228
+    case houndoom = 229
+    case kingdra = 230
+    case phanpy = 231
+    case donphan = 232
+    case porygon2 = 233
+    case stantler = 234
+    case smeargle = 235
+    case tyrogue = 236
+    case hitmontop = 237
+    case smoochum = 238
+    case elekid = 239
+    case magby = 240
+    case miltank = 241
+    case blissey = 242
+    case raikou = 243
+    case entei = 244
+    case suicune = 245
+    case larvitar = 246
+    case pupitar = 247
+    case tyranitar = 248
+    case lugia = 249
+    case hoOh = 250
+    case celebi = 251
     public func toString() -> String {
       switch self {
       case .missingno: return "MISSINGNO"
@@ -1379,6 +1735,106 @@ public extension Pogoprotos.Enums {
       case .dragonite: return "DRAGONITE"
       case .mewtwo: return "MEWTWO"
       case .mew: return "MEW"
+      case .chikorita: return "CHIKORITA"
+      case .bayleef: return "BAYLEEF"
+      case .meganium: return "MEGANIUM"
+      case .cyndaquil: return "CYNDAQUIL"
+      case .quilava: return "QUILAVA"
+      case .typhlosion: return "TYPHLOSION"
+      case .totodile: return "TOTODILE"
+      case .croconaw: return "CROCONAW"
+      case .feraligatr: return "FERALIGATR"
+      case .sentret: return "SENTRET"
+      case .furret: return "FURRET"
+      case .hoothoot: return "HOOTHOOT"
+      case .noctowl: return "NOCTOWL"
+      case .ledyba: return "LEDYBA"
+      case .ledian: return "LEDIAN"
+      case .spinarak: return "SPINARAK"
+      case .ariados: return "ARIADOS"
+      case .crobat: return "CROBAT"
+      case .chinchou: return "CHINCHOU"
+      case .lanturn: return "LANTURN"
+      case .pichu: return "PICHU"
+      case .cleffa: return "CLEFFA"
+      case .igglybuff: return "IGGLYBUFF"
+      case .togepi: return "TOGEPI"
+      case .togetic: return "TOGETIC"
+      case .natu: return "NATU"
+      case .xatu: return "XATU"
+      case .mareep: return "MAREEP"
+      case .flaaffy: return "FLAAFFY"
+      case .ampharos: return "AMPHAROS"
+      case .bellossom: return "BELLOSSOM"
+      case .marill: return "MARILL"
+      case .azumarill: return "AZUMARILL"
+      case .sudowoodo: return "SUDOWOODO"
+      case .politoed: return "POLITOED"
+      case .hoppip: return "HOPPIP"
+      case .skiploom: return "SKIPLOOM"
+      case .jumpluff: return "JUMPLUFF"
+      case .aipom: return "AIPOM"
+      case .sunkern: return "SUNKERN"
+      case .sunflora: return "SUNFLORA"
+      case .yanma: return "YANMA"
+      case .wooper: return "WOOPER"
+      case .quagsire: return "QUAGSIRE"
+      case .espeon: return "ESPEON"
+      case .umbreon: return "UMBREON"
+      case .murkrow: return "MURKROW"
+      case .slowking: return "SLOWKING"
+      case .misdreavus: return "MISDREAVUS"
+      case .unown: return "UNOWN"
+      case .wobbuffet: return "WOBBUFFET"
+      case .girafarig: return "GIRAFARIG"
+      case .pineco: return "PINECO"
+      case .forretress: return "FORRETRESS"
+      case .dunsparce: return "DUNSPARCE"
+      case .gligar: return "GLIGAR"
+      case .steelix: return "STEELIX"
+      case .snubbull: return "SNUBBULL"
+      case .granbull: return "GRANBULL"
+      case .qwilfish: return "QWILFISH"
+      case .scizor: return "SCIZOR"
+      case .shuckle: return "SHUCKLE"
+      case .heracross: return "HERACROSS"
+      case .sneasel: return "SNEASEL"
+      case .teddiursa: return "TEDDIURSA"
+      case .ursaring: return "URSARING"
+      case .slugma: return "SLUGMA"
+      case .magcargo: return "MAGCARGO"
+      case .swinub: return "SWINUB"
+      case .piloswine: return "PILOSWINE"
+      case .corsola: return "CORSOLA"
+      case .remoraid: return "REMORAID"
+      case .octillery: return "OCTILLERY"
+      case .delibird: return "DELIBIRD"
+      case .mantine: return "MANTINE"
+      case .skarmory: return "SKARMORY"
+      case .houndour: return "HOUNDOUR"
+      case .houndoom: return "HOUNDOOM"
+      case .kingdra: return "KINGDRA"
+      case .phanpy: return "PHANPY"
+      case .donphan: return "DONPHAN"
+      case .porygon2: return "PORYGON2"
+      case .stantler: return "STANTLER"
+      case .smeargle: return "SMEARGLE"
+      case .tyrogue: return "TYROGUE"
+      case .hitmontop: return "HITMONTOP"
+      case .smoochum: return "SMOOCHUM"
+      case .elekid: return "ELEKID"
+      case .magby: return "MAGBY"
+      case .miltank: return "MILTANK"
+      case .blissey: return "BLISSEY"
+      case .raikou: return "RAIKOU"
+      case .entei: return "ENTEI"
+      case .suicune: return "SUICUNE"
+      case .larvitar: return "LARVITAR"
+      case .pupitar: return "PUPITAR"
+      case .tyranitar: return "TYRANITAR"
+      case .lugia: return "LUGIA"
+      case .hoOh: return "HO_OH"
+      case .celebi: return "CELEBI"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Enums.PokemonId {
@@ -1535,6 +1991,106 @@ public extension Pogoprotos.Enums {
       case "DRAGONITE":  return .dragonite
       case "MEWTWO":  return .mewtwo
       case "MEW":  return .mew
+      case "CHIKORITA":  return .chikorita
+      case "BAYLEEF":  return .bayleef
+      case "MEGANIUM":  return .meganium
+      case "CYNDAQUIL":  return .cyndaquil
+      case "QUILAVA":  return .quilava
+      case "TYPHLOSION":  return .typhlosion
+      case "TOTODILE":  return .totodile
+      case "CROCONAW":  return .croconaw
+      case "FERALIGATR":  return .feraligatr
+      case "SENTRET":  return .sentret
+      case "FURRET":  return .furret
+      case "HOOTHOOT":  return .hoothoot
+      case "NOCTOWL":  return .noctowl
+      case "LEDYBA":  return .ledyba
+      case "LEDIAN":  return .ledian
+      case "SPINARAK":  return .spinarak
+      case "ARIADOS":  return .ariados
+      case "CROBAT":  return .crobat
+      case "CHINCHOU":  return .chinchou
+      case "LANTURN":  return .lanturn
+      case "PICHU":  return .pichu
+      case "CLEFFA":  return .cleffa
+      case "IGGLYBUFF":  return .igglybuff
+      case "TOGEPI":  return .togepi
+      case "TOGETIC":  return .togetic
+      case "NATU":  return .natu
+      case "XATU":  return .xatu
+      case "MAREEP":  return .mareep
+      case "FLAAFFY":  return .flaaffy
+      case "AMPHAROS":  return .ampharos
+      case "BELLOSSOM":  return .bellossom
+      case "MARILL":  return .marill
+      case "AZUMARILL":  return .azumarill
+      case "SUDOWOODO":  return .sudowoodo
+      case "POLITOED":  return .politoed
+      case "HOPPIP":  return .hoppip
+      case "SKIPLOOM":  return .skiploom
+      case "JUMPLUFF":  return .jumpluff
+      case "AIPOM":  return .aipom
+      case "SUNKERN":  return .sunkern
+      case "SUNFLORA":  return .sunflora
+      case "YANMA":  return .yanma
+      case "WOOPER":  return .wooper
+      case "QUAGSIRE":  return .quagsire
+      case "ESPEON":  return .espeon
+      case "UMBREON":  return .umbreon
+      case "MURKROW":  return .murkrow
+      case "SLOWKING":  return .slowking
+      case "MISDREAVUS":  return .misdreavus
+      case "UNOWN":  return .unown
+      case "WOBBUFFET":  return .wobbuffet
+      case "GIRAFARIG":  return .girafarig
+      case "PINECO":  return .pineco
+      case "FORRETRESS":  return .forretress
+      case "DUNSPARCE":  return .dunsparce
+      case "GLIGAR":  return .gligar
+      case "STEELIX":  return .steelix
+      case "SNUBBULL":  return .snubbull
+      case "GRANBULL":  return .granbull
+      case "QWILFISH":  return .qwilfish
+      case "SCIZOR":  return .scizor
+      case "SHUCKLE":  return .shuckle
+      case "HERACROSS":  return .heracross
+      case "SNEASEL":  return .sneasel
+      case "TEDDIURSA":  return .teddiursa
+      case "URSARING":  return .ursaring
+      case "SLUGMA":  return .slugma
+      case "MAGCARGO":  return .magcargo
+      case "SWINUB":  return .swinub
+      case "PILOSWINE":  return .piloswine
+      case "CORSOLA":  return .corsola
+      case "REMORAID":  return .remoraid
+      case "OCTILLERY":  return .octillery
+      case "DELIBIRD":  return .delibird
+      case "MANTINE":  return .mantine
+      case "SKARMORY":  return .skarmory
+      case "HOUNDOUR":  return .houndour
+      case "HOUNDOOM":  return .houndoom
+      case "KINGDRA":  return .kingdra
+      case "PHANPY":  return .phanpy
+      case "DONPHAN":  return .donphan
+      case "PORYGON2":  return .porygon2
+      case "STANTLER":  return .stantler
+      case "SMEARGLE":  return .smeargle
+      case "TYROGUE":  return .tyrogue
+      case "HITMONTOP":  return .hitmontop
+      case "SMOOCHUM":  return .smoochum
+      case "ELEKID":  return .elekid
+      case "MAGBY":  return .magby
+      case "MILTANK":  return .miltank
+      case "BLISSEY":  return .blissey
+      case "RAIKOU":  return .raikou
+      case "ENTEI":  return .entei
+      case "SUICUNE":  return .suicune
+      case "LARVITAR":  return .larvitar
+      case "PUPITAR":  return .pupitar
+      case "TYRANITAR":  return .tyranitar
+      case "LUGIA":  return .lugia
+      case "HO_OH":  return .hoOh
+      case "CELEBI":  return .celebi
       default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
@@ -1694,6 +2250,106 @@ public extension Pogoprotos.Enums {
       case .dragonite: return ".dragonite"
       case .mewtwo: return ".mewtwo"
       case .mew: return ".mew"
+      case .chikorita: return ".chikorita"
+      case .bayleef: return ".bayleef"
+      case .meganium: return ".meganium"
+      case .cyndaquil: return ".cyndaquil"
+      case .quilava: return ".quilava"
+      case .typhlosion: return ".typhlosion"
+      case .totodile: return ".totodile"
+      case .croconaw: return ".croconaw"
+      case .feraligatr: return ".feraligatr"
+      case .sentret: return ".sentret"
+      case .furret: return ".furret"
+      case .hoothoot: return ".hoothoot"
+      case .noctowl: return ".noctowl"
+      case .ledyba: return ".ledyba"
+      case .ledian: return ".ledian"
+      case .spinarak: return ".spinarak"
+      case .ariados: return ".ariados"
+      case .crobat: return ".crobat"
+      case .chinchou: return ".chinchou"
+      case .lanturn: return ".lanturn"
+      case .pichu: return ".pichu"
+      case .cleffa: return ".cleffa"
+      case .igglybuff: return ".igglybuff"
+      case .togepi: return ".togepi"
+      case .togetic: return ".togetic"
+      case .natu: return ".natu"
+      case .xatu: return ".xatu"
+      case .mareep: return ".mareep"
+      case .flaaffy: return ".flaaffy"
+      case .ampharos: return ".ampharos"
+      case .bellossom: return ".bellossom"
+      case .marill: return ".marill"
+      case .azumarill: return ".azumarill"
+      case .sudowoodo: return ".sudowoodo"
+      case .politoed: return ".politoed"
+      case .hoppip: return ".hoppip"
+      case .skiploom: return ".skiploom"
+      case .jumpluff: return ".jumpluff"
+      case .aipom: return ".aipom"
+      case .sunkern: return ".sunkern"
+      case .sunflora: return ".sunflora"
+      case .yanma: return ".yanma"
+      case .wooper: return ".wooper"
+      case .quagsire: return ".quagsire"
+      case .espeon: return ".espeon"
+      case .umbreon: return ".umbreon"
+      case .murkrow: return ".murkrow"
+      case .slowking: return ".slowking"
+      case .misdreavus: return ".misdreavus"
+      case .unown: return ".unown"
+      case .wobbuffet: return ".wobbuffet"
+      case .girafarig: return ".girafarig"
+      case .pineco: return ".pineco"
+      case .forretress: return ".forretress"
+      case .dunsparce: return ".dunsparce"
+      case .gligar: return ".gligar"
+      case .steelix: return ".steelix"
+      case .snubbull: return ".snubbull"
+      case .granbull: return ".granbull"
+      case .qwilfish: return ".qwilfish"
+      case .scizor: return ".scizor"
+      case .shuckle: return ".shuckle"
+      case .heracross: return ".heracross"
+      case .sneasel: return ".sneasel"
+      case .teddiursa: return ".teddiursa"
+      case .ursaring: return ".ursaring"
+      case .slugma: return ".slugma"
+      case .magcargo: return ".magcargo"
+      case .swinub: return ".swinub"
+      case .piloswine: return ".piloswine"
+      case .corsola: return ".corsola"
+      case .remoraid: return ".remoraid"
+      case .octillery: return ".octillery"
+      case .delibird: return ".delibird"
+      case .mantine: return ".mantine"
+      case .skarmory: return ".skarmory"
+      case .houndour: return ".houndour"
+      case .houndoom: return ".houndoom"
+      case .kingdra: return ".kingdra"
+      case .phanpy: return ".phanpy"
+      case .donphan: return ".donphan"
+      case .porygon2: return ".porygon2"
+      case .stantler: return ".stantler"
+      case .smeargle: return ".smeargle"
+      case .tyrogue: return ".tyrogue"
+      case .hitmontop: return ".hitmontop"
+      case .smoochum: return ".smoochum"
+      case .elekid: return ".elekid"
+      case .magby: return ".magby"
+      case .miltank: return ".miltank"
+      case .blissey: return ".blissey"
+      case .raikou: return ".raikou"
+      case .entei: return ".entei"
+      case .suicune: return ".suicune"
+      case .larvitar: return ".larvitar"
+      case .pupitar: return ".pupitar"
+      case .tyranitar: return ".tyranitar"
+      case .lugia: return ".lugia"
+      case .hoOh: return ".hoOh"
+      case .celebi: return ".celebi"
       }
     }
   }
@@ -1885,6 +2541,7 @@ public extension Pogoprotos.Enums {
     case steelWingFast = 239
     case fireFangFast = 240
     case rockSmashFast = 241
+    case transformFast = 242
     public func toString() -> String {
       switch self {
       case .moveUnset: return "MOVE_UNSET"
@@ -2067,6 +2724,7 @@ public extension Pogoprotos.Enums {
       case .steelWingFast: return "STEEL_WING_FAST"
       case .fireFangFast: return "FIRE_FANG_FAST"
       case .rockSmashFast: return "ROCK_SMASH_FAST"
+      case .transformFast: return "TRANSFORM_FAST"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Enums.PokemonMove {
@@ -2251,6 +2909,7 @@ public extension Pogoprotos.Enums {
       case "STEEL_WING_FAST":  return .steelWingFast
       case "FIRE_FANG_FAST":  return .fireFangFast
       case "ROCK_SMASH_FAST":  return .rockSmashFast
+      case "TRANSFORM_FAST":  return .transformFast
       default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
@@ -2438,6 +3097,7 @@ public extension Pogoprotos.Enums {
       case .steelWingFast: return ".steelWingFast"
       case .fireFangFast: return ".fireFangFast"
       case .rockSmashFast: return ".rockSmashFast"
+      case .transformFast: return ".transformFast"
       }
     }
   }
@@ -2626,6 +3286,42 @@ public extension Pogoprotos.Enums {
       case .pokemonTypeDragon: return ".pokemonTypeDragon"
       case .pokemonTypeDark: return ".pokemonTypeDark"
       case .pokemonTypeFairy: return ".pokemonTypeFairy"
+      }
+    }
+  }
+
+  //Enum type declaration end 
+
+
+
+  //Enum type declaration start 
+
+  public enum QuestType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+    case questUnknownType = 0
+    case questFirstCatchOfTheDay = 1
+    case questFirstPokestopOfTheDay = 2
+    public func toString() -> String {
+      switch self {
+      case .questUnknownType: return "QUEST_UNKNOWN_TYPE"
+      case .questFirstCatchOfTheDay: return "QUEST_FIRST_CATCH_OF_THE_DAY"
+      case .questFirstPokestopOfTheDay: return "QUEST_FIRST_POKESTOP_OF_THE_DAY"
+      }
+    }
+    public static func fromString(str:String) throws -> Pogoprotos.Enums.QuestType {
+      switch str {
+      case "QUEST_UNKNOWN_TYPE":  return .questUnknownType
+      case "QUEST_FIRST_CATCH_OF_THE_DAY":  return .questFirstCatchOfTheDay
+      case "QUEST_FIRST_POKESTOP_OF_THE_DAY":  return .questFirstPokestopOfTheDay
+      default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
+      }
+    }
+    public var debugDescription:String { return getDescription() }
+    public var description:String { return getDescription() }
+    private func getDescription() -> String { 
+      switch self {
+      case .questUnknownType: return ".questUnknownType"
+      case .questFirstCatchOfTheDay: return ".questFirstCatchOfTheDay"
+      case .questFirstPokestopOfTheDay: return ".questFirstPokestopOfTheDay"
       }
     }
   }

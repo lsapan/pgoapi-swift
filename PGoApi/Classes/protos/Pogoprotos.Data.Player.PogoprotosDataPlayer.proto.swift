@@ -266,7 +266,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.ContactSettings = Pogoprotos.Data.Player.ContactSettings()
+      private var builderResult:Pogoprotos.Data.Player.ContactSettings = Pogoprotos.Data.Player.ContactSettings()
       public func getMessage() -> Pogoprotos.Data.Player.ContactSettings {
           return builderResult
       }
@@ -514,7 +514,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.Currency = Pogoprotos.Data.Player.Currency()
+      private var builderResult:Pogoprotos.Data.Player.Currency = Pogoprotos.Data.Player.Currency()
       public func getMessage() -> Pogoprotos.Data.Player.Currency {
           return builderResult
       }
@@ -762,7 +762,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.DailyBonus = Pogoprotos.Data.Player.DailyBonus()
+      private var builderResult:Pogoprotos.Data.Player.DailyBonus = Pogoprotos.Data.Player.DailyBonus()
       public func getMessage() -> Pogoprotos.Data.Player.DailyBonus {
           return builderResult
       }
@@ -1027,7 +1027,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.EquippedBadge = Pogoprotos.Data.Player.EquippedBadge()
+      private var builderResult:Pogoprotos.Data.Player.EquippedBadge = Pogoprotos.Data.Player.EquippedBadge()
       public func getMessage() -> Pogoprotos.Data.Player.EquippedBadge {
           return builderResult
       }
@@ -1437,7 +1437,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.PlayerAvatar = Pogoprotos.Data.Player.PlayerAvatar()
+      private var builderResult:Pogoprotos.Data.Player.PlayerAvatar = Pogoprotos.Data.Player.PlayerAvatar()
       public func getMessage() -> Pogoprotos.Data.Player.PlayerAvatar {
           return builderResult
       }
@@ -1896,7 +1896,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.PlayerCamera = Pogoprotos.Data.Player.PlayerCamera()
+      private var builderResult:Pogoprotos.Data.Player.PlayerCamera = Pogoprotos.Data.Player.PlayerCamera()
       public func getMessage() -> Pogoprotos.Data.Player.PlayerCamera {
           return builderResult
       }
@@ -2094,7 +2094,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.PlayerCurrency = Pogoprotos.Data.Player.PlayerCurrency()
+      private var builderResult:Pogoprotos.Data.Player.PlayerCurrency = Pogoprotos.Data.Player.PlayerCurrency()
       public func getMessage() -> Pogoprotos.Data.Player.PlayerCurrency {
           return builderResult
       }
@@ -2335,7 +2335,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.PlayerPublicProfile = Pogoprotos.Data.Player.PlayerPublicProfile()
+      private var builderResult:Pogoprotos.Data.Player.PlayerPublicProfile = Pogoprotos.Data.Player.PlayerPublicProfile()
       public func getMessage() -> Pogoprotos.Data.Player.PlayerPublicProfile {
           return builderResult
       }
@@ -2406,7 +2406,7 @@ public extension Pogoprotos.Data.Player {
                builderResult.avatar = value
            }
       }
-      fileprivate var avatarBuilder_:Pogoprotos.Data.Player.PlayerAvatar.Builder! {
+      private var avatarBuilder_:Pogoprotos.Data.Player.PlayerAvatar.Builder! {
            didSet {
               builderResult.hasAvatar = true
            }
@@ -3043,7 +3043,7 @@ public extension Pogoprotos.Data.Player {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Player.PlayerStats = Pogoprotos.Data.Player.PlayerStats()
+      private var builderResult:Pogoprotos.Data.Player.PlayerStats = Pogoprotos.Data.Player.PlayerStats()
       public func getMessage() -> Pogoprotos.Data.Player.PlayerStats {
           return builderResult
       }

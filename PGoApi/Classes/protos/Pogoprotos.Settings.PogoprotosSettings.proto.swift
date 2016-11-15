@@ -16,6 +16,28 @@ public func == (lhs: Pogoprotos.Settings.DownloadSettingsAction, rhs: Pogoprotos
   return fieldCheck
 }
 
+public func == (lhs: Pogoprotos.Settings.EventSettings, rhs: Pogoprotos.Settings.EventSettings) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.condolenceRibbonCountry == rhs.condolenceRibbonCountry)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Settings.FestivalSettings, rhs: Pogoprotos.Settings.FestivalSettings) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasFestivalType == rhs.hasFestivalType) && (!lhs.hasFestivalType || lhs.festivalType == rhs.festivalType)
+  fieldCheck = fieldCheck && (lhs.hasKey == rhs.hasKey) && (!lhs.hasKey || lhs.key == rhs.key)
+  fieldCheck = fieldCheck && (lhs.hasVector == rhs.hasVector) && (!lhs.hasVector || lhs.vector == rhs.vector)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
 public func == (lhs: Pogoprotos.Settings.FortSettings, rhs: Pogoprotos.Settings.FortSettings) -> Bool {
   if (lhs === rhs) {
     return true
@@ -42,6 +64,10 @@ public func == (lhs: Pogoprotos.Settings.GlobalSettings, rhs: Pogoprotos.Setting
   fieldCheck = fieldCheck && (lhs.hasInventorySettings == rhs.hasInventorySettings) && (!lhs.hasInventorySettings || lhs.inventorySettings == rhs.inventorySettings)
   fieldCheck = fieldCheck && (lhs.hasMinimumClientVersion == rhs.hasMinimumClientVersion) && (!lhs.hasMinimumClientVersion || lhs.minimumClientVersion == rhs.minimumClientVersion)
   fieldCheck = fieldCheck && (lhs.hasGpsSettings == rhs.hasGpsSettings) && (!lhs.hasGpsSettings || lhs.gpsSettings == rhs.gpsSettings)
+  fieldCheck = fieldCheck && (lhs.hasFestivalSettings == rhs.hasFestivalSettings) && (!lhs.hasFestivalSettings || lhs.festivalSettings == rhs.festivalSettings)
+  fieldCheck = fieldCheck && (lhs.hasEventSettings == rhs.hasEventSettings) && (!lhs.hasEventSettings || lhs.eventSettings == rhs.eventSettings)
+  fieldCheck = fieldCheck && (lhs.hasMaxPokemonTypes == rhs.hasMaxPokemonTypes) && (!lhs.hasMaxPokemonTypes || lhs.maxPokemonTypes == rhs.maxPokemonTypes)
+  fieldCheck = fieldCheck && (lhs.hasSfidaSettings == rhs.hasSfidaSettings) && (!lhs.hasSfidaSettings || lhs.sfidaSettings == rhs.sfidaSettings)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -96,6 +122,16 @@ public func == (lhs: Pogoprotos.Settings.MapSettings, rhs: Pogoprotos.Settings.M
   fieldCheck = fieldCheck && (lhs.hasGetMapObjectsMaxRefreshSeconds == rhs.hasGetMapObjectsMaxRefreshSeconds) && (!lhs.hasGetMapObjectsMaxRefreshSeconds || lhs.getMapObjectsMaxRefreshSeconds == rhs.getMapObjectsMaxRefreshSeconds)
   fieldCheck = fieldCheck && (lhs.hasGetMapObjectsMinDistanceMeters == rhs.hasGetMapObjectsMinDistanceMeters) && (!lhs.hasGetMapObjectsMinDistanceMeters || lhs.getMapObjectsMinDistanceMeters == rhs.getMapObjectsMinDistanceMeters)
   fieldCheck = fieldCheck && (lhs.hasGoogleMapsApiKey == rhs.hasGoogleMapsApiKey) && (!lhs.hasGoogleMapsApiKey || lhs.googleMapsApiKey == rhs.googleMapsApiKey)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Settings.SfidaSettings, rhs: Pogoprotos.Settings.SfidaSettings) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasLowBatteryThreshold == rhs.hasLowBatteryThreshold) && (!lhs.hasLowBatteryThreshold || lhs.lowBatteryThreshold == rhs.lowBatteryThreshold)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -214,7 +250,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.DownloadSettingsAction = Pogoprotos.Settings.DownloadSettingsAction()
+      private var builderResult:Pogoprotos.Settings.DownloadSettingsAction = Pogoprotos.Settings.DownloadSettingsAction()
       public func getMessage() -> Pogoprotos.Settings.DownloadSettingsAction {
           return builderResult
       }
@@ -311,6 +347,536 @@ public extension Pogoprotos.Settings {
           throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Settings.DownloadSettingsAction.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
+  final public class EventSettings : GeneratedMessage {
+    public fileprivate(set) var condolenceRibbonCountry:Array<String> = Array<String>()
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if !condolenceRibbonCountry.isEmpty {
+        for oneValuecondolenceRibbonCountry in condolenceRibbonCountry {
+          try codedOutputStream.writeString(fieldNumber: 1, value:oneValuecondolenceRibbonCountry)
+        }
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      var dataSizeCondolenceRibbonCountry:Int32 = 0
+      for oneValuecondolenceRibbonCountry in condolenceRibbonCountry {
+          dataSizeCondolenceRibbonCountry += oneValuecondolenceRibbonCountry.computeStringSizeNoTag()
+      }
+      serialize_size += dataSizeCondolenceRibbonCountry
+      serialize_size += 1 * Int32(condolenceRibbonCountry.count)
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Settings.EventSettings.Builder {
+      return Pogoprotos.Settings.EventSettings.classBuilder() as! Pogoprotos.Settings.EventSettings.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Settings.EventSettings.Builder {
+      return classBuilder() as! Pogoprotos.Settings.EventSettings.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.EventSettings.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.EventSettings.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Settings.EventSettings.Builder {
+      return try Pogoprotos.Settings.EventSettings.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Settings.EventSettings) throws -> Pogoprotos.Settings.EventSettings.Builder {
+      return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if !condolenceRibbonCountry.isEmpty {
+        jsonMap["condolenceRibbonCountry"] = condolenceRibbonCountry
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.EventSettings {
+      return try Pogoprotos.Settings.EventSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Settings.EventSettings {
+      return try Pogoprotos.Settings.EventSettings.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      var condolenceRibbonCountryElementIndex:Int = 0
+      for oneValueCondolenceRibbonCountry in condolenceRibbonCountry  {
+          output += "\(indent) condolenceRibbonCountry[\(condolenceRibbonCountryElementIndex)]: \(oneValueCondolenceRibbonCountry)\n"
+          condolenceRibbonCountryElementIndex += 1
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            for oneValueCondolenceRibbonCountry in condolenceRibbonCountry {
+                hashCode = (hashCode &* 31) &+ oneValueCondolenceRibbonCountry.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Settings.EventSettings"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Settings.EventSettings"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Settings.EventSettings = Pogoprotos.Settings.EventSettings()
+      public func getMessage() -> Pogoprotos.Settings.EventSettings {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var condolenceRibbonCountry:Array<String> {
+           get {
+               return builderResult.condolenceRibbonCountry
+           }
+           set (array) {
+               builderResult.condolenceRibbonCountry = array
+           }
+      }
+      public func setCondolenceRibbonCountry(_ value:Array<String>) -> Pogoprotos.Settings.EventSettings.Builder {
+        self.condolenceRibbonCountry = value
+        return self
+      }
+      public func clearCondolenceRibbonCountry() -> Pogoprotos.Settings.EventSettings.Builder {
+         builderResult.condolenceRibbonCountry.removeAll(keepingCapacity: false)
+         return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Settings.EventSettings.Builder {
+        builderResult = Pogoprotos.Settings.EventSettings()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Settings.EventSettings.Builder {
+        return try Pogoprotos.Settings.EventSettings.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Settings.EventSettings {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Settings.EventSettings {
+        let returnMe:Pogoprotos.Settings.EventSettings = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Settings.EventSettings) throws -> Pogoprotos.Settings.EventSettings.Builder {
+        if other == Pogoprotos.Settings.EventSettings() {
+         return self
+        }
+        if !other.condolenceRibbonCountry.isEmpty {
+            builderResult.condolenceRibbonCountry += other.condolenceRibbonCountry
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.EventSettings.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.EventSettings.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 10:
+            condolenceRibbonCountry += [try codedInputStream.readString()]
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.EventSettings.Builder {
+        let resultDecodedBuilder = Pogoprotos.Settings.EventSettings.Builder()
+        if let jsonValueCondolenceRibbonCountry = jsonMap["condolenceRibbonCountry"] as? Array<String> {
+          resultDecodedBuilder.condolenceRibbonCountry = jsonValueCondolenceRibbonCountry
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Settings.EventSettings.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Settings.EventSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
+  final public class FestivalSettings : GeneratedMessage {
+
+
+      //Enum type declaration start 
+
+      public enum FestivalType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+        case `none` = 0
+        case halloween = 1
+        public func toString() -> String {
+          switch self {
+          case .`none`: return "NONE"
+          case .halloween: return "HALLOWEEN"
+          }
+        }
+        public static func fromString(str:String) throws -> Pogoprotos.Settings.FestivalSettings.FestivalType {
+          switch str {
+          case "NONE":  return .`none`
+          case "HALLOWEEN":  return .halloween
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
+          }
+        }
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+          switch self {
+          case .`none`: return ".`none`"
+          case .halloween: return ".halloween"
+          }
+        }
+      }
+
+      //Enum type declaration end 
+
+    public fileprivate(set) var festivalType:Pogoprotos.Settings.FestivalSettings.FestivalType = Pogoprotos.Settings.FestivalSettings.FestivalType.`none`
+    public fileprivate(set) var hasFestivalType:Bool = false
+    public fileprivate(set) var key:String = ""
+    public fileprivate(set) var hasKey:Bool = false
+
+    public fileprivate(set) var vector:String = ""
+    public fileprivate(set) var hasVector:Bool = false
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if hasFestivalType {
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:festivalType.rawValue)
+      }
+      if hasKey {
+        try codedOutputStream.writeString(fieldNumber: 2, value:key)
+      }
+      if hasVector {
+        try codedOutputStream.writeString(fieldNumber: 3, value:vector)
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if (hasFestivalType) {
+        serialize_size += festivalType.rawValue.computeEnumSize(fieldNumber: 1)
+      }
+      if hasKey {
+        serialize_size += key.computeStringSize(fieldNumber: 2)
+      }
+      if hasVector {
+        serialize_size += vector.computeStringSize(fieldNumber: 3)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Settings.FestivalSettings.Builder {
+      return Pogoprotos.Settings.FestivalSettings.classBuilder() as! Pogoprotos.Settings.FestivalSettings.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Settings.FestivalSettings.Builder {
+      return classBuilder() as! Pogoprotos.Settings.FestivalSettings.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.FestivalSettings.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.FestivalSettings.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+      return try Pogoprotos.Settings.FestivalSettings.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Settings.FestivalSettings) throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+      return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if hasFestivalType {
+        jsonMap["festivalType"] = festivalType.toString()
+      }
+      if hasKey {
+        jsonMap["key"] = key
+      }
+      if hasVector {
+        jsonMap["vector"] = vector
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.FestivalSettings {
+      return try Pogoprotos.Settings.FestivalSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Settings.FestivalSettings {
+      return try Pogoprotos.Settings.FestivalSettings.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if (hasFestivalType) {
+        output += "\(indent) festivalType: \(festivalType.description)\n"
+      }
+      if hasKey {
+        output += "\(indent) key: \(key) \n"
+      }
+      if hasVector {
+        output += "\(indent) vector: \(vector) \n"
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasFestivalType {
+               hashCode = (hashCode &* 31) &+ Int(festivalType.rawValue)
+            }
+            if hasKey {
+               hashCode = (hashCode &* 31) &+ key.hashValue
+            }
+            if hasVector {
+               hashCode = (hashCode &* 31) &+ vector.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Settings.FestivalSettings"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Settings.FestivalSettings"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Settings.FestivalSettings = Pogoprotos.Settings.FestivalSettings()
+      public func getMessage() -> Pogoprotos.Settings.FestivalSettings {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+        public var hasFestivalType:Bool{
+            get {
+                return builderResult.hasFestivalType
+            }
+        }
+        public var festivalType:Pogoprotos.Settings.FestivalSettings.FestivalType {
+            get {
+                return builderResult.festivalType
+            }
+            set (value) {
+                builderResult.hasFestivalType = true
+                builderResult.festivalType = value
+            }
+        }
+        public func setFestivalType(_ value:Pogoprotos.Settings.FestivalSettings.FestivalType) -> Pogoprotos.Settings.FestivalSettings.Builder {
+          self.festivalType = value
+          return self
+        }
+        public func clearFestivalType() -> Pogoprotos.Settings.FestivalSettings.Builder {
+           builderResult.hasFestivalType = false
+           builderResult.festivalType = .`none`
+           return self
+        }
+      public var hasKey:Bool {
+           get {
+                return builderResult.hasKey
+           }
+      }
+      public var key:String {
+           get {
+                return builderResult.key
+           }
+           set (value) {
+               builderResult.hasKey = true
+               builderResult.key = value
+           }
+      }
+      public func setKey(_ value:String) -> Pogoprotos.Settings.FestivalSettings.Builder {
+        self.key = value
+        return self
+      }
+      public func clearKey() -> Pogoprotos.Settings.FestivalSettings.Builder{
+           builderResult.hasKey = false
+           builderResult.key = ""
+           return self
+      }
+      public var hasVector:Bool {
+           get {
+                return builderResult.hasVector
+           }
+      }
+      public var vector:String {
+           get {
+                return builderResult.vector
+           }
+           set (value) {
+               builderResult.hasVector = true
+               builderResult.vector = value
+           }
+      }
+      public func setVector(_ value:String) -> Pogoprotos.Settings.FestivalSettings.Builder {
+        self.vector = value
+        return self
+      }
+      public func clearVector() -> Pogoprotos.Settings.FestivalSettings.Builder{
+           builderResult.hasVector = false
+           builderResult.vector = ""
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Settings.FestivalSettings.Builder {
+        builderResult = Pogoprotos.Settings.FestivalSettings()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+        return try Pogoprotos.Settings.FestivalSettings.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Settings.FestivalSettings {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Settings.FestivalSettings {
+        let returnMe:Pogoprotos.Settings.FestivalSettings = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Settings.FestivalSettings) throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+        if other == Pogoprotos.Settings.FestivalSettings() {
+         return self
+        }
+        if other.hasFestivalType {
+             festivalType = other.festivalType
+        }
+        if other.hasKey {
+             key = other.key
+        }
+        if other.hasVector {
+             vector = other.vector
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            let valueIntfestivalType = try codedInputStream.readEnum()
+            if let enumsfestivalType = Pogoprotos.Settings.FestivalSettings.FestivalType(rawValue:valueIntfestivalType){
+                 festivalType = enumsfestivalType
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntfestivalType))
+            }
+
+          case 18:
+            key = try codedInputStream.readString()
+
+          case 26:
+            vector = try codedInputStream.readString()
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+        let resultDecodedBuilder = Pogoprotos.Settings.FestivalSettings.Builder()
+        if let jsonValueFestivalType = jsonMap["festivalType"] as? String {
+          resultDecodedBuilder.festivalType = try Pogoprotos.Settings.FestivalSettings.FestivalType.fromString(str: jsonValueFestivalType)
+        }
+        if let jsonValueKey = jsonMap["key"] as? String {
+          resultDecodedBuilder.key = jsonValueKey
+        }
+        if let jsonValueVector = jsonMap["vector"] as? String {
+          resultDecodedBuilder.vector = jsonValueVector
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Settings.FestivalSettings.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Settings.FestivalSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
@@ -502,7 +1068,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.FortSettings = Pogoprotos.Settings.FortSettings()
+      private var builderResult:Pogoprotos.Settings.FortSettings = Pogoprotos.Settings.FortSettings()
       public func getMessage() -> Pogoprotos.Settings.FortSettings {
           return builderResult
       }
@@ -778,6 +1344,15 @@ public extension Pogoprotos.Settings {
 
     public fileprivate(set) var gpsSettings:Pogoprotos.Settings.GpsSettings!
     public fileprivate(set) var hasGpsSettings:Bool = false
+    public fileprivate(set) var festivalSettings:Pogoprotos.Settings.FestivalSettings!
+    public fileprivate(set) var hasFestivalSettings:Bool = false
+    public fileprivate(set) var eventSettings:Pogoprotos.Settings.EventSettings!
+    public fileprivate(set) var hasEventSettings:Bool = false
+    public fileprivate(set) var maxPokemonTypes:Int32 = Int32(0)
+    public fileprivate(set) var hasMaxPokemonTypes:Bool = false
+
+    public fileprivate(set) var sfidaSettings:Pogoprotos.Settings.SfidaSettings!
+    public fileprivate(set) var hasSfidaSettings:Bool = false
     required public init() {
          super.init()
     }
@@ -802,6 +1377,18 @@ public extension Pogoprotos.Settings {
       }
       if hasGpsSettings {
         try codedOutputStream.writeMessage(fieldNumber: 7, value:gpsSettings)
+      }
+      if hasFestivalSettings {
+        try codedOutputStream.writeMessage(fieldNumber: 8, value:festivalSettings)
+      }
+      if hasEventSettings {
+        try codedOutputStream.writeMessage(fieldNumber: 9, value:eventSettings)
+      }
+      if hasMaxPokemonTypes {
+        try codedOutputStream.writeInt32(fieldNumber: 10, value:maxPokemonTypes)
+      }
+      if hasSfidaSettings {
+        try codedOutputStream.writeMessage(fieldNumber: 11, value:sfidaSettings)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -838,6 +1425,24 @@ public extension Pogoprotos.Settings {
       if hasGpsSettings {
           if let varSizegpsSettings = gpsSettings?.computeMessageSize(fieldNumber: 7) {
               serialize_size += varSizegpsSettings
+          }
+      }
+      if hasFestivalSettings {
+          if let varSizefestivalSettings = festivalSettings?.computeMessageSize(fieldNumber: 8) {
+              serialize_size += varSizefestivalSettings
+          }
+      }
+      if hasEventSettings {
+          if let varSizeeventSettings = eventSettings?.computeMessageSize(fieldNumber: 9) {
+              serialize_size += varSizeeventSettings
+          }
+      }
+      if hasMaxPokemonTypes {
+        serialize_size += maxPokemonTypes.computeInt32Size(fieldNumber: 10)
+      }
+      if hasSfidaSettings {
+          if let varSizesfidaSettings = sfidaSettings?.computeMessageSize(fieldNumber: 11) {
+              serialize_size += varSizesfidaSettings
           }
       }
       serialize_size += unknownFields.serializedSize()
@@ -885,6 +1490,18 @@ public extension Pogoprotos.Settings {
       }
       if hasGpsSettings {
         jsonMap["gpsSettings"] = try gpsSettings.encode()
+      }
+      if hasFestivalSettings {
+        jsonMap["festivalSettings"] = try festivalSettings.encode()
+      }
+      if hasEventSettings {
+        jsonMap["eventSettings"] = try eventSettings.encode()
+      }
+      if hasMaxPokemonTypes {
+        jsonMap["maxPokemonTypes"] = NSNumber(value:maxPokemonTypes)
+      }
+      if hasSfidaSettings {
+        jsonMap["sfidaSettings"] = try sfidaSettings.encode()
       }
       return jsonMap
     }
@@ -934,6 +1551,30 @@ public extension Pogoprotos.Settings {
         }
         output += "\(indent) }\n"
       }
+      if hasFestivalSettings {
+        output += "\(indent) festivalSettings {\n"
+        if let outDescFestivalSettings = festivalSettings {
+          output += try outDescFestivalSettings.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
+      if hasEventSettings {
+        output += "\(indent) eventSettings {\n"
+        if let outDescEventSettings = eventSettings {
+          output += try outDescEventSettings.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
+      if hasMaxPokemonTypes {
+        output += "\(indent) maxPokemonTypes: \(maxPokemonTypes) \n"
+      }
+      if hasSfidaSettings {
+        output += "\(indent) sfidaSettings {\n"
+        if let outDescSfidaSettings = sfidaSettings {
+          output += try outDescSfidaSettings.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -968,6 +1609,24 @@ public extension Pogoprotos.Settings {
                     hashCode = (hashCode &* 31) &+ hashValuegpsSettings
                 }
             }
+            if hasFestivalSettings {
+                if let hashValuefestivalSettings = festivalSettings?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuefestivalSettings
+                }
+            }
+            if hasEventSettings {
+                if let hashValueeventSettings = eventSettings?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValueeventSettings
+                }
+            }
+            if hasMaxPokemonTypes {
+               hashCode = (hashCode &* 31) &+ maxPokemonTypes.hashValue
+            }
+            if hasSfidaSettings {
+                if let hashValuesfidaSettings = sfidaSettings?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuesfidaSettings
+                }
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -985,7 +1644,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.GlobalSettings = Pogoprotos.Settings.GlobalSettings()
+      private var builderResult:Pogoprotos.Settings.GlobalSettings = Pogoprotos.Settings.GlobalSettings()
       public func getMessage() -> Pogoprotos.Settings.GlobalSettings {
           return builderResult
       }
@@ -1010,7 +1669,7 @@ public extension Pogoprotos.Settings {
                builderResult.fortSettings = value
            }
       }
-      fileprivate var fortSettingsBuilder_:Pogoprotos.Settings.FortSettings.Builder! {
+      private var fortSettingsBuilder_:Pogoprotos.Settings.FortSettings.Builder! {
            didSet {
               builderResult.hasFortSettings = true
            }
@@ -1061,7 +1720,7 @@ public extension Pogoprotos.Settings {
                builderResult.mapSettings = value
            }
       }
-      fileprivate var mapSettingsBuilder_:Pogoprotos.Settings.MapSettings.Builder! {
+      private var mapSettingsBuilder_:Pogoprotos.Settings.MapSettings.Builder! {
            didSet {
               builderResult.hasMapSettings = true
            }
@@ -1112,7 +1771,7 @@ public extension Pogoprotos.Settings {
                builderResult.levelSettings = value
            }
       }
-      fileprivate var levelSettingsBuilder_:Pogoprotos.Settings.LevelSettings.Builder! {
+      private var levelSettingsBuilder_:Pogoprotos.Settings.LevelSettings.Builder! {
            didSet {
               builderResult.hasLevelSettings = true
            }
@@ -1163,7 +1822,7 @@ public extension Pogoprotos.Settings {
                builderResult.inventorySettings = value
            }
       }
-      fileprivate var inventorySettingsBuilder_:Pogoprotos.Settings.InventorySettings.Builder! {
+      private var inventorySettingsBuilder_:Pogoprotos.Settings.InventorySettings.Builder! {
            didSet {
               builderResult.hasInventorySettings = true
            }
@@ -1237,7 +1896,7 @@ public extension Pogoprotos.Settings {
                builderResult.gpsSettings = value
            }
       }
-      fileprivate var gpsSettingsBuilder_:Pogoprotos.Settings.GpsSettings.Builder! {
+      private var gpsSettingsBuilder_:Pogoprotos.Settings.GpsSettings.Builder! {
            didSet {
               builderResult.hasGpsSettings = true
            }
@@ -1269,6 +1928,182 @@ public extension Pogoprotos.Settings {
         gpsSettingsBuilder_ = nil
         builderResult.hasGpsSettings = false
         builderResult.gpsSettings = nil
+        return self
+      }
+      public var hasFestivalSettings:Bool {
+           get {
+               return builderResult.hasFestivalSettings
+           }
+      }
+      public var festivalSettings:Pogoprotos.Settings.FestivalSettings! {
+           get {
+               if festivalSettingsBuilder_ != nil {
+                  builderResult.festivalSettings = festivalSettingsBuilder_.getMessage()
+               }
+               return builderResult.festivalSettings
+           }
+           set (value) {
+               builderResult.hasFestivalSettings = true
+               builderResult.festivalSettings = value
+           }
+      }
+      private var festivalSettingsBuilder_:Pogoprotos.Settings.FestivalSettings.Builder! {
+           didSet {
+              builderResult.hasFestivalSettings = true
+           }
+      }
+      public func getFestivalSettingsBuilder() -> Pogoprotos.Settings.FestivalSettings.Builder {
+        if festivalSettingsBuilder_ == nil {
+           festivalSettingsBuilder_ = Pogoprotos.Settings.FestivalSettings.Builder()
+           builderResult.festivalSettings = festivalSettingsBuilder_.getMessage()
+           if festivalSettings != nil {
+              _ = try! festivalSettingsBuilder_.mergeFrom(other: festivalSettings)
+           }
+        }
+        return festivalSettingsBuilder_
+      }
+      public func setFestivalSettings(_ value:Pogoprotos.Settings.FestivalSettings!) -> Pogoprotos.Settings.GlobalSettings.Builder {
+        self.festivalSettings = value
+        return self
+      }
+      public func mergeFestivalSettings(value:Pogoprotos.Settings.FestivalSettings) throws -> Pogoprotos.Settings.GlobalSettings.Builder {
+        if builderResult.hasFestivalSettings {
+          builderResult.festivalSettings = try Pogoprotos.Settings.FestivalSettings.builderWithPrototype(prototype:builderResult.festivalSettings).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.festivalSettings = value
+        }
+        builderResult.hasFestivalSettings = true
+        return self
+      }
+      public func clearFestivalSettings() -> Pogoprotos.Settings.GlobalSettings.Builder {
+        festivalSettingsBuilder_ = nil
+        builderResult.hasFestivalSettings = false
+        builderResult.festivalSettings = nil
+        return self
+      }
+      public var hasEventSettings:Bool {
+           get {
+               return builderResult.hasEventSettings
+           }
+      }
+      public var eventSettings:Pogoprotos.Settings.EventSettings! {
+           get {
+               if eventSettingsBuilder_ != nil {
+                  builderResult.eventSettings = eventSettingsBuilder_.getMessage()
+               }
+               return builderResult.eventSettings
+           }
+           set (value) {
+               builderResult.hasEventSettings = true
+               builderResult.eventSettings = value
+           }
+      }
+      private var eventSettingsBuilder_:Pogoprotos.Settings.EventSettings.Builder! {
+           didSet {
+              builderResult.hasEventSettings = true
+           }
+      }
+      public func getEventSettingsBuilder() -> Pogoprotos.Settings.EventSettings.Builder {
+        if eventSettingsBuilder_ == nil {
+           eventSettingsBuilder_ = Pogoprotos.Settings.EventSettings.Builder()
+           builderResult.eventSettings = eventSettingsBuilder_.getMessage()
+           if eventSettings != nil {
+              _ = try! eventSettingsBuilder_.mergeFrom(other: eventSettings)
+           }
+        }
+        return eventSettingsBuilder_
+      }
+      public func setEventSettings(_ value:Pogoprotos.Settings.EventSettings!) -> Pogoprotos.Settings.GlobalSettings.Builder {
+        self.eventSettings = value
+        return self
+      }
+      public func mergeEventSettings(value:Pogoprotos.Settings.EventSettings) throws -> Pogoprotos.Settings.GlobalSettings.Builder {
+        if builderResult.hasEventSettings {
+          builderResult.eventSettings = try Pogoprotos.Settings.EventSettings.builderWithPrototype(prototype:builderResult.eventSettings).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.eventSettings = value
+        }
+        builderResult.hasEventSettings = true
+        return self
+      }
+      public func clearEventSettings() -> Pogoprotos.Settings.GlobalSettings.Builder {
+        eventSettingsBuilder_ = nil
+        builderResult.hasEventSettings = false
+        builderResult.eventSettings = nil
+        return self
+      }
+      public var hasMaxPokemonTypes:Bool {
+           get {
+                return builderResult.hasMaxPokemonTypes
+           }
+      }
+      public var maxPokemonTypes:Int32 {
+           get {
+                return builderResult.maxPokemonTypes
+           }
+           set (value) {
+               builderResult.hasMaxPokemonTypes = true
+               builderResult.maxPokemonTypes = value
+           }
+      }
+      public func setMaxPokemonTypes(_ value:Int32) -> Pogoprotos.Settings.GlobalSettings.Builder {
+        self.maxPokemonTypes = value
+        return self
+      }
+      public func clearMaxPokemonTypes() -> Pogoprotos.Settings.GlobalSettings.Builder{
+           builderResult.hasMaxPokemonTypes = false
+           builderResult.maxPokemonTypes = Int32(0)
+           return self
+      }
+      public var hasSfidaSettings:Bool {
+           get {
+               return builderResult.hasSfidaSettings
+           }
+      }
+      public var sfidaSettings:Pogoprotos.Settings.SfidaSettings! {
+           get {
+               if sfidaSettingsBuilder_ != nil {
+                  builderResult.sfidaSettings = sfidaSettingsBuilder_.getMessage()
+               }
+               return builderResult.sfidaSettings
+           }
+           set (value) {
+               builderResult.hasSfidaSettings = true
+               builderResult.sfidaSettings = value
+           }
+      }
+      private var sfidaSettingsBuilder_:Pogoprotos.Settings.SfidaSettings.Builder! {
+           didSet {
+              builderResult.hasSfidaSettings = true
+           }
+      }
+      public func getSfidaSettingsBuilder() -> Pogoprotos.Settings.SfidaSettings.Builder {
+        if sfidaSettingsBuilder_ == nil {
+           sfidaSettingsBuilder_ = Pogoprotos.Settings.SfidaSettings.Builder()
+           builderResult.sfidaSettings = sfidaSettingsBuilder_.getMessage()
+           if sfidaSettings != nil {
+              _ = try! sfidaSettingsBuilder_.mergeFrom(other: sfidaSettings)
+           }
+        }
+        return sfidaSettingsBuilder_
+      }
+      public func setSfidaSettings(_ value:Pogoprotos.Settings.SfidaSettings!) -> Pogoprotos.Settings.GlobalSettings.Builder {
+        self.sfidaSettings = value
+        return self
+      }
+      public func mergeSfidaSettings(value:Pogoprotos.Settings.SfidaSettings) throws -> Pogoprotos.Settings.GlobalSettings.Builder {
+        if builderResult.hasSfidaSettings {
+          builderResult.sfidaSettings = try Pogoprotos.Settings.SfidaSettings.builderWithPrototype(prototype:builderResult.sfidaSettings).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.sfidaSettings = value
+        }
+        builderResult.hasSfidaSettings = true
+        return self
+      }
+      public func clearSfidaSettings() -> Pogoprotos.Settings.GlobalSettings.Builder {
+        sfidaSettingsBuilder_ = nil
+        builderResult.hasSfidaSettings = false
+        builderResult.sfidaSettings = nil
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -1312,6 +2147,18 @@ public extension Pogoprotos.Settings {
         }
         if (other.hasGpsSettings) {
             _ = try mergeGpsSettings(value: other.gpsSettings)
+        }
+        if (other.hasFestivalSettings) {
+            _ = try mergeFestivalSettings(value: other.festivalSettings)
+        }
+        if (other.hasEventSettings) {
+            _ = try mergeEventSettings(value: other.eventSettings)
+        }
+        if other.hasMaxPokemonTypes {
+             maxPokemonTypes = other.maxPokemonTypes
+        }
+        if (other.hasSfidaSettings) {
+            _ = try mergeSfidaSettings(value: other.sfidaSettings)
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -1371,6 +2218,33 @@ public extension Pogoprotos.Settings {
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             gpsSettings = subBuilder.buildPartial()
 
+          case 66:
+            let subBuilder:Pogoprotos.Settings.FestivalSettings.Builder = Pogoprotos.Settings.FestivalSettings.Builder()
+            if hasFestivalSettings {
+              _ = try subBuilder.mergeFrom(other: festivalSettings)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            festivalSettings = subBuilder.buildPartial()
+
+          case 74:
+            let subBuilder:Pogoprotos.Settings.EventSettings.Builder = Pogoprotos.Settings.EventSettings.Builder()
+            if hasEventSettings {
+              _ = try subBuilder.mergeFrom(other: eventSettings)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            eventSettings = subBuilder.buildPartial()
+
+          case 80:
+            maxPokemonTypes = try codedInputStream.readInt32()
+
+          case 90:
+            let subBuilder:Pogoprotos.Settings.SfidaSettings.Builder = Pogoprotos.Settings.SfidaSettings.Builder()
+            if hasSfidaSettings {
+              _ = try subBuilder.mergeFrom(other: sfidaSettings)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            sfidaSettings = subBuilder.buildPartial()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -1402,6 +2276,21 @@ public extension Pogoprotos.Settings {
         }
         if let jsonValueGpsSettings = jsonMap["gpsSettings"] as? Dictionary<String,Any> {
           resultDecodedBuilder.gpsSettings = try Pogoprotos.Settings.GpsSettings.Builder.decodeToBuilder(jsonMap:jsonValueGpsSettings).build()
+
+        }
+        if let jsonValueFestivalSettings = jsonMap["festivalSettings"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.festivalSettings = try Pogoprotos.Settings.FestivalSettings.Builder.decodeToBuilder(jsonMap:jsonValueFestivalSettings).build()
+
+        }
+        if let jsonValueEventSettings = jsonMap["eventSettings"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.eventSettings = try Pogoprotos.Settings.EventSettings.Builder.decodeToBuilder(jsonMap:jsonValueEventSettings).build()
+
+        }
+        if let jsonValueMaxPokemonTypes = jsonMap["maxPokemonTypes"] as? NSNumber {
+          resultDecodedBuilder.maxPokemonTypes = jsonValueMaxPokemonTypes.int32Value
+        }
+        if let jsonValueSfidaSettings = jsonMap["sfidaSettings"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.sfidaSettings = try Pogoprotos.Settings.SfidaSettings.Builder.decodeToBuilder(jsonMap:jsonValueSfidaSettings).build()
 
         }
         return resultDecodedBuilder
@@ -1567,7 +2456,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.GpsSettings = Pogoprotos.Settings.GpsSettings()
+      private var builderResult:Pogoprotos.Settings.GpsSettings = Pogoprotos.Settings.GpsSettings()
       public func getMessage() -> Pogoprotos.Settings.GpsSettings {
           return builderResult
       }
@@ -1933,7 +2822,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.InventorySettings = Pogoprotos.Settings.InventorySettings()
+      private var builderResult:Pogoprotos.Settings.InventorySettings = Pogoprotos.Settings.InventorySettings()
       public func getMessage() -> Pogoprotos.Settings.InventorySettings {
           return builderResult
       }
@@ -2277,7 +3166,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.LevelSettings = Pogoprotos.Settings.LevelSettings()
+      private var builderResult:Pogoprotos.Settings.LevelSettings = Pogoprotos.Settings.LevelSettings()
       public func getMessage() -> Pogoprotos.Settings.LevelSettings {
           return builderResult
       }
@@ -2615,7 +3504,7 @@ public extension Pogoprotos.Settings {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.MapSettings = Pogoprotos.Settings.MapSettings()
+      private var builderResult:Pogoprotos.Settings.MapSettings = Pogoprotos.Settings.MapSettings()
       public func getMessage() -> Pogoprotos.Settings.MapSettings {
           return builderResult
       }
@@ -2909,6 +3798,204 @@ public extension Pogoprotos.Settings {
 
   }
 
+  final public class SfidaSettings : GeneratedMessage {
+    public fileprivate(set) var lowBatteryThreshold:Float = Float(0)
+    public fileprivate(set) var hasLowBatteryThreshold:Bool = false
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if hasLowBatteryThreshold {
+        try codedOutputStream.writeFloat(fieldNumber: 1, value:lowBatteryThreshold)
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasLowBatteryThreshold {
+        serialize_size += lowBatteryThreshold.computeFloatSize(fieldNumber: 1)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Settings.SfidaSettings.Builder {
+      return Pogoprotos.Settings.SfidaSettings.classBuilder() as! Pogoprotos.Settings.SfidaSettings.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Settings.SfidaSettings.Builder {
+      return classBuilder() as! Pogoprotos.Settings.SfidaSettings.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.SfidaSettings.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Settings.SfidaSettings.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+      return try Pogoprotos.Settings.SfidaSettings.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Settings.SfidaSettings) throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+      return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if hasLowBatteryThreshold {
+        jsonMap["lowBatteryThreshold"] = NSNumber(value:lowBatteryThreshold)
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.SfidaSettings {
+      return try Pogoprotos.Settings.SfidaSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Settings.SfidaSettings {
+      return try Pogoprotos.Settings.SfidaSettings.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasLowBatteryThreshold {
+        output += "\(indent) lowBatteryThreshold: \(lowBatteryThreshold) \n"
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasLowBatteryThreshold {
+               hashCode = (hashCode &* 31) &+ lowBatteryThreshold.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Settings.SfidaSettings"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Settings.SfidaSettings"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Settings.SfidaSettings = Pogoprotos.Settings.SfidaSettings()
+      public func getMessage() -> Pogoprotos.Settings.SfidaSettings {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasLowBatteryThreshold:Bool {
+           get {
+                return builderResult.hasLowBatteryThreshold
+           }
+      }
+      public var lowBatteryThreshold:Float {
+           get {
+                return builderResult.lowBatteryThreshold
+           }
+           set (value) {
+               builderResult.hasLowBatteryThreshold = true
+               builderResult.lowBatteryThreshold = value
+           }
+      }
+      public func setLowBatteryThreshold(_ value:Float) -> Pogoprotos.Settings.SfidaSettings.Builder {
+        self.lowBatteryThreshold = value
+        return self
+      }
+      public func clearLowBatteryThreshold() -> Pogoprotos.Settings.SfidaSettings.Builder{
+           builderResult.hasLowBatteryThreshold = false
+           builderResult.lowBatteryThreshold = Float(0)
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Settings.SfidaSettings.Builder {
+        builderResult = Pogoprotos.Settings.SfidaSettings()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+        return try Pogoprotos.Settings.SfidaSettings.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Settings.SfidaSettings {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Settings.SfidaSettings {
+        let returnMe:Pogoprotos.Settings.SfidaSettings = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Settings.SfidaSettings) throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+        if other == Pogoprotos.Settings.SfidaSettings() {
+         return self
+        }
+        if other.hasLowBatteryThreshold {
+             lowBatteryThreshold = other.lowBatteryThreshold
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 13:
+            lowBatteryThreshold = try codedInputStream.readFloat()
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+        let resultDecodedBuilder = Pogoprotos.Settings.SfidaSettings.Builder()
+        if let jsonValueLowBatteryThreshold = jsonMap["lowBatteryThreshold"] as? NSNumber {
+          resultDecodedBuilder.lowBatteryThreshold = jsonValueLowBatteryThreshold.floatValue
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Settings.SfidaSettings.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Settings.SfidaSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
 }
 extension Pogoprotos.Settings.DownloadSettingsAction: GeneratedMessageProtocol {
   public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Settings.DownloadSettingsAction> {
@@ -2938,6 +4025,66 @@ extension Pogoprotos.Settings.DownloadSettingsAction: GeneratedMessageProtocol {
   }
   public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.DownloadSettingsAction {
     return try Pogoprotos.Settings.DownloadSettingsAction.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Settings.EventSettings: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Settings.EventSettings> {
+    var mergedArray = Array<Pogoprotos.Settings.EventSettings>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.EventSettings? {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Settings.EventSettings {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Settings.PogoprotosSettingsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.EventSettings {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.EventSettings {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.EventSettings {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.EventSettings {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.EventSettings {
+    return try Pogoprotos.Settings.EventSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Settings.FestivalSettings: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Settings.FestivalSettings> {
+    var mergedArray = Array<Pogoprotos.Settings.FestivalSettings>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.FestivalSettings? {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Settings.FestivalSettings {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Settings.PogoprotosSettingsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.FestivalSettings {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.FestivalSettings {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.FestivalSettings {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.FestivalSettings {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.FestivalSettings {
+    return try Pogoprotos.Settings.FestivalSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
   }
 }
 extension Pogoprotos.Settings.FortSettings: GeneratedMessageProtocol {
@@ -3118,6 +4265,36 @@ extension Pogoprotos.Settings.MapSettings: GeneratedMessageProtocol {
   }
   public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.MapSettings {
     return try Pogoprotos.Settings.MapSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Settings.SfidaSettings: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Settings.SfidaSettings> {
+    var mergedArray = Array<Pogoprotos.Settings.SfidaSettings>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.SfidaSettings? {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Settings.SfidaSettings {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Settings.PogoprotosSettingsRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.SfidaSettings {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Settings.SfidaSettings {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.SfidaSettings {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Settings.SfidaSettings {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Settings.SfidaSettings {
+    return try Pogoprotos.Settings.SfidaSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
   }
 }
 

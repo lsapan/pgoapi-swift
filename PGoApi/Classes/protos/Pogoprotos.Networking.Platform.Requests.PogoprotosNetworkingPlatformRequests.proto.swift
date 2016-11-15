@@ -151,7 +151,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest = Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest()
+      private var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest = Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest()
       public func getMessage() -> Pogoprotos.Networking.Platform.Requests.BuyItemAndroidRequest {
           return builderResult
       }
@@ -349,7 +349,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest = Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest()
+      private var builderResult:Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest = Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest()
       public func getMessage() -> Pogoprotos.Networking.Platform.Requests.BuyItemPokeCoinsRequest {
           return builderResult
       }
@@ -547,7 +547,7 @@ public extension Pogoprotos.Networking.Platform.Requests {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest = Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest()
+      private var builderResult:Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest = Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest()
       public func getMessage() -> Pogoprotos.Networking.Platform.Requests.SendEncryptedSignatureRequest {
           return builderResult
       }

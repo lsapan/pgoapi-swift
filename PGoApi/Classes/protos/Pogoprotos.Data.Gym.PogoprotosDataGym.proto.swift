@@ -13,6 +13,7 @@ public func == (lhs: Pogoprotos.Data.Gym.GymMembership, rhs: Pogoprotos.Data.Gym
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasPokemonData == rhs.hasPokemonData) && (!lhs.hasPokemonData || lhs.pokemonData == rhs.pokemonData)
   fieldCheck = fieldCheck && (lhs.hasTrainerPublicProfile == rhs.hasTrainerPublicProfile) && (!lhs.hasTrainerPublicProfile || lhs.trainerPublicProfile == rhs.trainerPublicProfile)
+  fieldCheck = fieldCheck && (lhs.hasTrainingPokemon == rhs.hasTrainingPokemon) && (!lhs.hasTrainingPokemon || lhs.trainingPokemon == rhs.trainingPokemon)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -24,6 +25,7 @@ public func == (lhs: Pogoprotos.Data.Gym.GymState, rhs: Pogoprotos.Data.Gym.GymS
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasFortData == rhs.hasFortData) && (!lhs.hasFortData || lhs.fortData == rhs.fortData)
   fieldCheck = fieldCheck && (lhs.memberships == rhs.memberships)
+  fieldCheck = fieldCheck && (lhs.hasDeployLockout == rhs.hasDeployLockout) && (!lhs.hasDeployLockout || lhs.deployLockout == rhs.deployLockout)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -54,6 +56,8 @@ public extension Pogoprotos.Data.Gym {
     public fileprivate(set) var hasPokemonData:Bool = false
     public fileprivate(set) var trainerPublicProfile:Pogoprotos.Data.Player.PlayerPublicProfile!
     public fileprivate(set) var hasTrainerPublicProfile:Bool = false
+    public fileprivate(set) var trainingPokemon:Pogoprotos.Data.PokemonData!
+    public fileprivate(set) var hasTrainingPokemon:Bool = false
     required public init() {
          super.init()
     }
@@ -66,6 +70,9 @@ public extension Pogoprotos.Data.Gym {
       }
       if hasTrainerPublicProfile {
         try codedOutputStream.writeMessage(fieldNumber: 2, value:trainerPublicProfile)
+      }
+      if hasTrainingPokemon {
+        try codedOutputStream.writeMessage(fieldNumber: 3, value:trainingPokemon)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -84,6 +91,11 @@ public extension Pogoprotos.Data.Gym {
       if hasTrainerPublicProfile {
           if let varSizetrainerPublicProfile = trainerPublicProfile?.computeMessageSize(fieldNumber: 2) {
               serialize_size += varSizetrainerPublicProfile
+          }
+      }
+      if hasTrainingPokemon {
+          if let varSizetrainingPokemon = trainingPokemon?.computeMessageSize(fieldNumber: 3) {
+              serialize_size += varSizetrainingPokemon
           }
       }
       serialize_size += unknownFields.serializedSize()
@@ -120,6 +132,9 @@ public extension Pogoprotos.Data.Gym {
       if hasTrainerPublicProfile {
         jsonMap["trainerPublicProfile"] = try trainerPublicProfile.encode()
       }
+      if hasTrainingPokemon {
+        jsonMap["trainingPokemon"] = try trainingPokemon.encode()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Gym.GymMembership {
@@ -144,6 +159,13 @@ public extension Pogoprotos.Data.Gym {
         }
         output += "\(indent) }\n"
       }
+      if hasTrainingPokemon {
+        output += "\(indent) trainingPokemon {\n"
+        if let outDescTrainingPokemon = trainingPokemon {
+          output += try outDescTrainingPokemon.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -158,6 +180,11 @@ public extension Pogoprotos.Data.Gym {
             if hasTrainerPublicProfile {
                 if let hashValuetrainerPublicProfile = trainerPublicProfile?.hashValue {
                     hashCode = (hashCode &* 31) &+ hashValuetrainerPublicProfile
+                }
+            }
+            if hasTrainingPokemon {
+                if let hashValuetrainingPokemon = trainingPokemon?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuetrainingPokemon
                 }
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
@@ -177,7 +204,7 @@ public extension Pogoprotos.Data.Gym {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Gym.GymMembership = Pogoprotos.Data.Gym.GymMembership()
+      private var builderResult:Pogoprotos.Data.Gym.GymMembership = Pogoprotos.Data.Gym.GymMembership()
       public func getMessage() -> Pogoprotos.Data.Gym.GymMembership {
           return builderResult
       }
@@ -202,7 +229,7 @@ public extension Pogoprotos.Data.Gym {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -253,7 +280,7 @@ public extension Pogoprotos.Data.Gym {
                builderResult.trainerPublicProfile = value
            }
       }
-      fileprivate var trainerPublicProfileBuilder_:Pogoprotos.Data.Player.PlayerPublicProfile.Builder! {
+      private var trainerPublicProfileBuilder_:Pogoprotos.Data.Player.PlayerPublicProfile.Builder! {
            didSet {
               builderResult.hasTrainerPublicProfile = true
            }
@@ -287,6 +314,57 @@ public extension Pogoprotos.Data.Gym {
         builderResult.trainerPublicProfile = nil
         return self
       }
+      public var hasTrainingPokemon:Bool {
+           get {
+               return builderResult.hasTrainingPokemon
+           }
+      }
+      public var trainingPokemon:Pogoprotos.Data.PokemonData! {
+           get {
+               if trainingPokemonBuilder_ != nil {
+                  builderResult.trainingPokemon = trainingPokemonBuilder_.getMessage()
+               }
+               return builderResult.trainingPokemon
+           }
+           set (value) {
+               builderResult.hasTrainingPokemon = true
+               builderResult.trainingPokemon = value
+           }
+      }
+      private var trainingPokemonBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+           didSet {
+              builderResult.hasTrainingPokemon = true
+           }
+      }
+      public func getTrainingPokemonBuilder() -> Pogoprotos.Data.PokemonData.Builder {
+        if trainingPokemonBuilder_ == nil {
+           trainingPokemonBuilder_ = Pogoprotos.Data.PokemonData.Builder()
+           builderResult.trainingPokemon = trainingPokemonBuilder_.getMessage()
+           if trainingPokemon != nil {
+              _ = try! trainingPokemonBuilder_.mergeFrom(other: trainingPokemon)
+           }
+        }
+        return trainingPokemonBuilder_
+      }
+      public func setTrainingPokemon(_ value:Pogoprotos.Data.PokemonData!) -> Pogoprotos.Data.Gym.GymMembership.Builder {
+        self.trainingPokemon = value
+        return self
+      }
+      public func mergeTrainingPokemon(value:Pogoprotos.Data.PokemonData) throws -> Pogoprotos.Data.Gym.GymMembership.Builder {
+        if builderResult.hasTrainingPokemon {
+          builderResult.trainingPokemon = try Pogoprotos.Data.PokemonData.builderWithPrototype(prototype:builderResult.trainingPokemon).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.trainingPokemon = value
+        }
+        builderResult.hasTrainingPokemon = true
+        return self
+      }
+      public func clearTrainingPokemon() -> Pogoprotos.Data.Gym.GymMembership.Builder {
+        trainingPokemonBuilder_ = nil
+        builderResult.hasTrainingPokemon = false
+        builderResult.trainingPokemon = nil
+        return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -316,6 +394,9 @@ public extension Pogoprotos.Data.Gym {
         }
         if (other.hasTrainerPublicProfile) {
             _ = try mergeTrainerPublicProfile(value: other.trainerPublicProfile)
+        }
+        if (other.hasTrainingPokemon) {
+            _ = try mergeTrainingPokemon(value: other.trainingPokemon)
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -348,6 +429,14 @@ public extension Pogoprotos.Data.Gym {
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             trainerPublicProfile = subBuilder.buildPartial()
 
+          case 26:
+            let subBuilder:Pogoprotos.Data.PokemonData.Builder = Pogoprotos.Data.PokemonData.Builder()
+            if hasTrainingPokemon {
+              _ = try subBuilder.mergeFrom(other: trainingPokemon)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            trainingPokemon = subBuilder.buildPartial()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -364,6 +453,10 @@ public extension Pogoprotos.Data.Gym {
         }
         if let jsonValueTrainerPublicProfile = jsonMap["trainerPublicProfile"] as? Dictionary<String,Any> {
           resultDecodedBuilder.trainerPublicProfile = try Pogoprotos.Data.Player.PlayerPublicProfile.Builder.decodeToBuilder(jsonMap:jsonValueTrainerPublicProfile).build()
+
+        }
+        if let jsonValueTrainingPokemon = jsonMap["trainingPokemon"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.trainingPokemon = try Pogoprotos.Data.PokemonData.Builder.decodeToBuilder(jsonMap:jsonValueTrainingPokemon).build()
 
         }
         return resultDecodedBuilder
@@ -383,6 +476,9 @@ public extension Pogoprotos.Data.Gym {
     public fileprivate(set) var fortData:Pogoprotos.Map.Fort.FortData!
     public fileprivate(set) var hasFortData:Bool = false
     public fileprivate(set) var memberships:Array<Pogoprotos.Data.Gym.GymMembership>  = Array<Pogoprotos.Data.Gym.GymMembership>()
+    public fileprivate(set) var deployLockout:Bool = false
+    public fileprivate(set) var hasDeployLockout:Bool = false
+
     required public init() {
          super.init()
     }
@@ -395,6 +491,9 @@ public extension Pogoprotos.Data.Gym {
       }
       for oneElementMemberships in memberships {
           try codedOutputStream.writeMessage(fieldNumber: 2, value:oneElementMemberships)
+      }
+      if hasDeployLockout {
+        try codedOutputStream.writeBool(fieldNumber: 3, value:deployLockout)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -412,6 +511,9 @@ public extension Pogoprotos.Data.Gym {
       }
       for oneElementMemberships in memberships {
           serialize_size += oneElementMemberships.computeMessageSize(fieldNumber: 2)
+      }
+      if hasDeployLockout {
+        serialize_size += deployLockout.computeBoolSize(fieldNumber: 3)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -452,6 +554,9 @@ public extension Pogoprotos.Data.Gym {
           }
         jsonMap["memberships"] = jsonArrayMemberships
       }
+      if hasDeployLockout {
+        jsonMap["deployLockout"] = deployLockout
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Data.Gym.GymState {
@@ -476,6 +581,9 @@ public extension Pogoprotos.Data.Gym {
           output += "\(indent)}\n"
           membershipsElementIndex += 1
       }
+      if hasDeployLockout {
+        output += "\(indent) deployLockout: \(deployLockout) \n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -489,6 +597,9 @@ public extension Pogoprotos.Data.Gym {
             }
             for oneElementMemberships in memberships {
                 hashCode = (hashCode &* 31) &+ oneElementMemberships.hashValue
+            }
+            if hasDeployLockout {
+               hashCode = (hashCode &* 31) &+ deployLockout.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -507,7 +618,7 @@ public extension Pogoprotos.Data.Gym {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Gym.GymState = Pogoprotos.Data.Gym.GymState()
+      private var builderResult:Pogoprotos.Data.Gym.GymState = Pogoprotos.Data.Gym.GymState()
       public func getMessage() -> Pogoprotos.Data.Gym.GymState {
           return builderResult
       }
@@ -532,7 +643,7 @@ public extension Pogoprotos.Data.Gym {
                builderResult.fortData = value
            }
       }
-      fileprivate var fortDataBuilder_:Pogoprotos.Map.Fort.FortData.Builder! {
+      private var fortDataBuilder_:Pogoprotos.Map.Fort.FortData.Builder! {
            didSet {
               builderResult.hasFortData = true
            }
@@ -582,6 +693,29 @@ public extension Pogoprotos.Data.Gym {
         builderResult.memberships.removeAll(keepingCapacity: false)
         return self
       }
+      public var hasDeployLockout:Bool {
+           get {
+                return builderResult.hasDeployLockout
+           }
+      }
+      public var deployLockout:Bool {
+           get {
+                return builderResult.deployLockout
+           }
+           set (value) {
+               builderResult.hasDeployLockout = true
+               builderResult.deployLockout = value
+           }
+      }
+      public func setDeployLockout(_ value:Bool) -> Pogoprotos.Data.Gym.GymState.Builder {
+        self.deployLockout = value
+        return self
+      }
+      public func clearDeployLockout() -> Pogoprotos.Data.Gym.GymState.Builder{
+           builderResult.hasDeployLockout = false
+           builderResult.deployLockout = false
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -612,6 +746,9 @@ public extension Pogoprotos.Data.Gym {
         if !other.memberships.isEmpty  {
            builderResult.memberships += other.memberships
         }
+        if other.hasDeployLockout {
+             deployLockout = other.deployLockout
+        }
         _ = try merge(unknownField: other.unknownFields)
         return self
       }
@@ -640,6 +777,9 @@ public extension Pogoprotos.Data.Gym {
             try codedInputStream.readMessage(builder: subBuilder,extensionRegistry:extensionRegistry)
             memberships.append(subBuilder.buildPartial())
 
+          case 24:
+            deployLockout = try codedInputStream.readBool()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -662,6 +802,9 @@ public extension Pogoprotos.Data.Gym {
             jsonArrayMemberships.append(messageFromStringMemberships)
           }
           resultDecodedBuilder.memberships = jsonArrayMemberships
+        }
+        if let jsonValueDeployLockout = jsonMap["deployLockout"] as? Bool {
+          resultDecodedBuilder.deployLockout = jsonValueDeployLockout
         }
         return resultDecodedBuilder
       }

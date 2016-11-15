@@ -115,6 +115,27 @@ public func == (lhs: Pogoprotos.Inventory.InventoryItemData, rhs: Pogoprotos.Inv
   fieldCheck = fieldCheck && (lhs.hasAppliedItems == rhs.hasAppliedItems) && (!lhs.hasAppliedItems || lhs.appliedItems == rhs.appliedItems)
   fieldCheck = fieldCheck && (lhs.hasEggIncubators == rhs.hasEggIncubators) && (!lhs.hasEggIncubators || lhs.eggIncubators == rhs.eggIncubators)
   fieldCheck = fieldCheck && (lhs.hasCandy == rhs.hasCandy) && (!lhs.hasCandy || lhs.candy == rhs.candy)
+  fieldCheck = fieldCheck && (lhs.hasQuest == rhs.hasQuest) && (!lhs.hasQuest || lhs.quest == rhs.quest)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Inventory.InventoryKey, rhs: Pogoprotos.Inventory.InventoryKey) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasPokemonId == rhs.hasPokemonId) && (!lhs.hasPokemonId || lhs.pokemonId == rhs.pokemonId)
+  fieldCheck = fieldCheck && (lhs.hasItem == rhs.hasItem) && (!lhs.hasItem || lhs.item == rhs.item)
+  fieldCheck = fieldCheck && (lhs.hasPokedexEntryId == rhs.hasPokedexEntryId) && (!lhs.hasPokedexEntryId || lhs.pokedexEntryId == rhs.pokedexEntryId)
+  fieldCheck = fieldCheck && (lhs.hasPlayerStats == rhs.hasPlayerStats) && (!lhs.hasPlayerStats || lhs.playerStats == rhs.playerStats)
+  fieldCheck = fieldCheck && (lhs.hasPlayerCurrency == rhs.hasPlayerCurrency) && (!lhs.hasPlayerCurrency || lhs.playerCurrency == rhs.playerCurrency)
+  fieldCheck = fieldCheck && (lhs.hasPlayerCamera == rhs.hasPlayerCamera) && (!lhs.hasPlayerCamera || lhs.playerCamera == rhs.playerCamera)
+  fieldCheck = fieldCheck && (lhs.hasInventoryUpgrades == rhs.hasInventoryUpgrades) && (!lhs.hasInventoryUpgrades || lhs.inventoryUpgrades == rhs.inventoryUpgrades)
+  fieldCheck = fieldCheck && (lhs.hasAppliedItems == rhs.hasAppliedItems) && (!lhs.hasAppliedItems || lhs.appliedItems == rhs.appliedItems)
+  fieldCheck = fieldCheck && (lhs.hasEggIncubators == rhs.hasEggIncubators) && (!lhs.hasEggIncubators || lhs.eggIncubators == rhs.eggIncubators)
+  fieldCheck = fieldCheck && (lhs.hasPokemonFamilyId == rhs.hasPokemonFamilyId) && (!lhs.hasPokemonFamilyId || lhs.pokemonFamilyId == rhs.pokemonFamilyId)
+  fieldCheck = fieldCheck && (lhs.hasQuestType == rhs.hasQuestType) && (!lhs.hasQuestType || lhs.questType == rhs.questType)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -158,6 +179,7 @@ public extension Pogoprotos.Inventory {
       Pogoprotos.Enums.PogoprotosEnumsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
       Pogoprotos.Data.PogoprotosDataRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
       Pogoprotos.Data.Player.PogoprotosDataPlayerRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
+      Pogoprotos.Data.Quests.PogoprotosDataQuestsRoot.sharedInstance.registerAllExtensions(registry: extensionRegistry)
     }
     public func registerAllExtensions(registry: ExtensionRegistry) {
     }
@@ -379,7 +401,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.AppliedItem = Pogoprotos.Inventory.AppliedItem()
+      private var builderResult:Pogoprotos.Inventory.AppliedItem = Pogoprotos.Inventory.AppliedItem()
       public func getMessage() -> Pogoprotos.Inventory.AppliedItem {
           return builderResult
       }
@@ -690,7 +712,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.AppliedItems = Pogoprotos.Inventory.AppliedItems()
+      private var builderResult:Pogoprotos.Inventory.AppliedItems = Pogoprotos.Inventory.AppliedItems()
       public func getMessage() -> Pogoprotos.Inventory.AppliedItems {
           return builderResult
       }
@@ -906,7 +928,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.Candy = Pogoprotos.Inventory.Candy()
+      private var builderResult:Pogoprotos.Inventory.Candy = Pogoprotos.Inventory.Candy()
       public func getMessage() -> Pogoprotos.Inventory.Candy {
           return builderResult
       }
@@ -1248,7 +1270,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.EggIncubator = Pogoprotos.Inventory.EggIncubator()
+      private var builderResult:Pogoprotos.Inventory.EggIncubator = Pogoprotos.Inventory.EggIncubator()
       public func getMessage() -> Pogoprotos.Inventory.EggIncubator {
           return builderResult
       }
@@ -1655,7 +1677,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.EggIncubators = Pogoprotos.Inventory.EggIncubators()
+      private var builderResult:Pogoprotos.Inventory.EggIncubators = Pogoprotos.Inventory.EggIncubators()
       public func getMessage() -> Pogoprotos.Inventory.EggIncubators {
           return builderResult
       }
@@ -1897,7 +1919,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.InventoryDelta = Pogoprotos.Inventory.InventoryDelta()
+      private var builderResult:Pogoprotos.Inventory.InventoryDelta = Pogoprotos.Inventory.InventoryDelta()
       public func getMessage() -> Pogoprotos.Inventory.InventoryDelta {
           return builderResult
       }
@@ -2165,7 +2187,7 @@ public extension Pogoprotos.Inventory {
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          fileprivate var builderResult:Pogoprotos.Inventory.InventoryItem.DeletedItem = Pogoprotos.Inventory.InventoryItem.DeletedItem()
+          private var builderResult:Pogoprotos.Inventory.InventoryItem.DeletedItem = Pogoprotos.Inventory.InventoryItem.DeletedItem()
           public func getMessage() -> Pogoprotos.Inventory.InventoryItem.DeletedItem {
               return builderResult
           }
@@ -2414,7 +2436,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.InventoryItem = Pogoprotos.Inventory.InventoryItem()
+      private var builderResult:Pogoprotos.Inventory.InventoryItem = Pogoprotos.Inventory.InventoryItem()
       public func getMessage() -> Pogoprotos.Inventory.InventoryItem {
           return builderResult
       }
@@ -2462,7 +2484,7 @@ public extension Pogoprotos.Inventory {
                builderResult.deletedItem = value
            }
       }
-      fileprivate var deletedItemBuilder_:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder! {
+      private var deletedItemBuilder_:Pogoprotos.Inventory.InventoryItem.DeletedItem.Builder! {
            didSet {
               builderResult.hasDeletedItem = true
            }
@@ -2513,7 +2535,7 @@ public extension Pogoprotos.Inventory {
                builderResult.inventoryItemData = value
            }
       }
-      fileprivate var inventoryItemDataBuilder_:Pogoprotos.Inventory.InventoryItemData.Builder! {
+      private var inventoryItemDataBuilder_:Pogoprotos.Inventory.InventoryItemData.Builder! {
            didSet {
               builderResult.hasInventoryItemData = true
            }
@@ -2669,6 +2691,8 @@ public extension Pogoprotos.Inventory {
     public fileprivate(set) var hasEggIncubators:Bool = false
     public fileprivate(set) var candy:Pogoprotos.Inventory.Candy!
     public fileprivate(set) var hasCandy:Bool = false
+    public fileprivate(set) var quest:Pogoprotos.Data.Quests.Quest!
+    public fileprivate(set) var hasQuest:Bool = false
     required public init() {
          super.init()
     }
@@ -2705,6 +2729,9 @@ public extension Pogoprotos.Inventory {
       }
       if hasCandy {
         try codedOutputStream.writeMessage(fieldNumber: 10, value:candy)
+      }
+      if hasQuest {
+        try codedOutputStream.writeMessage(fieldNumber: 11, value:quest)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -2765,6 +2792,11 @@ public extension Pogoprotos.Inventory {
               serialize_size += varSizecandy
           }
       }
+      if hasQuest {
+          if let varSizequest = quest?.computeMessageSize(fieldNumber: 11) {
+              serialize_size += varSizequest
+          }
+      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -2822,6 +2854,9 @@ public extension Pogoprotos.Inventory {
       }
       if hasCandy {
         jsonMap["candy"] = try candy.encode()
+      }
+      if hasQuest {
+        jsonMap["quest"] = try quest.encode()
       }
       return jsonMap
     }
@@ -2903,6 +2938,13 @@ public extension Pogoprotos.Inventory {
         }
         output += "\(indent) }\n"
       }
+      if hasQuest {
+        output += "\(indent) quest {\n"
+        if let outDescQuest = quest {
+          output += try outDescQuest.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -2959,6 +3001,11 @@ public extension Pogoprotos.Inventory {
                     hashCode = (hashCode &* 31) &+ hashValuecandy
                 }
             }
+            if hasQuest {
+                if let hashValuequest = quest?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuequest
+                }
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -2976,7 +3023,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.InventoryItemData = Pogoprotos.Inventory.InventoryItemData()
+      private var builderResult:Pogoprotos.Inventory.InventoryItemData = Pogoprotos.Inventory.InventoryItemData()
       public func getMessage() -> Pogoprotos.Inventory.InventoryItemData {
           return builderResult
       }
@@ -3001,7 +3048,7 @@ public extension Pogoprotos.Inventory {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -3052,7 +3099,7 @@ public extension Pogoprotos.Inventory {
                builderResult.item = value
            }
       }
-      fileprivate var itemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
+      private var itemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
            didSet {
               builderResult.hasItem = true
            }
@@ -3103,7 +3150,7 @@ public extension Pogoprotos.Inventory {
                builderResult.pokedexEntry = value
            }
       }
-      fileprivate var pokedexEntryBuilder_:Pogoprotos.Data.PokedexEntry.Builder! {
+      private var pokedexEntryBuilder_:Pogoprotos.Data.PokedexEntry.Builder! {
            didSet {
               builderResult.hasPokedexEntry = true
            }
@@ -3154,7 +3201,7 @@ public extension Pogoprotos.Inventory {
                builderResult.playerStats = value
            }
       }
-      fileprivate var playerStatsBuilder_:Pogoprotos.Data.Player.PlayerStats.Builder! {
+      private var playerStatsBuilder_:Pogoprotos.Data.Player.PlayerStats.Builder! {
            didSet {
               builderResult.hasPlayerStats = true
            }
@@ -3205,7 +3252,7 @@ public extension Pogoprotos.Inventory {
                builderResult.playerCurrency = value
            }
       }
-      fileprivate var playerCurrencyBuilder_:Pogoprotos.Data.Player.PlayerCurrency.Builder! {
+      private var playerCurrencyBuilder_:Pogoprotos.Data.Player.PlayerCurrency.Builder! {
            didSet {
               builderResult.hasPlayerCurrency = true
            }
@@ -3256,7 +3303,7 @@ public extension Pogoprotos.Inventory {
                builderResult.playerCamera = value
            }
       }
-      fileprivate var playerCameraBuilder_:Pogoprotos.Data.Player.PlayerCamera.Builder! {
+      private var playerCameraBuilder_:Pogoprotos.Data.Player.PlayerCamera.Builder! {
            didSet {
               builderResult.hasPlayerCamera = true
            }
@@ -3307,7 +3354,7 @@ public extension Pogoprotos.Inventory {
                builderResult.inventoryUpgrades = value
            }
       }
-      fileprivate var inventoryUpgradesBuilder_:Pogoprotos.Inventory.InventoryUpgrades.Builder! {
+      private var inventoryUpgradesBuilder_:Pogoprotos.Inventory.InventoryUpgrades.Builder! {
            didSet {
               builderResult.hasInventoryUpgrades = true
            }
@@ -3358,7 +3405,7 @@ public extension Pogoprotos.Inventory {
                builderResult.appliedItems = value
            }
       }
-      fileprivate var appliedItemsBuilder_:Pogoprotos.Inventory.AppliedItems.Builder! {
+      private var appliedItemsBuilder_:Pogoprotos.Inventory.AppliedItems.Builder! {
            didSet {
               builderResult.hasAppliedItems = true
            }
@@ -3409,7 +3456,7 @@ public extension Pogoprotos.Inventory {
                builderResult.eggIncubators = value
            }
       }
-      fileprivate var eggIncubatorsBuilder_:Pogoprotos.Inventory.EggIncubators.Builder! {
+      private var eggIncubatorsBuilder_:Pogoprotos.Inventory.EggIncubators.Builder! {
            didSet {
               builderResult.hasEggIncubators = true
            }
@@ -3460,7 +3507,7 @@ public extension Pogoprotos.Inventory {
                builderResult.candy = value
            }
       }
-      fileprivate var candyBuilder_:Pogoprotos.Inventory.Candy.Builder! {
+      private var candyBuilder_:Pogoprotos.Inventory.Candy.Builder! {
            didSet {
               builderResult.hasCandy = true
            }
@@ -3492,6 +3539,57 @@ public extension Pogoprotos.Inventory {
         candyBuilder_ = nil
         builderResult.hasCandy = false
         builderResult.candy = nil
+        return self
+      }
+      public var hasQuest:Bool {
+           get {
+               return builderResult.hasQuest
+           }
+      }
+      public var quest:Pogoprotos.Data.Quests.Quest! {
+           get {
+               if questBuilder_ != nil {
+                  builderResult.quest = questBuilder_.getMessage()
+               }
+               return builderResult.quest
+           }
+           set (value) {
+               builderResult.hasQuest = true
+               builderResult.quest = value
+           }
+      }
+      private var questBuilder_:Pogoprotos.Data.Quests.Quest.Builder! {
+           didSet {
+              builderResult.hasQuest = true
+           }
+      }
+      public func getQuestBuilder() -> Pogoprotos.Data.Quests.Quest.Builder {
+        if questBuilder_ == nil {
+           questBuilder_ = Pogoprotos.Data.Quests.Quest.Builder()
+           builderResult.quest = questBuilder_.getMessage()
+           if quest != nil {
+              _ = try! questBuilder_.mergeFrom(other: quest)
+           }
+        }
+        return questBuilder_
+      }
+      public func setQuest(_ value:Pogoprotos.Data.Quests.Quest!) -> Pogoprotos.Inventory.InventoryItemData.Builder {
+        self.quest = value
+        return self
+      }
+      public func mergeQuest(value:Pogoprotos.Data.Quests.Quest) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
+        if builderResult.hasQuest {
+          builderResult.quest = try Pogoprotos.Data.Quests.Quest.builderWithPrototype(prototype:builderResult.quest).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.quest = value
+        }
+        builderResult.hasQuest = true
+        return self
+      }
+      public func clearQuest() -> Pogoprotos.Inventory.InventoryItemData.Builder {
+        questBuilder_ = nil
+        builderResult.hasQuest = false
+        builderResult.quest = nil
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -3547,6 +3645,9 @@ public extension Pogoprotos.Inventory {
         }
         if (other.hasCandy) {
             _ = try mergeCandy(value: other.candy)
+        }
+        if (other.hasQuest) {
+            _ = try mergeQuest(value: other.quest)
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -3643,6 +3744,14 @@ public extension Pogoprotos.Inventory {
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             candy = subBuilder.buildPartial()
 
+          case 90:
+            let subBuilder:Pogoprotos.Data.Quests.Quest.Builder = Pogoprotos.Data.Quests.Quest.Builder()
+            if hasQuest {
+              _ = try subBuilder.mergeFrom(other: quest)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            quest = subBuilder.buildPartial()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -3693,6 +3802,10 @@ public extension Pogoprotos.Inventory {
           resultDecodedBuilder.candy = try Pogoprotos.Inventory.Candy.Builder.decodeToBuilder(jsonMap:jsonValueCandy).build()
 
         }
+        if let jsonValueQuest = jsonMap["quest"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.quest = try Pogoprotos.Data.Quests.Quest.Builder.decodeToBuilder(jsonMap:jsonValueQuest).build()
+
+        }
         return resultDecodedBuilder
       }
       override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryItemData.Builder {
@@ -3701,6 +3814,716 @@ public extension Pogoprotos.Inventory {
           throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Inventory.InventoryItemData.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
+  final public class InventoryKey : GeneratedMessage {
+    public fileprivate(set) var pokemonId:UInt64 = UInt64(0)
+    public fileprivate(set) var hasPokemonId:Bool = false
+
+    public fileprivate(set) var item:Pogoprotos.Inventory.Item.ItemId = Pogoprotos.Inventory.Item.ItemId.itemUnknown
+    public fileprivate(set) var hasItem:Bool = false
+    public fileprivate(set) var pokedexEntryId:Int32 = Int32(0)
+    public fileprivate(set) var hasPokedexEntryId:Bool = false
+
+    public fileprivate(set) var playerStats:Bool = false
+    public fileprivate(set) var hasPlayerStats:Bool = false
+
+    public fileprivate(set) var playerCurrency:Bool = false
+    public fileprivate(set) var hasPlayerCurrency:Bool = false
+
+    public fileprivate(set) var playerCamera:Bool = false
+    public fileprivate(set) var hasPlayerCamera:Bool = false
+
+    public fileprivate(set) var inventoryUpgrades:Bool = false
+    public fileprivate(set) var hasInventoryUpgrades:Bool = false
+
+    public fileprivate(set) var appliedItems:Bool = false
+    public fileprivate(set) var hasAppliedItems:Bool = false
+
+    public fileprivate(set) var eggIncubators:Bool = false
+    public fileprivate(set) var hasEggIncubators:Bool = false
+
+    public fileprivate(set) var pokemonFamilyId:Pogoprotos.Enums.PokemonFamilyId = Pogoprotos.Enums.PokemonFamilyId.familyUnset
+    public fileprivate(set) var hasPokemonFamilyId:Bool = false
+    public fileprivate(set) var questType:Pogoprotos.Enums.QuestType = Pogoprotos.Enums.QuestType.questUnknownType
+    public fileprivate(set) var hasQuestType:Bool = false
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if hasPokemonId {
+        try codedOutputStream.writeFixed64(fieldNumber: 1, value:pokemonId)
+      }
+      if hasItem {
+        try codedOutputStream.writeEnum(fieldNumber: 2, value:item.rawValue)
+      }
+      if hasPokedexEntryId {
+        try codedOutputStream.writeInt32(fieldNumber: 3, value:pokedexEntryId)
+      }
+      if hasPlayerStats {
+        try codedOutputStream.writeBool(fieldNumber: 4, value:playerStats)
+      }
+      if hasPlayerCurrency {
+        try codedOutputStream.writeBool(fieldNumber: 5, value:playerCurrency)
+      }
+      if hasPlayerCamera {
+        try codedOutputStream.writeBool(fieldNumber: 6, value:playerCamera)
+      }
+      if hasInventoryUpgrades {
+        try codedOutputStream.writeBool(fieldNumber: 7, value:inventoryUpgrades)
+      }
+      if hasAppliedItems {
+        try codedOutputStream.writeBool(fieldNumber: 8, value:appliedItems)
+      }
+      if hasEggIncubators {
+        try codedOutputStream.writeBool(fieldNumber: 9, value:eggIncubators)
+      }
+      if hasPokemonFamilyId {
+        try codedOutputStream.writeEnum(fieldNumber: 10, value:pokemonFamilyId.rawValue)
+      }
+      if hasQuestType {
+        try codedOutputStream.writeEnum(fieldNumber: 11, value:questType.rawValue)
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasPokemonId {
+        serialize_size += pokemonId.computeFixed64Size(fieldNumber: 1)
+      }
+      if (hasItem) {
+        serialize_size += item.rawValue.computeEnumSize(fieldNumber: 2)
+      }
+      if hasPokedexEntryId {
+        serialize_size += pokedexEntryId.computeInt32Size(fieldNumber: 3)
+      }
+      if hasPlayerStats {
+        serialize_size += playerStats.computeBoolSize(fieldNumber: 4)
+      }
+      if hasPlayerCurrency {
+        serialize_size += playerCurrency.computeBoolSize(fieldNumber: 5)
+      }
+      if hasPlayerCamera {
+        serialize_size += playerCamera.computeBoolSize(fieldNumber: 6)
+      }
+      if hasInventoryUpgrades {
+        serialize_size += inventoryUpgrades.computeBoolSize(fieldNumber: 7)
+      }
+      if hasAppliedItems {
+        serialize_size += appliedItems.computeBoolSize(fieldNumber: 8)
+      }
+      if hasEggIncubators {
+        serialize_size += eggIncubators.computeBoolSize(fieldNumber: 9)
+      }
+      if (hasPokemonFamilyId) {
+        serialize_size += pokemonFamilyId.rawValue.computeEnumSize(fieldNumber: 10)
+      }
+      if (hasQuestType) {
+        serialize_size += questType.rawValue.computeEnumSize(fieldNumber: 11)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Inventory.InventoryKey.Builder {
+      return Pogoprotos.Inventory.InventoryKey.classBuilder() as! Pogoprotos.Inventory.InventoryKey.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Inventory.InventoryKey.Builder {
+      return classBuilder() as! Pogoprotos.Inventory.InventoryKey.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Inventory.InventoryKey.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Inventory.InventoryKey.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+      return try Pogoprotos.Inventory.InventoryKey.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Inventory.InventoryKey) throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+      return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if hasPokemonId {
+        jsonMap["pokemonId"] = "\(pokemonId)"
+      }
+      if hasItem {
+        jsonMap["item"] = item.toString()
+      }
+      if hasPokedexEntryId {
+        jsonMap["pokedexEntryId"] = NSNumber(value:pokedexEntryId)
+      }
+      if hasPlayerStats {
+        jsonMap["playerStats"] = playerStats
+      }
+      if hasPlayerCurrency {
+        jsonMap["playerCurrency"] = playerCurrency
+      }
+      if hasPlayerCamera {
+        jsonMap["playerCamera"] = playerCamera
+      }
+      if hasInventoryUpgrades {
+        jsonMap["inventoryUpgrades"] = inventoryUpgrades
+      }
+      if hasAppliedItems {
+        jsonMap["appliedItems"] = appliedItems
+      }
+      if hasEggIncubators {
+        jsonMap["eggIncubators"] = eggIncubators
+      }
+      if hasPokemonFamilyId {
+        jsonMap["pokemonFamilyId"] = pokemonFamilyId.toString()
+      }
+      if hasQuestType {
+        jsonMap["questType"] = questType.toString()
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryKey {
+      return try Pogoprotos.Inventory.InventoryKey.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Inventory.InventoryKey {
+      return try Pogoprotos.Inventory.InventoryKey.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasPokemonId {
+        output += "\(indent) pokemonId: \(pokemonId) \n"
+      }
+      if (hasItem) {
+        output += "\(indent) item: \(item.description)\n"
+      }
+      if hasPokedexEntryId {
+        output += "\(indent) pokedexEntryId: \(pokedexEntryId) \n"
+      }
+      if hasPlayerStats {
+        output += "\(indent) playerStats: \(playerStats) \n"
+      }
+      if hasPlayerCurrency {
+        output += "\(indent) playerCurrency: \(playerCurrency) \n"
+      }
+      if hasPlayerCamera {
+        output += "\(indent) playerCamera: \(playerCamera) \n"
+      }
+      if hasInventoryUpgrades {
+        output += "\(indent) inventoryUpgrades: \(inventoryUpgrades) \n"
+      }
+      if hasAppliedItems {
+        output += "\(indent) appliedItems: \(appliedItems) \n"
+      }
+      if hasEggIncubators {
+        output += "\(indent) eggIncubators: \(eggIncubators) \n"
+      }
+      if (hasPokemonFamilyId) {
+        output += "\(indent) pokemonFamilyId: \(pokemonFamilyId.description)\n"
+      }
+      if (hasQuestType) {
+        output += "\(indent) questType: \(questType.description)\n"
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasPokemonId {
+               hashCode = (hashCode &* 31) &+ pokemonId.hashValue
+            }
+            if hasItem {
+               hashCode = (hashCode &* 31) &+ Int(item.rawValue)
+            }
+            if hasPokedexEntryId {
+               hashCode = (hashCode &* 31) &+ pokedexEntryId.hashValue
+            }
+            if hasPlayerStats {
+               hashCode = (hashCode &* 31) &+ playerStats.hashValue
+            }
+            if hasPlayerCurrency {
+               hashCode = (hashCode &* 31) &+ playerCurrency.hashValue
+            }
+            if hasPlayerCamera {
+               hashCode = (hashCode &* 31) &+ playerCamera.hashValue
+            }
+            if hasInventoryUpgrades {
+               hashCode = (hashCode &* 31) &+ inventoryUpgrades.hashValue
+            }
+            if hasAppliedItems {
+               hashCode = (hashCode &* 31) &+ appliedItems.hashValue
+            }
+            if hasEggIncubators {
+               hashCode = (hashCode &* 31) &+ eggIncubators.hashValue
+            }
+            if hasPokemonFamilyId {
+               hashCode = (hashCode &* 31) &+ Int(pokemonFamilyId.rawValue)
+            }
+            if hasQuestType {
+               hashCode = (hashCode &* 31) &+ Int(questType.rawValue)
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Inventory.InventoryKey"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Inventory.InventoryKey"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Inventory.InventoryKey = Pogoprotos.Inventory.InventoryKey()
+      public func getMessage() -> Pogoprotos.Inventory.InventoryKey {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasPokemonId:Bool {
+           get {
+                return builderResult.hasPokemonId
+           }
+      }
+      public var pokemonId:UInt64 {
+           get {
+                return builderResult.pokemonId
+           }
+           set (value) {
+               builderResult.hasPokemonId = true
+               builderResult.pokemonId = value
+           }
+      }
+      public func setPokemonId(_ value:UInt64) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.pokemonId = value
+        return self
+      }
+      public func clearPokemonId() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasPokemonId = false
+           builderResult.pokemonId = UInt64(0)
+           return self
+      }
+        public var hasItem:Bool{
+            get {
+                return builderResult.hasItem
+            }
+        }
+        public var item:Pogoprotos.Inventory.Item.ItemId {
+            get {
+                return builderResult.item
+            }
+            set (value) {
+                builderResult.hasItem = true
+                builderResult.item = value
+            }
+        }
+        public func setItem(_ value:Pogoprotos.Inventory.Item.ItemId) -> Pogoprotos.Inventory.InventoryKey.Builder {
+          self.item = value
+          return self
+        }
+        public func clearItem() -> Pogoprotos.Inventory.InventoryKey.Builder {
+           builderResult.hasItem = false
+           builderResult.item = .itemUnknown
+           return self
+        }
+      public var hasPokedexEntryId:Bool {
+           get {
+                return builderResult.hasPokedexEntryId
+           }
+      }
+      public var pokedexEntryId:Int32 {
+           get {
+                return builderResult.pokedexEntryId
+           }
+           set (value) {
+               builderResult.hasPokedexEntryId = true
+               builderResult.pokedexEntryId = value
+           }
+      }
+      public func setPokedexEntryId(_ value:Int32) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.pokedexEntryId = value
+        return self
+      }
+      public func clearPokedexEntryId() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasPokedexEntryId = false
+           builderResult.pokedexEntryId = Int32(0)
+           return self
+      }
+      public var hasPlayerStats:Bool {
+           get {
+                return builderResult.hasPlayerStats
+           }
+      }
+      public var playerStats:Bool {
+           get {
+                return builderResult.playerStats
+           }
+           set (value) {
+               builderResult.hasPlayerStats = true
+               builderResult.playerStats = value
+           }
+      }
+      public func setPlayerStats(_ value:Bool) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.playerStats = value
+        return self
+      }
+      public func clearPlayerStats() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasPlayerStats = false
+           builderResult.playerStats = false
+           return self
+      }
+      public var hasPlayerCurrency:Bool {
+           get {
+                return builderResult.hasPlayerCurrency
+           }
+      }
+      public var playerCurrency:Bool {
+           get {
+                return builderResult.playerCurrency
+           }
+           set (value) {
+               builderResult.hasPlayerCurrency = true
+               builderResult.playerCurrency = value
+           }
+      }
+      public func setPlayerCurrency(_ value:Bool) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.playerCurrency = value
+        return self
+      }
+      public func clearPlayerCurrency() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasPlayerCurrency = false
+           builderResult.playerCurrency = false
+           return self
+      }
+      public var hasPlayerCamera:Bool {
+           get {
+                return builderResult.hasPlayerCamera
+           }
+      }
+      public var playerCamera:Bool {
+           get {
+                return builderResult.playerCamera
+           }
+           set (value) {
+               builderResult.hasPlayerCamera = true
+               builderResult.playerCamera = value
+           }
+      }
+      public func setPlayerCamera(_ value:Bool) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.playerCamera = value
+        return self
+      }
+      public func clearPlayerCamera() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasPlayerCamera = false
+           builderResult.playerCamera = false
+           return self
+      }
+      public var hasInventoryUpgrades:Bool {
+           get {
+                return builderResult.hasInventoryUpgrades
+           }
+      }
+      public var inventoryUpgrades:Bool {
+           get {
+                return builderResult.inventoryUpgrades
+           }
+           set (value) {
+               builderResult.hasInventoryUpgrades = true
+               builderResult.inventoryUpgrades = value
+           }
+      }
+      public func setInventoryUpgrades(_ value:Bool) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.inventoryUpgrades = value
+        return self
+      }
+      public func clearInventoryUpgrades() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasInventoryUpgrades = false
+           builderResult.inventoryUpgrades = false
+           return self
+      }
+      public var hasAppliedItems:Bool {
+           get {
+                return builderResult.hasAppliedItems
+           }
+      }
+      public var appliedItems:Bool {
+           get {
+                return builderResult.appliedItems
+           }
+           set (value) {
+               builderResult.hasAppliedItems = true
+               builderResult.appliedItems = value
+           }
+      }
+      public func setAppliedItems(_ value:Bool) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.appliedItems = value
+        return self
+      }
+      public func clearAppliedItems() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasAppliedItems = false
+           builderResult.appliedItems = false
+           return self
+      }
+      public var hasEggIncubators:Bool {
+           get {
+                return builderResult.hasEggIncubators
+           }
+      }
+      public var eggIncubators:Bool {
+           get {
+                return builderResult.eggIncubators
+           }
+           set (value) {
+               builderResult.hasEggIncubators = true
+               builderResult.eggIncubators = value
+           }
+      }
+      public func setEggIncubators(_ value:Bool) -> Pogoprotos.Inventory.InventoryKey.Builder {
+        self.eggIncubators = value
+        return self
+      }
+      public func clearEggIncubators() -> Pogoprotos.Inventory.InventoryKey.Builder{
+           builderResult.hasEggIncubators = false
+           builderResult.eggIncubators = false
+           return self
+      }
+        public var hasPokemonFamilyId:Bool{
+            get {
+                return builderResult.hasPokemonFamilyId
+            }
+        }
+        public var pokemonFamilyId:Pogoprotos.Enums.PokemonFamilyId {
+            get {
+                return builderResult.pokemonFamilyId
+            }
+            set (value) {
+                builderResult.hasPokemonFamilyId = true
+                builderResult.pokemonFamilyId = value
+            }
+        }
+        public func setPokemonFamilyId(_ value:Pogoprotos.Enums.PokemonFamilyId) -> Pogoprotos.Inventory.InventoryKey.Builder {
+          self.pokemonFamilyId = value
+          return self
+        }
+        public func clearPokemonFamilyId() -> Pogoprotos.Inventory.InventoryKey.Builder {
+           builderResult.hasPokemonFamilyId = false
+           builderResult.pokemonFamilyId = .familyUnset
+           return self
+        }
+        public var hasQuestType:Bool{
+            get {
+                return builderResult.hasQuestType
+            }
+        }
+        public var questType:Pogoprotos.Enums.QuestType {
+            get {
+                return builderResult.questType
+            }
+            set (value) {
+                builderResult.hasQuestType = true
+                builderResult.questType = value
+            }
+        }
+        public func setQuestType(_ value:Pogoprotos.Enums.QuestType) -> Pogoprotos.Inventory.InventoryKey.Builder {
+          self.questType = value
+          return self
+        }
+        public func clearQuestType() -> Pogoprotos.Inventory.InventoryKey.Builder {
+           builderResult.hasQuestType = false
+           builderResult.questType = .questUnknownType
+           return self
+        }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Inventory.InventoryKey.Builder {
+        builderResult = Pogoprotos.Inventory.InventoryKey()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+        return try Pogoprotos.Inventory.InventoryKey.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Inventory.InventoryKey {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Inventory.InventoryKey {
+        let returnMe:Pogoprotos.Inventory.InventoryKey = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Inventory.InventoryKey) throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+        if other == Pogoprotos.Inventory.InventoryKey() {
+         return self
+        }
+        if other.hasPokemonId {
+             pokemonId = other.pokemonId
+        }
+        if other.hasItem {
+             item = other.item
+        }
+        if other.hasPokedexEntryId {
+             pokedexEntryId = other.pokedexEntryId
+        }
+        if other.hasPlayerStats {
+             playerStats = other.playerStats
+        }
+        if other.hasPlayerCurrency {
+             playerCurrency = other.playerCurrency
+        }
+        if other.hasPlayerCamera {
+             playerCamera = other.playerCamera
+        }
+        if other.hasInventoryUpgrades {
+             inventoryUpgrades = other.inventoryUpgrades
+        }
+        if other.hasAppliedItems {
+             appliedItems = other.appliedItems
+        }
+        if other.hasEggIncubators {
+             eggIncubators = other.eggIncubators
+        }
+        if other.hasPokemonFamilyId {
+             pokemonFamilyId = other.pokemonFamilyId
+        }
+        if other.hasQuestType {
+             questType = other.questType
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 9:
+            pokemonId = try codedInputStream.readFixed64()
+
+          case 16:
+            let valueIntitem = try codedInputStream.readEnum()
+            if let enumsitem = Pogoprotos.Inventory.Item.ItemId(rawValue:valueIntitem){
+                 item = enumsitem
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntitem))
+            }
+
+          case 24:
+            pokedexEntryId = try codedInputStream.readInt32()
+
+          case 32:
+            playerStats = try codedInputStream.readBool()
+
+          case 40:
+            playerCurrency = try codedInputStream.readBool()
+
+          case 48:
+            playerCamera = try codedInputStream.readBool()
+
+          case 56:
+            inventoryUpgrades = try codedInputStream.readBool()
+
+          case 64:
+            appliedItems = try codedInputStream.readBool()
+
+          case 72:
+            eggIncubators = try codedInputStream.readBool()
+
+          case 80:
+            let valueIntpokemonFamilyId = try codedInputStream.readEnum()
+            if let enumspokemonFamilyId = Pogoprotos.Enums.PokemonFamilyId(rawValue:valueIntpokemonFamilyId){
+                 pokemonFamilyId = enumspokemonFamilyId
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 10, value:Int64(valueIntpokemonFamilyId))
+            }
+
+          case 88:
+            let valueIntquestType = try codedInputStream.readEnum()
+            if let enumsquestType = Pogoprotos.Enums.QuestType(rawValue:valueIntquestType){
+                 questType = enumsquestType
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 11, value:Int64(valueIntquestType))
+            }
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+        let resultDecodedBuilder = Pogoprotos.Inventory.InventoryKey.Builder()
+        if let jsonValuePokemonId = jsonMap["pokemonId"] as? String {
+          resultDecodedBuilder.pokemonId = UInt64(jsonValuePokemonId)!
+        }
+        if let jsonValueItem = jsonMap["item"] as? String {
+          resultDecodedBuilder.item = try Pogoprotos.Inventory.Item.ItemId.fromString(str: jsonValueItem)
+        }
+        if let jsonValuePokedexEntryId = jsonMap["pokedexEntryId"] as? NSNumber {
+          resultDecodedBuilder.pokedexEntryId = jsonValuePokedexEntryId.int32Value
+        }
+        if let jsonValuePlayerStats = jsonMap["playerStats"] as? Bool {
+          resultDecodedBuilder.playerStats = jsonValuePlayerStats
+        }
+        if let jsonValuePlayerCurrency = jsonMap["playerCurrency"] as? Bool {
+          resultDecodedBuilder.playerCurrency = jsonValuePlayerCurrency
+        }
+        if let jsonValuePlayerCamera = jsonMap["playerCamera"] as? Bool {
+          resultDecodedBuilder.playerCamera = jsonValuePlayerCamera
+        }
+        if let jsonValueInventoryUpgrades = jsonMap["inventoryUpgrades"] as? Bool {
+          resultDecodedBuilder.inventoryUpgrades = jsonValueInventoryUpgrades
+        }
+        if let jsonValueAppliedItems = jsonMap["appliedItems"] as? Bool {
+          resultDecodedBuilder.appliedItems = jsonValueAppliedItems
+        }
+        if let jsonValueEggIncubators = jsonMap["eggIncubators"] as? Bool {
+          resultDecodedBuilder.eggIncubators = jsonValueEggIncubators
+        }
+        if let jsonValuePokemonFamilyId = jsonMap["pokemonFamilyId"] as? String {
+          resultDecodedBuilder.pokemonFamilyId = try Pogoprotos.Enums.PokemonFamilyId.fromString(str: jsonValuePokemonFamilyId)
+        }
+        if let jsonValueQuestType = jsonMap["questType"] as? String {
+          resultDecodedBuilder.questType = try Pogoprotos.Enums.QuestType.fromString(str: jsonValueQuestType)
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Inventory.InventoryKey.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Inventory.InventoryKey.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
@@ -3836,7 +4659,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.InventoryUpgrade = Pogoprotos.Inventory.InventoryUpgrade()
+      private var builderResult:Pogoprotos.Inventory.InventoryUpgrade = Pogoprotos.Inventory.InventoryUpgrade()
       public func getMessage() -> Pogoprotos.Inventory.InventoryUpgrade {
           return builderResult
       }
@@ -4115,7 +4938,7 @@ public extension Pogoprotos.Inventory {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.InventoryUpgrades = Pogoprotos.Inventory.InventoryUpgrades()
+      private var builderResult:Pogoprotos.Inventory.InventoryUpgrades = Pogoprotos.Inventory.InventoryUpgrades()
       public func getMessage() -> Pogoprotos.Inventory.InventoryUpgrades {
           return builderResult
       }
@@ -4487,6 +5310,36 @@ extension Pogoprotos.Inventory.InventoryItemData: GeneratedMessageProtocol {
   }
   public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryItemData {
     return try Pogoprotos.Inventory.InventoryItemData.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Inventory.InventoryKey: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Inventory.InventoryKey> {
+    var mergedArray = Array<Pogoprotos.Inventory.InventoryKey>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryKey? {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Inventory.InventoryKey {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Inventory.PogoprotosInventoryRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryKey {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Inventory.InventoryKey {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryKey {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Inventory.InventoryKey {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Inventory.InventoryKey {
+    return try Pogoprotos.Inventory.InventoryKey.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
   }
 }
 extension Pogoprotos.Inventory.InventoryUpgrade: GeneratedMessageProtocol {

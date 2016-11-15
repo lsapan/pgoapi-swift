@@ -40,6 +40,7 @@ public func == (lhs: Pogoprotos.Networking.Responses.CatchPokemonResponse, rhs: 
   fieldCheck = fieldCheck && (lhs.hasMissPercent == rhs.hasMissPercent) && (!lhs.hasMissPercent || lhs.missPercent == rhs.missPercent)
   fieldCheck = fieldCheck && (lhs.hasCapturedPokemonId == rhs.hasCapturedPokemonId) && (!lhs.hasCapturedPokemonId || lhs.capturedPokemonId == rhs.capturedPokemonId)
   fieldCheck = fieldCheck && (lhs.hasCaptureAward == rhs.hasCaptureAward) && (!lhs.hasCaptureAward || lhs.captureAward == rhs.captureAward)
+  fieldCheck = fieldCheck && (lhs.hasCaptureReason == rhs.hasCaptureReason) && (!lhs.hasCaptureReason || lhs.captureReason == rhs.captureReason)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -162,6 +163,7 @@ public func == (lhs: Pogoprotos.Networking.Responses.DownloadItemTemplatesRespon
   fieldCheck = fieldCheck && (lhs.hasIapSettings == rhs.hasIapSettings) && (!lhs.hasIapSettings || lhs.iapSettings == rhs.iapSettings)
   fieldCheck = fieldCheck && (lhs.hasPokemonUpgrades == rhs.hasPokemonUpgrades) && (!lhs.hasPokemonUpgrades || lhs.pokemonUpgrades == rhs.pokemonUpgrades)
   fieldCheck = fieldCheck && (lhs.hasEquippedBadges == rhs.hasEquippedBadges) && (!lhs.hasEquippedBadges || lhs.equippedBadges == rhs.equippedBadges)
+  fieldCheck = fieldCheck && (lhs.hasQuestSettings == rhs.hasQuestSettings) && (!lhs.hasQuestSettings || lhs.questSettings == rhs.questSettings)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -368,6 +370,7 @@ public func == (lhs: Pogoprotos.Networking.Responses.GetHatchedEggsResponse, rhs
   fieldCheck = fieldCheck && (lhs.experienceAwarded == rhs.experienceAwarded)
   fieldCheck = fieldCheck && (lhs.candyAwarded == rhs.candyAwarded)
   fieldCheck = fieldCheck && (lhs.stardustAwarded == rhs.stardustAwarded)
+  fieldCheck = fieldCheck && (lhs.eggKmWalked == rhs.eggKmWalked)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -429,6 +432,8 @@ public func == (lhs: Pogoprotos.Networking.Responses.GetPlayerResponse, rhs: Pog
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasSuccess == rhs.hasSuccess) && (!lhs.hasSuccess || lhs.success == rhs.success)
   fieldCheck = fieldCheck && (lhs.hasPlayerData == rhs.hasPlayerData) && (!lhs.hasPlayerData || lhs.playerData == rhs.playerData)
+  fieldCheck = fieldCheck && (lhs.hasBanned == rhs.hasBanned) && (!lhs.hasBanned || lhs.banned == rhs.banned)
+  fieldCheck = fieldCheck && (lhs.hasWarn == rhs.hasWarn) && (!lhs.hasWarn || lhs.warn == rhs.warn)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -508,6 +513,17 @@ public func == (lhs: Pogoprotos.Networking.Responses.RecycleInventoryItemRespons
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasResult == rhs.hasResult) && (!lhs.hasResult || lhs.result == rhs.result)
   fieldCheck = fieldCheck && (lhs.hasNewCount == rhs.hasNewCount) && (!lhs.hasNewCount || lhs.newCount == rhs.newCount)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse, rhs: Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasStatus == rhs.hasStatus) && (!lhs.hasStatus || lhs.status == rhs.status)
+  fieldCheck = fieldCheck && (lhs.hasToken == rhs.hasToken) && (!lhs.hasToken || lhs.token == rhs.token)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -599,6 +615,7 @@ public func == (lhs: Pogoprotos.Networking.Responses.StartGymBattleResponse, rhs
   fieldCheck = fieldCheck && (lhs.hasBattleId == rhs.hasBattleId) && (!lhs.hasBattleId || lhs.battleId == rhs.battleId)
   fieldCheck = fieldCheck && (lhs.hasDefender == rhs.hasDefender) && (!lhs.hasDefender || lhs.defender == rhs.defender)
   fieldCheck = fieldCheck && (lhs.hasBattleLog == rhs.hasBattleLog) && (!lhs.hasBattleLog || lhs.battleLog == rhs.battleLog)
+  fieldCheck = fieldCheck && (lhs.hasAttacker == rhs.hasAttacker) && (!lhs.hasAttacker || lhs.attacker == rhs.attacker)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -902,7 +919,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.AddFortModifierResponse = Pogoprotos.Networking.Responses.AddFortModifierResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.AddFortModifierResponse = Pogoprotos.Networking.Responses.AddFortModifierResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.AddFortModifierResponse {
           return builderResult
       }
@@ -950,7 +967,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.fortDetails = value
            }
       }
-      fileprivate var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
+      private var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
            didSet {
               builderResult.hasFortDetails = true
            }
@@ -1303,7 +1320,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.AttackGymResponse = Pogoprotos.Networking.Responses.AttackGymResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.AttackGymResponse = Pogoprotos.Networking.Responses.AttackGymResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.AttackGymResponse {
           return builderResult
       }
@@ -1351,7 +1368,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.battleLog = value
            }
       }
-      fileprivate var battleLogBuilder_:Pogoprotos.Data.Battle.BattleLog.Builder! {
+      private var battleLogBuilder_:Pogoprotos.Data.Battle.BattleLog.Builder! {
            didSet {
               builderResult.hasBattleLog = true
            }
@@ -1425,7 +1442,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.activeDefender = value
            }
       }
-      fileprivate var activeDefenderBuilder_:Pogoprotos.Data.Battle.BattlePokemonInfo.Builder! {
+      private var activeDefenderBuilder_:Pogoprotos.Data.Battle.BattlePokemonInfo.Builder! {
            didSet {
               builderResult.hasActiveDefender = true
            }
@@ -1476,7 +1493,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.activeAttacker = value
            }
       }
-      fileprivate var activeAttackerBuilder_:Pogoprotos.Data.Battle.BattlePokemonInfo.Builder! {
+      private var activeAttackerBuilder_:Pogoprotos.Data.Battle.BattlePokemonInfo.Builder! {
            didSet {
               builderResult.hasActiveAttacker = true
            }
@@ -1685,6 +1702,42 @@ public extension Pogoprotos.Networking.Responses {
 
       //Enum type declaration end 
 
+
+
+      //Enum type declaration start 
+
+      public enum CaptureReason:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+        case unset = 0
+        case `default` = 1
+        case elementalBadge = 2
+        public func toString() -> String {
+          switch self {
+          case .unset: return "UNSET"
+          case .`default`: return "DEFAULT"
+          case .elementalBadge: return "ELEMENTAL_BADGE"
+          }
+        }
+        public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason {
+          switch str {
+          case "UNSET":  return .unset
+          case "DEFAULT":  return .`default`
+          case "ELEMENTAL_BADGE":  return .elementalBadge
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
+          }
+        }
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+          switch self {
+          case .unset: return ".unset"
+          case .`default`: return ".`default`"
+          case .elementalBadge: return ".elementalBadge"
+          }
+        }
+      }
+
+      //Enum type declaration end 
+
     public fileprivate(set) var status:Pogoprotos.Networking.Responses.CatchPokemonResponse.CatchStatus = Pogoprotos.Networking.Responses.CatchPokemonResponse.CatchStatus.catchError
     public fileprivate(set) var hasStatus:Bool = false
     public fileprivate(set) var missPercent:Double = Double(0)
@@ -1695,6 +1748,8 @@ public extension Pogoprotos.Networking.Responses {
 
     public fileprivate(set) var captureAward:Pogoprotos.Data.Capture.CaptureAward!
     public fileprivate(set) var hasCaptureAward:Bool = false
+    public fileprivate(set) var captureReason:Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason = Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason.unset
+    public fileprivate(set) var hasCaptureReason:Bool = false
     required public init() {
          super.init()
     }
@@ -1713,6 +1768,9 @@ public extension Pogoprotos.Networking.Responses {
       }
       if hasCaptureAward {
         try codedOutputStream.writeMessage(fieldNumber: 4, value:captureAward)
+      }
+      if hasCaptureReason {
+        try codedOutputStream.writeEnum(fieldNumber: 5, value:captureReason.rawValue)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -1736,6 +1794,9 @@ public extension Pogoprotos.Networking.Responses {
           if let varSizecaptureAward = captureAward?.computeMessageSize(fieldNumber: 4) {
               serialize_size += varSizecaptureAward
           }
+      }
+      if (hasCaptureReason) {
+        serialize_size += captureReason.rawValue.computeEnumSize(fieldNumber: 5)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -1777,6 +1838,9 @@ public extension Pogoprotos.Networking.Responses {
       if hasCaptureAward {
         jsonMap["captureAward"] = try captureAward.encode()
       }
+      if hasCaptureReason {
+        jsonMap["captureReason"] = captureReason.toString()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Responses.CatchPokemonResponse {
@@ -1803,6 +1867,9 @@ public extension Pogoprotos.Networking.Responses {
         }
         output += "\(indent) }\n"
       }
+      if (hasCaptureReason) {
+        output += "\(indent) captureReason: \(captureReason.description)\n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -1823,6 +1890,9 @@ public extension Pogoprotos.Networking.Responses {
                     hashCode = (hashCode &* 31) &+ hashValuecaptureAward
                 }
             }
+            if hasCaptureReason {
+               hashCode = (hashCode &* 31) &+ Int(captureReason.rawValue)
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -1840,7 +1910,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.CatchPokemonResponse = Pogoprotos.Networking.Responses.CatchPokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.CatchPokemonResponse = Pogoprotos.Networking.Responses.CatchPokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.CatchPokemonResponse {
           return builderResult
       }
@@ -1934,7 +2004,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.captureAward = value
            }
       }
-      fileprivate var captureAwardBuilder_:Pogoprotos.Data.Capture.CaptureAward.Builder! {
+      private var captureAwardBuilder_:Pogoprotos.Data.Capture.CaptureAward.Builder! {
            didSet {
               builderResult.hasCaptureAward = true
            }
@@ -1968,6 +2038,29 @@ public extension Pogoprotos.Networking.Responses {
         builderResult.captureAward = nil
         return self
       }
+        public var hasCaptureReason:Bool{
+            get {
+                return builderResult.hasCaptureReason
+            }
+        }
+        public var captureReason:Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason {
+            get {
+                return builderResult.captureReason
+            }
+            set (value) {
+                builderResult.hasCaptureReason = true
+                builderResult.captureReason = value
+            }
+        }
+        public func setCaptureReason(_ value:Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason) -> Pogoprotos.Networking.Responses.CatchPokemonResponse.Builder {
+          self.captureReason = value
+          return self
+        }
+        public func clearCaptureReason() -> Pogoprotos.Networking.Responses.CatchPokemonResponse.Builder {
+           builderResult.hasCaptureReason = false
+           builderResult.captureReason = .unset
+           return self
+        }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -2003,6 +2096,9 @@ public extension Pogoprotos.Networking.Responses {
         }
         if (other.hasCaptureAward) {
             _ = try mergeCaptureAward(value: other.captureAward)
+        }
+        if other.hasCaptureReason {
+             captureReason = other.captureReason
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -2041,6 +2137,14 @@ public extension Pogoprotos.Networking.Responses {
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             captureAward = subBuilder.buildPartial()
 
+          case 40:
+            let valueIntcaptureReason = try codedInputStream.readEnum()
+            if let enumscaptureReason = Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason(rawValue:valueIntcaptureReason){
+                 captureReason = enumscaptureReason
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 5, value:Int64(valueIntcaptureReason))
+            }
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -2063,6 +2167,9 @@ public extension Pogoprotos.Networking.Responses {
         if let jsonValueCaptureAward = jsonMap["captureAward"] as? Dictionary<String,Any> {
           resultDecodedBuilder.captureAward = try Pogoprotos.Data.Capture.CaptureAward.Builder.decodeToBuilder(jsonMap:jsonValueCaptureAward).build()
 
+        }
+        if let jsonValueCaptureReason = jsonMap["captureReason"] as? String {
+          resultDecodedBuilder.captureReason = try Pogoprotos.Networking.Responses.CatchPokemonResponse.CaptureReason.fromString(str: jsonValueCaptureReason)
         }
         return resultDecodedBuilder
       }
@@ -2233,7 +2340,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse = Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse = Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.CheckAwardedBadgesResponse {
           return builderResult
       }
@@ -2518,7 +2625,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.CheckChallengeResponse = Pogoprotos.Networking.Responses.CheckChallengeResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.CheckChallengeResponse = Pogoprotos.Networking.Responses.CheckChallengeResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.CheckChallengeResponse {
           return builderResult
       }
@@ -2849,7 +2956,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse = Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse = Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.CheckCodenameAvailableResponse {
           return builderResult
       }
@@ -3274,7 +3381,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.ClaimCodenameResponse = Pogoprotos.Networking.Responses.ClaimCodenameResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.ClaimCodenameResponse = Pogoprotos.Networking.Responses.ClaimCodenameResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.ClaimCodenameResponse {
           return builderResult
       }
@@ -3391,7 +3498,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.updatedPlayer = value
            }
       }
-      fileprivate var updatedPlayerBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+      private var updatedPlayerBuilder_:Pogoprotos.Data.PlayerData.Builder! {
            didSet {
               builderResult.hasUpdatedPlayer = true
            }
@@ -3678,7 +3785,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.CollectDailyBonusResponse = Pogoprotos.Networking.Responses.CollectDailyBonusResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.CollectDailyBonusResponse = Pogoprotos.Networking.Responses.CollectDailyBonusResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.CollectDailyBonusResponse {
           return builderResult
       }
@@ -3999,7 +4106,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.CollectDailyDefenderBonusResponse = Pogoprotos.Networking.Responses.CollectDailyDefenderBonusResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.CollectDailyDefenderBonusResponse = Pogoprotos.Networking.Responses.CollectDailyDefenderBonusResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.CollectDailyDefenderBonusResponse {
           return builderResult
       }
@@ -4390,7 +4497,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.DiskEncounterResponse = Pogoprotos.Networking.Responses.DiskEncounterResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.DiskEncounterResponse = Pogoprotos.Networking.Responses.DiskEncounterResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.DiskEncounterResponse {
           return builderResult
       }
@@ -4438,7 +4545,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -4489,7 +4596,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.captureProbability = value
            }
       }
-      fileprivate var captureProbabilityBuilder_:Pogoprotos.Data.Capture.CaptureProbability.Builder! {
+      private var captureProbabilityBuilder_:Pogoprotos.Data.Capture.CaptureProbability.Builder! {
            didSet {
               builderResult.hasCaptureProbability = true
            }
@@ -4668,6 +4775,8 @@ public extension Pogoprotos.Networking.Responses {
         public fileprivate(set) var hasPokemonUpgrades:Bool = false
         public fileprivate(set) var equippedBadges:Pogoprotos.Settings.Master.EquippedBadgeSettings!
         public fileprivate(set) var hasEquippedBadges:Bool = false
+        public fileprivate(set) var questSettings:Pogoprotos.Settings.Master.QuestSettings!
+        public fileprivate(set) var hasQuestSettings:Bool = false
         required public init() {
              super.init()
         }
@@ -4722,6 +4831,9 @@ public extension Pogoprotos.Networking.Responses {
           }
           if hasEquippedBadges {
             try codedOutputStream.writeMessage(fieldNumber: 19, value:equippedBadges)
+          }
+          if hasQuestSettings {
+            try codedOutputStream.writeMessage(fieldNumber: 20, value:questSettings)
           }
           try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
@@ -4810,6 +4922,11 @@ public extension Pogoprotos.Networking.Responses {
                   serialize_size += varSizeequippedBadges
               }
           }
+          if hasQuestSettings {
+              if let varSizequestSettings = questSettings?.computeMessageSize(fieldNumber: 20) {
+                  serialize_size += varSizequestSettings
+              }
+          }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
@@ -4885,6 +5002,9 @@ public extension Pogoprotos.Networking.Responses {
           }
           if hasEquippedBadges {
             jsonMap["equippedBadges"] = try equippedBadges.encode()
+          }
+          if hasQuestSettings {
+            jsonMap["questSettings"] = try questSettings.encode()
           }
           return jsonMap
         }
@@ -5004,6 +5124,13 @@ public extension Pogoprotos.Networking.Responses {
             }
             output += "\(indent) }\n"
           }
+          if hasQuestSettings {
+            output += "\(indent) questSettings {\n"
+            if let outDescQuestSettings = questSettings {
+              output += try outDescQuestSettings.getDescription(indent: "\(indent)  ")
+            }
+            output += "\(indent) }\n"
+          }
           output += unknownFields.getDescription(indent: indent)
           return output
         }
@@ -5088,6 +5215,11 @@ public extension Pogoprotos.Networking.Responses {
                         hashCode = (hashCode &* 31) &+ hashValueequippedBadges
                     }
                 }
+                if hasQuestSettings {
+                    if let hashValuequestSettings = questSettings?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuequestSettings
+                    }
+                }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
             }
@@ -5105,7 +5237,7 @@ public extension Pogoprotos.Networking.Responses {
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          fileprivate var builderResult:Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate = Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate()
+          private var builderResult:Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate = Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate()
           public func getMessage() -> Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate {
               return builderResult
           }
@@ -5153,7 +5285,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.pokemonSettings = value
                }
           }
-          fileprivate var pokemonSettingsBuilder_:Pogoprotos.Settings.Master.PokemonSettings.Builder! {
+          private var pokemonSettingsBuilder_:Pogoprotos.Settings.Master.PokemonSettings.Builder! {
                didSet {
                   builderResult.hasPokemonSettings = true
                }
@@ -5204,7 +5336,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.itemSettings = value
                }
           }
-          fileprivate var itemSettingsBuilder_:Pogoprotos.Settings.Master.ItemSettings.Builder! {
+          private var itemSettingsBuilder_:Pogoprotos.Settings.Master.ItemSettings.Builder! {
                didSet {
                   builderResult.hasItemSettings = true
                }
@@ -5255,7 +5387,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.moveSettings = value
                }
           }
-          fileprivate var moveSettingsBuilder_:Pogoprotos.Settings.Master.MoveSettings.Builder! {
+          private var moveSettingsBuilder_:Pogoprotos.Settings.Master.MoveSettings.Builder! {
                didSet {
                   builderResult.hasMoveSettings = true
                }
@@ -5306,7 +5438,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.moveSequenceSettings = value
                }
           }
-          fileprivate var moveSequenceSettingsBuilder_:Pogoprotos.Settings.Master.MoveSequenceSettings.Builder! {
+          private var moveSequenceSettingsBuilder_:Pogoprotos.Settings.Master.MoveSequenceSettings.Builder! {
                didSet {
                   builderResult.hasMoveSequenceSettings = true
                }
@@ -5357,7 +5489,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.typeEffective = value
                }
           }
-          fileprivate var typeEffectiveBuilder_:Pogoprotos.Settings.Master.TypeEffectiveSettings.Builder! {
+          private var typeEffectiveBuilder_:Pogoprotos.Settings.Master.TypeEffectiveSettings.Builder! {
                didSet {
                   builderResult.hasTypeEffective = true
                }
@@ -5408,7 +5540,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.badgeSettings = value
                }
           }
-          fileprivate var badgeSettingsBuilder_:Pogoprotos.Settings.Master.BadgeSettings.Builder! {
+          private var badgeSettingsBuilder_:Pogoprotos.Settings.Master.BadgeSettings.Builder! {
                didSet {
                   builderResult.hasBadgeSettings = true
                }
@@ -5459,7 +5591,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.camera = value
                }
           }
-          fileprivate var cameraBuilder_:Pogoprotos.Settings.Master.CameraSettings.Builder! {
+          private var cameraBuilder_:Pogoprotos.Settings.Master.CameraSettings.Builder! {
                didSet {
                   builderResult.hasCamera = true
                }
@@ -5510,7 +5642,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.playerLevel = value
                }
           }
-          fileprivate var playerLevelBuilder_:Pogoprotos.Settings.Master.PlayerLevelSettings.Builder! {
+          private var playerLevelBuilder_:Pogoprotos.Settings.Master.PlayerLevelSettings.Builder! {
                didSet {
                   builderResult.hasPlayerLevel = true
                }
@@ -5561,7 +5693,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.gymLevel = value
                }
           }
-          fileprivate var gymLevelBuilder_:Pogoprotos.Settings.Master.GymLevelSettings.Builder! {
+          private var gymLevelBuilder_:Pogoprotos.Settings.Master.GymLevelSettings.Builder! {
                didSet {
                   builderResult.hasGymLevel = true
                }
@@ -5612,7 +5744,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.battleSettings = value
                }
           }
-          fileprivate var battleSettingsBuilder_:Pogoprotos.Settings.Master.GymBattleSettings.Builder! {
+          private var battleSettingsBuilder_:Pogoprotos.Settings.Master.GymBattleSettings.Builder! {
                didSet {
                   builderResult.hasBattleSettings = true
                }
@@ -5663,7 +5795,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.encounterSettings = value
                }
           }
-          fileprivate var encounterSettingsBuilder_:Pogoprotos.Settings.Master.EncounterSettings.Builder! {
+          private var encounterSettingsBuilder_:Pogoprotos.Settings.Master.EncounterSettings.Builder! {
                didSet {
                   builderResult.hasEncounterSettings = true
                }
@@ -5714,7 +5846,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.iapItemDisplay = value
                }
           }
-          fileprivate var iapItemDisplayBuilder_:Pogoprotos.Settings.Master.IapItemDisplay.Builder! {
+          private var iapItemDisplayBuilder_:Pogoprotos.Settings.Master.IapItemDisplay.Builder! {
                didSet {
                   builderResult.hasIapItemDisplay = true
                }
@@ -5765,7 +5897,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.iapSettings = value
                }
           }
-          fileprivate var iapSettingsBuilder_:Pogoprotos.Settings.Master.IapSettings.Builder! {
+          private var iapSettingsBuilder_:Pogoprotos.Settings.Master.IapSettings.Builder! {
                didSet {
                   builderResult.hasIapSettings = true
                }
@@ -5816,7 +5948,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.pokemonUpgrades = value
                }
           }
-          fileprivate var pokemonUpgradesBuilder_:Pogoprotos.Settings.Master.PokemonUpgradeSettings.Builder! {
+          private var pokemonUpgradesBuilder_:Pogoprotos.Settings.Master.PokemonUpgradeSettings.Builder! {
                didSet {
                   builderResult.hasPokemonUpgrades = true
                }
@@ -5867,7 +5999,7 @@ public extension Pogoprotos.Networking.Responses {
                    builderResult.equippedBadges = value
                }
           }
-          fileprivate var equippedBadgesBuilder_:Pogoprotos.Settings.Master.EquippedBadgeSettings.Builder! {
+          private var equippedBadgesBuilder_:Pogoprotos.Settings.Master.EquippedBadgeSettings.Builder! {
                didSet {
                   builderResult.hasEquippedBadges = true
                }
@@ -5899,6 +6031,57 @@ public extension Pogoprotos.Networking.Responses {
             equippedBadgesBuilder_ = nil
             builderResult.hasEquippedBadges = false
             builderResult.equippedBadges = nil
+            return self
+          }
+          public var hasQuestSettings:Bool {
+               get {
+                   return builderResult.hasQuestSettings
+               }
+          }
+          public var questSettings:Pogoprotos.Settings.Master.QuestSettings! {
+               get {
+                   if questSettingsBuilder_ != nil {
+                      builderResult.questSettings = questSettingsBuilder_.getMessage()
+                   }
+                   return builderResult.questSettings
+               }
+               set (value) {
+                   builderResult.hasQuestSettings = true
+                   builderResult.questSettings = value
+               }
+          }
+          private var questSettingsBuilder_:Pogoprotos.Settings.Master.QuestSettings.Builder! {
+               didSet {
+                  builderResult.hasQuestSettings = true
+               }
+          }
+          public func getQuestSettingsBuilder() -> Pogoprotos.Settings.Master.QuestSettings.Builder {
+            if questSettingsBuilder_ == nil {
+               questSettingsBuilder_ = Pogoprotos.Settings.Master.QuestSettings.Builder()
+               builderResult.questSettings = questSettingsBuilder_.getMessage()
+               if questSettings != nil {
+                  _ = try! questSettingsBuilder_.mergeFrom(other: questSettings)
+               }
+            }
+            return questSettingsBuilder_
+          }
+          public func setQuestSettings(_ value:Pogoprotos.Settings.Master.QuestSettings!) -> Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate.Builder {
+            self.questSettings = value
+            return self
+          }
+          public func mergeQuestSettings(value:Pogoprotos.Settings.Master.QuestSettings) throws -> Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate.Builder {
+            if builderResult.hasQuestSettings {
+              builderResult.questSettings = try Pogoprotos.Settings.Master.QuestSettings.builderWithPrototype(prototype:builderResult.questSettings).mergeFrom(other: value).buildPartial()
+            } else {
+              builderResult.questSettings = value
+            }
+            builderResult.hasQuestSettings = true
+            return self
+          }
+          public func clearQuestSettings() -> Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate.Builder {
+            questSettingsBuilder_ = nil
+            builderResult.hasQuestSettings = false
+            builderResult.questSettings = nil
             return self
           }
           override public var internalGetResult:GeneratedMessage {
@@ -5972,6 +6155,9 @@ public extension Pogoprotos.Networking.Responses {
             }
             if (other.hasEquippedBadges) {
                 _ = try mergeEquippedBadges(value: other.equippedBadges)
+            }
+            if (other.hasQuestSettings) {
+                _ = try mergeQuestSettings(value: other.questSettings)
             }
             _ = try merge(unknownField: other.unknownFields)
             return self
@@ -6111,6 +6297,14 @@ public extension Pogoprotos.Networking.Responses {
                 try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
                 equippedBadges = subBuilder.buildPartial()
 
+              case 162:
+                let subBuilder:Pogoprotos.Settings.Master.QuestSettings.Builder = Pogoprotos.Settings.Master.QuestSettings.Builder()
+                if hasQuestSettings {
+                  _ = try subBuilder.mergeFrom(other: questSettings)
+                }
+                try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                questSettings = subBuilder.buildPartial()
+
               default:
                 if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
@@ -6182,6 +6376,10 @@ public extension Pogoprotos.Networking.Responses {
             }
             if let jsonValueEquippedBadges = jsonMap["equippedBadges"] as? Dictionary<String,Any> {
               resultDecodedBuilder.equippedBadges = try Pogoprotos.Settings.Master.EquippedBadgeSettings.Builder.decodeToBuilder(jsonMap:jsonValueEquippedBadges).build()
+
+            }
+            if let jsonValueQuestSettings = jsonMap["questSettings"] as? Dictionary<String,Any> {
+              resultDecodedBuilder.questSettings = try Pogoprotos.Settings.Master.QuestSettings.Builder.decodeToBuilder(jsonMap:jsonValueQuestSettings).build()
 
             }
             return resultDecodedBuilder
@@ -6337,7 +6535,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse = Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse = Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.DownloadItemTemplatesResponse {
           return builderResult
       }
@@ -6668,7 +6866,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse = Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse = Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.DownloadRemoteConfigVersionResponse {
           return builderResult
       }
@@ -6978,7 +7176,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.DownloadSettingsResponse = Pogoprotos.Networking.Responses.DownloadSettingsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.DownloadSettingsResponse = Pogoprotos.Networking.Responses.DownloadSettingsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.DownloadSettingsResponse {
           return builderResult
       }
@@ -7049,7 +7247,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.settings = value
            }
       }
-      fileprivate var settingsBuilder_:Pogoprotos.Settings.GlobalSettings.Builder! {
+      private var settingsBuilder_:Pogoprotos.Settings.GlobalSettings.Builder! {
            didSet {
               builderResult.hasSettings = true
            }
@@ -7274,7 +7472,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.EchoResponse = Pogoprotos.Networking.Responses.EchoResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.EchoResponse = Pogoprotos.Networking.Responses.EchoResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.EchoResponse {
           return builderResult
       }
@@ -7626,7 +7824,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.EncounterResponse = Pogoprotos.Networking.Responses.EncounterResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.EncounterResponse = Pogoprotos.Networking.Responses.EncounterResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.EncounterResponse {
           return builderResult
       }
@@ -7651,7 +7849,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.wildPokemon = value
            }
       }
-      fileprivate var wildPokemonBuilder_:Pogoprotos.Map.Pokemon.WildPokemon.Builder! {
+      private var wildPokemonBuilder_:Pogoprotos.Map.Pokemon.WildPokemon.Builder! {
            didSet {
               builderResult.hasWildPokemon = true
            }
@@ -7748,7 +7946,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.captureProbability = value
            }
       }
-      fileprivate var captureProbabilityBuilder_:Pogoprotos.Data.Capture.CaptureProbability.Builder! {
+      private var captureProbabilityBuilder_:Pogoprotos.Data.Capture.CaptureProbability.Builder! {
            didSet {
               builderResult.hasCaptureProbability = true
            }
@@ -8083,7 +8281,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse = Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse = Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.EncounterTutorialCompleteResponse {
           return builderResult
       }
@@ -8131,7 +8329,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -8182,7 +8380,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.captureAward = value
            }
       }
-      fileprivate var captureAwardBuilder_:Pogoprotos.Data.Capture.CaptureAward.Builder! {
+      private var captureAwardBuilder_:Pogoprotos.Data.Capture.CaptureAward.Builder! {
            didSet {
               builderResult.hasCaptureAward = true
            }
@@ -8482,7 +8680,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.EquipBadgeResponse = Pogoprotos.Networking.Responses.EquipBadgeResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.EquipBadgeResponse = Pogoprotos.Networking.Responses.EquipBadgeResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.EquipBadgeResponse {
           return builderResult
       }
@@ -8530,7 +8728,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.equipped = value
            }
       }
-      fileprivate var equippedBuilder_:Pogoprotos.Data.Player.EquippedBadge.Builder! {
+      private var equippedBuilder_:Pogoprotos.Data.Player.EquippedBadge.Builder! {
            didSet {
               builderResult.hasEquipped = true
            }
@@ -8859,7 +9057,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.EvolvePokemonResponse = Pogoprotos.Networking.Responses.EvolvePokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.EvolvePokemonResponse = Pogoprotos.Networking.Responses.EvolvePokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.EvolvePokemonResponse {
           return builderResult
       }
@@ -8907,7 +9105,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.evolvedPokemonData = value
            }
       }
-      fileprivate var evolvedPokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var evolvedPokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasEvolvedPokemonData = true
            }
@@ -9112,6 +9310,7 @@ public extension Pogoprotos.Networking.Responses {
         case errorPokemonNotFullHp = 7
         case errorPlayerBelowMinimumLevel = 8
         case errorPokemonIsBuddy = 9
+        case errorFortDeployLockout = 10
         public func toString() -> String {
           switch self {
           case .noResultSet: return "NO_RESULT_SET"
@@ -9124,6 +9323,7 @@ public extension Pogoprotos.Networking.Responses {
           case .errorPokemonNotFullHp: return "ERROR_POKEMON_NOT_FULL_HP"
           case .errorPlayerBelowMinimumLevel: return "ERROR_PLAYER_BELOW_MINIMUM_LEVEL"
           case .errorPokemonIsBuddy: return "ERROR_POKEMON_IS_BUDDY"
+          case .errorFortDeployLockout: return "ERROR_FORT_DEPLOY_LOCKOUT"
           }
         }
         public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.FortDeployPokemonResponse.Result {
@@ -9138,6 +9338,7 @@ public extension Pogoprotos.Networking.Responses {
           case "ERROR_POKEMON_NOT_FULL_HP":  return .errorPokemonNotFullHp
           case "ERROR_PLAYER_BELOW_MINIMUM_LEVEL":  return .errorPlayerBelowMinimumLevel
           case "ERROR_POKEMON_IS_BUDDY":  return .errorPokemonIsBuddy
+          case "ERROR_FORT_DEPLOY_LOCKOUT":  return .errorFortDeployLockout
           default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
           }
         }
@@ -9155,6 +9356,7 @@ public extension Pogoprotos.Networking.Responses {
           case .errorPokemonNotFullHp: return ".errorPokemonNotFullHp"
           case .errorPlayerBelowMinimumLevel: return ".errorPlayerBelowMinimumLevel"
           case .errorPokemonIsBuddy: return ".errorPokemonIsBuddy"
+          case .errorFortDeployLockout: return ".errorFortDeployLockout"
           }
         }
       }
@@ -9330,7 +9532,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.FortDeployPokemonResponse = Pogoprotos.Networking.Responses.FortDeployPokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.FortDeployPokemonResponse = Pogoprotos.Networking.Responses.FortDeployPokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.FortDeployPokemonResponse {
           return builderResult
       }
@@ -9378,7 +9580,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.fortDetails = value
            }
       }
-      fileprivate var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
+      private var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
            didSet {
               builderResult.hasFortDetails = true
            }
@@ -9429,7 +9631,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -9480,7 +9682,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.gymState = value
            }
       }
-      fileprivate var gymStateBuilder_:Pogoprotos.Data.Gym.GymState.Builder! {
+      private var gymStateBuilder_:Pogoprotos.Data.Gym.GymState.Builder! {
            didSet {
               builderResult.hasGymState = true
            }
@@ -9964,7 +10166,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.FortDetailsResponse = Pogoprotos.Networking.Responses.FortDetailsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.FortDetailsResponse = Pogoprotos.Networking.Responses.FortDetailsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.FortDetailsResponse {
           return builderResult
       }
@@ -10035,7 +10237,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -10652,7 +10854,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.FortRecallPokemonResponse = Pogoprotos.Networking.Responses.FortRecallPokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.FortRecallPokemonResponse = Pogoprotos.Networking.Responses.FortRecallPokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.FortRecallPokemonResponse {
           return builderResult
       }
@@ -10700,7 +10902,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.fortDetails = value
            }
       }
-      fileprivate var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
+      private var fortDetailsBuilder_:Pogoprotos.Networking.Responses.FortDetailsResponse.Builder! {
            didSet {
               builderResult.hasFortDetails = true
            }
@@ -11090,7 +11292,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.FortSearchResponse = Pogoprotos.Networking.Responses.FortSearchResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.FortSearchResponse = Pogoprotos.Networking.Responses.FortSearchResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.FortSearchResponse {
           return builderResult
       }
@@ -11177,7 +11379,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.pokemonDataEgg = value
            }
       }
-      fileprivate var pokemonDataEggBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataEggBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonDataEgg = true
            }
@@ -11545,7 +11747,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetAssetDigestResponse = Pogoprotos.Networking.Responses.GetAssetDigestResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetAssetDigestResponse = Pogoprotos.Networking.Responses.GetAssetDigestResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetAssetDigestResponse {
           return builderResult
       }
@@ -11811,7 +12013,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetBuddyWalkedResponse = Pogoprotos.Networking.Responses.GetBuddyWalkedResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetBuddyWalkedResponse = Pogoprotos.Networking.Responses.GetBuddyWalkedResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetBuddyWalkedResponse {
           return builderResult
       }
@@ -12085,7 +12287,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetDownloadUrlsResponse = Pogoprotos.Networking.Responses.GetDownloadUrlsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetDownloadUrlsResponse = Pogoprotos.Networking.Responses.GetDownloadUrlsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetDownloadUrlsResponse {
           return builderResult
       }
@@ -12403,7 +12605,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetGymDetailsResponse = Pogoprotos.Networking.Responses.GetGymDetailsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetGymDetailsResponse = Pogoprotos.Networking.Responses.GetGymDetailsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetGymDetailsResponse {
           return builderResult
       }
@@ -12428,7 +12630,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.gymState = value
            }
       }
-      fileprivate var gymStateBuilder_:Pogoprotos.Data.Gym.GymState.Builder! {
+      private var gymStateBuilder_:Pogoprotos.Data.Gym.GymState.Builder! {
            didSet {
               builderResult.hasGymState = true
            }
@@ -12677,6 +12879,8 @@ public extension Pogoprotos.Networking.Responses {
     private var candyAwardedMemoizedSerializedSize:Int32 = -1
     public fileprivate(set) var stardustAwarded:Array<Int32> = Array<Int32>()
     private var stardustAwardedMemoizedSerializedSize:Int32 = -1
+    public fileprivate(set) var eggKmWalked:Array<Float> = Array<Float>()
+    private var eggKmWalkedMemoizedSerializedSize:Int32 = -1
     required public init() {
          super.init()
     }
@@ -12713,6 +12917,13 @@ public extension Pogoprotos.Networking.Responses {
         try codedOutputStream.writeRawVarint32(value: stardustAwardedMemoizedSerializedSize)
         for oneValuestardustAwarded in stardustAwarded {
           try codedOutputStream.writeInt32NoTag(value: oneValuestardustAwarded)
+        }
+      }
+      if !eggKmWalked.isEmpty {
+        try codedOutputStream.writeRawVarint32(value: 50)
+        try codedOutputStream.writeRawVarint32(value: eggKmWalkedMemoizedSerializedSize)
+        for oneValueeggKmWalked in eggKmWalked {
+          try codedOutputStream.writeFloatNoTag(value: oneValueeggKmWalked)
         }
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
@@ -12765,6 +12976,14 @@ public extension Pogoprotos.Networking.Responses {
         serialize_size += dataSizeStardustAwarded.computeInt32SizeNoTag()
       }
       stardustAwardedMemoizedSerializedSize = dataSizeStardustAwarded
+      var dataSizeEggKmWalked:Int32 = 0
+      dataSizeEggKmWalked = 4 * Int32(eggKmWalked.count)
+      serialize_size += dataSizeEggKmWalked
+      if !eggKmWalked.isEmpty {
+        serialize_size += 1
+        serialize_size += dataSizeEggKmWalked.computeInt32SizeNoTag()
+      }
+      eggKmWalkedMemoizedSerializedSize = dataSizeEggKmWalked
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -12824,6 +13043,13 @@ public extension Pogoprotos.Networking.Responses {
           }
         jsonMap["stardustAwarded"] = jsonArrayStardustAwarded
       }
+      if !eggKmWalked.isEmpty {
+        var jsonArrayEggKmWalked:Array<NSNumber> = []
+          for oneValueEggKmWalked in eggKmWalked {
+            jsonArrayEggKmWalked.append(NSNumber(value:oneValueEggKmWalked))
+          }
+        jsonMap["eggKmWalked"] = jsonArrayEggKmWalked
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Responses.GetHatchedEggsResponse {
@@ -12857,6 +13083,11 @@ public extension Pogoprotos.Networking.Responses {
           output += "\(indent) stardustAwarded[\(stardustAwardedElementIndex)]: \(oneValueStardustAwarded)\n"
           stardustAwardedElementIndex += 1
       }
+      var eggKmWalkedElementIndex:Int = 0
+      for oneValueEggKmWalked in eggKmWalked  {
+          output += "\(indent) eggKmWalked[\(eggKmWalkedElementIndex)]: \(oneValueEggKmWalked)\n"
+          eggKmWalkedElementIndex += 1
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -12878,6 +13109,9 @@ public extension Pogoprotos.Networking.Responses {
             for oneValueStardustAwarded in stardustAwarded {
                 hashCode = (hashCode &* 31) &+ oneValueStardustAwarded.hashValue
             }
+            for oneValueEggKmWalked in eggKmWalked {
+                hashCode = (hashCode &* 31) &+ oneValueEggKmWalked.hashValue
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -12895,7 +13129,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetHatchedEggsResponse = Pogoprotos.Networking.Responses.GetHatchedEggsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetHatchedEggsResponse = Pogoprotos.Networking.Responses.GetHatchedEggsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetHatchedEggsResponse {
           return builderResult
       }
@@ -12990,6 +13224,22 @@ public extension Pogoprotos.Networking.Responses {
          builderResult.stardustAwarded.removeAll(keepingCapacity: false)
          return self
       }
+      public var eggKmWalked:Array<Float> {
+           get {
+               return builderResult.eggKmWalked
+           }
+           set (array) {
+               builderResult.eggKmWalked = array
+           }
+      }
+      public func setEggKmWalked(_ value:Array<Float>) -> Pogoprotos.Networking.Responses.GetHatchedEggsResponse.Builder {
+        self.eggKmWalked = value
+        return self
+      }
+      public func clearEggKmWalked() -> Pogoprotos.Networking.Responses.GetHatchedEggsResponse.Builder {
+         builderResult.eggKmWalked.removeAll(keepingCapacity: false)
+         return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -13028,6 +13278,9 @@ public extension Pogoprotos.Networking.Responses {
         }
         if !other.stardustAwarded.isEmpty {
             builderResult.stardustAwarded += other.stardustAwarded
+        }
+        if !other.eggKmWalked.isEmpty {
+            builderResult.eggKmWalked += other.eggKmWalked
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -13079,6 +13332,14 @@ public extension Pogoprotos.Networking.Responses {
             }
             codedInputStream.popLimit(oldLimit: limit)
 
+          case 50:
+            let length = Int(try codedInputStream.readRawVarint32())
+            let limit = try codedInputStream.pushLimit(byteLimit: length)
+            while (codedInputStream.bytesUntilLimit() > 0) {
+              builderResult.eggKmWalked.append(try codedInputStream.readFloat())
+            }
+            codedInputStream.popLimit(oldLimit: limit)
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -13119,6 +13380,13 @@ public extension Pogoprotos.Networking.Responses {
             jsonArrayStardustAwarded.append(oneValueStardustAwarded.int32Value)
           }
           resultDecodedBuilder.stardustAwarded = jsonArrayStardustAwarded
+        }
+        if let jsonValueEggKmWalked = jsonMap["eggKmWalked"] as? Array<NSNumber> {
+          var jsonArrayEggKmWalked:Array<Float> = []
+          for oneValueEggKmWalked in jsonValueEggKmWalked {
+            jsonArrayEggKmWalked.append(oneValueEggKmWalked.floatValue)
+          }
+          resultDecodedBuilder.eggKmWalked = jsonArrayEggKmWalked
         }
         return resultDecodedBuilder
       }
@@ -13371,7 +13639,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetIncensePokemonResponse = Pogoprotos.Networking.Responses.GetIncensePokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetIncensePokemonResponse = Pogoprotos.Networking.Responses.GetIncensePokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetIncensePokemonResponse {
           return builderResult
       }
@@ -13796,7 +14064,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetInventoryResponse = Pogoprotos.Networking.Responses.GetInventoryResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetInventoryResponse = Pogoprotos.Networking.Responses.GetInventoryResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetInventoryResponse {
           return builderResult
       }
@@ -13844,7 +14112,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.inventoryDelta = value
            }
       }
-      fileprivate var inventoryDeltaBuilder_:Pogoprotos.Inventory.InventoryDelta.Builder! {
+      private var inventoryDeltaBuilder_:Pogoprotos.Inventory.InventoryDelta.Builder! {
            didSet {
               builderResult.hasInventoryDelta = true
            }
@@ -14084,7 +14352,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetMapObjectsResponse = Pogoprotos.Networking.Responses.GetMapObjectsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetMapObjectsResponse = Pogoprotos.Networking.Responses.GetMapObjectsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetMapObjectsResponse {
           return builderResult
       }
@@ -14394,7 +14662,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetPlayerProfileResponse = Pogoprotos.Networking.Responses.GetPlayerProfileResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetPlayerProfileResponse = Pogoprotos.Networking.Responses.GetPlayerProfileResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetPlayerProfileResponse {
           return builderResult
       }
@@ -14572,6 +14840,12 @@ public extension Pogoprotos.Networking.Responses {
 
     public fileprivate(set) var playerData:Pogoprotos.Data.PlayerData!
     public fileprivate(set) var hasPlayerData:Bool = false
+    public fileprivate(set) var banned:Bool = false
+    public fileprivate(set) var hasBanned:Bool = false
+
+    public fileprivate(set) var warn:Bool = false
+    public fileprivate(set) var hasWarn:Bool = false
+
     required public init() {
          super.init()
     }
@@ -14584,6 +14858,12 @@ public extension Pogoprotos.Networking.Responses {
       }
       if hasPlayerData {
         try codedOutputStream.writeMessage(fieldNumber: 2, value:playerData)
+      }
+      if hasBanned {
+        try codedOutputStream.writeBool(fieldNumber: 3, value:banned)
+      }
+      if hasWarn {
+        try codedOutputStream.writeBool(fieldNumber: 4, value:warn)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -14601,6 +14881,12 @@ public extension Pogoprotos.Networking.Responses {
           if let varSizeplayerData = playerData?.computeMessageSize(fieldNumber: 2) {
               serialize_size += varSizeplayerData
           }
+      }
+      if hasBanned {
+        serialize_size += banned.computeBoolSize(fieldNumber: 3)
+      }
+      if hasWarn {
+        serialize_size += warn.computeBoolSize(fieldNumber: 4)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -14636,6 +14922,12 @@ public extension Pogoprotos.Networking.Responses {
       if hasPlayerData {
         jsonMap["playerData"] = try playerData.encode()
       }
+      if hasBanned {
+        jsonMap["banned"] = banned
+      }
+      if hasWarn {
+        jsonMap["warn"] = warn
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Responses.GetPlayerResponse {
@@ -14656,6 +14948,12 @@ public extension Pogoprotos.Networking.Responses {
         }
         output += "\(indent) }\n"
       }
+      if hasBanned {
+        output += "\(indent) banned: \(banned) \n"
+      }
+      if hasWarn {
+        output += "\(indent) warn: \(warn) \n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -14669,6 +14967,12 @@ public extension Pogoprotos.Networking.Responses {
                 if let hashValueplayerData = playerData?.hashValue {
                     hashCode = (hashCode &* 31) &+ hashValueplayerData
                 }
+            }
+            if hasBanned {
+               hashCode = (hashCode &* 31) &+ banned.hashValue
+            }
+            if hasWarn {
+               hashCode = (hashCode &* 31) &+ warn.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -14687,7 +14991,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetPlayerResponse = Pogoprotos.Networking.Responses.GetPlayerResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetPlayerResponse = Pogoprotos.Networking.Responses.GetPlayerResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetPlayerResponse {
           return builderResult
       }
@@ -14735,7 +15039,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.playerData = value
            }
       }
-      fileprivate var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+      private var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
            didSet {
               builderResult.hasPlayerData = true
            }
@@ -14769,6 +15073,52 @@ public extension Pogoprotos.Networking.Responses {
         builderResult.playerData = nil
         return self
       }
+      public var hasBanned:Bool {
+           get {
+                return builderResult.hasBanned
+           }
+      }
+      public var banned:Bool {
+           get {
+                return builderResult.banned
+           }
+           set (value) {
+               builderResult.hasBanned = true
+               builderResult.banned = value
+           }
+      }
+      public func setBanned(_ value:Bool) -> Pogoprotos.Networking.Responses.GetPlayerResponse.Builder {
+        self.banned = value
+        return self
+      }
+      public func clearBanned() -> Pogoprotos.Networking.Responses.GetPlayerResponse.Builder{
+           builderResult.hasBanned = false
+           builderResult.banned = false
+           return self
+      }
+      public var hasWarn:Bool {
+           get {
+                return builderResult.hasWarn
+           }
+      }
+      public var warn:Bool {
+           get {
+                return builderResult.warn
+           }
+           set (value) {
+               builderResult.hasWarn = true
+               builderResult.warn = value
+           }
+      }
+      public func setWarn(_ value:Bool) -> Pogoprotos.Networking.Responses.GetPlayerResponse.Builder {
+        self.warn = value
+        return self
+      }
+      public func clearWarn() -> Pogoprotos.Networking.Responses.GetPlayerResponse.Builder{
+           builderResult.hasWarn = false
+           builderResult.warn = false
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -14799,6 +15149,12 @@ public extension Pogoprotos.Networking.Responses {
         if (other.hasPlayerData) {
             _ = try mergePlayerData(value: other.playerData)
         }
+        if other.hasBanned {
+             banned = other.banned
+        }
+        if other.hasWarn {
+             warn = other.warn
+        }
         _ = try merge(unknownField: other.unknownFields)
         return self
       }
@@ -14825,6 +15181,12 @@ public extension Pogoprotos.Networking.Responses {
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             playerData = subBuilder.buildPartial()
 
+          case 24:
+            banned = try codedInputStream.readBool()
+
+          case 32:
+            warn = try codedInputStream.readBool()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -14841,6 +15203,12 @@ public extension Pogoprotos.Networking.Responses {
         if let jsonValuePlayerData = jsonMap["playerData"] as? Dictionary<String,Any> {
           resultDecodedBuilder.playerData = try Pogoprotos.Data.PlayerData.Builder.decodeToBuilder(jsonMap:jsonValuePlayerData).build()
 
+        }
+        if let jsonValueBanned = jsonMap["banned"] as? Bool {
+          resultDecodedBuilder.banned = jsonValueBanned
+        }
+        if let jsonValueWarn = jsonMap["warn"] as? Bool {
+          resultDecodedBuilder.warn = jsonValueWarn
         }
         return resultDecodedBuilder
       }
@@ -14974,7 +15342,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse = Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse = Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.GetSuggestedCodenamesResponse {
           return builderResult
       }
@@ -15286,7 +15654,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.IncenseEncounterResponse = Pogoprotos.Networking.Responses.IncenseEncounterResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.IncenseEncounterResponse = Pogoprotos.Networking.Responses.IncenseEncounterResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.IncenseEncounterResponse {
           return builderResult
       }
@@ -15334,7 +15702,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }
@@ -15385,7 +15753,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.captureProbability = value
            }
       }
-      fileprivate var captureProbabilityBuilder_:Pogoprotos.Data.Capture.CaptureProbability.Builder! {
+      private var captureProbabilityBuilder_:Pogoprotos.Data.Capture.CaptureProbability.Builder! {
            didSet {
               builderResult.hasCaptureProbability = true
            }
@@ -15707,7 +16075,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.LevelUpRewardsResponse = Pogoprotos.Networking.Responses.LevelUpRewardsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.LevelUpRewardsResponse = Pogoprotos.Networking.Responses.LevelUpRewardsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.LevelUpRewardsResponse {
           return builderResult
       }
@@ -16003,7 +16371,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse = Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse = Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.MarkTutorialCompleteResponse {
           return builderResult
       }
@@ -16051,7 +16419,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.playerData = value
            }
       }
-      fileprivate var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+      private var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
            didSet {
               builderResult.hasPlayerData = true
            }
@@ -16310,7 +16678,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.NicknamePokemonResponse = Pogoprotos.Networking.Responses.NicknamePokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.NicknamePokemonResponse = Pogoprotos.Networking.Responses.NicknamePokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.NicknamePokemonResponse {
           return builderResult
       }
@@ -16563,7 +16931,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.PlayerUpdateResponse = Pogoprotos.Networking.Responses.PlayerUpdateResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.PlayerUpdateResponse = Pogoprotos.Networking.Responses.PlayerUpdateResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.PlayerUpdateResponse {
           return builderResult
       }
@@ -16884,7 +17252,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.RecycleInventoryItemResponse = Pogoprotos.Networking.Responses.RecycleInventoryItemResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.RecycleInventoryItemResponse = Pogoprotos.Networking.Responses.RecycleInventoryItemResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.RecycleInventoryItemResponse {
           return builderResult
       }
@@ -17018,6 +17386,335 @@ public extension Pogoprotos.Networking.Responses {
           throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
         }
         return try Pogoprotos.Networking.Responses.RecycleInventoryItemResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
+  final public class RegisterBackgroundDeviceResponse : GeneratedMessage {
+
+
+      //Enum type declaration start 
+
+      public enum Status:Int32, CustomDebugStringConvertible, CustomStringConvertible {
+        case unset = 0
+        case success = 1
+        case error = 2
+        public func toString() -> String {
+          switch self {
+          case .unset: return "UNSET"
+          case .success: return "SUCCESS"
+          case .error: return "ERROR"
+          }
+        }
+        public static func fromString(str:String) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status {
+          switch str {
+          case "UNSET":  return .unset
+          case "SUCCESS":  return .success
+          case "ERROR":  return .error
+          default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
+          }
+        }
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+          switch self {
+          case .unset: return ".unset"
+          case .success: return ".success"
+          case .error: return ".error"
+          }
+        }
+      }
+
+      //Enum type declaration end 
+
+    public fileprivate(set) var status:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status = Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status.unset
+    public fileprivate(set) var hasStatus:Bool = false
+    public fileprivate(set) var token:Pogoprotos.Data.BackgroundToken!
+    public fileprivate(set) var hasToken:Bool = false
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if hasStatus {
+        try codedOutputStream.writeEnum(fieldNumber: 1, value:status.rawValue)
+      }
+      if hasToken {
+        try codedOutputStream.writeMessage(fieldNumber: 2, value:token)
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if (hasStatus) {
+        serialize_size += status.rawValue.computeEnumSize(fieldNumber: 1)
+      }
+      if hasToken {
+          if let varSizetoken = token?.computeMessageSize(fieldNumber: 2) {
+              serialize_size += varSizetoken
+          }
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+      return Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.classBuilder() as! Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+      return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+      return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if hasStatus {
+        jsonMap["status"] = status.toString()
+      }
+      if hasToken {
+        jsonMap["token"] = try token.encode()
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+      return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+      return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if (hasStatus) {
+        output += "\(indent) status: \(status.description)\n"
+      }
+      if hasToken {
+        output += "\(indent) token {\n"
+        if let outDescToken = token {
+          output += try outDescToken.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasStatus {
+               hashCode = (hashCode &* 31) &+ Int(status.rawValue)
+            }
+            if hasToken {
+                if let hashValuetoken = token?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuetoken
+                }
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse = Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse()
+      public func getMessage() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+        public var hasStatus:Bool{
+            get {
+                return builderResult.hasStatus
+            }
+        }
+        public var status:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status {
+            get {
+                return builderResult.status
+            }
+            set (value) {
+                builderResult.hasStatus = true
+                builderResult.status = value
+            }
+        }
+        public func setStatus(_ value:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status) -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+          self.status = value
+          return self
+        }
+        public func clearStatus() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+           builderResult.hasStatus = false
+           builderResult.status = .unset
+           return self
+        }
+      public var hasToken:Bool {
+           get {
+               return builderResult.hasToken
+           }
+      }
+      public var token:Pogoprotos.Data.BackgroundToken! {
+           get {
+               if tokenBuilder_ != nil {
+                  builderResult.token = tokenBuilder_.getMessage()
+               }
+               return builderResult.token
+           }
+           set (value) {
+               builderResult.hasToken = true
+               builderResult.token = value
+           }
+      }
+      private var tokenBuilder_:Pogoprotos.Data.BackgroundToken.Builder! {
+           didSet {
+              builderResult.hasToken = true
+           }
+      }
+      public func getTokenBuilder() -> Pogoprotos.Data.BackgroundToken.Builder {
+        if tokenBuilder_ == nil {
+           tokenBuilder_ = Pogoprotos.Data.BackgroundToken.Builder()
+           builderResult.token = tokenBuilder_.getMessage()
+           if token != nil {
+              _ = try! tokenBuilder_.mergeFrom(other: token)
+           }
+        }
+        return tokenBuilder_
+      }
+      public func setToken(_ value:Pogoprotos.Data.BackgroundToken!) -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        self.token = value
+        return self
+      }
+      public func mergeToken(value:Pogoprotos.Data.BackgroundToken) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        if builderResult.hasToken {
+          builderResult.token = try Pogoprotos.Data.BackgroundToken.builderWithPrototype(prototype:builderResult.token).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.token = value
+        }
+        builderResult.hasToken = true
+        return self
+      }
+      public func clearToken() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        tokenBuilder_ = nil
+        builderResult.hasToken = false
+        builderResult.token = nil
+        return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        builderResult = Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+        let returnMe:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        if other == Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse() {
+         return self
+        }
+        if other.hasStatus {
+             status = other.status
+        }
+        if (other.hasToken) {
+            _ = try mergeToken(value: other.token)
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 8:
+            let valueIntstatus = try codedInputStream.readEnum()
+            if let enumsstatus = Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status(rawValue:valueIntstatus){
+                 status = enumsstatus
+            } else {
+                 _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntstatus))
+            }
+
+          case 18:
+            let subBuilder:Pogoprotos.Data.BackgroundToken.Builder = Pogoprotos.Data.BackgroundToken.Builder()
+            if hasToken {
+              _ = try subBuilder.mergeFrom(other: token)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            token = subBuilder.buildPartial()
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder()
+        if let jsonValueStatus = jsonMap["status"] as? String {
+          resultDecodedBuilder.status = try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Status.fromString(str: jsonValueStatus)
+        }
+        if let jsonValueToken = jsonMap["token"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.token = try Pogoprotos.Data.BackgroundToken.Builder.decodeToBuilder(jsonMap:jsonValueToken).build()
+
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
       }
     }
 
@@ -17184,7 +17881,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.ReleasePokemonResponse = Pogoprotos.Networking.Responses.ReleasePokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.ReleasePokemonResponse = Pogoprotos.Networking.Responses.ReleasePokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.ReleasePokemonResponse {
           return builderResult
       }
@@ -17483,7 +18180,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.SetAvatarResponse = Pogoprotos.Networking.Responses.SetAvatarResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.SetAvatarResponse = Pogoprotos.Networking.Responses.SetAvatarResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.SetAvatarResponse {
           return builderResult
       }
@@ -17531,7 +18228,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.playerData = value
            }
       }
-      fileprivate var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+      private var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
            didSet {
               builderResult.hasPlayerData = true
            }
@@ -17820,7 +18517,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.SetBuddyPokemonResponse = Pogoprotos.Networking.Responses.SetBuddyPokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.SetBuddyPokemonResponse {
           return builderResult
       }
@@ -17868,7 +18565,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.updatedBuddy = value
            }
       }
-      fileprivate var updatedBuddyBuilder_:Pogoprotos.Data.BuddyPokemon.Builder! {
+      private var updatedBuddyBuilder_:Pogoprotos.Data.BuddyPokemon.Builder! {
            didSet {
               builderResult.hasUpdatedBuddy = true
            }
@@ -18149,7 +18846,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.SetContactSettingsResponse = Pogoprotos.Networking.Responses.SetContactSettingsResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.SetContactSettingsResponse = Pogoprotos.Networking.Responses.SetContactSettingsResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.SetContactSettingsResponse {
           return builderResult
       }
@@ -18197,7 +18894,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.playerData = value
            }
       }
-      fileprivate var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+      private var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
            didSet {
               builderResult.hasPlayerData = true
            }
@@ -18457,7 +19154,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.SetFavoritePokemonResponse = Pogoprotos.Networking.Responses.SetFavoritePokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.SetFavoritePokemonResponse = Pogoprotos.Networking.Responses.SetFavoritePokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.SetFavoritePokemonResponse {
           return builderResult
       }
@@ -18724,7 +19421,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.SetPlayerTeamResponse = Pogoprotos.Networking.Responses.SetPlayerTeamResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.SetPlayerTeamResponse = Pogoprotos.Networking.Responses.SetPlayerTeamResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.SetPlayerTeamResponse {
           return builderResult
       }
@@ -18772,7 +19469,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.playerData = value
            }
       }
-      fileprivate var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
+      private var playerDataBuilder_:Pogoprotos.Data.PlayerData.Builder! {
            didSet {
               builderResult.hasPlayerData = true
            }
@@ -19049,7 +19746,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.SfidaActionLogResponse = Pogoprotos.Networking.Responses.SfidaActionLogResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.SfidaActionLogResponse = Pogoprotos.Networking.Responses.SfidaActionLogResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.SfidaActionLogResponse {
           return builderResult
       }
@@ -19285,6 +19982,8 @@ public extension Pogoprotos.Networking.Responses {
     public fileprivate(set) var hasDefender:Bool = false
     public fileprivate(set) var battleLog:Pogoprotos.Data.Battle.BattleLog!
     public fileprivate(set) var hasBattleLog:Bool = false
+    public fileprivate(set) var attacker:Pogoprotos.Data.Battle.BattleParticipant!
+    public fileprivate(set) var hasAttacker:Bool = false
     required public init() {
          super.init()
     }
@@ -19309,6 +20008,9 @@ public extension Pogoprotos.Networking.Responses {
       }
       if hasBattleLog {
         try codedOutputStream.writeMessage(fieldNumber: 6, value:battleLog)
+      }
+      if hasAttacker {
+        try codedOutputStream.writeMessage(fieldNumber: 7, value:attacker)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -19339,6 +20041,11 @@ public extension Pogoprotos.Networking.Responses {
       if hasBattleLog {
           if let varSizebattleLog = battleLog?.computeMessageSize(fieldNumber: 6) {
               serialize_size += varSizebattleLog
+          }
+      }
+      if hasAttacker {
+          if let varSizeattacker = attacker?.computeMessageSize(fieldNumber: 7) {
+              serialize_size += varSizeattacker
           }
       }
       serialize_size += unknownFields.serializedSize()
@@ -19387,6 +20094,9 @@ public extension Pogoprotos.Networking.Responses {
       if hasBattleLog {
         jsonMap["battleLog"] = try battleLog.encode()
       }
+      if hasAttacker {
+        jsonMap["attacker"] = try attacker.encode()
+      }
       return jsonMap
     }
     override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Responses.StartGymBattleResponse {
@@ -19423,6 +20133,13 @@ public extension Pogoprotos.Networking.Responses {
         }
         output += "\(indent) }\n"
       }
+      if hasAttacker {
+        output += "\(indent) attacker {\n"
+        if let outDescAttacker = attacker {
+          output += try outDescAttacker.getDescription(indent: "\(indent)  ")
+        }
+        output += "\(indent) }\n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -19451,6 +20168,11 @@ public extension Pogoprotos.Networking.Responses {
                     hashCode = (hashCode &* 31) &+ hashValuebattleLog
                 }
             }
+            if hasAttacker {
+                if let hashValueattacker = attacker?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValueattacker
+                }
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -19468,7 +20190,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.StartGymBattleResponse = Pogoprotos.Networking.Responses.StartGymBattleResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.StartGymBattleResponse = Pogoprotos.Networking.Responses.StartGymBattleResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.StartGymBattleResponse {
           return builderResult
       }
@@ -19585,7 +20307,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.defender = value
            }
       }
-      fileprivate var defenderBuilder_:Pogoprotos.Data.Battle.BattleParticipant.Builder! {
+      private var defenderBuilder_:Pogoprotos.Data.Battle.BattleParticipant.Builder! {
            didSet {
               builderResult.hasDefender = true
            }
@@ -19636,7 +20358,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.battleLog = value
            }
       }
-      fileprivate var battleLogBuilder_:Pogoprotos.Data.Battle.BattleLog.Builder! {
+      private var battleLogBuilder_:Pogoprotos.Data.Battle.BattleLog.Builder! {
            didSet {
               builderResult.hasBattleLog = true
            }
@@ -19668,6 +20390,57 @@ public extension Pogoprotos.Networking.Responses {
         battleLogBuilder_ = nil
         builderResult.hasBattleLog = false
         builderResult.battleLog = nil
+        return self
+      }
+      public var hasAttacker:Bool {
+           get {
+               return builderResult.hasAttacker
+           }
+      }
+      public var attacker:Pogoprotos.Data.Battle.BattleParticipant! {
+           get {
+               if attackerBuilder_ != nil {
+                  builderResult.attacker = attackerBuilder_.getMessage()
+               }
+               return builderResult.attacker
+           }
+           set (value) {
+               builderResult.hasAttacker = true
+               builderResult.attacker = value
+           }
+      }
+      private var attackerBuilder_:Pogoprotos.Data.Battle.BattleParticipant.Builder! {
+           didSet {
+              builderResult.hasAttacker = true
+           }
+      }
+      public func getAttackerBuilder() -> Pogoprotos.Data.Battle.BattleParticipant.Builder {
+        if attackerBuilder_ == nil {
+           attackerBuilder_ = Pogoprotos.Data.Battle.BattleParticipant.Builder()
+           builderResult.attacker = attackerBuilder_.getMessage()
+           if attacker != nil {
+              _ = try! attackerBuilder_.mergeFrom(other: attacker)
+           }
+        }
+        return attackerBuilder_
+      }
+      public func setAttacker(_ value:Pogoprotos.Data.Battle.BattleParticipant!) -> Pogoprotos.Networking.Responses.StartGymBattleResponse.Builder {
+        self.attacker = value
+        return self
+      }
+      public func mergeAttacker(value:Pogoprotos.Data.Battle.BattleParticipant) throws -> Pogoprotos.Networking.Responses.StartGymBattleResponse.Builder {
+        if builderResult.hasAttacker {
+          builderResult.attacker = try Pogoprotos.Data.Battle.BattleParticipant.builderWithPrototype(prototype:builderResult.attacker).mergeFrom(other: value).buildPartial()
+        } else {
+          builderResult.attacker = value
+        }
+        builderResult.hasAttacker = true
+        return self
+      }
+      public func clearAttacker() -> Pogoprotos.Networking.Responses.StartGymBattleResponse.Builder {
+        attackerBuilder_ = nil
+        builderResult.hasAttacker = false
+        builderResult.attacker = nil
         return self
       }
       override public var internalGetResult:GeneratedMessage {
@@ -19711,6 +20484,9 @@ public extension Pogoprotos.Networking.Responses {
         }
         if (other.hasBattleLog) {
             _ = try mergeBattleLog(value: other.battleLog)
+        }
+        if (other.hasAttacker) {
+            _ = try mergeAttacker(value: other.attacker)
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -19760,6 +20536,14 @@ public extension Pogoprotos.Networking.Responses {
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
             battleLog = subBuilder.buildPartial()
 
+          case 58:
+            let subBuilder:Pogoprotos.Data.Battle.BattleParticipant.Builder = Pogoprotos.Data.Battle.BattleParticipant.Builder()
+            if hasAttacker {
+              _ = try subBuilder.mergeFrom(other: attacker)
+            }
+            try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+            attacker = subBuilder.buildPartial()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -19788,6 +20572,10 @@ public extension Pogoprotos.Networking.Responses {
         }
         if let jsonValueBattleLog = jsonMap["battleLog"] as? Dictionary<String,Any> {
           resultDecodedBuilder.battleLog = try Pogoprotos.Data.Battle.BattleLog.Builder.decodeToBuilder(jsonMap:jsonValueBattleLog).build()
+
+        }
+        if let jsonValueAttacker = jsonMap["attacker"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.attacker = try Pogoprotos.Data.Battle.BattleParticipant.Builder.decodeToBuilder(jsonMap:jsonValueAttacker).build()
 
         }
         return resultDecodedBuilder
@@ -19971,7 +20759,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UpgradePokemonResponse = Pogoprotos.Networking.Responses.UpgradePokemonResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UpgradePokemonResponse = Pogoprotos.Networking.Responses.UpgradePokemonResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UpgradePokemonResponse {
           return builderResult
       }
@@ -20019,7 +20807,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.upgradedPokemon = value
            }
       }
-      fileprivate var upgradedPokemonBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var upgradedPokemonBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasUpgradedPokemon = true
            }
@@ -20308,7 +21096,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseIncenseResponse = Pogoprotos.Networking.Responses.UseIncenseResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseIncenseResponse = Pogoprotos.Networking.Responses.UseIncenseResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseIncenseResponse {
           return builderResult
       }
@@ -20356,7 +21144,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.appliedIncense = value
            }
       }
-      fileprivate var appliedIncenseBuilder_:Pogoprotos.Inventory.AppliedItem.Builder! {
+      private var appliedIncenseBuilder_:Pogoprotos.Inventory.AppliedItem.Builder! {
            didSet {
               builderResult.hasAppliedIncense = true
            }
@@ -20685,7 +21473,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseItemCaptureResponse = Pogoprotos.Networking.Responses.UseItemCaptureResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseItemCaptureResponse = Pogoprotos.Networking.Responses.UseItemCaptureResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseItemCaptureResponse {
           return builderResult
       }
@@ -21155,7 +21943,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse = Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse = Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseItemEggIncubatorResponse {
           return builderResult
       }
@@ -21203,7 +21991,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.eggIncubator = value
            }
       }
-      fileprivate var eggIncubatorBuilder_:Pogoprotos.Inventory.EggIncubator.Builder! {
+      private var eggIncubatorBuilder_:Pogoprotos.Inventory.EggIncubator.Builder! {
            didSet {
               builderResult.hasEggIncubator = true
            }
@@ -21482,7 +22270,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseItemGymResponse = Pogoprotos.Networking.Responses.UseItemGymResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseItemGymResponse = Pogoprotos.Networking.Responses.UseItemGymResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseItemGymResponse {
           return builderResult
       }
@@ -21778,7 +22566,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseItemPotionResponse = Pogoprotos.Networking.Responses.UseItemPotionResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseItemPotionResponse = Pogoprotos.Networking.Responses.UseItemPotionResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseItemPotionResponse {
           return builderResult
       }
@@ -22074,7 +22862,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseItemReviveResponse = Pogoprotos.Networking.Responses.UseItemReviveResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseItemReviveResponse = Pogoprotos.Networking.Responses.UseItemReviveResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseItemReviveResponse {
           return builderResult
       }
@@ -22381,7 +23169,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.UseItemXpBoostResponse = Pogoprotos.Networking.Responses.UseItemXpBoostResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.UseItemXpBoostResponse = Pogoprotos.Networking.Responses.UseItemXpBoostResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.UseItemXpBoostResponse {
           return builderResult
       }
@@ -22429,7 +23217,7 @@ public extension Pogoprotos.Networking.Responses {
                builderResult.appliedItems = value
            }
       }
-      fileprivate var appliedItemsBuilder_:Pogoprotos.Inventory.AppliedItems.Builder! {
+      private var appliedItemsBuilder_:Pogoprotos.Inventory.AppliedItems.Builder! {
            didSet {
               builderResult.hasAppliedItems = true
            }
@@ -22650,7 +23438,7 @@ public extension Pogoprotos.Networking.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Responses.VerifyChallengeResponse = Pogoprotos.Networking.Responses.VerifyChallengeResponse()
+      private var builderResult:Pogoprotos.Networking.Responses.VerifyChallengeResponse = Pogoprotos.Networking.Responses.VerifyChallengeResponse()
       public func getMessage() -> Pogoprotos.Networking.Responses.VerifyChallengeResponse {
           return builderResult
       }
@@ -23951,6 +24739,36 @@ extension Pogoprotos.Networking.Responses.RecycleInventoryItemResponse: Generate
   }
   public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.RecycleInventoryItemResponse {
     return try Pogoprotos.Networking.Responses.RecycleInventoryItemResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse> {
+    var mergedArray = Array<Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse? {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Responses.PogoprotosNetworkingResponsesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse {
+    return try Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
   }
 }
 extension Pogoprotos.Networking.Responses.ReleasePokemonResponse: GeneratedMessageProtocol {

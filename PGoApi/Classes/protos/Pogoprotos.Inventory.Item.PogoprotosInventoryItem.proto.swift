@@ -380,7 +380,7 @@ public extension Pogoprotos.Inventory.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.Item.ItemAward = Pogoprotos.Inventory.Item.ItemAward()
+      private var builderResult:Pogoprotos.Inventory.Item.ItemAward = Pogoprotos.Inventory.Item.ItemAward()
       public func getMessage() -> Pogoprotos.Inventory.Item.ItemAward {
           return builderResult
       }
@@ -650,7 +650,7 @@ public extension Pogoprotos.Inventory.Item {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Inventory.Item.ItemData = Pogoprotos.Inventory.Item.ItemData()
+      private var builderResult:Pogoprotos.Inventory.Item.ItemData = Pogoprotos.Inventory.Item.ItemData()
       public func getMessage() -> Pogoprotos.Inventory.Item.ItemData {
           return builderResult
       }

@@ -243,7 +243,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse()
+      private var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse = Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.BuyItemAndroidResponse {
           return builderResult
       }
@@ -514,7 +514,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse()
+      private var builderResult:Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse = Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.BuyItemPokeCoinsResponse {
           return builderResult
       }
@@ -745,7 +745,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
             //Meta information declaration end
 
             final public class Builder : GeneratedMessageBuilder {
-              fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry()
+              private var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry()
               public func getMessage() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem.TagsEntry {
                   return builderResult
               }
@@ -1121,7 +1121,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem()
+          private var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem()
           public func getMessage() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse.StoreItem {
               return builderResult
           }
@@ -1192,7 +1192,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.currencyToBuy = value
                }
           }
-          fileprivate var currencyToBuyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
+          private var currencyToBuyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
                didSet {
                   builderResult.hasCurrencyToBuy = true
                }
@@ -1243,7 +1243,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.yieldsCurrency = value
                }
           }
-          fileprivate var yieldsCurrencyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
+          private var yieldsCurrencyBuilder_:Pogoprotos.Data.Player.Currency.Builder! {
                didSet {
                   builderResult.hasYieldsCurrency = true
                }
@@ -1294,7 +1294,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
                    builderResult.yieldsItem = value
                }
           }
-          fileprivate var yieldsItemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
+          private var yieldsItemBuilder_:Pogoprotos.Inventory.Item.ItemData.Builder! {
                didSet {
                   builderResult.hasYieldsItem = true
                }
@@ -1722,7 +1722,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse()
+      private var builderResult:Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse = Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.GetStoreItemsResponse {
           return builderResult
       }
@@ -2024,7 +2024,7 @@ public extension Pogoprotos.Networking.Platform.Responses {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse = Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse()
+      private var builderResult:Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse = Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse()
       public func getMessage() -> Pogoprotos.Networking.Platform.Responses.SendEncryptedSignatureResponse {
           return builderResult
       }

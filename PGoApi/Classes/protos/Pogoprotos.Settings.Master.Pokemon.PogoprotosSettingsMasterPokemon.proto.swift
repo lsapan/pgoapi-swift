@@ -238,7 +238,7 @@ public extension Pogoprotos.Settings.Master.Pokemon {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Pokemon.CameraAttributes = Pogoprotos.Settings.Master.Pokemon.CameraAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Pokemon.CameraAttributes = Pogoprotos.Settings.Master.Pokemon.CameraAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Pokemon.CameraAttributes {
           return builderResult
       }
@@ -707,7 +707,7 @@ public extension Pogoprotos.Settings.Master.Pokemon {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Pokemon.EncounterAttributes = Pogoprotos.Settings.Master.Pokemon.EncounterAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Pokemon.EncounterAttributes = Pogoprotos.Settings.Master.Pokemon.EncounterAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Pokemon.EncounterAttributes {
           return builderResult
       }
@@ -1220,7 +1220,7 @@ public extension Pogoprotos.Settings.Master.Pokemon {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Settings.Master.Pokemon.StatsAttributes = Pogoprotos.Settings.Master.Pokemon.StatsAttributes()
+      private var builderResult:Pogoprotos.Settings.Master.Pokemon.StatsAttributes = Pogoprotos.Settings.Master.Pokemon.StatsAttributes()
       public func getMessage() -> Pogoprotos.Settings.Master.Pokemon.StatsAttributes {
           return builderResult
       }

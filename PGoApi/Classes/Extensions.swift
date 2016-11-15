@@ -10,12 +10,6 @@ import Foundation
 import Alamofire
 
 
-infix operator &^ : MultiplicationPrecedence
-
-public func &^ (base: UInt32, pair: UInt32) -> UInt32 {
-    return base - (base & pair)
-}
-
 internal struct BinaryEncoding: ParameterEncoding {
     private let data: Data
     
@@ -83,6 +77,26 @@ internal extension UInt64 {
     internal func getInt64() -> Int64 {
         let bytes = UnsafeConverter.bytes(self)
         let value = UnsafePointer(bytes).withMemoryRebound(to: Int64.self, capacity: 1) {
+            $0.pointee
+        }
+        return value
+    }
+}
+
+internal extension UInt32 {
+    internal func getInt32() -> Int32 {
+        let bytes = UnsafeConverter.bytes(self)
+        let value = UnsafePointer(bytes).withMemoryRebound(to: Int32.self, capacity: 1) {
+            $0.pointee
+        }
+        return value
+    }
+}
+
+internal extension Int32 {
+    internal func getUInt32() -> UInt32 {
+        let bytes = UnsafeConverter.bytes(self)
+        let value = UnsafePointer(bytes).withMemoryRebound(to: UInt32.self, capacity: 1) {
             $0.pointee
         }
         return value

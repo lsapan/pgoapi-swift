@@ -27,7 +27,7 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.AttackGymMessage, r
   fieldCheck = fieldCheck && (lhs.hasGymId == rhs.hasGymId) && (!lhs.hasGymId || lhs.gymId == rhs.gymId)
   fieldCheck = fieldCheck && (lhs.hasBattleId == rhs.hasBattleId) && (!lhs.hasBattleId || lhs.battleId == rhs.battleId)
   fieldCheck = fieldCheck && (lhs.attackActions == rhs.attackActions)
-  fieldCheck = fieldCheck && (lhs.hasLastRetrievedActions == rhs.hasLastRetrievedActions) && (!lhs.hasLastRetrievedActions || lhs.lastRetrievedActions == rhs.lastRetrievedActions)
+  fieldCheck = fieldCheck && (lhs.hasLastRetrievedAction == rhs.hasLastRetrievedAction) && (!lhs.hasLastRetrievedAction || lhs.lastRetrievedAction == rhs.lastRetrievedAction)
   fieldCheck = fieldCheck && (lhs.hasPlayerLatitude == rhs.hasPlayerLatitude) && (!lhs.hasPlayerLatitude || lhs.playerLatitude == rhs.playerLatitude)
   fieldCheck = fieldCheck && (lhs.hasPlayerLongitude == rhs.hasPlayerLongitude) && (!lhs.hasPlayerLongitude || lhs.playerLongitude == rhs.playerLongitude)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
@@ -366,6 +366,7 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Pl
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasCountry == rhs.hasCountry) && (!lhs.hasCountry || lhs.country == rhs.country)
   fieldCheck = fieldCheck && (lhs.hasLanguage == rhs.hasLanguage) && (!lhs.hasLanguage || lhs.language == rhs.language)
+  fieldCheck = fieldCheck && (lhs.hasTimezone == rhs.hasTimezone) && (!lhs.hasTimezone || lhs.timezone == rhs.timezone)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -451,6 +452,17 @@ public func == (lhs: Pogoprotos.Networking.Requests.Messages.RecycleInventoryIte
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasItemId == rhs.hasItemId) && (!lhs.hasItemId || lhs.itemId == rhs.itemId)
   fieldCheck = fieldCheck && (lhs.hasCount == rhs.hasCount) && (!lhs.hasCount || lhs.count == rhs.count)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+public func == (lhs: Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage, rhs: Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasDeviceType == rhs.hasDeviceType) && (!lhs.hasDeviceType || lhs.deviceType == rhs.deviceType)
+  fieldCheck = fieldCheck && (lhs.hasDeviceId == rhs.hasDeviceId) && (!lhs.hasDeviceId || lhs.deviceId == rhs.deviceId)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -808,7 +820,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage = Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage = Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.AddFortModifierMessage {
           return builderResult
       }
@@ -1019,8 +1031,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
     public fileprivate(set) var hasBattleId:Bool = false
 
     public fileprivate(set) var attackActions:Array<Pogoprotos.Data.Battle.BattleAction>  = Array<Pogoprotos.Data.Battle.BattleAction>()
-    public fileprivate(set) var lastRetrievedActions:Pogoprotos.Data.Battle.BattleAction!
-    public fileprivate(set) var hasLastRetrievedActions:Bool = false
+    public fileprivate(set) var lastRetrievedAction:Pogoprotos.Data.Battle.BattleAction!
+    public fileprivate(set) var hasLastRetrievedAction:Bool = false
     public fileprivate(set) var playerLatitude:Double = Double(0)
     public fileprivate(set) var hasPlayerLatitude:Bool = false
 
@@ -1043,8 +1055,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
       for oneElementAttackActions in attackActions {
           try codedOutputStream.writeMessage(fieldNumber: 3, value:oneElementAttackActions)
       }
-      if hasLastRetrievedActions {
-        try codedOutputStream.writeMessage(fieldNumber: 4, value:lastRetrievedActions)
+      if hasLastRetrievedAction {
+        try codedOutputStream.writeMessage(fieldNumber: 4, value:lastRetrievedAction)
       }
       if hasPlayerLatitude {
         try codedOutputStream.writeDouble(fieldNumber: 5, value:playerLatitude)
@@ -1070,9 +1082,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
       for oneElementAttackActions in attackActions {
           serialize_size += oneElementAttackActions.computeMessageSize(fieldNumber: 3)
       }
-      if hasLastRetrievedActions {
-          if let varSizelastRetrievedActions = lastRetrievedActions?.computeMessageSize(fieldNumber: 4) {
-              serialize_size += varSizelastRetrievedActions
+      if hasLastRetrievedAction {
+          if let varSizelastRetrievedAction = lastRetrievedAction?.computeMessageSize(fieldNumber: 4) {
+              serialize_size += varSizelastRetrievedAction
           }
       }
       if hasPlayerLatitude {
@@ -1123,8 +1135,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
           }
         jsonMap["attackActions"] = jsonArrayAttackActions
       }
-      if hasLastRetrievedActions {
-        jsonMap["lastRetrievedActions"] = try lastRetrievedActions.encode()
+      if hasLastRetrievedAction {
+        jsonMap["lastRetrievedAction"] = try lastRetrievedAction.encode()
       }
       if hasPlayerLatitude {
         jsonMap["playerLatitude"] = NSNumber(value:playerLatitude)
@@ -1155,10 +1167,10 @@ public extension Pogoprotos.Networking.Requests.Messages {
           output += "\(indent)}\n"
           attackActionsElementIndex += 1
       }
-      if hasLastRetrievedActions {
-        output += "\(indent) lastRetrievedActions {\n"
-        if let outDescLastRetrievedActions = lastRetrievedActions {
-          output += try outDescLastRetrievedActions.getDescription(indent: "\(indent)  ")
+      if hasLastRetrievedAction {
+        output += "\(indent) lastRetrievedAction {\n"
+        if let outDescLastRetrievedAction = lastRetrievedAction {
+          output += try outDescLastRetrievedAction.getDescription(indent: "\(indent)  ")
         }
         output += "\(indent) }\n"
       }
@@ -1183,9 +1195,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
             for oneElementAttackActions in attackActions {
                 hashCode = (hashCode &* 31) &+ oneElementAttackActions.hashValue
             }
-            if hasLastRetrievedActions {
-                if let hashValuelastRetrievedActions = lastRetrievedActions?.hashValue {
-                    hashCode = (hashCode &* 31) &+ hashValuelastRetrievedActions
+            if hasLastRetrievedAction {
+                if let hashValuelastRetrievedAction = lastRetrievedAction?.hashValue {
+                    hashCode = (hashCode &* 31) &+ hashValuelastRetrievedAction
                 }
             }
             if hasPlayerLatitude {
@@ -1211,7 +1223,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.AttackGymMessage = Pogoprotos.Networking.Requests.Messages.AttackGymMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.AttackGymMessage = Pogoprotos.Networking.Requests.Messages.AttackGymMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage {
           return builderResult
       }
@@ -1281,55 +1293,55 @@ public extension Pogoprotos.Networking.Requests.Messages {
         builderResult.attackActions.removeAll(keepingCapacity: false)
         return self
       }
-      public var hasLastRetrievedActions:Bool {
+      public var hasLastRetrievedAction:Bool {
            get {
-               return builderResult.hasLastRetrievedActions
+               return builderResult.hasLastRetrievedAction
            }
       }
-      public var lastRetrievedActions:Pogoprotos.Data.Battle.BattleAction! {
+      public var lastRetrievedAction:Pogoprotos.Data.Battle.BattleAction! {
            get {
-               if lastRetrievedActionsBuilder_ != nil {
-                  builderResult.lastRetrievedActions = lastRetrievedActionsBuilder_.getMessage()
+               if lastRetrievedActionBuilder_ != nil {
+                  builderResult.lastRetrievedAction = lastRetrievedActionBuilder_.getMessage()
                }
-               return builderResult.lastRetrievedActions
+               return builderResult.lastRetrievedAction
            }
            set (value) {
-               builderResult.hasLastRetrievedActions = true
-               builderResult.lastRetrievedActions = value
+               builderResult.hasLastRetrievedAction = true
+               builderResult.lastRetrievedAction = value
            }
       }
-      fileprivate var lastRetrievedActionsBuilder_:Pogoprotos.Data.Battle.BattleAction.Builder! {
+      private var lastRetrievedActionBuilder_:Pogoprotos.Data.Battle.BattleAction.Builder! {
            didSet {
-              builderResult.hasLastRetrievedActions = true
+              builderResult.hasLastRetrievedAction = true
            }
       }
-      public func getLastRetrievedActionsBuilder() -> Pogoprotos.Data.Battle.BattleAction.Builder {
-        if lastRetrievedActionsBuilder_ == nil {
-           lastRetrievedActionsBuilder_ = Pogoprotos.Data.Battle.BattleAction.Builder()
-           builderResult.lastRetrievedActions = lastRetrievedActionsBuilder_.getMessage()
-           if lastRetrievedActions != nil {
-              _ = try! lastRetrievedActionsBuilder_.mergeFrom(other: lastRetrievedActions)
+      public func getLastRetrievedActionBuilder() -> Pogoprotos.Data.Battle.BattleAction.Builder {
+        if lastRetrievedActionBuilder_ == nil {
+           lastRetrievedActionBuilder_ = Pogoprotos.Data.Battle.BattleAction.Builder()
+           builderResult.lastRetrievedAction = lastRetrievedActionBuilder_.getMessage()
+           if lastRetrievedAction != nil {
+              _ = try! lastRetrievedActionBuilder_.mergeFrom(other: lastRetrievedAction)
            }
         }
-        return lastRetrievedActionsBuilder_
+        return lastRetrievedActionBuilder_
       }
-      public func setLastRetrievedActions(_ value:Pogoprotos.Data.Battle.BattleAction!) -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage.Builder {
-        self.lastRetrievedActions = value
+      public func setLastRetrievedAction(_ value:Pogoprotos.Data.Battle.BattleAction!) -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage.Builder {
+        self.lastRetrievedAction = value
         return self
       }
-      public func mergeLastRetrievedActions(value:Pogoprotos.Data.Battle.BattleAction) throws -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage.Builder {
-        if builderResult.hasLastRetrievedActions {
-          builderResult.lastRetrievedActions = try Pogoprotos.Data.Battle.BattleAction.builderWithPrototype(prototype:builderResult.lastRetrievedActions).mergeFrom(other: value).buildPartial()
+      public func mergeLastRetrievedAction(value:Pogoprotos.Data.Battle.BattleAction) throws -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage.Builder {
+        if builderResult.hasLastRetrievedAction {
+          builderResult.lastRetrievedAction = try Pogoprotos.Data.Battle.BattleAction.builderWithPrototype(prototype:builderResult.lastRetrievedAction).mergeFrom(other: value).buildPartial()
         } else {
-          builderResult.lastRetrievedActions = value
+          builderResult.lastRetrievedAction = value
         }
-        builderResult.hasLastRetrievedActions = true
+        builderResult.hasLastRetrievedAction = true
         return self
       }
-      public func clearLastRetrievedActions() -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage.Builder {
-        lastRetrievedActionsBuilder_ = nil
-        builderResult.hasLastRetrievedActions = false
-        builderResult.lastRetrievedActions = nil
+      public func clearLastRetrievedAction() -> Pogoprotos.Networking.Requests.Messages.AttackGymMessage.Builder {
+        lastRetrievedActionBuilder_ = nil
+        builderResult.hasLastRetrievedAction = false
+        builderResult.lastRetrievedAction = nil
         return self
       }
       public var hasPlayerLatitude:Bool {
@@ -1411,8 +1423,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
         if !other.attackActions.isEmpty  {
            builderResult.attackActions += other.attackActions
         }
-        if (other.hasLastRetrievedActions) {
-            _ = try mergeLastRetrievedActions(value: other.lastRetrievedActions)
+        if (other.hasLastRetrievedAction) {
+            _ = try mergeLastRetrievedAction(value: other.lastRetrievedAction)
         }
         if other.hasPlayerLatitude {
              playerLatitude = other.playerLatitude
@@ -1448,11 +1460,11 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
           case 34:
             let subBuilder:Pogoprotos.Data.Battle.BattleAction.Builder = Pogoprotos.Data.Battle.BattleAction.Builder()
-            if hasLastRetrievedActions {
-              _ = try subBuilder.mergeFrom(other: lastRetrievedActions)
+            if hasLastRetrievedAction {
+              _ = try subBuilder.mergeFrom(other: lastRetrievedAction)
             }
             try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-            lastRetrievedActions = subBuilder.buildPartial()
+            lastRetrievedAction = subBuilder.buildPartial()
 
           case 41:
             playerLatitude = try codedInputStream.readDouble()
@@ -1485,8 +1497,8 @@ public extension Pogoprotos.Networking.Requests.Messages {
           }
           resultDecodedBuilder.attackActions = jsonArrayAttackActions
         }
-        if let jsonValueLastRetrievedActions = jsonMap["lastRetrievedActions"] as? Dictionary<String,Any> {
-          resultDecodedBuilder.lastRetrievedActions = try Pogoprotos.Data.Battle.BattleAction.Builder.decodeToBuilder(jsonMap:jsonValueLastRetrievedActions).build()
+        if let jsonValueLastRetrievedAction = jsonMap["lastRetrievedAction"] as? Dictionary<String,Any> {
+          resultDecodedBuilder.lastRetrievedAction = try Pogoprotos.Data.Battle.BattleAction.Builder.decodeToBuilder(jsonMap:jsonValueLastRetrievedAction).build()
 
         }
         if let jsonValuePlayerLatitude = jsonMap["playerLatitude"] as? NSNumber {
@@ -1711,7 +1723,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage = Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage = Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.CatchPokemonMessage {
           return builderResult
       }
@@ -2089,7 +2101,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.CheckAwardedBadgesMessage = Pogoprotos.Networking.Requests.Messages.CheckAwardedBadgesMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.CheckAwardedBadgesMessage = Pogoprotos.Networking.Requests.Messages.CheckAwardedBadgesMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.CheckAwardedBadgesMessage {
           return builderResult
       }
@@ -2255,7 +2267,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage = Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.CheckChallengeMessage {
           return builderResult
       }
@@ -2453,7 +2465,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.CheckCodenameAvailableMessage = Pogoprotos.Networking.Requests.Messages.CheckCodenameAvailableMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.CheckCodenameAvailableMessage = Pogoprotos.Networking.Requests.Messages.CheckCodenameAvailableMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.CheckCodenameAvailableMessage {
           return builderResult
       }
@@ -2651,7 +2663,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.ClaimCodenameMessage = Pogoprotos.Networking.Requests.Messages.ClaimCodenameMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.ClaimCodenameMessage = Pogoprotos.Networking.Requests.Messages.ClaimCodenameMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.ClaimCodenameMessage {
           return builderResult
       }
@@ -2832,7 +2844,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.CollectDailyBonusMessage = Pogoprotos.Networking.Requests.Messages.CollectDailyBonusMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.CollectDailyBonusMessage = Pogoprotos.Networking.Requests.Messages.CollectDailyBonusMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.CollectDailyBonusMessage {
           return builderResult
       }
@@ -2981,7 +2993,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.CollectDailyDefenderBonusMessage = Pogoprotos.Networking.Requests.Messages.CollectDailyDefenderBonusMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.CollectDailyDefenderBonusMessage = Pogoprotos.Networking.Requests.Messages.CollectDailyDefenderBonusMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.CollectDailyDefenderBonusMessage {
           return builderResult
       }
@@ -3201,7 +3213,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage = Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage = Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.DiskEncounterMessage {
           return builderResult
       }
@@ -3478,7 +3490,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.DownloadItemTemplatesMessage = Pogoprotos.Networking.Requests.Messages.DownloadItemTemplatesMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.DownloadItemTemplatesMessage = Pogoprotos.Networking.Requests.Messages.DownloadItemTemplatesMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.DownloadItemTemplatesMessage {
           return builderResult
       }
@@ -3715,7 +3727,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage = Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage = Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.DownloadRemoteConfigVersionMessage {
           return builderResult
       }
@@ -4046,7 +4058,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage = Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage = Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.DownloadSettingsMessage {
           return builderResult
       }
@@ -4227,7 +4239,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.EchoMessage = Pogoprotos.Networking.Requests.Messages.EchoMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.EchoMessage = Pogoprotos.Networking.Requests.Messages.EchoMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.EchoMessage {
           return builderResult
       }
@@ -4447,7 +4459,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.EncounterMessage = Pogoprotos.Networking.Requests.Messages.EncounterMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.EncounterMessage = Pogoprotos.Networking.Requests.Messages.EncounterMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.EncounterMessage {
           return builderResult
       }
@@ -4740,7 +4752,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.EncounterTutorialCompleteMessage = Pogoprotos.Networking.Requests.Messages.EncounterTutorialCompleteMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.EncounterTutorialCompleteMessage = Pogoprotos.Networking.Requests.Messages.EncounterTutorialCompleteMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.EncounterTutorialCompleteMessage {
           return builderResult
       }
@@ -4942,7 +4954,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.EquipBadgeMessage = Pogoprotos.Networking.Requests.Messages.EquipBadgeMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.EquipBadgeMessage = Pogoprotos.Networking.Requests.Messages.EquipBadgeMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.EquipBadgeMessage {
           return builderResult
       }
@@ -5145,7 +5157,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.EvolvePokemonMessage = Pogoprotos.Networking.Requests.Messages.EvolvePokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.EvolvePokemonMessage = Pogoprotos.Networking.Requests.Messages.EvolvePokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.EvolvePokemonMessage {
           return builderResult
       }
@@ -5397,7 +5409,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage = Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage = Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.FortDeployPokemonMessage {
           return builderResult
       }
@@ -5727,7 +5739,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.FortDetailsMessage = Pogoprotos.Networking.Requests.Messages.FortDetailsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.FortDetailsMessage = Pogoprotos.Networking.Requests.Messages.FortDetailsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.FortDetailsMessage {
           return builderResult
       }
@@ -6043,7 +6055,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage = Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage = Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.FortRecallPokemonMessage {
           return builderResult
       }
@@ -6409,7 +6421,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.FortSearchMessage = Pogoprotos.Networking.Requests.Messages.FortSearchMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.FortSearchMessage = Pogoprotos.Networking.Requests.Messages.FortSearchMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.FortSearchMessage {
           return builderResult
       }
@@ -6806,7 +6818,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetAssetDigestMessage = Pogoprotos.Networking.Requests.Messages.GetAssetDigestMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetAssetDigestMessage = Pogoprotos.Networking.Requests.Messages.GetAssetDigestMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetAssetDigestMessage {
           return builderResult
       }
@@ -7119,7 +7131,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage = Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage = Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetBuddyWalkedMessage {
           return builderResult
       }
@@ -7290,7 +7302,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetDownloadUrlsMessage = Pogoprotos.Networking.Requests.Messages.GetDownloadUrlsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetDownloadUrlsMessage = Pogoprotos.Networking.Requests.Messages.GetDownloadUrlsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetDownloadUrlsMessage {
           return builderResult
       }
@@ -7571,7 +7583,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage = Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage = Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetGymDetailsMessage {
           return builderResult
       }
@@ -7912,7 +7924,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetHatchedEggsMessage = Pogoprotos.Networking.Requests.Messages.GetHatchedEggsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetHatchedEggsMessage = Pogoprotos.Networking.Requests.Messages.GetHatchedEggsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetHatchedEggsMessage {
           return builderResult
       }
@@ -8096,7 +8108,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage = Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage = Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetIncensePokemonMessage {
           return builderResult
       }
@@ -8345,7 +8357,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetInventoryMessage = Pogoprotos.Networking.Requests.Messages.GetInventoryMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetInventoryMessage = Pogoprotos.Networking.Requests.Messages.GetInventoryMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetInventoryMessage {
           return builderResult
       }
@@ -8661,7 +8673,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage = Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage = Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetMapObjectsMessage {
           return builderResult
       }
@@ -8875,6 +8887,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
         public fileprivate(set) var language:String = ""
         public fileprivate(set) var hasLanguage:Bool = false
 
+        public fileprivate(set) var timezone:String = ""
+        public fileprivate(set) var hasTimezone:Bool = false
+
         required public init() {
              super.init()
         }
@@ -8887,6 +8902,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
           }
           if hasLanguage {
             try codedOutputStream.writeString(fieldNumber: 2, value:language)
+          }
+          if hasTimezone {
+            try codedOutputStream.writeString(fieldNumber: 3, value:timezone)
           }
           try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
@@ -8902,6 +8920,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
           }
           if hasLanguage {
             serialize_size += language.computeStringSize(fieldNumber: 2)
+          }
+          if hasTimezone {
+            serialize_size += timezone.computeStringSize(fieldNumber: 3)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -8937,6 +8958,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
           if hasLanguage {
             jsonMap["language"] = language
           }
+          if hasTimezone {
+            jsonMap["timezone"] = timezone
+          }
           return jsonMap
         }
         override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale {
@@ -8953,6 +8977,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
           if hasLanguage {
             output += "\(indent) language: \(language) \n"
           }
+          if hasTimezone {
+            output += "\(indent) timezone: \(timezone) \n"
+          }
           output += unknownFields.getDescription(indent: indent)
           return output
         }
@@ -8964,6 +8991,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
                 }
                 if hasLanguage {
                    hashCode = (hashCode &* 31) &+ language.hashValue
+                }
+                if hasTimezone {
+                   hashCode = (hashCode &* 31) &+ timezone.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -8982,7 +9012,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-          fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale()
+          private var builderResult:Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale()
           public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale {
               return builderResult
           }
@@ -9036,6 +9066,29 @@ public extension Pogoprotos.Networking.Requests.Messages {
                builderResult.language = ""
                return self
           }
+          public var hasTimezone:Bool {
+               get {
+                    return builderResult.hasTimezone
+               }
+          }
+          public var timezone:String {
+               get {
+                    return builderResult.timezone
+               }
+               set (value) {
+                   builderResult.hasTimezone = true
+                   builderResult.timezone = value
+               }
+          }
+          public func setTimezone(_ value:String) -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale.Builder {
+            self.timezone = value
+            return self
+          }
+          public func clearTimezone() -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale.Builder{
+               builderResult.hasTimezone = false
+               builderResult.timezone = ""
+               return self
+          }
           override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
@@ -9066,6 +9119,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
             if other.hasLanguage {
                  language = other.language
             }
+            if other.hasTimezone {
+                 timezone = other.timezone
+            }
             _ = try merge(unknownField: other.unknownFields)
             return self
           }
@@ -9087,6 +9143,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
               case 18:
                 language = try codedInputStream.readString()
 
+              case 26:
+                timezone = try codedInputStream.readString()
+
               default:
                 if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
@@ -9102,6 +9161,9 @@ public extension Pogoprotos.Networking.Requests.Messages {
             }
             if let jsonValueLanguage = jsonMap["language"] as? String {
               resultDecodedBuilder.language = jsonValueLanguage
+            }
+            if let jsonValueTimezone = jsonMap["timezone"] as? String {
+              resultDecodedBuilder.timezone = jsonValueTimezone
             }
             return resultDecodedBuilder
           }
@@ -9220,7 +9282,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetPlayerMessage = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetPlayerMessage = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetPlayerMessage {
           return builderResult
       }
@@ -9245,7 +9307,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                builderResult.playerLocale = value
            }
       }
-      fileprivate var playerLocaleBuilder_:Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale.Builder! {
+      private var playerLocaleBuilder_:Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale.Builder! {
            didSet {
               builderResult.hasPlayerLocale = true
            }
@@ -9452,7 +9514,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetPlayerProfileMessage = Pogoprotos.Networking.Requests.Messages.GetPlayerProfileMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetPlayerProfileMessage = Pogoprotos.Networking.Requests.Messages.GetPlayerProfileMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetPlayerProfileMessage {
           return builderResult
       }
@@ -9633,7 +9695,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.GetSuggestedCodenamesMessage = Pogoprotos.Networking.Requests.Messages.GetSuggestedCodenamesMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.GetSuggestedCodenamesMessage = Pogoprotos.Networking.Requests.Messages.GetSuggestedCodenamesMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.GetSuggestedCodenamesMessage {
           return builderResult
       }
@@ -9817,7 +9879,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage = Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage = Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.IncenseEncounterMessage {
           return builderResult
       }
@@ -10047,7 +10109,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.LevelUpRewardsMessage = Pogoprotos.Networking.Requests.Messages.LevelUpRewardsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.LevelUpRewardsMessage = Pogoprotos.Networking.Requests.Messages.LevelUpRewardsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.LevelUpRewardsMessage {
           return builderResult
       }
@@ -10289,7 +10351,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.MarkTutorialCompleteMessage = Pogoprotos.Networking.Requests.Messages.MarkTutorialCompleteMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.MarkTutorialCompleteMessage = Pogoprotos.Networking.Requests.Messages.MarkTutorialCompleteMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.MarkTutorialCompleteMessage {
           return builderResult
       }
@@ -10572,7 +10634,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.NicknamePokemonMessage = Pogoprotos.Networking.Requests.Messages.NicknamePokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.NicknamePokemonMessage = Pogoprotos.Networking.Requests.Messages.NicknamePokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.NicknamePokemonMessage {
           return builderResult
       }
@@ -10820,7 +10882,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage = Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage = Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.PlayerUpdateMessage {
           return builderResult
       }
@@ -11067,7 +11129,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage = Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage = Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage {
           return builderResult
       }
@@ -11206,6 +11268,254 @@ public extension Pogoprotos.Networking.Requests.Messages {
 
   }
 
+  final public class RegisterBackgroundDeviceMessage : GeneratedMessage {
+    public fileprivate(set) var deviceType:String = ""
+    public fileprivate(set) var hasDeviceType:Bool = false
+
+    public fileprivate(set) var deviceId:String = ""
+    public fileprivate(set) var hasDeviceId:Bool = false
+
+    required public init() {
+         super.init()
+    }
+    override public func isInitialized() -> Bool {
+     return true
+    }
+    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+      if hasDeviceType {
+        try codedOutputStream.writeString(fieldNumber: 1, value:deviceType)
+      }
+      if hasDeviceId {
+        try codedOutputStream.writeString(fieldNumber: 2, value:deviceId)
+      }
+      try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+    }
+    override public func serializedSize() -> Int32 {
+      var serialize_size:Int32 = memoizedSerializedSize
+      if serialize_size != -1 {
+       return serialize_size
+      }
+
+      serialize_size = 0
+      if hasDeviceType {
+        serialize_size += deviceType.computeStringSize(fieldNumber: 1)
+      }
+      if hasDeviceId {
+        serialize_size += deviceId.computeStringSize(fieldNumber: 2)
+      }
+      serialize_size += unknownFields.serializedSize()
+      memoizedSerializedSize = serialize_size
+      return serialize_size
+    }
+    public class func getBuilder() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+      return Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.classBuilder() as! Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder
+    }
+    public func getBuilder() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+      return classBuilder() as! Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder
+    }
+    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder()
+    }
+    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+      return Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder()
+    }
+    public func toBuilder() throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+      return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.builderWithPrototype(prototype:self)
+    }
+    public class func builderWithPrototype(prototype:Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+      return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(other:prototype)
+    }
+    override public func encode() throws -> Dictionary<String,Any> {
+      guard isInitialized() else {
+        throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
+      }
+
+      var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+      if hasDeviceType {
+        jsonMap["deviceType"] = deviceType
+      }
+      if hasDeviceId {
+        jsonMap["deviceId"] = deviceId
+      }
+      return jsonMap
+    }
+    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+      return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+    }
+    override class public func fromJSON(data:Data) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+      return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder.fromJSONToBuilder(data:data).build()
+    }
+    override public func getDescription(indent:String) throws -> String {
+      var output = ""
+      if hasDeviceType {
+        output += "\(indent) deviceType: \(deviceType) \n"
+      }
+      if hasDeviceId {
+        output += "\(indent) deviceId: \(deviceId) \n"
+      }
+      output += unknownFields.getDescription(indent: indent)
+      return output
+    }
+    override public var hashValue:Int {
+        get {
+            var hashCode:Int = 7
+            if hasDeviceType {
+               hashCode = (hashCode &* 31) &+ deviceType.hashValue
+            }
+            if hasDeviceId {
+               hashCode = (hashCode &* 31) &+ deviceId.hashValue
+            }
+            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+            return hashCode
+        }
+    }
+
+
+    //Meta information declaration start
+
+    override public class func className() -> String {
+        return "Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage"
+    }
+    override public func className() -> String {
+        return "Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage"
+    }
+    //Meta information declaration end
+
+    final public class Builder : GeneratedMessageBuilder {
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage = Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage()
+      public func getMessage() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+          return builderResult
+      }
+
+      required override public init () {
+         super.init()
+      }
+      public var hasDeviceType:Bool {
+           get {
+                return builderResult.hasDeviceType
+           }
+      }
+      public var deviceType:String {
+           get {
+                return builderResult.deviceType
+           }
+           set (value) {
+               builderResult.hasDeviceType = true
+               builderResult.deviceType = value
+           }
+      }
+      public func setDeviceType(_ value:String) -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        self.deviceType = value
+        return self
+      }
+      public func clearDeviceType() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder{
+           builderResult.hasDeviceType = false
+           builderResult.deviceType = ""
+           return self
+      }
+      public var hasDeviceId:Bool {
+           get {
+                return builderResult.hasDeviceId
+           }
+      }
+      public var deviceId:String {
+           get {
+                return builderResult.deviceId
+           }
+           set (value) {
+               builderResult.hasDeviceId = true
+               builderResult.deviceId = value
+           }
+      }
+      public func setDeviceId(_ value:String) -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        self.deviceId = value
+        return self
+      }
+      public func clearDeviceId() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder{
+           builderResult.hasDeviceId = false
+           builderResult.deviceId = ""
+           return self
+      }
+      override public var internalGetResult:GeneratedMessage {
+           get {
+              return builderResult
+           }
+      }
+      override public func clear() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        builderResult = Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage()
+        return self
+      }
+      override public func clone() throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.builderWithPrototype(prototype:builderResult)
+      }
+      override public func build() throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+           try checkInitialized()
+           return buildPartial()
+      }
+      public func buildPartial() -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+        let returnMe:Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage = builderResult
+        return returnMe
+      }
+      public func mergeFrom(other:Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        if other == Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage() {
+         return self
+        }
+        if other.hasDeviceType {
+             deviceType = other.deviceType
+        }
+        if other.hasDeviceId {
+             deviceId = other.deviceId
+        }
+        _ = try merge(unknownField: other.unknownFields)
+        return self
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+           return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+      }
+      override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+        while (true) {
+          let protobufTag = try codedInputStream.readTag()
+          switch protobufTag {
+          case 0: 
+            self.unknownFields = try unknownFieldsBuilder.build()
+            return self
+
+          case 10:
+            deviceType = try codedInputStream.readString()
+
+          case 18:
+            deviceId = try codedInputStream.readString()
+
+          default:
+            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+               unknownFields = try unknownFieldsBuilder.build()
+               return self
+            }
+          }
+        }
+      }
+      class public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        let resultDecodedBuilder = Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder()
+        if let jsonValueDeviceType = jsonMap["deviceType"] as? String {
+          resultDecodedBuilder.deviceType = jsonValueDeviceType
+        }
+        if let jsonValueDeviceId = jsonMap["deviceId"] as? String {
+          resultDecodedBuilder.deviceId = jsonValueDeviceId
+        }
+        return resultDecodedBuilder
+      }
+      override class public func fromJSONToBuilder(data:Data) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder {
+        let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+        guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+          throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+        }
+        return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
+      }
+    }
+
+  }
+
   final public class ReleasePokemonMessage : GeneratedMessage {
     public fileprivate(set) var pokemonId:UInt64 = UInt64(0)
     public fileprivate(set) var hasPokemonId:Bool = false
@@ -11302,7 +11612,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage = Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage = Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage {
           return builderResult
       }
@@ -11507,7 +11817,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.SetAvatarMessage = Pogoprotos.Networking.Requests.Messages.SetAvatarMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SetAvatarMessage = Pogoprotos.Networking.Requests.Messages.SetAvatarMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SetAvatarMessage {
           return builderResult
       }
@@ -11532,7 +11842,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                builderResult.playerAvatar = value
            }
       }
-      fileprivate var playerAvatarBuilder_:Pogoprotos.Data.Player.PlayerAvatar.Builder! {
+      private var playerAvatarBuilder_:Pogoprotos.Data.Player.PlayerAvatar.Builder! {
            didSet {
               builderResult.hasPlayerAvatar = true
            }
@@ -11739,7 +12049,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage = Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage = Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SetBuddyPokemonMessage {
           return builderResult
       }
@@ -11944,7 +12254,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.SetContactSettingsMessage = Pogoprotos.Networking.Requests.Messages.SetContactSettingsMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SetContactSettingsMessage = Pogoprotos.Networking.Requests.Messages.SetContactSettingsMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SetContactSettingsMessage {
           return builderResult
       }
@@ -11969,7 +12279,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
                builderResult.contactSettings = value
            }
       }
-      fileprivate var contactSettingsBuilder_:Pogoprotos.Data.Player.ContactSettings.Builder! {
+      private var contactSettingsBuilder_:Pogoprotos.Data.Player.ContactSettings.Builder! {
            didSet {
               builderResult.hasContactSettings = true
            }
@@ -12195,7 +12505,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage = Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage = Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SetFavoritePokemonMessage {
           return builderResult
       }
@@ -12424,7 +12734,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessage = Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessage = Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SetPlayerTeamMessage {
           return builderResult
       }
@@ -12610,7 +12920,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage = Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.SfidaActionLogMessage {
           return builderResult
       }
@@ -12863,7 +13173,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage = Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage = Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.StartGymBattleMessage {
           return builderResult
       }
@@ -13191,7 +13501,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UpgradePokemonMessage = Pogoprotos.Networking.Requests.Messages.UpgradePokemonMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UpgradePokemonMessage = Pogoprotos.Networking.Requests.Messages.UpgradePokemonMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UpgradePokemonMessage {
           return builderResult
       }
@@ -13388,7 +13698,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseIncenseMessage = Pogoprotos.Networking.Requests.Messages.UseIncenseMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseIncenseMessage = Pogoprotos.Networking.Requests.Messages.UseIncenseMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseIncenseMessage {
           return builderResult
       }
@@ -13626,7 +13936,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage = Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage = Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseItemCaptureMessage {
           return builderResult
       }
@@ -13911,7 +14221,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemEggIncubatorMessage = Pogoprotos.Networking.Requests.Messages.UseItemEggIncubatorMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemEggIncubatorMessage = Pogoprotos.Networking.Requests.Messages.UseItemEggIncubatorMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseItemEggIncubatorMessage {
           return builderResult
       }
@@ -14194,7 +14504,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemGymMessage = Pogoprotos.Networking.Requests.Messages.UseItemGymMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemGymMessage = Pogoprotos.Networking.Requests.Messages.UseItemGymMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseItemGymMessage {
           return builderResult
       }
@@ -14510,7 +14820,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage = Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage = Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseItemPotionMessage {
           return builderResult
       }
@@ -14762,7 +15072,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage = Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage = Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseItemReviveMessage {
           return builderResult
       }
@@ -14996,7 +15306,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage = Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage = Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.UseItemXpBoostMessage {
           return builderResult
       }
@@ -15199,7 +15509,7 @@ public extension Pogoprotos.Networking.Requests.Messages {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage = Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage()
+      private var builderResult:Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage = Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage()
       public func getMessage() -> Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage {
           return builderResult
       }
@@ -16500,6 +16810,36 @@ extension Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage: G
   }
   public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage {
     return try Pogoprotos.Networking.Requests.Messages.RecycleInventoryItemMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+  }
+}
+extension Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage: GeneratedMessageProtocol {
+  public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage> {
+    var mergedArray = Array<Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage>()
+    while let value = try parseDelimitedFrom(inputStream: inputStream) {
+      mergedArray.append(value)
+    }
+    return mergedArray
+  }
+  public class func parseDelimitedFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage? {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+  }
+  public class func parseFrom(data: Data) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(data: data, extensionRegistry:Pogoprotos.Networking.Requests.Messages.PogoprotosNetworkingRequestsMessagesRoot.sharedInstance.extensionRegistry).build()
+  }
+  public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(inputStream: InputStream) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(inputStream: inputStream).build()
+  }
+  public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+  }
+  public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage {
+    return try Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
   }
 }
 extension Pogoprotos.Networking.Requests.Messages.ReleasePokemonMessage: GeneratedMessageProtocol {

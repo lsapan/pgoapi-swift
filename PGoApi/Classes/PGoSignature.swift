@@ -1,5 +1,5 @@
 //
-//  Unknown6Builder.swift
+//  PGoSignature.swift
 //  pgoapi
 //
 //  Created by PokemonGoSucks on 2016-09-06.
@@ -178,18 +178,18 @@ internal class platformRequest {
     }
     
     fileprivate func hashAuthTicket() -> UInt32 {
-        let firstHash = xxhash.xxh32(0x61656632, input: getAuthData())
-        return xxhash.xxh32(firstHash, input: self.locationHex)
+        let firstHash = niahash.hash32(buffer: getAuthData())
+        return niahash.hash32Salt(buffer: self.locationHex, salt: firstHash)
     }
     
     fileprivate func hashLocation() -> UInt32 {
         self.locationHex = locationToHex(self.api.Location.lat, long:self.api.Location.long, accuracy: self.api.Location.horizontalAccuracy)
-        return xxhash.xxh32(0x61656632, input: locationHex)
+        return niahash.hash32(buffer: self.locationHex)
     }
     
     internal func hashRequest(_ requestData:Data) -> UInt64 {
-        let firstHash = xxhash.xxh64(0x61656632, input: getAuthData())
-        return xxhash.xxh64(firstHash, input: requestData.getUInt8Array())
+        let firstHash = niahash.hash64(buffer: getAuthData())
+        return niahash.hash64Salt64(buffer: requestData.getUInt8Array(), salt: firstHash)
     }
     
     fileprivate func getSensorInfo() -> Pogoprotos.Networking.Envelopes.Signature.SensorInfo {
@@ -201,16 +201,16 @@ internal class platformRequest {
         sensorInfoBuilder.magneticFieldX = Double(Float.random(min: -55, max: 62))
         sensorInfoBuilder.magneticFieldY = Double(Float.random(min: -55, max: 62))
         sensorInfoBuilder.magneticFieldZ = Double(Float.random(min: -55, max: 5))
-        sensorInfoBuilder.rotationVectorX = Double(Float.random(min: 0, max: 0.07))
-        sensorInfoBuilder.rotationVectorY = Double(Float.random(min: -2, max:  3))
-        sensorInfoBuilder.rotationVectorZ = Double(Float.random(min: -0.1, max: 0.2))
-        sensorInfoBuilder.gyroscopeRawX = Double(Float.random(min: -1, max: 1))
-        sensorInfoBuilder.gyroscopeRawY = Double(Float.random(min: -1, max:  1.4))
-        sensorInfoBuilder.gyroscopeRawZ = Double(Float.random(min: -1, max: 1))
+        sensorInfoBuilder.attitudePitch = Double(Float.random(min: 0, max: 0.07))
+        sensorInfoBuilder.attitudeYaw = Double(Float.random(min: -2, max:  3))
+        sensorInfoBuilder.attitudeRoll = Double(Float.random(min: -0.1, max: 0.2))
+        sensorInfoBuilder.rotationRateX = Double(Float.random(min: -1, max: 1))
+        sensorInfoBuilder.rotationRateY = Double(Float.random(min: -1, max:  1.4))
+        sensorInfoBuilder.rotationRateZ = Double(Float.random(min: -1, max: 1))
         sensorInfoBuilder.gravityX = Double(Float.random(min: -0.5, max: 0.15))
         sensorInfoBuilder.gravityY = Double(Float.random(min: -0.6, max:  -0.07))
         sensorInfoBuilder.gravityZ = Double(Float.random(min: -1, max: -0.75))
-        sensorInfoBuilder.accelerometerAxes = 3
+        sensorInfoBuilder.status = 3
         return try! sensorInfoBuilder.build()
     }
     
@@ -291,8 +291,8 @@ internal class platformRequest {
     internal func build() -> Pogoprotos.Networking.Envelopes.RequestEnvelope.PlatformRequest {
         let signatureBuilder = Pogoprotos.Networking.Envelopes.Signature.Builder()
         
-        signatureBuilder.locationHash2 = hashLocation()
-        signatureBuilder.locationHash1 = hashAuthTicket()
+        signatureBuilder.locationHash2 = hashLocation().getInt32()
+        signatureBuilder.locationHash1 = hashAuthTicket().getInt32()
         signatureBuilder.unknown25 = PGoVersion.versionHash
         signatureBuilder.timestamp = self.api.getTimestamp()
         signatureBuilder.timestampSinceStart = self.api.getTimestampSinceStart() + self.api.session.realisticStartTimeAdjustment
@@ -317,7 +317,7 @@ internal class platformRequest {
         
         
         if self.api.unknown6Settings.useSensorInfo {
-            signatureBuilder.sensorInfo = getSensorInfo()
+            signatureBuilder.sensorInfo = [getSensorInfo()]
         }
                 
         let signature = try! signatureBuilder.build()
@@ -327,7 +327,7 @@ internal class platformRequest {
         
         unknown6.type = .sendEncryptedSignature
         
-        let sigData = PGoEncrypt.encrypt(signature.data().getUInt8Array())
+        let sigData = pcrypt.encrypt(input: signature.data().getUInt8Array(), iv: UInt32(self.api.getTimestampSinceStart()))
         unknown2.encryptedSignature = Data(bytes: sigData)
         
         unknown6.requestMessage = try! unknown2.build().data()

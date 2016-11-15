@@ -265,7 +265,7 @@ public extension Pogoprotos.Data.Capture {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Capture.CaptureAward = Pogoprotos.Data.Capture.CaptureAward()
+      private var builderResult:Pogoprotos.Data.Capture.CaptureAward = Pogoprotos.Data.Capture.CaptureAward()
       public func getMessage() -> Pogoprotos.Data.Capture.CaptureAward {
           return builderResult
       }
@@ -639,7 +639,7 @@ public extension Pogoprotos.Data.Capture {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Capture.CaptureProbability = Pogoprotos.Data.Capture.CaptureProbability()
+      private var builderResult:Pogoprotos.Data.Capture.CaptureProbability = Pogoprotos.Data.Capture.CaptureProbability()
       public func getMessage() -> Pogoprotos.Data.Capture.CaptureProbability {
           return builderResult
       }

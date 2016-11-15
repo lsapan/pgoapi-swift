@@ -9,6 +9,13 @@
 import Foundation
 
 
+internal struct PGoVersion {
+    internal static let versionHash: Int64 = -1553869577012279119
+    internal static let versionString: String = "1.15.0"
+    internal static let versionInt: UInt32 = 4500
+    internal static let HASH_SEED: UInt32 = 0x46E945F8
+}
+
 internal struct PGoEndpoint {
     internal static let LoginInfo = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
     internal static let LoginTicket = "https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize"
@@ -95,6 +102,7 @@ public enum PGoApiIntent {
     case getBuddyWalked
     case setBuddyPokemon
     case verifyChallenge
+    case registerBackgroundDevice
 }
 
 public enum PGoAuthType: CustomStringConvertible {

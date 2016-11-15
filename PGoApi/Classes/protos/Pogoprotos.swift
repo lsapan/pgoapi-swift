@@ -15,11 +15,13 @@ import ProtocolBuffers
 public struct Pogoprotos {
     
     public struct Data {
+        public struct Badge { }
         public struct Battle { }
         public struct Capture { }
         public struct Gym { }
         public struct Logs { }
         public struct Player { }
+        public struct Quests { }
     }
     
     public struct Enums { }
@@ -49,11 +51,12 @@ public struct Pogoprotos {
         public struct Master {
             public struct Item { }
             public struct Pokemon { }
+            public struct Quest { }
         }
     }
     
 }
 
 protocol ResponseParser {
-    static func parseFromData(_ data:Data) throws -> GeneratedMessage
+    static func parseFromData(data:NSData) throws -> GeneratedMessage
 }

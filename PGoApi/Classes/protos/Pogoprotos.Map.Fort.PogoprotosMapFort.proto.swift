@@ -27,6 +27,7 @@ public func == (lhs: Pogoprotos.Map.Fort.FortData, rhs: Pogoprotos.Map.Fort.Fort
   fieldCheck = fieldCheck && (lhs.hasCooldownCompleteTimestampMs == rhs.hasCooldownCompleteTimestampMs) && (!lhs.hasCooldownCompleteTimestampMs || lhs.cooldownCompleteTimestampMs == rhs.cooldownCompleteTimestampMs)
   fieldCheck = fieldCheck && (lhs.hasSponsor == rhs.hasSponsor) && (!lhs.hasSponsor || lhs.sponsor == rhs.sponsor)
   fieldCheck = fieldCheck && (lhs.hasRenderingType == rhs.hasRenderingType) && (!lhs.hasRenderingType || lhs.renderingType == rhs.renderingType)
+  fieldCheck = fieldCheck && (lhs.hasDeployLockoutEndMs == rhs.hasDeployLockoutEndMs) && (!lhs.hasDeployLockoutEndMs || lhs.deployLockoutEndMs == rhs.deployLockoutEndMs)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -129,11 +130,17 @@ public extension Pogoprotos.Map.Fort {
     case unsetSponsor = 0
     case mcdonalds = 1
     case pokemonStore = 2
+    case toho = 3
+    case softbank = 4
+    case globe = 5
     public func toString() -> String {
       switch self {
       case .unsetSponsor: return "UNSET_SPONSOR"
       case .mcdonalds: return "MCDONALDS"
       case .pokemonStore: return "POKEMON_STORE"
+      case .toho: return "TOHO"
+      case .softbank: return "SOFTBANK"
+      case .globe: return "GLOBE"
       }
     }
     public static func fromString(str:String) throws -> Pogoprotos.Map.Fort.FortSponsor {
@@ -141,6 +148,9 @@ public extension Pogoprotos.Map.Fort {
       case "UNSET_SPONSOR":  return .unsetSponsor
       case "MCDONALDS":  return .mcdonalds
       case "POKEMON_STORE":  return .pokemonStore
+      case "TOHO":  return .toho
+      case "SOFTBANK":  return .softbank
+      case "GLOBE":  return .globe
       default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion String to Enum has failed.")
       }
     }
@@ -151,6 +161,9 @@ public extension Pogoprotos.Map.Fort {
       case .unsetSponsor: return ".unsetSponsor"
       case .mcdonalds: return ".mcdonalds"
       case .pokemonStore: return ".pokemonStore"
+      case .toho: return ".toho"
+      case .softbank: return ".softbank"
+      case .globe: return ".globe"
       }
     }
   }
@@ -202,23 +215,24 @@ public extension Pogoprotos.Map.Fort {
     public fileprivate(set) var longitude:Double = Double(0)
     public fileprivate(set) var hasLongitude:Bool = false
 
+    public fileprivate(set) var ownedByTeam:Pogoprotos.Enums.TeamColor = Pogoprotos.Enums.TeamColor.neutral
+    public fileprivate(set) var hasOwnedByTeam:Bool = false
+    public fileprivate(set) var guardPokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.missingno
+    public fileprivate(set) var hasGuardPokemonId:Bool = false
+    // (Gym only) Highest CP Pokemon at the gym.
+    public fileprivate(set) var guardPokemonCp:Int32 = Int32(0)
+    public fileprivate(set) var hasGuardPokemonCp:Bool = false
+
     public fileprivate(set) var enabled:Bool = false
     public fileprivate(set) var hasEnabled:Bool = false
 
     public fileprivate(set) var type:Pogoprotos.Map.Fort.FortType = Pogoprotos.Map.Fort.FortType.gym
     public fileprivate(set) var hasType:Bool = false
-    public fileprivate(set) var ownedByTeam:Pogoprotos.Enums.TeamColor = Pogoprotos.Enums.TeamColor.neutral
-    public fileprivate(set) var hasOwnedByTeam:Bool = false
-    public fileprivate(set) var guardPokemonId:Pogoprotos.Enums.PokemonId = Pogoprotos.Enums.PokemonId.missingno
-    public fileprivate(set) var hasGuardPokemonId:Bool = false
-    public fileprivate(set) var guardPokemonCp:Int32 = Int32(0)
-    public fileprivate(set) var hasGuardPokemonCp:Bool = false
-
-    // Prestigate / experience of the gym
+    // (Gym only) Prestigate / experience of the gym.
     public fileprivate(set) var gymPoints:Int64 = Int64(0)
     public fileprivate(set) var hasGymPoints:Bool = false
 
-    // Whether someone is battling at the gym currently
+    // (Gym only) Whether someone is battling at the gym currently.
     public fileprivate(set) var isInBattle:Bool = false
     public fileprivate(set) var hasIsInBattle:Bool = false
 
@@ -226,7 +240,7 @@ public extension Pogoprotos.Map.Fort {
     public fileprivate(set) var activeFortModifier:Array<Pogoprotos.Inventory.Item.ItemId> = Array<Pogoprotos.Inventory.Item.ItemId>()
     public fileprivate(set) var lureInfo:Pogoprotos.Map.Fort.FortLureInfo!
     public fileprivate(set) var hasLureInfo:Bool = false
-    // Timestamp when the pokestop can be activated again to get items / xp
+    // (Pokestop only) Timestamp when the pokestop can be activated again to get items / xp.
     public fileprivate(set) var cooldownCompleteTimestampMs:Int64 = Int64(0)
     public fileprivate(set) var hasCooldownCompleteTimestampMs:Bool = false
 
@@ -234,6 +248,9 @@ public extension Pogoprotos.Map.Fort {
     public fileprivate(set) var hasSponsor:Bool = false
     public fileprivate(set) var renderingType:Pogoprotos.Map.Fort.FortRenderingType = Pogoprotos.Map.Fort.FortRenderingType.`default`
     public fileprivate(set) var hasRenderingType:Bool = false
+    public fileprivate(set) var deployLockoutEndMs:Int64 = Int64(0)
+    public fileprivate(set) var hasDeployLockoutEndMs:Bool = false
+
     required public init() {
          super.init()
     }
@@ -288,6 +305,9 @@ public extension Pogoprotos.Map.Fort {
       }
       if hasRenderingType {
         try codedOutputStream.writeEnum(fieldNumber: 16, value:renderingType.rawValue)
+      }
+      if hasDeployLockoutEndMs {
+        try codedOutputStream.writeInt64(fieldNumber: 17, value:deployLockoutEndMs)
       }
       try unknownFields.writeTo(codedOutputStream: codedOutputStream)
     }
@@ -351,6 +371,9 @@ public extension Pogoprotos.Map.Fort {
       if (hasRenderingType) {
         serialize_size += renderingType.rawValue.computeEnumSize(fieldNumber: 16)
       }
+      if hasDeployLockoutEndMs {
+        serialize_size += deployLockoutEndMs.computeInt64Size(fieldNumber: 17)
+      }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
       return serialize_size
@@ -391,12 +414,6 @@ public extension Pogoprotos.Map.Fort {
       if hasLongitude {
         jsonMap["longitude"] = NSNumber(value:longitude)
       }
-      if hasEnabled {
-        jsonMap["enabled"] = enabled
-      }
-      if hasType {
-        jsonMap["type"] = type.toString()
-      }
       if hasOwnedByTeam {
         jsonMap["ownedByTeam"] = ownedByTeam.toString()
       }
@@ -405,6 +422,12 @@ public extension Pogoprotos.Map.Fort {
       }
       if hasGuardPokemonCp {
         jsonMap["guardPokemonCp"] = NSNumber(value:guardPokemonCp)
+      }
+      if hasEnabled {
+        jsonMap["enabled"] = enabled
+      }
+      if hasType {
+        jsonMap["type"] = type.toString()
       }
       if hasGymPoints {
         jsonMap["gymPoints"] = "\(gymPoints)"
@@ -430,6 +453,9 @@ public extension Pogoprotos.Map.Fort {
       }
       if hasRenderingType {
         jsonMap["renderingType"] = renderingType.toString()
+      }
+      if hasDeployLockoutEndMs {
+        jsonMap["deployLockoutEndMs"] = "\(deployLockoutEndMs)"
       }
       return jsonMap
     }
@@ -495,6 +521,9 @@ public extension Pogoprotos.Map.Fort {
       if (hasRenderingType) {
         output += "\(indent) renderingType: \(renderingType.description)\n"
       }
+      if hasDeployLockoutEndMs {
+        output += "\(indent) deployLockoutEndMs: \(deployLockoutEndMs) \n"
+      }
       output += unknownFields.getDescription(indent: indent)
       return output
     }
@@ -551,6 +580,9 @@ public extension Pogoprotos.Map.Fort {
             if hasRenderingType {
                hashCode = (hashCode &* 31) &+ Int(renderingType.rawValue)
             }
+            if hasDeployLockoutEndMs {
+               hashCode = (hashCode &* 31) &+ deployLockoutEndMs.hashValue
+            }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
         }
@@ -568,7 +600,7 @@ public extension Pogoprotos.Map.Fort {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Fort.FortData = Pogoprotos.Map.Fort.FortData()
+      private var builderResult:Pogoprotos.Map.Fort.FortData = Pogoprotos.Map.Fort.FortData()
       public func getMessage() -> Pogoprotos.Map.Fort.FortData {
           return builderResult
       }
@@ -668,52 +700,6 @@ public extension Pogoprotos.Map.Fort {
            builderResult.longitude = Double(0)
            return self
       }
-      public var hasEnabled:Bool {
-           get {
-                return builderResult.hasEnabled
-           }
-      }
-      public var enabled:Bool {
-           get {
-                return builderResult.enabled
-           }
-           set (value) {
-               builderResult.hasEnabled = true
-               builderResult.enabled = value
-           }
-      }
-      public func setEnabled(_ value:Bool) -> Pogoprotos.Map.Fort.FortData.Builder {
-        self.enabled = value
-        return self
-      }
-      public func clearEnabled() -> Pogoprotos.Map.Fort.FortData.Builder{
-           builderResult.hasEnabled = false
-           builderResult.enabled = false
-           return self
-      }
-        public var hasType:Bool{
-            get {
-                return builderResult.hasType
-            }
-        }
-        public var type:Pogoprotos.Map.Fort.FortType {
-            get {
-                return builderResult.type
-            }
-            set (value) {
-                builderResult.hasType = true
-                builderResult.type = value
-            }
-        }
-        public func setType(_ value:Pogoprotos.Map.Fort.FortType) -> Pogoprotos.Map.Fort.FortData.Builder {
-          self.type = value
-          return self
-        }
-        public func clearType() -> Pogoprotos.Map.Fort.FortData.Builder {
-           builderResult.hasType = false
-           builderResult.type = .gym
-           return self
-        }
         public var hasOwnedByTeam:Bool{
             get {
                 return builderResult.hasOwnedByTeam
@@ -783,6 +769,52 @@ public extension Pogoprotos.Map.Fort {
            builderResult.guardPokemonCp = Int32(0)
            return self
       }
+      public var hasEnabled:Bool {
+           get {
+                return builderResult.hasEnabled
+           }
+      }
+      public var enabled:Bool {
+           get {
+                return builderResult.enabled
+           }
+           set (value) {
+               builderResult.hasEnabled = true
+               builderResult.enabled = value
+           }
+      }
+      public func setEnabled(_ value:Bool) -> Pogoprotos.Map.Fort.FortData.Builder {
+        self.enabled = value
+        return self
+      }
+      public func clearEnabled() -> Pogoprotos.Map.Fort.FortData.Builder{
+           builderResult.hasEnabled = false
+           builderResult.enabled = false
+           return self
+      }
+        public var hasType:Bool{
+            get {
+                return builderResult.hasType
+            }
+        }
+        public var type:Pogoprotos.Map.Fort.FortType {
+            get {
+                return builderResult.type
+            }
+            set (value) {
+                builderResult.hasType = true
+                builderResult.type = value
+            }
+        }
+        public func setType(_ value:Pogoprotos.Map.Fort.FortType) -> Pogoprotos.Map.Fort.FortData.Builder {
+          self.type = value
+          return self
+        }
+        public func clearType() -> Pogoprotos.Map.Fort.FortData.Builder {
+           builderResult.hasType = false
+           builderResult.type = .gym
+           return self
+        }
       public var hasGymPoints:Bool {
            get {
                 return builderResult.hasGymPoints
@@ -862,7 +894,7 @@ public extension Pogoprotos.Map.Fort {
                builderResult.lureInfo = value
            }
       }
-      fileprivate var lureInfoBuilder_:Pogoprotos.Map.Fort.FortLureInfo.Builder! {
+      private var lureInfoBuilder_:Pogoprotos.Map.Fort.FortLureInfo.Builder! {
            didSet {
               builderResult.hasLureInfo = true
            }
@@ -965,6 +997,29 @@ public extension Pogoprotos.Map.Fort {
            builderResult.renderingType = .`default`
            return self
         }
+      public var hasDeployLockoutEndMs:Bool {
+           get {
+                return builderResult.hasDeployLockoutEndMs
+           }
+      }
+      public var deployLockoutEndMs:Int64 {
+           get {
+                return builderResult.deployLockoutEndMs
+           }
+           set (value) {
+               builderResult.hasDeployLockoutEndMs = true
+               builderResult.deployLockoutEndMs = value
+           }
+      }
+      public func setDeployLockoutEndMs(_ value:Int64) -> Pogoprotos.Map.Fort.FortData.Builder {
+        self.deployLockoutEndMs = value
+        return self
+      }
+      public func clearDeployLockoutEndMs() -> Pogoprotos.Map.Fort.FortData.Builder{
+           builderResult.hasDeployLockoutEndMs = false
+           builderResult.deployLockoutEndMs = Int64(0)
+           return self
+      }
       override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -1001,12 +1056,6 @@ public extension Pogoprotos.Map.Fort {
         if other.hasLongitude {
              longitude = other.longitude
         }
-        if other.hasEnabled {
-             enabled = other.enabled
-        }
-        if other.hasType {
-             type = other.type
-        }
         if other.hasOwnedByTeam {
              ownedByTeam = other.ownedByTeam
         }
@@ -1015,6 +1064,12 @@ public extension Pogoprotos.Map.Fort {
         }
         if other.hasGuardPokemonCp {
              guardPokemonCp = other.guardPokemonCp
+        }
+        if other.hasEnabled {
+             enabled = other.enabled
+        }
+        if other.hasType {
+             type = other.type
         }
         if other.hasGymPoints {
              gymPoints = other.gymPoints
@@ -1036,6 +1091,9 @@ public extension Pogoprotos.Map.Fort {
         }
         if other.hasRenderingType {
              renderingType = other.renderingType
+        }
+        if other.hasDeployLockoutEndMs {
+             deployLockoutEndMs = other.deployLockoutEndMs
         }
         _ = try merge(unknownField: other.unknownFields)
         return self
@@ -1135,6 +1193,9 @@ public extension Pogoprotos.Map.Fort {
                  _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 16, value:Int64(valueIntrenderingType))
             }
 
+          case 136:
+            deployLockoutEndMs = try codedInputStream.readInt64()
+
           default:
             if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
@@ -1157,12 +1218,6 @@ public extension Pogoprotos.Map.Fort {
         if let jsonValueLongitude = jsonMap["longitude"] as? NSNumber {
           resultDecodedBuilder.longitude = jsonValueLongitude.doubleValue
         }
-        if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
-          resultDecodedBuilder.enabled = jsonValueEnabled
-        }
-        if let jsonValueType = jsonMap["type"] as? String {
-          resultDecodedBuilder.type = try Pogoprotos.Map.Fort.FortType.fromString(str: jsonValueType)
-        }
         if let jsonValueOwnedByTeam = jsonMap["ownedByTeam"] as? String {
           resultDecodedBuilder.ownedByTeam = try Pogoprotos.Enums.TeamColor.fromString(str: jsonValueOwnedByTeam)
         }
@@ -1171,6 +1226,12 @@ public extension Pogoprotos.Map.Fort {
         }
         if let jsonValueGuardPokemonCp = jsonMap["guardPokemonCp"] as? NSNumber {
           resultDecodedBuilder.guardPokemonCp = jsonValueGuardPokemonCp.int32Value
+        }
+        if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
+          resultDecodedBuilder.enabled = jsonValueEnabled
+        }
+        if let jsonValueType = jsonMap["type"] as? String {
+          resultDecodedBuilder.type = try Pogoprotos.Map.Fort.FortType.fromString(str: jsonValueType)
         }
         if let jsonValueGymPoints = jsonMap["gymPoints"] as? String {
           resultDecodedBuilder.gymPoints = Int64(jsonValueGymPoints)!
@@ -1198,6 +1259,9 @@ public extension Pogoprotos.Map.Fort {
         }
         if let jsonValueRenderingType = jsonMap["renderingType"] as? String {
           resultDecodedBuilder.renderingType = try Pogoprotos.Map.Fort.FortRenderingType.fromString(str: jsonValueRenderingType)
+        }
+        if let jsonValueDeployLockoutEndMs = jsonMap["deployLockoutEndMs"] as? String {
+          resultDecodedBuilder.deployLockoutEndMs = Int64(jsonValueDeployLockoutEndMs)!
         }
         return resultDecodedBuilder
       }
@@ -1361,7 +1425,7 @@ public extension Pogoprotos.Map.Fort {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Fort.FortLureInfo = Pogoprotos.Map.Fort.FortLureInfo()
+      private var builderResult:Pogoprotos.Map.Fort.FortLureInfo = Pogoprotos.Map.Fort.FortLureInfo()
       public func getMessage() -> Pogoprotos.Map.Fort.FortLureInfo {
           return builderResult
       }
@@ -1695,7 +1759,7 @@ public extension Pogoprotos.Map.Fort {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Fort.FortModifier = Pogoprotos.Map.Fort.FortModifier()
+      private var builderResult:Pogoprotos.Map.Fort.FortModifier = Pogoprotos.Map.Fort.FortModifier()
       public func getMessage() -> Pogoprotos.Map.Fort.FortModifier {
           return builderResult
       }
@@ -2016,7 +2080,7 @@ public extension Pogoprotos.Map.Fort {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Fort.FortSummary = Pogoprotos.Map.Fort.FortSummary()
+      private var builderResult:Pogoprotos.Map.Fort.FortSummary = Pogoprotos.Map.Fort.FortSummary()
       public func getMessage() -> Pogoprotos.Map.Fort.FortSummary {
           return builderResult
       }

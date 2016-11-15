@@ -257,7 +257,7 @@ public extension Pogoprotos.Map.Pokemon {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Pokemon.MapPokemon = Pogoprotos.Map.Pokemon.MapPokemon()
+      private var builderResult:Pogoprotos.Map.Pokemon.MapPokemon = Pogoprotos.Map.Pokemon.MapPokemon()
       public func getMessage() -> Pogoprotos.Map.Pokemon.MapPokemon {
           return builderResult
       }
@@ -691,7 +691,7 @@ public extension Pogoprotos.Map.Pokemon {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Pokemon.NearbyPokemon = Pogoprotos.Map.Pokemon.NearbyPokemon()
+      private var builderResult:Pogoprotos.Map.Pokemon.NearbyPokemon = Pogoprotos.Map.Pokemon.NearbyPokemon()
       public func getMessage() -> Pogoprotos.Map.Pokemon.NearbyPokemon {
           return builderResult
       }
@@ -1137,7 +1137,7 @@ public extension Pogoprotos.Map.Pokemon {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Map.Pokemon.WildPokemon = Pogoprotos.Map.Pokemon.WildPokemon()
+      private var builderResult:Pogoprotos.Map.Pokemon.WildPokemon = Pogoprotos.Map.Pokemon.WildPokemon()
       public func getMessage() -> Pogoprotos.Map.Pokemon.WildPokemon {
           return builderResult
       }
@@ -1277,7 +1277,7 @@ public extension Pogoprotos.Map.Pokemon {
                builderResult.pokemonData = value
            }
       }
-      fileprivate var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
+      private var pokemonDataBuilder_:Pogoprotos.Data.PokemonData.Builder! {
            didSet {
               builderResult.hasPokemonData = true
            }

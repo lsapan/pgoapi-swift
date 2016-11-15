@@ -50,12 +50,6 @@ public struct PGoSession {
     public init() {}
 }
 
-internal struct PGoVersion {
-    internal static let versionHash: Int64 = 7363665268261373700
-    internal static let versionString: String = "0.35.0"
-    internal static let versionInt: UInt32 = 3500
-}
-
 internal struct PGoApiSettings {
     internal var refreshAuthTokens: Bool = true
     internal var useResponseObjects: Bool = false
@@ -271,11 +265,23 @@ open class PGoApiRequest {
         }))
     }
     
-    open func getPlayer(country: String? = "US", language: String? = "en") {
+    open func registerBackgroundDevice(deviceId: String, deviceType: String) {
+        let messageBuilder = Pogoprotos.Networking.Requests.Messages.RegisterBackgroundDeviceMessage.Builder()
+        messageBuilder.deviceId = deviceId
+        messageBuilder.deviceType = deviceType
+        methodList.append(PGoApiMethod(id: .registerBackgroundDevice, message: try! messageBuilder.build(), parser: { data in
+            return try! Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse.parseFrom(data: data)
+        }))
+    }
+    
+    open func getPlayer(country: String? = "US", language: String? = "en", timeZone: String? = nil) {
         let messageBuilder = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.Builder()
         let playerLocale = Pogoprotos.Networking.Requests.Messages.GetPlayerMessage.PlayerLocale.Builder()
         playerLocale.language = language!
         playerLocale.country = country!
+        if timeZone != nil {
+            playerLocale.timezone = timeZone!
+        }
         messageBuilder.playerLocale = try! playerLocale.build()
         methodList.append(PGoApiMethod(id: .getPlayer, message: try! messageBuilder.build(), parser: { data in
             return try! Pogoprotos.Networking.Responses.GetPlayerResponse.parseFrom(data: data)
@@ -586,7 +592,7 @@ open class PGoApiRequest {
         messageBuilder.gymId = gymId
         messageBuilder.battleId = battleId
         messageBuilder.attackActions = attackActions
-        messageBuilder.lastRetrievedActions = lastRetrievedAction
+        messageBuilder.lastRetrievedAction = lastRetrievedAction
         messageBuilder.playerLongitude = Location.lat
         messageBuilder.playerLatitude = Location.long
         

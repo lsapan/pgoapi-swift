@@ -127,7 +127,7 @@ public extension Pogoprotos.Data.Logs {
     }
     //OneOf declaration end
 
-    fileprivate var storageAction:ActionLogEntry.Action =  ActionLogEntry.Action.OneOfActionNotSet
+    private var storageAction:ActionLogEntry.Action =  ActionLogEntry.Action.OneOfActionNotSet
     public func getOneOfAction() ->  ActionLogEntry.Action {
         let copyObjectAction = storageAction
         return copyObjectAction
@@ -368,7 +368,7 @@ public extension Pogoprotos.Data.Logs {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Logs.ActionLogEntry = Pogoprotos.Data.Logs.ActionLogEntry()
+      private var builderResult:Pogoprotos.Data.Logs.ActionLogEntry = Pogoprotos.Data.Logs.ActionLogEntry()
       public func getMessage() -> Pogoprotos.Data.Logs.ActionLogEntry {
           return builderResult
       }
@@ -439,7 +439,7 @@ public extension Pogoprotos.Data.Logs {
                builderResult.catchPokemon = value
            }
       }
-      fileprivate var catchPokemonBuilder_:Pogoprotos.Data.Logs.CatchPokemonLogEntry.Builder! {
+      private var catchPokemonBuilder_:Pogoprotos.Data.Logs.CatchPokemonLogEntry.Builder! {
            didSet {
               builderResult.hasCatchPokemon = true
            }
@@ -490,7 +490,7 @@ public extension Pogoprotos.Data.Logs {
                builderResult.fortSearch = value
            }
       }
-      fileprivate var fortSearchBuilder_:Pogoprotos.Data.Logs.FortSearchLogEntry.Builder! {
+      private var fortSearchBuilder_:Pogoprotos.Data.Logs.FortSearchLogEntry.Builder! {
            didSet {
               builderResult.hasFortSearch = true
            }
@@ -541,7 +541,7 @@ public extension Pogoprotos.Data.Logs {
                builderResult.buddyPokemon = value
            }
       }
-      fileprivate var buddyPokemonBuilder_:Pogoprotos.Data.Logs.BuddyPokemonLogEntry.Builder! {
+      private var buddyPokemonBuilder_:Pogoprotos.Data.Logs.BuddyPokemonLogEntry.Builder! {
            didSet {
               builderResult.hasBuddyPokemon = true
            }
@@ -862,7 +862,7 @@ public extension Pogoprotos.Data.Logs {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Logs.BuddyPokemonLogEntry = Pogoprotos.Data.Logs.BuddyPokemonLogEntry()
+      private var builderResult:Pogoprotos.Data.Logs.BuddyPokemonLogEntry = Pogoprotos.Data.Logs.BuddyPokemonLogEntry()
       public func getMessage() -> Pogoprotos.Data.Logs.BuddyPokemonLogEntry {
           return builderResult
       }
@@ -1226,7 +1226,7 @@ public extension Pogoprotos.Data.Logs {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Logs.CatchPokemonLogEntry = Pogoprotos.Data.Logs.CatchPokemonLogEntry()
+      private var builderResult:Pogoprotos.Data.Logs.CatchPokemonLogEntry = Pogoprotos.Data.Logs.CatchPokemonLogEntry()
       public func getMessage() -> Pogoprotos.Data.Logs.CatchPokemonLogEntry {
           return builderResult
       }
@@ -1622,7 +1622,7 @@ public extension Pogoprotos.Data.Logs {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Data.Logs.FortSearchLogEntry = Pogoprotos.Data.Logs.FortSearchLogEntry()
+      private var builderResult:Pogoprotos.Data.Logs.FortSearchLogEntry = Pogoprotos.Data.Logs.FortSearchLogEntry()
       public func getMessage() -> Pogoprotos.Data.Logs.FortSearchLogEntry {
           return builderResult
       }

@@ -62,6 +62,9 @@ public extension Pogoprotos.Networking.Requests {
     case downloadRemoteConfigVersion = 7
 
     // Implemented [R & M]
+    case registerBackgroundDevice = 8
+
+    // Implemented [R & M]
     case fortSearch = 101
 
     // Implemented [R & M]
@@ -195,7 +198,11 @@ public extension Pogoprotos.Networking.Requests {
 
     // Implemented [R & M]
     case setContactSettings = 151
+
+    // Implemented [R & M]
     case setBuddyPokemon = 152
+
+    // Implemented [R & M]
     case getBuddyWalked = 153
 
     // Implemented [R & M]
@@ -207,10 +214,10 @@ public extension Pogoprotos.Networking.Requests {
     // Implemented [R & M]
     case getSuggestedCodenames = 401
 
-    // Implemented [R & M] TEST RESPONSE
+    // Implemented [R & M]
     case checkCodenameAvailable = 402
 
-    // Implemented [R & M] TEST RESPONSE
+    // Implemented [R & M]
     case claimCodename = 403
 
     // Implemented [R & M]
@@ -224,7 +231,11 @@ public extension Pogoprotos.Networking.Requests {
 
     // Can't find this one
     case loadSpawnPoints = 500
+
+    // Implemented [R & M]
     case checkChallenge = 600
+
+    // Implemented [R & M]
     case verifyChallenge = 601
 
     // Implemented [R & M]
@@ -261,6 +272,7 @@ public extension Pogoprotos.Networking.Requests {
       case .downloadSettings: return "DOWNLOAD_SETTINGS"
       case .downloadItemTemplates: return "DOWNLOAD_ITEM_TEMPLATES"
       case .downloadRemoteConfigVersion: return "DOWNLOAD_REMOTE_CONFIG_VERSION"
+      case .registerBackgroundDevice: return "REGISTER_BACKGROUND_DEVICE"
       case .fortSearch: return "FORT_SEARCH"
       case .encounter: return "ENCOUNTER"
       case .catchPokemon: return "CATCH_POKEMON"
@@ -340,6 +352,7 @@ public extension Pogoprotos.Networking.Requests {
       case "DOWNLOAD_SETTINGS":  return .downloadSettings
       case "DOWNLOAD_ITEM_TEMPLATES":  return .downloadItemTemplates
       case "DOWNLOAD_REMOTE_CONFIG_VERSION":  return .downloadRemoteConfigVersion
+      case "REGISTER_BACKGROUND_DEVICE":  return .registerBackgroundDevice
       case "FORT_SEARCH":  return .fortSearch
       case "ENCOUNTER":  return .encounter
       case "CATCH_POKEMON":  return .catchPokemon
@@ -422,6 +435,7 @@ public extension Pogoprotos.Networking.Requests {
       case .downloadSettings: return ".downloadSettings"
       case .downloadItemTemplates: return ".downloadItemTemplates"
       case .downloadRemoteConfigVersion: return ".downloadRemoteConfigVersion"
+      case .registerBackgroundDevice: return ".registerBackgroundDevice"
       case .fortSearch: return ".fortSearch"
       case .encounter: return ".encounter"
       case .catchPokemon: return ".catchPokemon"
@@ -609,7 +623,7 @@ public extension Pogoprotos.Networking.Requests {
     //Meta information declaration end
 
     final public class Builder : GeneratedMessageBuilder {
-      fileprivate var builderResult:Pogoprotos.Networking.Requests.Request = Pogoprotos.Networking.Requests.Request()
+      private var builderResult:Pogoprotos.Networking.Requests.Request = Pogoprotos.Networking.Requests.Request()
       public func getMessage() -> Pogoprotos.Networking.Requests.Request {
           return builderResult
       }
