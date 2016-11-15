@@ -23,7 +23,7 @@ Note: Older Swift versions are not supported anymore.
 - [x] and much *(much!)* more.
 
 ## Documentation
-[See the documentation](https://github.com/lsapan/pgoapi-swift/wiki/Documentation) for details on methods, structs, enums and functions.
+[See the documentation](https://github.com/lsapan/pgoapi-swift/wiki/Documentation) for details on classes, protocols, structs, enums and functions used in the framework.
 
 ## Protos
 To update the protos, compile the [Swift3.0 branch of alexeyxo/protobuf-swift](https://github.com/alexeyxo/protobuf-swift/tree/ProtoBuf3.0-Swift3.0) and run the build script (./scripts/build.sh). Afterwards, pull the latest version of [AeonLucid/POGOProtos](https://github.com/AeonLucid/POGOProtos) and use protos_update.sh or run these commands:
