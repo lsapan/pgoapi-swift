@@ -249,6 +249,8 @@ internal class PGoRpcApi {
             responseObject!.checkChallenge = parsedData as? Pogoprotos.Networking.Responses.CheckChallengeResponse
         case .verifyChallenge:
             responseObject!.verifyChallenge = parsedData as? Pogoprotos.Networking.Responses.VerifyChallengeResponse
+        case .registerBackgroundDevice:
+            responseObject!.registerBackgroundDevice = parsedData as? Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse
         default:
             return
         }

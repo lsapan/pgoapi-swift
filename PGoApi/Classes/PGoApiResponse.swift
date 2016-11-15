@@ -71,4 +71,5 @@ public struct PGoResponseObject {
     public var sfidaActionLog: Pogoprotos.Networking.Responses.SfidaActionLogResponse? = nil
     public var checkChallenge: Pogoprotos.Networking.Responses.CheckChallengeResponse? = nil
     public var verifyChallenge: Pogoprotos.Networking.Responses.VerifyChallengeResponse? = nil
+    public var registerBackgroundDevice: Pogoprotos.Networking.Responses.RegisterBackgroundDeviceResponse? = nil
 }
