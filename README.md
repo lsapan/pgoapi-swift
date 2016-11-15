@@ -2,10 +2,7 @@
 
 This library allows you to communicate with the Pokemon GO servers as if you are a native client.
 
-API Version: 1.15.0 (iOS)
-
-Pogoprotos Version: 2.1.0 (fully implemented)
-
+#### The master branch supports the legacy pgoapi (0.35.0) in Swift 2.2.
 #### Please use the [Swift3.0 - Version 45 branch.](https://github.com/lsapan/pgoapi-swift/tree/Swift3.0---Version-45)
 
 ## Requirements
