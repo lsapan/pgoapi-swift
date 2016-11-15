@@ -10,12 +10,6 @@ import Foundation
 import Alamofire
 
 
-infix operator &^ : MultiplicationPrecedence
-
-public func &^ (base: UInt32, pair: UInt32) -> UInt32 {
-    return base - (base & pair)
-}
-
 internal struct BinaryEncoding: ParameterEncoding {
     private let data: Data
     
