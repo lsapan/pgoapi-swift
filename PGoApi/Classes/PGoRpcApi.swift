@@ -274,6 +274,7 @@ internal class PGoRpcApi {
                 if (parsedData as! Pogoprotos.Networking.Responses.CheckChallengeResponse).hasShowChallenge {
                     self.api.debugMessage("Warning! Captcha is required.")
                     self.delegate?.didReceiveApiException(intent, exception: .captchaRequired)
+                    self.api.session.challengeUrl = (parsedData as! Pogoprotos.Networking.Responses.CheckChallengeResponse).challengeUrl
                 }
             }
         }

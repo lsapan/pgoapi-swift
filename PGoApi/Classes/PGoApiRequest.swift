@@ -47,6 +47,7 @@ public struct PGoSession {
     public var realisticStartTimeAdjustment:UInt64 = 0
     public var downloadSettingsHash: String? = nil
     public var sessionHash: Data? = nil
+    public var challengeUrl: String? = nil
     public init() {}
 }
 
@@ -203,6 +204,21 @@ open class PGoApiRequest {
         Location.speed = speed
         Location.course = course
         Location.floor = floor
+    }
+    
+    open func getChallengeURL() -> String? {
+        return self.session.challengeUrl
+    }
+    
+    open func verifyToken(token: String, delegate: PGoApiDelegate?) {
+        var privateMethods: [PGoApiMethod] = []
+        let messageBuilder = Pogoprotos.Networking.Requests.Messages.VerifyChallengeMessage.Builder()
+        messageBuilder.token = token
+        privateMethods.append(PGoApiMethod(id: .verifyChallenge, message: try! messageBuilder.build(), parser: { data in
+            return try! Pogoprotos.Networking.Responses.VerifyChallengeResponse.parseFrom(data: data)
+        }))
+        let request = PGoRpcApi(subrequests: privateMethods, intent: .verifyChallenge, auth: self.auth!, api: self, delegate: delegate)
+        request.request()
     }
     
     open func setApiSettings(refreshAuthTokens: Bool? = true, useResponseObjects: Bool? = false, showMessages: Bool? = true, checkChallenge: Bool? = true) {
