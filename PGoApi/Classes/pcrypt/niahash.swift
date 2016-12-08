@@ -150,11 +150,16 @@ open class niahash {
         
         if numChunks > 0 {
             var offset = 0
-            while numChunks > 0 {
+            while numChunks > 1 {
                 offset += 128
-                let offsetChunk = Array(input[offset..<128 + offset])
-                hash = hashMuladd(hash: hash, mul: ROUND_MAGIC, add: hashChunk(chunk: offsetChunk, size: 128))
-                numChunks = numChunks - 2
+                if offset < input.count {
+                    let offsetChunk = Array(input[offset..<128 + offset])
+                    hash = hashMuladd(hash: hash, mul: ROUND_MAGIC, add: hashChunk(chunk: offsetChunk, size: 128))
+                }
+                numChunks -= 2
+                if numChunks == 1 {
+                    numChunks = 4
+                }
             }
             
             if tailSize > 0 {
