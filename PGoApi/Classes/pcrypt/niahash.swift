@@ -136,7 +136,7 @@ open class niahash {
         tail.replaceSubrange(Range(0..<tailSize), with: Array(input[len - tailSize..<len]))
         
         var hash = UInt128()
-
+        
         if numChunks > 0 {
             // Hash the first 128 bytes
             hash = hashChunk(chunk: input, size: 128)
@@ -149,17 +149,10 @@ open class niahash {
         hash = UInt128.add128(left: hash, right: ROUND_MAGIC)
         
         if numChunks > 0 {
-            var offset = 0
-            while numChunks > 1 {
-                offset += 128
-                if offset < input.count {
-                    let offsetChunk = Array(input[offset..<128 + offset])
-                    hash = hashMuladd(hash: hash, mul: ROUND_MAGIC, add: hashChunk(chunk: offsetChunk, size: 128))
-                }
-                numChunks -= 2
-                if numChunks == 1 {
-                    numChunks = 4
-                }
+            for i in 1..<numChunks {
+                let offset = 128 * i
+                let offsetChunk = Array(input[offset..<128 + offset])
+                hash = hashMuladd(hash: hash, mul: ROUND_MAGIC, add: hashChunk(chunk: offsetChunk, size: 128))
             }
             
             if tailSize > 0 {
@@ -194,7 +187,7 @@ open class niahash {
         var H = UInt128.mul64(lhs: A, rhs: B)
         H = UInt128.add128(left: UInt128.mul64(lhs: 0x101, rhs: H.high), right: UInt128(upperBits: 0, lowerBits: H.low))
         H = UInt128.add128(left: UInt128.mul64(lhs: 0x101, rhs: H.high), right: UInt128(upperBits: 0, lowerBits: H.low))
-
+        
         if H.high > 0 {
             H = UInt128.add128(left: H, right: UInt128(upperBits: 0, lowerBits: 0x101))
         }
